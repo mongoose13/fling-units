@@ -1,4 +1,4 @@
 /// Unit conversion framework.
-library fling;
+library fling_units;
 
 export 'src/library.dart';

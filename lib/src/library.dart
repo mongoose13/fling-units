@@ -2,8 +2,8 @@ import 'dimension.dart';
 import 'system.dart';
 import 'unit.dart';
 
-class Fling {
-  Fling._();
+class FlingUnits {
+  FlingUnits._();
 
   static final Comparator<Unit> sizeComparator =
       (final Unit a, final Unit b) => a.multiplier.compareTo(b.multiplier);
