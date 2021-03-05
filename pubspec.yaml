@@ -1,7 +1,8 @@
-name: fling-units
+name: fling_units
 description: Type-safe Dart unit conversion library.
 version: 0.1.0
-homepage: https://www.example.com
+homepage: https://bitbucket.org/gelbermungo/fling-units
+publish_to: none
 
 environment:
   sdk: '>=2.10.0 <3.0.0'
