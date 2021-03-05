@@ -109,14 +109,91 @@ void main() {
         expect(Distance.decimeters(123.4), Distance.decimeters(123.4));
         expect(Distance.decimeters(123.4).hashCode,
             Distance.decimeters(123.4).hashCode);
+        expect(Distance.decimeters(123.4) == Distance.decimeters(123.4), true);
+        expect(Distance.decimeters(123.4) != Distance.decimeters(123.4), false);
+        expect(Distance.decimeters(123.4) == Distance.decimeters(1234), false);
+        expect(Distance.decimeters(123.4) != Distance.decimeters(1234), true);
       });
       test('Different units', () {
         expect(Distance.decimeters(123.4), Distance.dekameters(1.234));
         expect(Distance.decimeters(123.4).hashCode,
             Distance.dekameters(1.234).hashCode);
+        expect(Distance.decimeters(123.4) == Distance.dekameters(1.234), true);
+        expect(Distance.decimeters(123.4) != Distance.dekameters(1.234), false);
+        expect(Distance.decimeters(123.4) == Distance.dekameters(1234), false);
+        expect(Distance.decimeters(123.4) != Distance.dekameters(1234), true);
       });
     },
   );
+
+  group('Comparison', () {
+    test('GreaterThan', () {
+      expect(Distance.decimeters(123.4) > Distance.decimeters(123.4), false);
+      expect(Distance.decimeters(123.4) > Distance.decimeters(123.5), false);
+      expect(Distance.decimeters(123.5) > Distance.decimeters(123.4), true);
+
+      expect(Distance.zero() > Distance.zero(), false);
+      expect(Distance.zero() > Distance.infinity(), false);
+      expect(Distance.zero() > Distance.negativeInfinity(), true);
+      expect(Distance.infinity() > Distance.infinity(), false);
+      expect(Distance.negativeInfinity() > Distance.infinity(), false);
+      expect(Distance.infinity() > Distance.negativeInfinity(), true);
+    });
+    test('GreaterThanEqualTo', () {
+      expect(Distance.decimeters(123.4) >= Distance.decimeters(123.4), true);
+      expect(Distance.decimeters(123.4) >= Distance.decimeters(123.5), false);
+      expect(Distance.decimeters(123.5) >= Distance.decimeters(123.4), true);
+
+      expect(Distance.zero() >= Distance.zero(), true);
+      expect(Distance.zero() >= Distance.infinity(), false);
+      expect(Distance.zero() >= Distance.negativeInfinity(), true);
+      expect(Distance.infinity() >= Distance.infinity(), true);
+      expect(Distance.negativeInfinity() >= Distance.infinity(), false);
+      expect(Distance.infinity() >= Distance.negativeInfinity(), true);
+    });
+    test('LessThan', () {
+      expect(Distance.decimeters(123.4) < Distance.decimeters(123.4), false);
+      expect(Distance.decimeters(123.4) < Distance.decimeters(123.5), true);
+      expect(Distance.decimeters(123.5) < Distance.decimeters(123.4), false);
+
+      expect(Distance.zero() < Distance.zero(), false);
+      expect(Distance.zero() < Distance.infinity(), true);
+      expect(Distance.zero() < Distance.negativeInfinity(), false);
+      expect(Distance.infinity() < Distance.infinity(), false);
+      expect(Distance.negativeInfinity() < Distance.infinity(), true);
+      expect(Distance.infinity() < Distance.negativeInfinity(), false);
+    });
+    test('LessThanEqualTo', () {
+      expect(Distance.decimeters(123.4) <= Distance.decimeters(123.4), true);
+      expect(Distance.decimeters(123.4) <= Distance.decimeters(123.5), true);
+      expect(Distance.decimeters(123.5) <= Distance.decimeters(123.4), false);
+
+      expect(Distance.zero() <= Distance.zero(), true);
+      expect(Distance.zero() <= Distance.infinity(), true);
+      expect(Distance.zero() <= Distance.negativeInfinity(), false);
+      expect(Distance.infinity() <= Distance.infinity(), true);
+      expect(Distance.negativeInfinity() <= Distance.infinity(), true);
+      expect(Distance.infinity() <= Distance.negativeInfinity(), false);
+    });
+    test('compareTo', () {
+      final result = <Distance>[
+        Distance.zero(),
+        Distance.infinity(),
+        Distance.meters(3),
+        Distance.feet(3),
+        Distance.meters(-2)
+      ];
+      result.sort();
+
+      expect(result, <Distance>[
+        Distance.meters(-2),
+        Distance.zero(),
+        Distance.feet(3),
+        Distance.meters(3),
+        Distance.infinity()
+      ]);
+    });
+  });
 
   group(
     'Addition',
@@ -166,6 +243,10 @@ void main() {
       test('Identity', () {
         expect(Distance.decimeters(123.4) - Distance.zero(),
             Distance.meters(12.34));
+      });
+      test('Negate', () {
+        expect(Distance.decimeters(123.4) - Distance.centimeters(-123.4),
+            Distance.meters(13.574));
       });
     },
   );

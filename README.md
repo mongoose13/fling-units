@@ -1,4 +1,4 @@
-A Dart library for unit conversion.
+A type safe Dart library for unit conversion.
 
 ## Usage
 Import the library:
@@ -9,25 +9,71 @@ dependencies:
 ```
 ```dart
 // application code
-import 'package:fling/fling_units.dart';
+import 'package:fling/fling_units.dart' as FlingUnits;
 ```
 
-All units are available as static members on the Fling object. Convert between any two unis easily:
+Create an instance of the dimension type you want to measure:
 ```dart
-var pounds = FlingUnits.kg.convertTo(FlingUnits.lb, 2.0);
+FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.miles(246);
 ```
 
-You can also identify units by their "short names":
+Convert to any other type within that dimension:
 ```dart
-var poundUnit = FlingUnits.fromShort('lb');
+double distanceToSeattleInKilometers = distanceToSeattle.kilometers;
+double distanceToSeattleInInches = distanceToSeattle.inches;
 ```
 
-Get all units and perform stream operations on them:
+Perform basic arithmetic:
 ```dart
-var volumeUnits = FlingUnits.allUnits().where((unit) => unit.dimension == FlingUnits.volume);
+FlingUnits.Distance distanceToSeattleAndBack = distanceToSeattle * 2.0;
+FlingUnits.Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
+FlingUnits.Distance distanceToTheEndsOfTheUniverse = FlingUnits.Distance.infinity();
+bool useTheCar = distanceToTravel >= FlingUnits.Distance.miles(1.0);
 ```
 
-Use the size comparator to order units by their relative sizes:
+Built-in ordering:
 ```dart
-var sortedList = [FlingUnits.g, FlingUnits.kg, FlingUnits.mg, FlingUnits.lb].sort(Fling.sizeComparator); // [mg, g, lb, kg]
+[Distance.zero(), Distance.infinity(), Distance.meters(3), Distance.feet(3), Distance.meters(-2)].sort();
+// produces [Distance.meters(-2), Distance.zero(), Distance.feet(3), Distance.meters(3), Distance.infinity()]
 ```
+
+Abstract away the specific units your code needs by passing around the encapsulated types. It doesn't matter which units each portion of your code requires, they can be combined seamlessly:
+```dart
+FlingUnits.Distance computeTotalDistanceWithWiggleRoom(final FlingUnits.Distance targetDistance) {
+  return targetDistance + FlingUnits.Distance.meters(3.0);
+}
+```
+
+Ensure type safety:
+```dart
+var nonsense = distanceToSeattle + temperatureInNewYork;  // won't compile!
+```
+
+## Supported Features
+### Distance
+#### Units
+Metric
+- millimeters
+- centimeters
+- decimeters
+- meters
+- dekameters
+- hectometers
+- kilometers
+
+Imperial
+- inches
+- feet
+- yards
+- miles
+  
+Nautical
+- nautical miles
+
+#### Operations
+- implements `Comparable<Distance>`
+- comparison between two Distances (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- add two Distances (`+`)
+- subtract two Distances (`-`)
+- multiply a Distance by a scalar (`*`)
+- divide a Distance by a scalar (`/`)
