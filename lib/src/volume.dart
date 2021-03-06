@@ -283,7 +283,7 @@ class Volume implements Comparable<Volume> {
   static final double _usTeaspoonConversion = 202.884;
   static final double _usTablespoonConversion = 67.628;
   static final double _usFluidOunceConversion = 33.814;
-  static final double _usCupConversion = 4.16667;
+  static final double _usCupConversion = 4.22675;
   static final double _usPintConversion = 2.11338;
   static final double _usQuartConversion = 1.05669;
   static final double _usGallonConversion = 0.264172;

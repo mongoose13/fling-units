@@ -150,7 +150,7 @@ void main() {
       test('US cups', () {
         final result = Volume.usCups(1234.0);
 
-        expect(result.liters, 296.15976307218955);
+        expect(result.liters, 291.9500798485834);
         expect(result.usCups, 1234.0);
       });
       test('US pints', () {
