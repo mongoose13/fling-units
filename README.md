@@ -60,12 +60,10 @@ Nautical
 - nautical miles
 
 #### Operations
-- implements `Comparable<Distance>`
-- comparison between two Distances (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-- add two Distances (`+`)
-- subtract two Distances (`-`)
-- multiply a Distance by a scalar (`*`)
-- divide a Distance by a scalar (`/`)
+- implements `Comparable<Distance>` for built-in ordering
+- compare two Distances (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- add or subtract two Distances (`+`, `-`)
+- multiply or divide a Distance by a scalar (`*`, `/`)
 
 ### Volume
 #### Units
@@ -100,9 +98,7 @@ US
 - gallon
 
 #### Operations
-- implements `Comparable<Volume>`
-- comparison between two Volumes (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-- add two Volumes (`+`)
-- subtract two Volumes (`-`)
-- multiply a Volume by a scalar (`*`)
-- divide a Volume by a scalar (`/`)
+- implements `Comparable<Volume>` for built-in ordering
+- compare two Volumes (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- add or subtract two Volumes (`+`, `-`)
+- multiply or divide a Volume by a scalar (`*`, `/`)
