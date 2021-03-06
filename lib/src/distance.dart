@@ -4,7 +4,7 @@
 /// a different direction than the one implied (e.g. "-10 meters to the East"
 /// would be equivalent to "10 meters to the West") and can occur when comparing
 /// smaller to larger distances (e.g. "How much further is the moon than the
-/// sun?").
+/// sun?"). This is also known as "displacement".
 ///
 /// The actual unit used is abstracted, so an instance of Distance does not
 /// inherently represent any particular unit (e.g. "kilometers" or "light
@@ -38,7 +38,7 @@ class Distance implements Comparable<Distance> {
       : _meters = decimeters.toDouble() / _decimeterConversion;
 
   /// Construct a Distance from a meter amount.
-  Distance.meters(final this._meters);
+  Distance.meters(final num meters) : _meters = meters.toDouble();
 
   /// Construct a Distance from a dekameter amount.
   Distance.dekameters(final num dekameters)
@@ -107,12 +107,36 @@ class Distance implements Comparable<Distance> {
   /// Interpret this distance as a number of nautical miles.
   double get nauticalMiles => _meters * _nauticalMileConversion;
 
+  /// Returns whether this Distance represents a negative amount.
+  bool get isNegative => _meters < 0;
+
   @override
   bool operator ==(final dynamic other) =>
       other is Distance && other._meters == _meters;
 
   @override
   int get hashCode => _meters.hashCode;
+
+  /// Compares this Distance to another Distance, returning true if this
+  /// Distance is larger than the other Distance, or false otherwise.
+  bool operator >(final Distance other) => _meters > other._meters;
+
+  /// Compares this Distance to another Distance, returning true if this
+  /// Distance is larger than or equal to the other Distance, or false
+  /// otherwise.
+  bool operator >=(final Distance other) => _meters >= other._meters;
+
+  /// Compares this Distance to another Distance, returning true if this
+  /// Distance is smaller than the other Distance, or false otherwise.
+  bool operator <(final Distance other) => _meters < other._meters;
+
+  /// Compares this Distance to another Distance, returning true if this
+  /// Distance is smaller than or equal to the other Distance, or false
+  /// otherwise.
+  bool operator <=(final Distance other) => _meters <= other._meters;
+
+  @override
+  int compareTo(final Distance other) => _meters.compareTo(other.meters);
 
   /// Add two Distances together to produce a third Distance. The resulting
   /// Distance is equivalent to the sum of the two input Distances. Negative
@@ -144,7 +168,7 @@ class Distance implements Comparable<Distance> {
   /// Distance.meters(3) * 0 == Distance.zero()
   /// Distance.meters(3) * 2 == Distance.meters(6)
   /// Distance.meters(3) * -2 == Distance.meters(-6)
-  Distance operator *(final double multiplier) =>
+  Distance operator *(final num multiplier) =>
       Distance.meters(_meters * multiplier);
 
   /// Divide a Distance by a scalar to produce a new Distance that is a fraction
@@ -155,33 +179,10 @@ class Distance implements Comparable<Distance> {
   /// Distance.meters(6) / 2 == Distance.meters(3)
   /// Distance.meters(6) / -2 == Distance.meters(-3)
   /// Distance.meters(6) / 0 == Distance.infinity()
-  Distance operator /(final double divisor) =>
-      Distance.meters(_meters / divisor);
-
-  /// Compares this Distance to another Distance, returning true if this
-  /// Distance is larger than the other distance, or false otherwise.
-  bool operator >(final Distance other) => _meters > other._meters;
-
-  /// Compares this Distance to another Distance, returning true if this
-  /// Distance is larger than or equal to the other distance, or false
-  /// otherwise.
-  bool operator >=(final Distance other) => _meters >= other._meters;
-
-  /// Compares this Distance to another Distance, returning true if this
-  /// Distance is smaller than the other distance, or false otherwise.
-  bool operator <(final Distance other) => _meters < other._meters;
-
-  /// Compares this Distance to another Distance, returning true if this
-  /// Distance is smaller than or equal to the other distance, or false
-  /// otherwise.
-  bool operator <=(final Distance other) => _meters <= other._meters;
+  Distance operator /(final num divisor) => Distance.meters(_meters / divisor);
 
   @override
   String toString() => '${_meters.toString()} m';
-
-  @override
-  int compareTo(final Distance other) => _meters.compareTo(other.meters);
-  final double _meters;
 
   static final double _millimeterConversion = 1e3;
   static final double _centimeterConversion = 1e2;
@@ -195,4 +196,6 @@ class Distance implements Comparable<Distance> {
   static final double _footConversion = 3.28084;
   static final double _inchConversion = 39.3701;
   static final double _nauticalMileConversion = 0.000539957;
+
+  final double _meters;
 }

@@ -1,5 +1,4 @@
 import 'package:fling_units/src/distance.dart';
-
 import 'package:test/test.dart';
 
 void main() {
@@ -178,10 +177,11 @@ void main() {
     test('compareTo', () {
       final result = <Distance>[
         Distance.zero(),
+        Distance.yards(1),
         Distance.infinity(),
         Distance.meters(3),
         Distance.feet(3),
-        Distance.meters(-2)
+        Distance.meters(-2),
       ];
       result.sort();
 
@@ -189,8 +189,9 @@ void main() {
         Distance.meters(-2),
         Distance.zero(),
         Distance.feet(3),
+        Distance.yards(1),
         Distance.meters(3),
-        Distance.infinity()
+        Distance.infinity(),
       ]);
     });
   });

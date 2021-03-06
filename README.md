@@ -1,17 +1,6 @@
 A type safe Dart library for unit conversion.
 
 ## Usage
-Import the library:
-```yaml
-# pubspec.yaml
-dependencies:
-  fling_units: ^0.1.0
-```
-```dart
-// application code
-import 'package:fling/fling_units.dart' as FlingUnits;
-```
-
 Create an instance of the dimension type you want to measure:
 ```dart
 FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.miles(246);
@@ -77,3 +66,43 @@ Nautical
 - subtract two Distances (`-`)
 - multiply a Distance by a scalar (`*`)
 - divide a Distance by a scalar (`/`)
+
+### Volume
+#### Units
+Metric
+- milliliters
+- centiliters
+- deciliters
+- liters
+- dekaliters
+- hectoliters
+- kiloliters
+- cubic meter
+
+Imperial
+- teaspoon
+- tablespoon
+- fluid ounce
+- cup
+- pint
+- quart
+- gallon
+- cubic foot
+- cubic inch
+
+US
+- teaspoon
+- tablespoon
+- fluid ounce
+- cup
+- pint
+- quart
+- gallon
+
+#### Operations
+- implements `Comparable<Volume>`
+- comparison between two Volumes (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- add two Volumes (`+`)
+- subtract two Volumes (`-`)
+- multiply a Volume by a scalar (`*`)
+- divide a Volume by a scalar (`/`)
