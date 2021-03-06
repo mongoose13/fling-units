@@ -101,6 +101,30 @@ void main() {
     },
   );
 
+  group('Checks', () {
+    test('isNegative', () {
+      expect(Distance.meters(2).isNegative, false);
+      expect(Distance.meters(-2).isNegative, true);
+      expect(Distance.zero().isNegative, false);
+      expect(Distance.infinity().isNegative, false);
+      expect(Distance.negativeInfinity().isNegative, true);
+    });
+    test('isFinite', () {
+      expect(Distance.meters(2).isFinite, true);
+      expect(Distance.meters(-2).isFinite, true);
+      expect(Distance.zero().isFinite, true);
+      expect(Distance.infinity().isFinite, false);
+      expect(Distance.negativeInfinity().isFinite, false);
+    });
+    test('isInfinite', () {
+      expect(Distance.meters(2).isInfinite, false);
+      expect(Distance.meters(-2).isInfinite, false);
+      expect(Distance.zero().isInfinite, false);
+      expect(Distance.infinity().isInfinite, true);
+      expect(Distance.negativeInfinity().isInfinite, true);
+    });
+  });
+
   group(
     'Equality',
     () {

@@ -187,7 +187,14 @@ class Volume implements Comparable<Volume> {
   double get usGallons => _liters * _usGallonConversion;
 
   /// Returns whether this Volume represents a negative amount.
-  bool get isNegative => _liters < 0;
+  bool get isNegative => _liters.isNegative;
+
+  /// Returns whether this Volume represents a finite amount.
+  bool get isFinite => _liters.isFinite;
+
+  /// Returns whether this Volume represents an infinite amount (positive or
+  /// negative).
+  bool get isInfinite => _liters.isInfinite;
 
   /// Compares this Volume to another Volume, returning true if this Volume is
   /// larger than the other Volume, or false otherwise.

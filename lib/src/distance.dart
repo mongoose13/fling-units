@@ -108,7 +108,14 @@ class Distance implements Comparable<Distance> {
   double get nauticalMiles => _meters * _nauticalMileConversion;
 
   /// Returns whether this Distance represents a negative amount.
-  bool get isNegative => _meters < 0;
+  bool get isNegative => _meters.isNegative;
+
+  /// Returns whether this Distance represents a finite amount.
+  bool get isFinite => _meters.isFinite;
+
+  /// Returns whether this Distance represents an infinite amount (positive or
+  /// negative).
+  bool get isInfinite => _meters.isInfinite;
 
   @override
   bool operator ==(final dynamic other) =>

@@ -174,6 +174,30 @@ void main() {
     },
   );
 
+  group('Checks', () {
+    test('isNegative', () {
+      expect(Volume.liters(2).isNegative, false);
+      expect(Volume.liters(-2).isNegative, true);
+      expect(Volume.zero().isNegative, false);
+      expect(Volume.infinity().isNegative, false);
+      expect(Volume.negativeInfinity().isNegative, true);
+    });
+    test('isFinite', () {
+      expect(Volume.liters(2).isFinite, true);
+      expect(Volume.liters(-2).isFinite, true);
+      expect(Volume.zero().isFinite, true);
+      expect(Volume.infinity().isFinite, false);
+      expect(Volume.negativeInfinity().isFinite, false);
+    });
+    test('isInfinite', () {
+      expect(Volume.liters(2).isInfinite, false);
+      expect(Volume.liters(-2).isInfinite, false);
+      expect(Volume.zero().isInfinite, false);
+      expect(Volume.infinity().isInfinite, true);
+      expect(Volume.negativeInfinity().isInfinite, true);
+    });
+  });
+
   group(
     'Equality',
     () {
