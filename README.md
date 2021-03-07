@@ -102,3 +102,18 @@ US
 - compare two Volumes (`>`, `<`, `==`, `!=`, `>=`, `<=`)
 - add or subtract two Volumes (`+`, `-`)
 - multiply or divide a Volume by a scalar (`*`, `/`)
+
+### Temperature
+#### Units
+- kelvin
+- celcius
+- fahrenheit
+
+#### Operations
+- Temperature implements `Comparable<Temperature>` for built-in ordering
+- TemperatureChange implements `Comparable<TemperatureChange>` for built-in ordering
+- compare two Temperatures (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- compare two TemperatureChanges (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- add or subtract TemperatureChanges to or from Temperatures (`+`, `-`)
+- add or subtract TemperatureChanges to or from other TemperatureChanges (`+`, `-`)
+- multiply or divide TemperatureChanges by a scalar (`*`, `/`)

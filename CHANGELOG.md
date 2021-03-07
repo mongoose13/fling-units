@@ -1,6 +1,17 @@
 # Change Log for fling_units
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
+## [v0.3.0](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.3.0) - 2021-03-06
+
+### Feature
+* Type-safe Temperature conversions [eb08dcf](https://bitbucket.org/gelbermungo/fling-units/commit/eb08dcf10d3dd30c1fe4dd13cd09c2a639830ecb)
+* Checks for whether a quantity is NaN [9fffbf8](https://bitbucket.org/gelbermungo/fling-units/commit/9fffbf8b070c45da57c03316f2cb97eb8786beeb)
+* Checks for whether a quantity is finite or not [add636e](https://bitbucket.org/gelbermungo/fling-units/commit/add636e7f503ace20c6b46165eb1d1774ee4b451)
+
+### Docs
+* Fix broken links in CHANGELOG [5cfb081](https://bitbucket.org/gelbermungo/fling-units/commit/5cfb08153075499497ca823ddccf7f63bbc2d022)
+* Refer to pub.dev page as the homepage [3cfe488](https://bitbucket.org/gelbermungo/fling-units/commit/3cfe48813074a9fc777bb7ff9fa5ea369b4335a9)
+
 ## [v0.2.1](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.2.1) - 2021-03-06
 
 ### Bugs
