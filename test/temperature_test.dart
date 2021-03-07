@@ -523,6 +523,24 @@ void main() {
     });
   });
 
+  group('Negation', () {
+    test('Positive', () {
+      expect(TemperatureChange.kelvin(-3), -TemperatureChange.kelvin(3));
+    });
+    test('Negative', () {
+      expect(TemperatureChange.kelvin(3), -TemperatureChange.kelvin(-3));
+    });
+    test('Zero', () {
+      expect(TemperatureChange.zero(), -TemperatureChange.zero());
+    });
+    test('Infinity', () {
+      expect(
+          TemperatureChange.negativeInfinity(), -TemperatureChange.infinity());
+      expect(
+          TemperatureChange.infinity(), -TemperatureChange.negativeInfinity());
+    });
+  });
+
   group('Addition', () {
     test('same units', () {
       expect(TemperatureChange.kelvin(12.3) + TemperatureChange.kelvin(12.3),

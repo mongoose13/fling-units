@@ -286,6 +286,11 @@ class Volume implements Comparable<Volume> {
   @override
   int get hashCode => _liters.hashCode;
 
+  /// Creates a Volume that is the opposite of this Volume.
+  ///
+  /// In brief, it will have the opposite sign as this Volume.
+  Volume operator -() => Volume.liters(-_liters);
+
   /// Add two Volumes together to produce a third Volume. The resulting
   /// Volume is equivalent to the sum of the two input Volumes. Negative
   /// Volumes may cancel out.

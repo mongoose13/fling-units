@@ -180,6 +180,11 @@ class Distance implements Comparable<Distance> {
   @override
   int compareTo(final Distance other) => _meters.compareTo(other.meters);
 
+  /// Creates a Distance that is the opposite of this Distance.
+  ///
+  /// In brief, it will have the opposite sign as this Distance.
+  Distance operator -() => Distance.meters(-_meters);
+
   /// Add two Distances together to produce a third Distance. The resulting
   /// Distance is equivalent to the sum of the two input Distances. Negative
   /// Distances may cancel out.

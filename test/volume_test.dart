@@ -346,6 +346,22 @@ void main() {
     });
   });
 
+  group('Negation', () {
+    test('Positive', () {
+      expect(Volume.liters(-3), -Volume.liters(3));
+    });
+    test('Negative', () {
+      expect(Volume.liters(3), -Volume.liters(-3));
+    });
+    test('Zero', () {
+      expect(Volume.zero(), -Volume.zero());
+    });
+    test('Infinity', () {
+      expect(Volume.negativeInfinity(), -Volume.infinity());
+      expect(Volume.infinity(), -Volume.negativeInfinity());
+    });
+  });
+
   group(
     'Addition',
     () {

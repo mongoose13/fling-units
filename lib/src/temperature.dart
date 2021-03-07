@@ -101,6 +101,11 @@ class TemperatureChange implements Comparable<TemperatureChange> {
     return _kelvin.compareTo(other._kelvin);
   }
 
+  /// Creates a TemperatureChange that is the opposite of this TemperatureChange.
+  ///
+  /// In brief, it will have the opposite sign as this TemperatureChange.
+  TemperatureChange operator -() => TemperatureChange.kelvin(-_kelvin);
+
   /// Add two TemperatureChanges together to produce a third TemperatureChange
   /// that represents the sum of the inputs. Note that negative changes will
   /// cancel out.

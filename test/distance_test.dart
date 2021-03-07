@@ -252,6 +252,22 @@ void main() {
     });
   });
 
+  group('Negation', () {
+    test('Positive', () {
+      expect(Distance.meters(-3), -Distance.meters(3));
+    });
+    test('Negative', () {
+      expect(Distance.meters(3), -Distance.meters(-3));
+    });
+    test('Zero', () {
+      expect(Distance.zero(), -Distance.zero());
+    });
+    test('Infinity', () {
+      expect(Distance.negativeInfinity(), -Distance.infinity());
+      expect(Distance.infinity(), -Distance.negativeInfinity());
+    });
+  });
+
   group(
     'Addition',
     () {

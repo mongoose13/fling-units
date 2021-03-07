@@ -65,6 +65,7 @@ Nautical
 - compare two Distances (`>`, `<`, `==`, `!=`, `>=`, `<=`)
 - add or subtract two Distances (`+`, `-`)
 - multiply or divide a Distance by a scalar (`*`, `/`)
+- negate a Distance (unary `-`)
 
 ### Volume
 #### Units
@@ -103,6 +104,7 @@ US
 - compare two Volumes (`>`, `<`, `==`, `!=`, `>=`, `<=`)
 - add or subtract two Volumes (`+`, `-`)
 - multiply or divide a Volume by a scalar (`*`, `/`)
+- negate a Volume (unary `-`)
 
 ### Temperature
 #### Units
@@ -118,3 +120,4 @@ US
 - add or subtract TemperatureChanges to or from Temperatures (`+`, `-`)
 - add or subtract TemperatureChanges to or from other TemperatureChanges (`+`, `-`)
 - multiply or divide TemperatureChanges by a scalar (`*`, `/`)
+- negate a TemperatureChange (unary `-`)
