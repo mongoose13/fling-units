@@ -117,6 +117,9 @@ class Distance implements Comparable<Distance> {
   /// negative).
   bool get isInfinite => _meters.isInfinite;
 
+  /// Whether this distance is not a number.
+  bool get isNaN => _meters.isNaN;
+
   @override
   bool operator ==(final dynamic other) =>
       other is Distance && other._meters == _meters;

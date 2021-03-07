@@ -196,6 +196,9 @@ class Volume implements Comparable<Volume> {
   /// negative).
   bool get isInfinite => _liters.isInfinite;
 
+  /// Whether this volume is not a number.
+  bool get isNaN => _liters.isNaN;
+
   /// Compares this Volume to another Volume, returning true if this Volume is
   /// larger than the other Volume, or false otherwise.
   bool operator >(final Volume other) => _liters > other._liters;

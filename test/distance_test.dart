@@ -123,6 +123,13 @@ void main() {
       expect(Distance.infinity().isInfinite, true);
       expect(Distance.negativeInfinity().isInfinite, true);
     });
+    test('isNaN', () {
+      expect(Distance.meters(2).isNaN, false);
+      expect(Distance.meters(-2).isNaN, false);
+      expect(Distance.zero().isNaN, false);
+      expect(Distance.infinity().isNaN, false);
+      expect(Distance.negativeInfinity().isNaN, false);
+    });
   });
 
   group(
@@ -299,6 +306,10 @@ void main() {
         expect(Distance.dekameters(123.4) * -2.4,
             Distance.dekameters(123.4 * -2.4));
       });
+      test('NaN', () {
+        expect((Distance.infinity() * 0).isNaN, true);
+        expect((Distance.negativeInfinity() * 0).isNaN, true);
+      });
     },
   );
 
@@ -324,6 +335,10 @@ void main() {
       test('Negative', () {
         expect(Distance.centimeters(123.4) / -2.4,
             Distance.centimeters(123.4 / -2.4));
+      });
+      test('NaN', () {
+        expect((Distance.infinity() / double.infinity).isNaN, true);
+        expect((Distance.negativeInfinity() / double.infinity).isNaN, true);
       });
     },
   );

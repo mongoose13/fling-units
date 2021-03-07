@@ -196,6 +196,13 @@ void main() {
       expect(Volume.infinity().isInfinite, true);
       expect(Volume.negativeInfinity().isInfinite, true);
     });
+    test('isNaN', () {
+      expect(Volume.liters(2).isNaN, false);
+      expect(Volume.liters(-2).isNaN, false);
+      expect(Volume.zero().isNaN, false);
+      expect(Volume.infinity().isNaN, false);
+      expect(Volume.negativeInfinity().isNaN, false);
+    });
   });
 
   group(
@@ -366,6 +373,10 @@ void main() {
         expect(
             Volume.dekaliters(123.4) * -2.4, Volume.dekaliters(123.4 * -2.4));
       });
+      test('NaN', () {
+        expect((Volume.infinity() * 0).isNaN, true);
+        expect((Volume.negativeInfinity() * 0).isNaN, true);
+      });
     },
   );
 
@@ -390,6 +401,10 @@ void main() {
       test('Negative', () {
         expect(
             Volume.centiliters(123.4) / -2.4, Volume.centiliters(123.4 / -2.4));
+      });
+      test('NaN', () {
+        expect((Volume.infinity() / double.infinity).isNaN, true);
+        expect((Volume.negativeInfinity() / double.infinity).isNaN, true);
       });
     },
   );
