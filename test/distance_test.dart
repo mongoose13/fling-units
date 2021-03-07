@@ -26,6 +26,31 @@ void main() {
         expect(result.millimeters, double.negativeInfinity);
         expect(result.kilometers, double.negativeInfinity);
       });
+
+      test('metric', () {
+        final result = Distance.metric(
+          kilometers: 1,
+          hectometers: 2,
+          dekameters: 3,
+          meters: 4,
+          decimeters: 5,
+          centimeters: 6,
+          millimeters: 7,
+        );
+
+        expect(result.meters, 1234.567);
+      });
+      test('imperial', () {
+        final result = Distance.imperial(
+          miles: 1,
+          yards: 2,
+          feet: 3,
+          inches: 4,
+        );
+
+        expect(result.inches, 63472.05409080078);
+      });
+
       test('millimeters', () {
         final result = Distance.millimeters(1234.0);
 

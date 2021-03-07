@@ -3,21 +3,22 @@ A type safe Dart library for unit conversion.
 ## Usage
 Create an instance of the dimension type you want to measure:
 ```dart
-FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.miles(246);
+FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.kilometers(246);
+FlingUnits.Distance distanceToTheMoon = FlingUnits.Distance(miles: 238900, feet: 42, inches: 6.3);
 ```
 
 Convert to any other type within that dimension:
 ```dart
-double distanceToSeattleInKilometers = distanceToSeattle.kilometers;
+double distanceToSeattleInMiles = distanceToSeattle.miles;
 double distanceToSeattleInInches = distanceToSeattle.inches;
 ```
 
 Perform basic arithmetic:
 ```dart
-FlingUnits.Distance distanceToSeattleAndBack = distanceToSeattle * 2.0;
+FlingUnits.Distance distanceToSeattleAndBack = distanceToSeattle * 2;
 FlingUnits.Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
 FlingUnits.Distance distanceToTheEndsOfTheUniverse = FlingUnits.Distance.infinity();
-bool useTheCar = distanceToTravel >= FlingUnits.Distance.miles(1.0);
+bool useTheCar = distanceToTravel >= FlingUnits.Distance.miles(1.5);
 ```
 
 Built-in ordering:

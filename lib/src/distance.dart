@@ -25,6 +25,38 @@ class Distance implements Comparable<Distance> {
   /// Infinite distance in the opposite direction.
   const Distance.negativeInfinity() : _meters = double.negativeInfinity;
 
+  /// Construct a Distance from any number of partial metric amounts.
+  ///
+  /// The resulting Distance will represent the sum of the parts.
+  Distance.metric({
+    final num millimeters = 0,
+    final num centimeters = 0,
+    final num decimeters = 0,
+    final num meters = 0,
+    final num dekameters = 0,
+    final num hectometers = 0,
+    final num kilometers = 0,
+  }) : _meters = millimeters.toDouble() / _millimeterConversion +
+            centimeters.toDouble() / _centimeterConversion +
+            decimeters.toDouble() / _decimeterConversion +
+            meters.toDouble() +
+            dekameters.toDouble() / _dekameterConversion +
+            hectometers.toDouble() / _hectometerConversion +
+            kilometers.toDouble() / _kilometerConversion;
+
+  /// Construct a Distance from any number of partial Imperial amounts.
+  ///
+  /// The resulting Distance will represent the sum of the parts.
+  Distance.imperial({
+    final num miles = 0,
+    final num yards = 0,
+    final num feet = 0,
+    final num inches = 0,
+  }) : _meters = miles.toDouble() / _mileConversion +
+            yards.toDouble() / _yardConversion +
+            feet.toDouble() / _footConversion +
+            inches.toDouble() / _inchConversion;
+
   /// Construct a Distance from a millimeter amount.
   Distance.millimeters(final num millimeters)
       : _meters = millimeters.toDouble() / _millimeterConversion;

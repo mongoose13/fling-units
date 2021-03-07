@@ -26,6 +26,46 @@ void main() {
         expect(result.milliliters, double.negativeInfinity);
         expect(result.kiloliters, double.negativeInfinity);
       });
+
+      test('metric', () {
+        final result = Volume.metric(
+            kiloliters: 1,
+            hectoliters: 2,
+            dekaliters: 3,
+            liters: 4,
+            deciliters: 5,
+            centiliters: 6,
+            milliliters: 7);
+
+        expect(result.liters, 1234.567);
+      });
+      test('imperial', () {
+        final result = Volume.imperial(
+          gallons: 1,
+          quarts: 2,
+          pints: 3,
+          cups: 4,
+          fluidOunces: 5,
+          tablespoons: 6,
+          teaspoons: 7,
+        );
+
+        expect(result.teaspoons, 1680.9976086139545);
+      });
+      test('US', () {
+        final result = Volume.us(
+          usGallons: 1,
+          usQuarts: 2,
+          usPints: 3,
+          usCups: 4,
+          usFluidOunces: 5,
+          usTablespoons: 6,
+          usTeaspoons: 7,
+        );
+
+        expect(result.usTeaspoons, 1686.997592481497);
+      });
+
       test('milliliters', () {
         final result = Volume.milliliters(1234.0);
 
@@ -150,7 +190,7 @@ void main() {
       test('US cups', () {
         final result = Volume.usCups(1234.0);
 
-        expect(result.liters, 291.9500798485834);
+        expect(result.liters, 291.9493891302085);
         expect(result.usCups, 1234.0);
       });
       test('US pints', () {
@@ -170,6 +210,12 @@ void main() {
 
         expect(result.liters, 4671.199067274351);
         expect(result.usGallons, 1234.0);
+      });
+      test('US legal cups', () {
+        final result = Volume.usLegalCups(1234.0);
+
+        expect(result.liters, 296.15976307218955);
+        expect(result.usLegalCup, 1234.0);
       });
     },
   );

@@ -22,6 +22,63 @@ class Volume implements Comparable<Volume> {
   /// Infinite volume in the negative.
   const Volume.negativeInfinity() : _liters = double.negativeInfinity;
 
+  /// Construct a Volume from any number of partial metric amounts.
+  ///
+  /// The resulting Volume will represent the sum of the parts.
+  Volume.metric({
+    final num milliliters = 0,
+    final num centiliters = 0,
+    final num deciliters = 0,
+    final num liters = 0,
+    final num dekaliters = 0,
+    final num hectoliters = 0,
+    final num kiloliters = 0,
+  }) : _liters = milliliters.toDouble() / _milliliterConversion +
+            centiliters.toDouble() / _centiliterConversion +
+            deciliters.toDouble() / _deciliterConversion +
+            liters.toDouble() +
+            dekaliters.toDouble() / _dekaliterConversion +
+            hectoliters.toDouble() / _hectoliterConversion +
+            kiloliters.toDouble() / _kiloliterConversion;
+
+  /// Construct a Volume from any number of partial Imperial amounts.
+  ///
+  /// The resulting Volume will represent the sum of the parts.
+  Volume.imperial({
+    final num teaspoons = 0,
+    final num tablespoons = 0,
+    final num fluidOunces = 0,
+    final num cups = 0,
+    final num pints = 0,
+    final num quarts = 0,
+    final num gallons = 0,
+  }) : _liters = teaspoons.toDouble() / _teaspoonConversion +
+            tablespoons.toDouble() / _tablespoonConversion +
+            fluidOunces.toDouble() / _fluidOunceConversion +
+            cups.toDouble() / _cupConversion +
+            pints.toDouble() / _pintConversion +
+            quarts.toDouble() / _quartConversion +
+            gallons.toDouble() / _gallonConversion;
+
+  /// Construct a Volume from any number of partial US amounts.
+  ///
+  /// The resulting Volume will represent the sum of the parts.
+  Volume.us({
+    final num usTeaspoons = 0,
+    final num usTablespoons = 0,
+    final num usFluidOunces = 0,
+    final num usCups = 0,
+    final num usPints = 0,
+    final num usQuarts = 0,
+    final num usGallons = 0,
+  }) : _liters = usTeaspoons.toDouble() / _usTeaspoonConversion +
+            usTablespoons.toDouble() / _usTablespoonConversion +
+            usFluidOunces.toDouble() / _usFluidOunceConversion +
+            usCups.toDouble() / _usCupConversion +
+            usPints.toDouble() / _usPintConversion +
+            usQuarts.toDouble() / _usQuartConversion +
+            usGallons.toDouble() / _usGallonConversion;
+
   /// Construct a Volume from a milliliter amount.
   Volume.milliliters(final num milliliters)
       : _liters = milliliters.toDouble() / _milliliterConversion;
@@ -114,6 +171,10 @@ class Volume implements Comparable<Volume> {
   Volume.usGallons(final num gallons)
       : _liters = gallons.toDouble() / _usGallonConversion;
 
+  /// Construct a Volume from a US gallon amount.
+  Volume.usLegalCups(final num usLegalCups)
+      : _liters = usLegalCups.toDouble() / _usLegalCupConversion;
+
   /// Interpret this volume as a number of milliliters.
   double get milliliters => _liters * _milliliterConversion;
 
@@ -185,6 +246,9 @@ class Volume implements Comparable<Volume> {
 
   /// Interpret this volume as a number of US gallons.
   double get usGallons => _liters * _usGallonConversion;
+
+  /// Interpret this volume as a number of US legal cups.
+  double get usLegalCup => _liters * _usLegalCupConversion;
 
   /// Returns whether this Volume represents a negative amount.
   bool get isNegative => _liters.isNegative;
@@ -293,10 +357,11 @@ class Volume implements Comparable<Volume> {
   static final double _usTeaspoonConversion = 202.884;
   static final double _usTablespoonConversion = 67.628;
   static final double _usFluidOunceConversion = 33.814;
-  static final double _usCupConversion = 4.22675;
+  static final double _usCupConversion = 4.22676;
   static final double _usPintConversion = 2.11338;
   static final double _usQuartConversion = 1.05669;
   static final double _usGallonConversion = 0.264172;
+  static final double _usLegalCupConversion = 4.16667;
 
   final double _liters;
 }
