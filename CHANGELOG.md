@@ -1,6 +1,15 @@
 # Change Log for fling_units
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
+## [v0.3.1](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.3.1) - 2021-03-06
+
+### Feature
+* Negation for Volume, Distance, and TemperatureChange [1e1dffa](https://bitbucket.org/gelbermungo/fling-units/commit/1e1dffac9edc5579aa0e0b620d97c5d262c1724a)
+* Piecemeal constructors for Volume and Distance measurements [34c3922](https://bitbucket.org/gelbermungo/fling-units/commit/34c39224f0a95a7b4292e6b6f95345ea933b616a)
+
+### Docs
+* More helpful home page [039cbd0](https://bitbucket.org/gelbermungo/fling-units/commit/039cbd02b8e22b5612c98bdb7ee79982a2841c7d)
+
 ## [v0.3.0](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.3.0) - 2021-03-06
 
 ### Feature
