@@ -1,6 +1,11 @@
 # Change Log for fling_units
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
+## [v0.3.2](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.3.2) - 2021-03-07
+
+### Bugs
+* Export Temperature class from the main library [6b4c2e4](https://bitbucket.org/gelbermungo/fling-units/commits/6b4c2e4abdbef01e9b0771fd9d687a60fd86154d)
+
 ## [v0.3.1](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.3.1) - 2021-03-06
 
 ### Feature
