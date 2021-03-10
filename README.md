@@ -35,14 +35,34 @@ FlingUnits.Distance computeTotalDistanceWithWiggleRoom(final FlingUnits.Distance
 ```
 
 Ensure type safety:
+
 ```dart
 var nonsense = distanceToSeattle + temperatureInNewYork;  // won't compile!
 ```
 
+Use precision to make sure you express yourself correctly:
+
+```dart
+var myHeight = Distance.meters(1.5, precision: Precision(2));
+var myHeightInInches = myHeight.inches;  // 59.0
+```
+
 ## Supported Features
-### Distance
-#### Units
-Metric
+
+### Operations
+
+With few exceptions (due to the nature of those measurements), all measurements support:
+
+- implement `Comparable` for built-in ordering among similar measurements
+- compare two similar measurements (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- add or subtract two similar measurements (`+`, `-`)
+- multiply or divide measurements by a scalar (`*`, `/`)
+- negate measurements (unary `-`)
+
+### Distance Units
+
+Metric:
+
 - millimeters
 - centimeters
 - decimeters
@@ -51,25 +71,37 @@ Metric
 - hectometers
 - kilometers
 
-Imperial
+Imperial:
+
 - inches
 - feet
 - yards
 - miles
-  
-Nautical
+
+Nautical:
+
 - nautical miles
 
-#### Operations
-- implements `Comparable<Distance>` for built-in ordering
-- compare two Distances (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-- add or subtract two Distances (`+`, `-`)
-- multiply or divide a Distance by a scalar (`*`, `/`)
-- negate a Distance (unary `-`)
+### Area Units
 
-### Volume
-#### Units
-Metric
+Metric:
+
+- square millimeters
+- square centimeters
+- square meters
+- square kilometers
+
+Imperial:
+
+- square inches
+- square feet
+- square yards
+- square miles
+
+### Volume Units
+
+Metric:
+
 - milliliters
 - centiliters
 - deciliters
@@ -79,7 +111,7 @@ Metric
 - kiloliters
 - cubic meter
 
-Imperial
+Imperial:
 - teaspoon
 - tablespoon
 - fluid ounce
@@ -90,7 +122,7 @@ Imperial
 - cubic foot
 - cubic inch
 
-US
+US:
 - teaspoon
 - tablespoon
 - fluid ounce
@@ -98,26 +130,9 @@ US
 - pint
 - quart
 - gallon
+- legal cup
 
-#### Operations
-- implements `Comparable<Volume>` for built-in ordering
-- compare two Volumes (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-- add or subtract two Volumes (`+`, `-`)
-- multiply or divide a Volume by a scalar (`*`, `/`)
-- negate a Volume (unary `-`)
-
-### Temperature
-#### Units
+### Temperature Units
 - kelvin
 - celcius
 - fahrenheit
-
-#### Operations
-- Temperature implements `Comparable<Temperature>` for built-in ordering
-- TemperatureChange implements `Comparable<TemperatureChange>` for built-in ordering
-- compare two Temperatures (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-- compare two TemperatureChanges (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-- add or subtract TemperatureChanges to or from Temperatures (`+`, `-`)
-- add or subtract TemperatureChanges to or from other TemperatureChanges (`+`, `-`)
-- multiply or divide TemperatureChanges by a scalar (`*`, `/`)
-- negate a TemperatureChange (unary `-`)
