@@ -1,10 +1,11 @@
+import 'package:fling_units/src/precision.dart';
 import 'package:fling_units/src/volume.dart';
 import 'package:test/test.dart';
 
 void main() {
   group(
     'Constructors',
-    () {
+        () {
       test('zero', () {
         final result = Volume.zero();
 
@@ -28,18 +29,93 @@ void main() {
       });
 
       test('metric', () {
+        // when
         final result = Volume.metric(
-            kiloliters: 1,
-            hectoliters: 2,
-            dekaliters: 3,
-            liters: 4,
-            deciliters: 5,
-            centiliters: 6,
-            milliliters: 7);
+          kiloliters: 1,
+          hectoliters: 2,
+          dekaliters: 3,
+          liters: 4,
+          deciliters: 5,
+          centiliters: 6,
+          milliliters: 7,
+          precision: Precision(8),
+        );
 
+        // then
         expect(result.liters, 1234.567);
       });
+      test('imperial gallons', () {
+        // when
+        final result = Volume.imperial(
+          gallons: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.gallons, 1);
+      });
+      test('imperial quarts', () {
+        // when
+        final result = Volume.imperial(
+          quarts: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.quarts, 1);
+      });
+      test('imperial pints', () {
+        // when
+        final result = Volume.imperial(
+          pints: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.pints, 1);
+      });
+      test('imperial cups', () {
+        // when
+        final result = Volume.imperial(
+          cups: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.cups, 1);
+      });
+      test('imperial fluid ounces', () {
+        // when
+        final result = Volume.imperial(
+          fluidOunces: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.fluidOunces, 1);
+      });
+      test('imperial tablespoons', () {
+        // when
+        final result = Volume.imperial(
+          tablespoons: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.tablespoons, 1);
+      });
+      test('imperial teaspoons', () {
+        // when
+        final result = Volume.imperial(
+          teaspoons: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.teaspoons, 1);
+      });
       test('imperial', () {
+        // when
         final result = Volume.imperial(
           gallons: 1,
           quarts: 2,
@@ -48,11 +124,85 @@ void main() {
           fluidOunces: 5,
           tablespoons: 6,
           teaspoons: 7,
+          precision: Precision(5),
         );
 
-        expect(result.teaspoons, 1680.9976086139545);
+        // then
+        expect(result.teaspoons, 1681.0);
+      });
+
+      test('US gallons', () {
+        // when
+        final result = Volume.us(
+          usGallons: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.usGallons, 1);
+      });
+      test('US quarts', () {
+        // when
+        final result = Volume.us(
+          usQuarts: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.usQuarts, 1);
+      });
+      test('US pints', () {
+        // when
+        final result = Volume.us(
+          usPints: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.usPints, 1);
+      });
+      test('US cups', () {
+        // when
+        final result = Volume.us(
+          usCups: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.usCups, 1);
+      });
+      test('US fluid ounces', () {
+        // when
+        final result = Volume.us(
+          usFluidOunces: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.usFluidOunces, 1);
+      });
+      test('US tablespoons', () {
+        // when
+        final result = Volume.us(
+          usTablespoons: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.usTablespoons, 1);
+      });
+      test('US teaspoons', () {
+        // when
+        final result = Volume.us(
+          usTeaspoons: 1,
+          precision: Precision(5),
+        );
+
+        // then
+        expect(result.usTeaspoons, 1);
       });
       test('US', () {
+        // when
         final result = Volume.us(
           usGallons: 1,
           usQuarts: 2,
@@ -61,9 +211,11 @@ void main() {
           usFluidOunces: 5,
           usTablespoons: 6,
           usTeaspoons: 7,
+          precision: Precision(5),
         );
 
-        expect(result.usTeaspoons, 1686.997592481497);
+        // then
+        expect(result.usTeaspoons, 1687.0);
       });
 
       test('milliliters', () {
@@ -115,110 +267,258 @@ void main() {
       });
 
       test('teaspoons', () {
-        final result = Volume.teaspoons(123.0);
+        final result = Volume.teaspoons(123.0, precision: Precision(5));
 
-        expect(result.liters, 0.7280863759056684);
+        expect(result.liters, 0.72809);
         expect(result.teaspoons, 123.0);
       });
       test('tablespoons', () {
-        final result = Volume.tablespoons(1234.0);
+        final result = Volume.tablespoons(1234.0, precision: Precision(5));
 
-        expect(result.liters, 21.913585179739346);
+        expect(result.liters, 21.914);
         expect(result.tablespoons, 1234.0);
       });
       test('fluid ounces', () {
-        final result = Volume.fluidOunces(1234.0);
+        final result = Volume.fluidOunces(1234.0, precision: Precision(5));
 
-        expect(result.liters, 35.06169892968055);
+        expect(result.liters, 35.062);
         expect(result.fluidOunces, 1234.0);
       });
       test('cups', () {
-        final result = Volume.cups(1234.0);
+        final result = Volume.cups(1234.0, precision: Precision(5));
 
-        expect(result.liters, 350.6169892968055);
+        expect(result.liters, 350.62);
         expect(result.cups, 1234.0);
       });
       test('pints', () {
-        final result = Volume.pints(1234.0);
+        final result = Volume.pints(1234.0, precision: Precision(5));
 
-        expect(result.liters, 701.2359710186106);
+        expect(result.liters, 701.24);
         expect(result.pints, 1234.0);
       });
       test('quarts', () {
-        final result = Volume.quarts(1234.0);
+        final result = Volume.quarts(1234.0, precision: Precision(5));
 
-        expect(result.liters, 1402.4687541554104);
+        expect(result.liters, 1402.5);
         expect(result.quarts, 1234.0);
       });
       test('gallons', () {
-        final result = Volume.gallons(1234.0);
+        final result = Volume.gallons(1234.0, precision: Precision(5));
 
-        expect(result.liters, 5609.881392378017);
+        expect(result.liters, 5609.9);
         expect(result.gallons, 1234.0);
       });
       test('cubic feet', () {
-        final result = Volume.cubicFeet(1234.0);
+        final result = Volume.cubicFeet(1234.0, precision: Precision(5));
 
-        expect(result.liters, 34942.95576629562);
+        expect(result.liters, 34943.0);
         expect(result.cubicFeet, 1234.0);
       });
       test('cubic inches', () {
-        final result = Volume.cubicInches(1234.0);
+        final result = Volume.cubicInches(1234.0, precision: Precision(5));
 
-        expect(result.liters, 20.221651587825715);
+        expect(result.liters, 20.222);
         expect(result.cubicInches, 1234.0);
       });
 
       test('US teaspoons', () {
-        final result = Volume.usTeaspoons(123.0);
+        final result = Volume.usTeaspoons(123.0, precision: Precision(5));
 
-        expect(result.liters, 0.6062577630567221);
+        expect(result.liters, 0.60626);
         expect(result.usTeaspoons, 123.0);
       });
       test('US tablespoons', () {
-        final result = Volume.usTablespoons(1234.0);
+        final result = Volume.usTablespoons(1234.0, precision: Precision(5));
 
-        expect(result.liters, 18.246879990536463);
+        expect(result.liters, 18.247);
         expect(result.usTablespoons, 1234.0);
       });
       test('US fluid ounces', () {
-        final result = Volume.usFluidOunces(1234.0);
+        final result = Volume.usFluidOunces(1234.0, precision: Precision(5));
 
-        expect(result.liters, 36.49375998107293);
+        expect(result.liters, 36.494);
         expect(result.usFluidOunces, 1234.0);
       });
       test('US cups', () {
-        final result = Volume.usCups(1234.0);
+        final result = Volume.usCups(1234.0, precision: Precision(5));
 
-        expect(result.liters, 291.9493891302085);
+        expect(result.liters, 291.95);
         expect(result.usCups, 1234.0);
       });
       test('US pints', () {
-        final result = Volume.usPints(1234.0);
+        final result = Volume.usPints(1234.0, precision: Precision(5));
 
-        expect(result.liters, 583.898778260417);
+        expect(result.liters, 583.90);
         expect(result.usPints, 1234.0);
       });
       test('US quarts', () {
-        final result = Volume.usQuarts(1234.0);
+        final result = Volume.usQuarts(1234.0, precision: Precision(5));
 
-        expect(result.liters, 1167.797556520834);
+        expect(result.liters, 1167.8);
         expect(result.usQuarts, 1234.0);
       });
       test('US gallons', () {
-        final result = Volume.usGallons(1234.0);
+        final result = Volume.usGallons(1234.0, precision: Precision(5));
 
-        expect(result.liters, 4671.199067274351);
+        expect(result.liters, 4671.2);
         expect(result.usGallons, 1234.0);
       });
       test('US legal cups', () {
-        final result = Volume.usLegalCups(1234.0);
+        final result = Volume.usLegalCups(1234.0, precision: Precision(5));
 
-        expect(result.liters, 296.15976307218955);
-        expect(result.usLegalCup, 1234.0);
+        expect(result.liters, 296.16);
+        expect(result.usLegalCups, 1234.0);
       });
     },
   );
+
+  group('Static Converters', () {
+    test('asKiloliters', () {
+      // given
+      final measurement = Volume.liters(12.34);
+
+      // then
+      expect(Volume.asKiloliters(measurement), 0.01234);
+    });
+    test('asHectoliters', () {
+      // given
+      final measurement = Volume.liters(12.34);
+
+      // then
+      expect(Volume.asHectoliters(measurement), 0.1234);
+    });
+    test('asDekaliters', () {
+      // given
+      final measurement = Volume.liters(12.34);
+
+      // then
+      expect(Volume.asDekaliters(measurement), 1.234);
+    });
+    test('asLiters', () {
+      // given
+      final measurement = Volume.liters(12.34);
+
+      // then
+      expect(Volume.asLiters(measurement), 12.34);
+    });
+    test('asDeciliters', () {
+      // given
+      final measurement = Volume.liters(12.34);
+
+      // then
+      expect(Volume.asDeciliters(measurement), 123.4);
+    });
+    test('asCentiliters', () {
+      // given
+      final measurement = Volume.liters(12.34);
+
+      // then
+      expect(Volume.asCentiliters(measurement), 1234.0);
+    });
+    test('asMilliliters', () {
+      // given
+      final measurement = Volume.liters(12.34);
+
+      // then
+      expect(Volume.asMilliliters(measurement), 12340.0);
+    });
+
+    test('asGallons', () {
+      final measurement = Volume.gallons(1);
+
+      expect(Volume.asGallons(measurement), 1.0);
+    });
+    test('asQuarts', () {
+      // given
+      final measurement = Volume.gallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asQuarts(measurement), 4.0);
+    });
+    test('asPints', () {
+      // given
+      final measurement = Volume.gallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asPints(measurement), 8.0);
+    });
+    test('asCups', () {
+      // given
+      final measurement = Volume.gallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asCups(measurement), 16.0);
+    });
+    test('asFluidOunces', () {
+      // given
+      final measurement = Volume.gallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asFluidOunces(measurement), 160.0);
+    });
+    test('asTablespoons', () {
+      // given
+      final measurement = Volume.gallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asTablespoons(measurement), 256.0);
+    });
+    test('asTeaspoons', () {
+      // given
+      final measurement = Volume.gallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asTeaspoons(measurement), 768.0);
+    });
+
+    test('asUsGallons', () {
+      final measurement = Volume.usGallons(1, precision: Precision(5));
+
+      expect(Volume.asUsGallons(measurement), 1.0);
+    });
+    test('asQuarts', () {
+      // given
+      final measurement = Volume.usGallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asUsQuarts(measurement), 4.0);
+    });
+    test('asPints', () {
+      // given
+      final measurement = Volume.usGallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asUsPints(measurement), 8.0);
+    });
+    test('asCups', () {
+      // given
+      final measurement = Volume.usGallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asUsCups(measurement), 16.0);
+    });
+    test('asFluidOunces', () {
+      // given
+      final measurement = Volume.usGallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asUsFluidOunces(measurement), 128.0);
+    });
+    test('asTablespoons', () {
+      // given
+      final measurement = Volume.usGallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asUsTablespoons(measurement), 256.0);
+    });
+    test('asTeaspoons', () {
+      // given
+      final measurement = Volume.usGallons(1, precision: Precision(5));
+
+      // then
+      expect(Volume.asUsTeaspoons(measurement), 768.0);
+    });
+  });
 
   group('Checks', () {
     test('isNegative', () {
@@ -253,7 +553,7 @@ void main() {
 
   group(
     'Equality',
-    () {
+        () {
       test('Same units', () {
         expect(Volume.deciliters(123.4), Volume.deciliters(123.4));
         expect(Volume.deciliters(123.4).hashCode,
@@ -262,6 +562,30 @@ void main() {
         expect(Volume.deciliters(123.4) != Volume.deciliters(123.4), false);
         expect(Volume.deciliters(123.4) == Volume.deciliters(1234), false);
         expect(Volume.deciliters(123.4) != Volume.deciliters(1234), true);
+      });
+      test('same precision', () {
+        // given
+        final volume1 = Volume.liters(123.45, precision: Precision(3));
+        final volume2 = Volume.liters(123.45, precision: Precision(3));
+
+        // then
+        expect(volume1 == volume2, true);
+      });
+      test('different precision', () {
+        // given
+        final volume1 = Volume.liters(123.45, precision: Precision(4));
+        final volume2 = Volume.liters(123.45, precision: Precision(3));
+
+        // then
+        expect(volume1 == volume2, false);
+      });
+      test('different high precision', () {
+        // given
+        final volume1 = Volume.liters(123.45, precision: Precision(10));
+        final volume2 = Volume.liters(123.45, precision: Precision(11));
+
+        // then
+        expect(volume1 == volume2, false);
       });
       test('Different units', () {
         expect(Volume.deciliters(123.4), Volume.dekaliters(1.234));
@@ -364,7 +688,7 @@ void main() {
 
   group(
     'Addition',
-    () {
+        () {
       test('Same units', () {
         expect(Volume.deciliters(123.4) + Volume.deciliters(123.4),
             Volume.deciliters(123.4 + 123.4));
@@ -387,7 +711,7 @@ void main() {
 
   group(
     'Subtraction',
-    () {
+        () {
       test('Same units', () {
         expect(Volume.deciliters(123.4) - Volume.deciliters(234.5),
             Volume.deciliters(123.4 - 234.5));
@@ -415,7 +739,7 @@ void main() {
 
   group(
     'Multiplication',
-    () {
+        () {
       test('Identity', () {
         expect(Volume.deciliters(123.4) * 1.0, Volume.deciliters(123.4));
       });
@@ -444,7 +768,7 @@ void main() {
 
   group(
     'Division',
-    () {
+        () {
       test('Identity', () {
         expect(Volume.deciliters(123.4) / 1.0, Volume.deciliters(123.4));
       });

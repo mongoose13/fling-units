@@ -1,3 +1,6 @@
+import 'converter/distance.dart';
+import 'precision.dart';
+
 /// Unit conversion system for distances.
 ///
 /// Distances measure a single dimension. The value can be negative, indicating
@@ -17,13 +20,19 @@
 /// computation multiple times (e.g. calling 'distance.millimeters' twice).
 class Distance implements Comparable<Distance> {
   /// A null distance, representing no distance between two points.
-  const Distance.zero() : _meters = 0.0;
+  const Distance.zero()
+      : _converter = DistanceConverter.zero,
+        precision = Precision.max;
 
   /// Infinite distance.
-  const Distance.infinity() : _meters = double.infinity;
+  const Distance.infinity()
+      : _converter = DistanceConverter.infinity,
+        precision = Precision.max;
 
   /// Infinite distance in the opposite direction.
-  const Distance.negativeInfinity() : _meters = double.negativeInfinity;
+  const Distance.negativeInfinity()
+      : _converter = DistanceConverter.negativeInfinity,
+        precision = Precision.max;
 
   /// Construct a Distance from any number of partial metric amounts.
   ///
@@ -36,13 +45,17 @@ class Distance implements Comparable<Distance> {
     final num dekameters = 0,
     final num hectometers = 0,
     final num kilometers = 0,
-  }) : _meters = millimeters.toDouble() / _millimeterConversion +
-            centimeters.toDouble() / _centimeterConversion +
-            decimeters.toDouble() / _decimeterConversion +
-            meters.toDouble() +
-            dekameters.toDouble() / _dekameterConversion +
-            hectometers.toDouble() / _hectometerConversion +
-            kilometers.toDouble() / _kilometerConversion;
+    final Precision precision = Precision.max,
+  })  : _converter = DistanceConverter.metric(
+          millimeters: millimeters,
+          centimeters: centimeters,
+          decimeters: decimeters,
+          meters: meters,
+          dekameters: dekameters,
+          hectometers: hectometers,
+          kilometers: kilometers,
+        ),
+        precision = precision;
 
   /// Construct a Distance from any number of partial Imperial amounts.
   ///
@@ -52,138 +65,192 @@ class Distance implements Comparable<Distance> {
     final num yards = 0,
     final num feet = 0,
     final num inches = 0,
-  }) : _meters = miles.toDouble() / _mileConversion +
-            yards.toDouble() / _yardConversion +
-            feet.toDouble() / _footConversion +
-            inches.toDouble() / _inchConversion;
-
-  /// Construct a Distance from a millimeter amount.
-  Distance.millimeters(final num millimeters)
-      : _meters = millimeters.toDouble() / _millimeterConversion;
-
-  /// Construct a Distance from a centimeter amount.
-  Distance.centimeters(final num centimeters)
-      : _meters = centimeters.toDouble() / _centimeterConversion;
-
-  /// Construct a Distance from a decimeter amount.
-  Distance.decimeters(final num decimeters)
-      : _meters = decimeters.toDouble() / _decimeterConversion;
-
-  /// Construct a Distance from a meter amount.
-  Distance.meters(final num meters) : _meters = meters.toDouble();
-
-  /// Construct a Distance from a dekameter amount.
-  Distance.dekameters(final num dekameters)
-      : _meters = dekameters.toDouble() / _dekameterConversion;
-
-  /// Construct a Distance from a hectometer amount.
-  Distance.hectometers(final num hectometers)
-      : _meters = hectometers.toDouble() / _hectometerConversion;
+    final Precision precision = Precision.max,
+  })  : _converter = DistanceConverter.imperial(
+          miles: miles,
+          yards: yards,
+          feet: feet,
+          inches: inches,
+        ),
+        precision = precision;
 
   /// Construct a Distance from a kilometer amount.
-  Distance.kilometers(final num kilometers)
-      : _meters = kilometers.toDouble() / _kilometerConversion;
+  Distance.kilometers(final num kilometers,
+      {final Precision precision = Precision.max})
+      : this.metric(kilometers: kilometers, precision: precision);
+
+  /// Construct a Distance from a hectometer amount.
+  Distance.hectometers(final num hectometers,
+      {final Precision precision = Precision.max})
+      : this.metric(hectometers: hectometers, precision: precision);
+
+  /// Construct a Distance from a dekameter amount.
+  Distance.dekameters(final num dekameters,
+      {final Precision precision = Precision.max})
+      : this.metric(dekameters: dekameters, precision: precision);
+
+  /// Construct a Distance from a meter amount.
+  Distance.meters(final num meters, {final Precision precision = Precision.max})
+      : this.metric(meters: meters, precision: precision);
+
+  /// Construct a Distance from a decimeter amount.
+  Distance.decimeters(final num decimeters,
+      {final Precision precision = Precision.max})
+      : this.metric(decimeters: decimeters, precision: precision);
+
+  /// Construct a Distance from a centimeter amount.
+  Distance.centimeters(final num centimeters,
+      {final Precision precision = Precision.max})
+      : this.metric(centimeters: centimeters, precision: precision);
+
+  /// Construct a Distance from a millimeter amount.
+  Distance.millimeters(final num millimeters,
+      {final Precision precision = Precision.max})
+      : this.metric(millimeters: millimeters, precision: precision);
 
   /// Construct a Distance from a mile amount.
-  Distance.miles(final num miles)
-      : _meters = miles.toDouble() / _mileConversion;
+  Distance.miles(final num miles, {final Precision precision = Precision.max})
+      : this.imperial(miles: miles, precision: precision);
 
   /// Construct a Distance from a yard amount.
-  Distance.yards(final num yards)
-      : _meters = yards.toDouble() / _yardConversion;
+  Distance.yards(final num yards, {final Precision precision = Precision.max})
+      : this.imperial(yards: yards, precision: precision);
 
   /// Construct a Distance from a foot amount.
-  Distance.feet(final num feet) : _meters = feet.toDouble() / _footConversion;
+  Distance.feet(final num feet, {final Precision precision = Precision.max})
+      : this.imperial(feet: feet, precision: precision);
 
   /// Construct a Distance from an inch amount.
-  Distance.inches(final num inches)
-      : _meters = inches.toDouble() / _inchConversion;
+  Distance.inches(final num inches, {final Precision precision = Precision.max})
+      : this.imperial(inches: inches, precision: precision);
 
   /// Construct a Distance from a nautical mile amount.
-  Distance.nauticalMiles(final num nauticalMiles)
-      : _meters = nauticalMiles.toDouble() / _nauticalMileConversion;
+  Distance.nauticalMiles(final num nauticalMiles,
+      {final Precision precision = Precision.max})
+      : _converter = DistanceConverter.nauticalMiles(nauticalMiles),
+        precision = precision;
 
   /// Interpret this distance as a number of millimeters.
-  double get millimeters => _meters * _millimeterConversion;
+  double get millimeters => precision.withPrecision(_converter.toMilli());
 
   /// Interpret this distance as a number of centimeters.
-  double get centimeters => _meters * _centimeterConversion;
+  double get centimeters => precision.withPrecision(_converter.toCenti());
 
   /// Interpret this distance as a number of decimeters.
-  double get decimeters => _meters * _decimeterConversion;
+  double get decimeters => precision.withPrecision(_converter.toDeci());
 
   /// Interpret this distance as a number of meters.
-  double get meters => _meters;
+  double get meters => precision.withPrecision(_converter.base);
 
   /// Interpret this distance as a number of dekameters.
-  double get dekameters => _meters * _dekameterConversion;
+  double get dekameters => precision.withPrecision(_converter.toDeka());
 
   /// Interpret this distance as a number of hectometers.
-  double get hectometers => _meters * _hectometerConversion;
+  double get hectometers => precision.withPrecision(_converter.toHecto());
 
   /// Interpret this distance as a number of kilometers.
-  double get kilometers => _meters * _kilometerConversion;
+  double get kilometers => precision.withPrecision(_converter.toKilo());
 
   /// Interpret this distance as a number of miles.
-  double get miles => _meters * _mileConversion;
+  double get miles => precision.withPrecision(_converter.toMiles());
 
   /// Interpret this distance as a number of yards.
-  double get yards => _meters * _yardConversion;
+  double get yards => precision.withPrecision(_converter.toYards());
 
   /// Interpret this distance as a number of feet.
-  double get feet => _meters * _footConversion;
+  double get feet => precision.withPrecision(_converter.toFeet());
 
   /// Interpret this distance as a number of inches.
-  double get inches => _meters * _inchConversion;
+  double get inches => precision.withPrecision(_converter.toInches());
 
   /// Interpret this distance as a number of nautical miles.
-  double get nauticalMiles => _meters * _nauticalMileConversion;
+  double get nauticalMiles =>
+      precision.withPrecision(_converter.toNauticalMiles());
+
+  /// Interprets the specified Distance in kilometers.
+  static double asKilometers(final Distance distance) => distance.kilometers;
+
+  /// Interprets the specified Distance in hectometers.
+  static double asHectometers(final Distance distance) => distance.hectometers;
+
+  /// Interprets the specified Distance in dekameters.
+  static double asDekameters(final Distance distance) => distance.dekameters;
+
+  /// Interprets the specified Distance in meters.
+  static double asMeters(final Distance distance) => distance.meters;
+
+  /// Interprets the specified Distance in decimeters.
+  static double asDecimeters(final Distance distance) => distance.decimeters;
+
+  /// Interprets the specified Distance in centimeters.
+  static double asCentimeters(final Distance distance) => distance.centimeters;
+
+  /// Interprets the specified Distance in millimeters.
+  static double asMillimeters(final Distance distance) => distance.millimeters;
+
+  /// Interprets the specified Distance in miles.
+  static double asMiles(final Distance distance) => distance.miles;
+
+  /// Interprets the specified Distance in yards.
+  static double asYards(final Distance distance) => distance.yards;
+
+  /// Interprets the specified Distance in feet.
+  static double asFeet(final Distance distance) => distance.feet;
+
+  /// Interprets the specified Distance in inches.
+  static double asInches(final Distance distance) => distance.inches;
+
+  /// Interprets the specified Distance in nautical miles.
+  static double asNauticalMiles(final Distance distance) =>
+      distance.nauticalMiles;
 
   /// Returns whether this Distance represents a negative amount.
-  bool get isNegative => _meters.isNegative;
+  bool get isNegative => _converter.isNegative;
 
   /// Returns whether this Distance represents a finite amount.
-  bool get isFinite => _meters.isFinite;
+  bool get isFinite => _converter.isFinite;
 
   /// Returns whether this Distance represents an infinite amount (positive or
   /// negative).
-  bool get isInfinite => _meters.isInfinite;
+  bool get isInfinite => _converter.isInfinite;
 
   /// Whether this distance is not a number.
-  bool get isNaN => _meters.isNaN;
+  bool get isNaN => _converter.isNaN;
 
   @override
   bool operator ==(final dynamic other) =>
-      other is Distance && other._meters == _meters;
+      other is Distance &&
+      other.precision == precision &&
+      other.meters == meters;
 
   @override
-  int get hashCode => _meters.hashCode;
+  int get hashCode => meters.hashCode * precision.hashCode;
 
   /// Compares this Distance to another Distance, returning true if this
   /// Distance is larger than the other Distance, or false otherwise.
-  bool operator >(final Distance other) => _meters > other._meters;
+  bool operator >(final Distance other) => meters > other.meters;
 
   /// Compares this Distance to another Distance, returning true if this
   /// Distance is larger than or equal to the other Distance, or false
   /// otherwise.
-  bool operator >=(final Distance other) => _meters >= other._meters;
+  bool operator >=(final Distance other) => meters >= other.meters;
 
   /// Compares this Distance to another Distance, returning true if this
   /// Distance is smaller than the other Distance, or false otherwise.
-  bool operator <(final Distance other) => _meters < other._meters;
+  bool operator <(final Distance other) => meters < other.meters;
 
   /// Compares this Distance to another Distance, returning true if this
   /// Distance is smaller than or equal to the other Distance, or false
   /// otherwise.
-  bool operator <=(final Distance other) => _meters <= other._meters;
+  bool operator <=(final Distance other) => meters <= other.meters;
 
   @override
-  int compareTo(final Distance other) => _meters.compareTo(other.meters);
+  int compareTo(final Distance other) => meters.compareTo(other.meters);
 
   /// Creates a Distance that is the opposite of this Distance.
   ///
   /// In brief, it will have the opposite sign as this Distance.
-  Distance operator -() => Distance.meters(-_meters);
+  Distance operator -() => Distance._(-meters, precision);
 
   /// Add two Distances together to produce a third Distance. The resulting
   /// Distance is equivalent to the sum of the two input Distances. Negative
@@ -192,8 +259,10 @@ class Distance implements Comparable<Distance> {
   /// Distance.meters(2) + Distance.zero() == Distance.meters(2)
   /// Distance.meters(2) + Distance.meters(3) == Distance.meters(5)
   /// Distance.meters(2) + Distance.meters(-3) == Distance.meters(-1)
-  Distance operator +(final Distance other) =>
-      Distance.meters(_meters + other._meters);
+  Distance operator +(final Distance other) => Distance._(
+        meters + other.meters,
+        Precision.add(precision, other.precision),
+      );
 
   /// Subtract two Distances to produce a third Distance. The resulting
   /// Distance is equivalent to the difference between the two input Distances.
@@ -204,8 +273,10 @@ class Distance implements Comparable<Distance> {
   /// Distance.meters(5) - Distance.meters(3) == Distance.meters(2)
   /// Distance.meters(3) - Distance.meters(5) == Distance.meters(-2)
   /// Distance.meters(3) - Distance.meters(-5) == Distance.meters(8)
-  Distance operator -(final Distance other) =>
-      Distance.meters(_meters - other._meters);
+  Distance operator -(final Distance other) => Distance._(
+        meters - other.meters,
+        Precision.add(precision, other.precision),
+      );
 
   /// Multiply a Distance by a scalar to produce a new Distance that is a
   /// multiple of the original Distance. As you might expect, multiplying by a
@@ -216,7 +287,7 @@ class Distance implements Comparable<Distance> {
   /// Distance.meters(3) * 2 == Distance.meters(6)
   /// Distance.meters(3) * -2 == Distance.meters(-6)
   Distance operator *(final num multiplier) =>
-      Distance.meters(_meters * multiplier);
+      Distance._(meters * multiplier, precision);
 
   /// Divide a Distance by a scalar to produce a new Distance that is a fraction
   /// of the original Distance. As you might expect, dividing by a negative
@@ -226,23 +297,18 @@ class Distance implements Comparable<Distance> {
   /// Distance.meters(6) / 2 == Distance.meters(3)
   /// Distance.meters(6) / -2 == Distance.meters(-3)
   /// Distance.meters(6) / 0 == Distance.infinity()
-  Distance operator /(final num divisor) => Distance.meters(_meters / divisor);
+  Distance operator /(final num divisor) =>
+      Distance._(meters / divisor, precision);
 
   @override
-  String toString() => '${_meters.toString()} m';
+  String toString() => '${meters.toString()} m';
 
-  static final double _millimeterConversion = 1e3;
-  static final double _centimeterConversion = 1e2;
-  static final double _decimeterConversion = 1e1;
-  static final double _dekameterConversion = 1e-1;
-  static final double _hectometerConversion = 1e-2;
-  static final double _kilometerConversion = 1e-3;
+  Distance._(final double meters, final Precision precision)
+      : _converter = DistanceConverter.meters(meters),
+        precision = precision;
 
-  static final double _mileConversion = 0.000621371;
-  static final double _yardConversion = 1.09361;
-  static final double _footConversion = 3.28084;
-  static final double _inchConversion = 39.3701;
-  static final double _nauticalMileConversion = 0.000539957;
+  final DistanceConverter _converter;
 
-  final double _meters;
+  /// The precision used in all conversions.
+  final Precision precision;
 }

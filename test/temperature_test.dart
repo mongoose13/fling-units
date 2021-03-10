@@ -1,10 +1,11 @@
+import 'package:fling_units/src/precision.dart';
 import 'package:fling_units/src/temperature.dart';
 import 'package:test/test.dart';
 
 void main() {
   group(
     'Temperature Constructors',
-    () {
+        () {
       test('zero', () {
         final result = Temperature.absoluteZero();
 
@@ -37,10 +38,10 @@ void main() {
         expect(result.fahrenheit, 68.0);
       });
       test('fahrenheit', () {
-        final result = Temperature.fahrenheit(70.0);
+        final result = Temperature.fahrenheit(70.0, precision: Precision(5));
 
-        expect(result.kelvin, 296.26111111111106);
-        expect(result.celcius, 23.111111111111086);
+        expect(result.kelvin, 294.26);
+        expect(result.celcius, 21.111);
         expect(result.fahrenheit, 70.0);
       });
     },
@@ -61,7 +62,7 @@ void main() {
 
   group(
     'Temperature Equality',
-    () {
+        () {
       test('Same units', () {
         expect(Temperature.kelvin(123.4), Temperature.kelvin(123.4));
         expect(Temperature.kelvin(123.4).hashCode,
@@ -159,7 +160,7 @@ void main() {
 
   group(
     'Temperature Addition',
-    () {
+        () {
       test('Same units', () {
         expect(Temperature.kelvin(123) + TemperatureChange.kelvin(32),
             Temperature.kelvin(155));
@@ -176,8 +177,8 @@ void main() {
         expect(() => Temperature.kelvin(123) + TemperatureChange.kelvin(-124),
             throwsArgumentError);
         expect(
-            () =>
-                Temperature.kelvin(123) + TemperatureChange.negativeInfinity(),
+                () =>
+            Temperature.kelvin(123) + TemperatureChange.negativeInfinity(),
             throwsArgumentError);
       });
       test('Infinity', () {
@@ -199,7 +200,7 @@ void main() {
 
   group(
     'Temperature Subtraction',
-    () {
+        () {
       test('Same units', () {
         expect(Temperature.kelvin(123) - TemperatureChange.kelvin(32),
             Temperature.kelvin(91));
@@ -258,24 +259,25 @@ void main() {
       expect(result.fahrenheit, double.negativeInfinity);
     });
     test('kelvin', () {
-      final result = TemperatureChange.kelvin(123.4);
+      final result = TemperatureChange.kelvin(123.4, precision: Precision(5));
 
       expect(result.kelvin, 123.4);
       expect(result.celcius, 123.4);
-      expect(result.fahrenheit, 222.12000000000003);
+      expect(result.fahrenheit, 222.12);
     });
     test('celcius', () {
-      final result = TemperatureChange.celcius(123.4);
+      final result = TemperatureChange.celcius(123.4, precision: Precision(5));
 
       expect(result.kelvin, 123.4);
       expect(result.celcius, 123.4);
-      expect(result.fahrenheit, 222.12000000000003);
+      expect(result.fahrenheit, 222.12);
     });
     test('fahrenheit', () {
-      final result = TemperatureChange.fahrenheit(123.4);
+      final result =
+          TemperatureChange.fahrenheit(123.4, precision: Precision(5));
 
-      expect(result.kelvin, 68.55555555555556);
-      expect(result.celcius, 68.55555555555556);
+      expect(result.kelvin, 68.556);
+      expect(result.celcius, 68.556);
       expect(result.fahrenheit, 123.4);
     });
   });
@@ -326,14 +328,41 @@ void main() {
       expect(TemperatureChange.kelvin(123.4) != TemperatureChange.kelvin(12.34),
           true);
     });
+    test('different precision', () {
+      // given
+      final temperatureChange1 =
+          TemperatureChange.kelvin(123.4, precision: Precision(5));
+      final temperatureChange2 =
+          TemperatureChange.kelvin(123.4, precision: Precision(6));
+
+      // when
+      final result = temperatureChange1 == temperatureChange2;
+
+      // then
+      expect(result, false);
+    });
+    test('default precision vs different set precision', () {
+      // given
+      final temperatureChange1 = TemperatureChange.kelvin(123.4);
+      final temperatureChange2 =
+          TemperatureChange.kelvin(123.4, precision: Precision(6));
+
+      // when
+      final result = temperatureChange1 == temperatureChange2;
+
+      // then
+      expect(result, false);
+    });
     test('different units', () {
       expect(TemperatureChange.kelvin(123.4), TemperatureChange.celcius(123.4));
       expect(TemperatureChange.kelvin(123.4).hashCode,
           TemperatureChange.celcius(123.4).hashCode);
-      expect(TemperatureChange.kelvin(68.55555555555556),
-          TemperatureChange.fahrenheit(123.4));
-      expect(TemperatureChange.kelvin(68.55555555555556).hashCode,
-          TemperatureChange.fahrenheit(123.4).hashCode);
+      expect(TemperatureChange.kelvin(68.556, precision: Precision(5)),
+          TemperatureChange.fahrenheit(123.4, precision: Precision(5)));
+      expect(
+          TemperatureChange.kelvin(68.556, precision: Precision(5)).hashCode,
+          TemperatureChange.fahrenheit(123.4, precision: Precision(5))
+              .hashCode);
 
       expect(
           TemperatureChange.kelvin(123.4) == TemperatureChange.celcius(123.4),
@@ -348,20 +377,20 @@ void main() {
           TemperatureChange.kelvin(123.4) != TemperatureChange.celcius(12.34),
           true);
       expect(
-          TemperatureChange.kelvin(68.55555555555556) ==
-              TemperatureChange.fahrenheit(123.4),
+          TemperatureChange.kelvin(68.556, precision: Precision(5)) ==
+              TemperatureChange.fahrenheit(123.4, precision: Precision(5)),
           true);
       expect(
-          TemperatureChange.kelvin(68.55555555555556) !=
-              TemperatureChange.fahrenheit(123.4),
+          TemperatureChange.kelvin(68.556, precision: Precision(5)) !=
+              TemperatureChange.fahrenheit(123.4, precision: Precision(5)),
           false);
       expect(
-          TemperatureChange.kelvin(68.55555555555556) ==
-              TemperatureChange.fahrenheit(12.34),
+          TemperatureChange.kelvin(68.556, precision: Precision(5)) ==
+              TemperatureChange.fahrenheit(12.34, precision: Precision(5)),
           false);
       expect(
-          TemperatureChange.kelvin(68.55555555555556) !=
-              TemperatureChange.fahrenheit(12.34),
+          TemperatureChange.kelvin(68.556, precision: Precision(5)) !=
+              TemperatureChange.fahrenheit(12.34, precision: Precision(5)),
           true);
     });
   });
@@ -595,19 +624,23 @@ void main() {
       expect(TemperatureChange.kelvin(12.3) - TemperatureChange.celcius(12.3),
           TemperatureChange.zero());
       expect(
-          TemperatureChange.kelvin(12.3) - TemperatureChange.fahrenheit(12.3),
-          TemperatureChange.kelvin(5.466666666666668));
+          TemperatureChange.kelvin(12.3, precision: Precision(5)) -
+              TemperatureChange.fahrenheit(12.3, precision: Precision(5)),
+          TemperatureChange.kelvin(5.4667));
       expect(TemperatureChange.celcius(12.3) - TemperatureChange.kelvin(12.3),
           TemperatureChange.zero());
       expect(
-          TemperatureChange.celcius(12.3) - TemperatureChange.fahrenheit(12.3),
-          TemperatureChange.kelvin(5.466666666666668));
+          TemperatureChange.celcius(12.3, precision: Precision(5)) -
+              TemperatureChange.fahrenheit(12.3, precision: Precision(5)),
+          TemperatureChange.kelvin(5.4667));
       expect(
-          TemperatureChange.fahrenheit(12.3) - TemperatureChange.kelvin(12.3),
-          TemperatureChange.kelvin(-5.466666666666668));
+          TemperatureChange.fahrenheit(12.3, precision: Precision(5)) -
+              TemperatureChange.kelvin(12.3, precision: Precision(5)),
+          TemperatureChange.kelvin(-5.4667));
       expect(
-          TemperatureChange.fahrenheit(12.3) - TemperatureChange.celcius(12.3),
-          TemperatureChange.kelvin(-5.466666666666668));
+          TemperatureChange.fahrenheit(12.3, precision: Precision(5)) -
+              TemperatureChange.celcius(12.3, precision: Precision(5)),
+          TemperatureChange.kelvin(-5.4667));
     });
     test('Infinity', () {
       expect(TemperatureChange.infinity() - TemperatureChange.kelvin(12.3),

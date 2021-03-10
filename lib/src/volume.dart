@@ -1,3 +1,6 @@
+import 'converter/volume.dart';
+import 'precision.dart';
+
 /// Unit conversion system for volume.
 ///
 /// Volumes measure an amount of space. The value can be negative, but this is
@@ -14,13 +17,19 @@
 /// computation multiple times (e.g. calling 'volume.milliliters' twice).
 class Volume implements Comparable<Volume> {
   /// A null volume, representing no space.
-  const Volume.zero() : _liters = 0.0;
+  const Volume.zero()
+      : _converter = VolumeConverter.zero,
+        precision = Precision.max;
 
   /// Infinite volume.
-  const Volume.infinity() : _liters = double.infinity;
+  const Volume.infinity()
+      : _converter = VolumeConverter.infinity,
+        precision = Precision.max;
 
   /// Infinite volume in the negative.
-  const Volume.negativeInfinity() : _liters = double.negativeInfinity;
+  const Volume.negativeInfinity()
+      : _converter = VolumeConverter.negativeInfinity,
+        precision = Precision.max;
 
   /// Construct a Volume from any number of partial metric amounts.
   ///
@@ -33,13 +42,15 @@ class Volume implements Comparable<Volume> {
     final num dekaliters = 0,
     final num hectoliters = 0,
     final num kiloliters = 0,
-  }) : _liters = milliliters.toDouble() / _milliliterConversion +
-            centiliters.toDouble() / _centiliterConversion +
-            deciliters.toDouble() / _deciliterConversion +
-            liters.toDouble() +
-            dekaliters.toDouble() / _dekaliterConversion +
-            hectoliters.toDouble() / _hectoliterConversion +
-            kiloliters.toDouble() / _kiloliterConversion;
+    final this.precision = Precision.max,
+  }) : _converter = VolumeConverter.metric(
+            milliliters: milliliters,
+            centiliters: centiliters,
+            deciliters: deciliters,
+            liters: liters,
+            dekaliters: dekaliters,
+            hectoliters: hectoliters,
+            kiloliters: kiloliters);
 
   /// Construct a Volume from any number of partial Imperial amounts.
   ///
@@ -52,13 +63,15 @@ class Volume implements Comparable<Volume> {
     final num pints = 0,
     final num quarts = 0,
     final num gallons = 0,
-  }) : _liters = teaspoons.toDouble() / _teaspoonConversion +
-            tablespoons.toDouble() / _tablespoonConversion +
-            fluidOunces.toDouble() / _fluidOunceConversion +
-            cups.toDouble() / _cupConversion +
-            pints.toDouble() / _pintConversion +
-            quarts.toDouble() / _quartConversion +
-            gallons.toDouble() / _gallonConversion;
+    final this.precision = Precision.max,
+  }) : _converter = VolumeConverter.imperial(
+            teaspoons: teaspoons,
+            tablespoons: tablespoons,
+            fluidOunces: fluidOunces,
+            cups: cups,
+            pints: pints,
+            quarts: quarts,
+            gallons: gallons);
 
   /// Construct a Volume from any number of partial US amounts.
   ///
@@ -71,225 +84,313 @@ class Volume implements Comparable<Volume> {
     final num usPints = 0,
     final num usQuarts = 0,
     final num usGallons = 0,
-  }) : _liters = usTeaspoons.toDouble() / _usTeaspoonConversion +
-            usTablespoons.toDouble() / _usTablespoonConversion +
-            usFluidOunces.toDouble() / _usFluidOunceConversion +
-            usCups.toDouble() / _usCupConversion +
-            usPints.toDouble() / _usPintConversion +
-            usQuarts.toDouble() / _usQuartConversion +
-            usGallons.toDouble() / _usGallonConversion;
+    final this.precision = Precision.max,
+  }) : _converter = VolumeConverter.us(
+            usTeaspoons: usTeaspoons,
+            usTablespoons: usTablespoons,
+            usFluidOunces: usFluidOunces,
+            usCups: usCups,
+            usPints: usPints,
+            usQuarts: usQuarts,
+            usGallons: usGallons);
 
   /// Construct a Volume from a milliliter amount.
-  Volume.milliliters(final num milliliters)
-      : _liters = milliliters.toDouble() / _milliliterConversion;
+  Volume.milliliters(final num milliliters,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metric(milliliters: milliliters);
 
   /// Construct a Volume from a centiliter amount.
-  Volume.centiliters(final num centiliters)
-      : _liters = centiliters.toDouble() / _centiliterConversion;
+  Volume.centiliters(final num centiliters,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metric(centiliters: centiliters);
 
   /// Construct a Volume from a deciliter amount.
-  Volume.deciliters(final num deciliters)
-      : _liters = deciliters.toDouble() / _deciliterConversion;
+  Volume.deciliters(final num deciliters,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metric(deciliters: deciliters);
 
   /// Construct a Volume from a liter amount.
-  Volume.liters(final num liters) : _liters = liters.toDouble();
+  Volume.liters(final num liters, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metric(liters: liters);
 
   /// Construct a Volume from a dekaliter amount.
-  Volume.dekaliters(final num dekaliters)
-      : _liters = dekaliters.toDouble() / _dekaliterConversion;
+  Volume.dekaliters(final num dekaliters,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metric(dekaliters: dekaliters);
 
   /// Construct a Volume from a hectoliter amount.
-  Volume.hectoliters(final num hectoliters)
-      : _liters = hectoliters.toDouble() / _hectoliterConversion;
+  Volume.hectoliters(final num hectoliters,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metric(hectoliters: hectoliters);
 
   /// Construct a Volume from a kiloliter amount.
-  Volume.kiloliters(final num kiloliters)
-      : _liters = kiloliters.toDouble() / _kiloliterConversion;
+  Volume.kiloliters(final num kiloliters,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metric(kiloliters: kiloliters);
 
   /// Construct a Volume from a cubic meter amount.
-  Volume.cubicMeters(final num cubicMeters)
-      : _liters = cubicMeters.toDouble() / _cubicMeterConversion;
+  Volume.cubicMeters(final num cubicMeters,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.metricCubic(cubicMeters: cubicMeters);
 
   /// Construct a Volume from an Imperial teaspoon amount.
-  Volume.teaspoons(final num teaspoons)
-      : _liters = teaspoons.toDouble() / _teaspoonConversion;
+  Volume.teaspoons(final num teaspoons, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperial(teaspoons: teaspoons);
 
   /// Construct a Volume from an Imperial tablespoon amount.
-  Volume.tablespoons(final num tablespoons)
-      : _liters = tablespoons.toDouble() / _tablespoonConversion;
+  Volume.tablespoons(final num tablespoons,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperial(tablespoons: tablespoons);
 
   /// Construct a Volume from an Imperial fluid ounce amount.
-  Volume.fluidOunces(final num fluidOunces)
-      : _liters = fluidOunces.toDouble() / _fluidOunceConversion;
+  Volume.fluidOunces(final num fluidOunces,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperial(fluidOunces: fluidOunces);
 
   /// Construct a Volume from an Imperial cup amount.
-  Volume.cups(final num cups) : _liters = cups.toDouble() / _cupConversion;
+  Volume.cups(final num cups, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperial(cups: cups);
 
   /// Construct a Volume from an Imperial pint amount.
-  Volume.pints(final num pints) : _liters = pints.toDouble() / _pintConversion;
+  Volume.pints(final num pints, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperial(pints: pints);
 
   /// Construct a Volume from an Imperial quart amount.
-  Volume.quarts(final num quarts)
-      : _liters = quarts.toDouble() / _quartConversion;
+  Volume.quarts(final num quarts, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperial(quarts: quarts);
 
   /// Construct a Volume from an Imperial gallon amount.
-  Volume.gallons(final num gallons)
-      : _liters = gallons.toDouble() / _gallonConversion;
+  Volume.gallons(final num gallons, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperial(gallons: gallons);
 
   /// Construct a Volume from a cubic feet amount.
-  Volume.cubicFeet(final num cubicFeet)
-      : _liters = cubicFeet.toDouble() / _cubicFeetConversion;
+  Volume.cubicFeet(final num cubicFeet, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperialCubic(cubicFeet: cubicFeet);
 
   /// Construct a Volume from a cubic inch amount.
-  Volume.cubicInches(final num cubicInches)
-      : _liters = cubicInches.toDouble() / _cubicInchConversion;
+  Volume.cubicInches(final num cubicInches,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.imperialCubic(cubicInches: cubicInches);
 
   /// Construct a Volume from a US teaspoon amount.
-  Volume.usTeaspoons(final num teaspoons)
-      : _liters = teaspoons.toDouble() / _usTeaspoonConversion;
+  Volume.usTeaspoons(final num usTeaspoons,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.us(usTeaspoons: usTeaspoons);
 
   /// Construct a Volume from a US tablespoon amount.
-  Volume.usTablespoons(final num tablespoons)
-      : _liters = tablespoons.toDouble() / _usTablespoonConversion;
+  Volume.usTablespoons(final num usTablespoons,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.us(usTablespoons: usTablespoons);
 
   /// Construct a Volume from a US fluid ounce amount.
-  Volume.usFluidOunces(final num fluidOunces)
-      : _liters = fluidOunces.toDouble() / _usFluidOunceConversion;
+  Volume.usFluidOunces(final num usFluidOunces,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.us(usFluidOunces: usFluidOunces);
 
   /// Construct a Volume from a US cup amount.
-  Volume.usCups(final num cups) : _liters = cups.toDouble() / _usCupConversion;
+  Volume.usCups(final num usCups, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.us(usCups: usCups);
 
   /// Construct a Volume from a US pint amount.
-  Volume.usPints(final num pints)
-      : _liters = pints.toDouble() / _usPintConversion;
+  Volume.usPints(final num usPints, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.us(usPints: usPints);
 
   /// Construct a Volume from a US quart amount.
-  Volume.usQuarts(final num quarts)
-      : _liters = quarts.toDouble() / _usQuartConversion;
+  Volume.usQuarts(final num usQuarts, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.us(usQuarts: usQuarts);
 
   /// Construct a Volume from a US gallon amount.
-  Volume.usGallons(final num gallons)
-      : _liters = gallons.toDouble() / _usGallonConversion;
+  Volume.usGallons(final num usGallons, {final this.precision = Precision.max})
+      : _converter = VolumeConverter.us(usGallons: usGallons);
 
   /// Construct a Volume from a US gallon amount.
-  Volume.usLegalCups(final num usLegalCups)
-      : _liters = usLegalCups.toDouble() / _usLegalCupConversion;
+  Volume.usLegalCups(final num usLegalCups,
+      {final this.precision = Precision.max})
+      : _converter = VolumeConverter.usLegalCups(usLegalCups);
 
   /// Interpret this volume as a number of milliliters.
-  double get milliliters => _liters * _milliliterConversion;
+  double get milliliters => precision.withPrecision(_converter.toMilliliters());
 
   /// Interpret this volume as a number of centiliters.
-  double get centiliters => _liters * _centiliterConversion;
+  double get centiliters => precision.withPrecision(_converter.toCentiliters());
 
   /// Interpret this volume as a number of deciliters.
-  double get deciliters => _liters * _deciliterConversion;
+  double get deciliters => precision.withPrecision(_converter.toDeciliters());
 
   /// Interpret this volume as a number of liters.
-  double get liters => _liters;
+  double get liters => precision.withPrecision(_converter.toLiters());
 
   /// Interpret this volume as a number of dekaliters.
-  double get dekaliters => _liters * _dekaliterConversion;
+  double get dekaliters => precision.withPrecision(_converter.toDekaliters());
 
   /// Interpret this volume as a number of hectoliters.
-  double get hectoliters => _liters * _hectoliterConversion;
+  double get hectoliters => precision.withPrecision(_converter.toHectoliters());
 
   /// Interpret this volume as a number of kiloliters.
-  double get kiloliters => _liters * _kiloliterConversion;
+  double get kiloliters => precision.withPrecision(_converter.toKiloliters());
 
   /// Interpret this volume as a number of cubic meters.
-  double get cubicMeters => _liters * _cubicMeterConversion;
+  double get cubicMeters => precision.withPrecision(_converter.toCubicMeters());
 
   /// Interpret this volume as a number of Imperial teaspoons.
-  double get teaspoons => _liters * _teaspoonConversion;
+  double get teaspoons => precision.withPrecision(_converter.toTeaspoons());
 
   /// Interpret this volume as a number of Imperial tablespoons.
-  double get tablespoons => _liters * _tablespoonConversion;
+  double get tablespoons => precision.withPrecision(_converter.toTablespoons());
 
   /// Interpret this volume as a number of Imperial fluid ounces.
-  double get fluidOunces => _liters * _fluidOunceConversion;
+  double get fluidOunces => precision.withPrecision(_converter.toFluidOunces());
 
   /// Interpret this volume as a number of Imperial cups.
-  double get cups => _liters * _cupConversion;
+  double get cups => precision.withPrecision(_converter.toCups());
 
   /// Interpret this volume as a number of Imperial pints.
-  double get pints => _liters * _pintConversion;
+  double get pints => precision.withPrecision(_converter.toPints());
 
   /// Interpret this volume as a number of Imperial quarts.
-  double get quarts => _liters * _quartConversion;
+  double get quarts => precision.withPrecision(_converter.toQuarts());
 
   /// Interpret this volume as a number of Imperial gallons.
-  double get gallons => _liters * _gallonConversion;
+  double get gallons => precision.withPrecision(_converter.toGallons());
 
   /// Interpret this volume as a number of cubic feet.
-  double get cubicFeet => _liters * _cubicFeetConversion;
+  double get cubicFeet => precision.withPrecision(_converter.toCubicFeet());
 
   /// Interpret this volume as a number of cubic inches.
-  double get cubicInches => _liters * _cubicInchConversion;
+  double get cubicInches => precision.withPrecision(_converter.toCubicInches());
 
   /// Interpret this volume as a number of US teaspoons.
-  double get usTeaspoons => _liters * _usTeaspoonConversion;
+  double get usTeaspoons => precision.withPrecision(_converter.toUsTeaspoons());
 
   /// Interpret this volume as a number of US tablespoons.
-  double get usTablespoons => _liters * _usTablespoonConversion;
+  double get usTablespoons =>
+      precision.withPrecision(_converter.toUsTablespoons());
 
   /// Interpret this volume as a number of US fluid ounces.
-  double get usFluidOunces => _liters * _usFluidOunceConversion;
+  double get usFluidOunces =>
+      precision.withPrecision(_converter.toUsFluidOunces());
 
   /// Interpret this volume as a number of US cups.
-  double get usCups => _liters * _usCupConversion;
+  double get usCups => precision.withPrecision(_converter.toUsCups());
 
   /// Interpret this volume as a number of US pints.
-  double get usPints => _liters * _usPintConversion;
+  double get usPints => precision.withPrecision(_converter.toUsPints());
 
   /// Interpret this volume as a number of US quarts.
-  double get usQuarts => _liters * _usQuartConversion;
+  double get usQuarts => precision.withPrecision(_converter.toUsQuarts());
 
   /// Interpret this volume as a number of US gallons.
-  double get usGallons => _liters * _usGallonConversion;
+  double get usGallons => precision.withPrecision(_converter.toUsGallons());
 
   /// Interpret this volume as a number of US legal cups.
-  double get usLegalCup => _liters * _usLegalCupConversion;
+  double get usLegalCups => precision.withPrecision(_converter.toUsLegalCups());
+
+  /// Interprets the specified Volume in kiloliters.
+  static double asKiloliters(final Volume volume) => volume.kiloliters;
+
+  /// Interprets the specified Volume in hectoliters.
+  static double asHectoliters(final Volume volume) => volume.hectoliters;
+
+  /// Interprets the specified Volume in dekaliters.
+  static double asDekaliters(final Volume volume) => volume.dekaliters;
+
+  /// Interprets the specified Volume in liters.
+  static double asLiters(final Volume volume) => volume.liters;
+
+  /// Interprets the specified Volume in deciliters.
+  static double asDeciliters(final Volume volume) => volume.deciliters;
+
+  /// Interprets the specified Volume in centiliters.
+  static double asCentiliters(final Volume volume) => volume.centiliters;
+
+  /// Interprets the specified Volume in milliliters.
+  static double asMilliliters(final Volume volume) => volume.milliliters;
+
+  /// Interprets the specified Volume in gallons.
+  static double asGallons(final Volume volume) => volume.gallons;
+
+  /// Interprets the specified Volume in quarts.
+  static double asQuarts(final Volume volume) => volume.quarts;
+
+  /// Interprets the specified Volume in pints.
+  static double asPints(final Volume volume) => volume.pints;
+
+  /// Interprets the specified Volume in cups.
+  static double asCups(final Volume volume) => volume.cups;
+
+  /// Interprets the specified Volume in fluidOunces.
+  static double asFluidOunces(final Volume volume) => volume.fluidOunces;
+
+  /// Interprets the specified Volume in tablespoon.
+  static double asTablespoons(final Volume volume) => volume.tablespoons;
+
+  /// Interprets the specified Volume in teaspoon.
+  static double asTeaspoons(final Volume volume) => volume.teaspoons;
+
+  /// Interprets the specified Volume in US gallons.
+  static double asUsGallons(final Volume volume) => volume.usGallons;
+
+  /// Interprets the specified Volume in US quarts.
+  static double asUsQuarts(final Volume volume) => volume.usQuarts;
+
+  /// Interprets the specified Volume in US pints.
+  static double asUsPints(final Volume volume) => volume.usPints;
+
+  /// Interprets the specified Volume in US cups.
+  static double asUsCups(final Volume volume) => volume.usCups;
+
+  /// Interprets the specified Volume in US fluid ounces.
+  static double asUsFluidOunces(final Volume volume) => volume.usFluidOunces;
+
+  /// Interprets the specified Volume in US tablespoons.
+  static double asUsTablespoons(final Volume volume) => volume.usTablespoons;
+
+  /// Interprets the specified Volume in US teaspoons.
+  static double asUsTeaspoons(final Volume volume) => volume.usTeaspoons;
+
+  /// Interprets the specified Volume in US legal cups.
+  static double asUsLegalCups(final Volume volume) => volume.usLegalCups;
 
   /// Returns whether this Volume represents a negative amount.
-  bool get isNegative => _liters.isNegative;
+  bool get isNegative => _converter.isNegative;
 
   /// Returns whether this Volume represents a finite amount.
-  bool get isFinite => _liters.isFinite;
+  bool get isFinite => _converter.isFinite;
 
   /// Returns whether this Volume represents an infinite amount (positive or
   /// negative).
-  bool get isInfinite => _liters.isInfinite;
+  bool get isInfinite => _converter.isInfinite;
 
   /// Whether this volume is not a number.
-  bool get isNaN => _liters.isNaN;
+  bool get isNaN => _converter.isNaN;
 
   /// Compares this Volume to another Volume, returning true if this Volume is
   /// larger than the other Volume, or false otherwise.
-  bool operator >(final Volume other) => _liters > other._liters;
+  bool operator >(final Volume other) => liters > other.liters;
 
   /// Compares this Volume to another Volume, returning true if this Volume is
   /// larger than or equal to the other Volume, or false otherwise.
-  bool operator >=(final Volume other) => _liters >= other._liters;
+  bool operator >=(final Volume other) => liters >= other.liters;
 
   /// Compares this Volume to another Volume, returning true if this Volume is
   /// smaller than the other Volume, or false otherwise.
-  bool operator <(final Volume other) => _liters < other._liters;
+  bool operator <(final Volume other) => liters < other.liters;
 
   /// Compares this Volume to another Volume, returning true if this Volume is
   /// smaller than or equal to the other Volume, or false otherwise.
-  bool operator <=(final Volume other) => _liters <= other._liters;
+  bool operator <=(final Volume other) => liters <= other.liters;
 
   @override
   bool operator ==(final dynamic other) =>
-      other is Volume && other._liters == _liters;
+      other is Volume && other.liters == liters && other.precision == precision;
 
   @override
-  int get hashCode => _liters.hashCode;
+  int get hashCode => liters.hashCode * precision.hashCode;
 
   /// Creates a Volume that is the opposite of this Volume.
   ///
   /// In brief, it will have the opposite sign as this Volume.
-  Volume operator -() => Volume.liters(-_liters);
+  Volume operator -() => Volume.liters(-liters, precision: precision);
 
   /// Add two Volumes together to produce a third Volume. The resulting
   /// Volume is equivalent to the sum of the two input Volumes. Negative
@@ -298,8 +399,10 @@ class Volume implements Comparable<Volume> {
   /// Volume.liters(2) + Volume.zero() == Volume.liters(2)
   /// Volume.liters(2) + Volume.liters(3) == Volume.liters(5)
   /// Volume.liters(2) + Volume.liters(-3) == Volume.liters(-1)
-  Volume operator +(final Volume other) =>
-      Volume.liters(_liters + other._liters);
+  Volume operator +(final Volume other) => Volume.liters(
+        liters + other.liters,
+        precision: Precision.add(precision, other.precision),
+      );
 
   /// Subtract two Volumes to produce a third Volume. The resulting
   /// Volume is equivalent to the difference between the two input Volumes.
@@ -310,8 +413,10 @@ class Volume implements Comparable<Volume> {
   /// Volume.liters(5) - Volume.liters(3) == Volume.liters(2)
   /// Volume.liters(3) - Volume.liters(5) == Volume.liters(-2)
   /// Volume.liters(3) - Volume.liters(-5) == Volume.liters(8)
-  Volume operator -(final Volume other) =>
-      Volume.liters(_liters - other._liters);
+  Volume operator -(final Volume other) => Volume.liters(
+        liters - other.liters,
+        precision: Precision.add(precision, other.precision),
+      );
 
   /// Multiply a Volume by a scalar to produce a new Volume that is a
   /// multiple of the original Volume. As you might expect, multiplying by a
@@ -321,8 +426,10 @@ class Volume implements Comparable<Volume> {
   /// Volume.liters(3) * 0 == Volume.zero()
   /// Volume.liters(3) * 2 == Volume.liters(6)
   /// Volume.liters(3) * -2 == Volume.liters(-6)
-  Volume operator *(final num multiplier) =>
-      Volume.liters(_liters * multiplier);
+  Volume operator *(final num multiplier) => Volume.liters(
+        liters * multiplier,
+        precision: precision,
+      );
 
   /// Divide a Volume by a scalar to produce a new Volume that is a fraction
   /// of the original Volume. As you might expect, dividing by a negative
@@ -332,41 +439,19 @@ class Volume implements Comparable<Volume> {
   /// Volume.liters(6) / 2 == Volume.liters(3)
   /// Volume.liters(6) / -2 == Volume.liters(-3)
   /// Volume.liters(6) / 0 == Volume.infinity()
-  Volume operator /(final num divisor) => Volume.liters(_liters / divisor);
+  Volume operator /(final num divisor) => Volume.liters(
+        liters / divisor,
+        precision: precision,
+      );
 
   @override
-  int compareTo(final Volume other) => _liters.compareTo(other._liters);
+  int compareTo(final Volume other) => liters.compareTo(other.liters);
 
   @override
-  String toString() => '${_liters.toString()} L';
+  String toString() => '${liters.toString()} L';
 
-  static final double _milliliterConversion = 1e3;
-  static final double _centiliterConversion = 1e2;
-  static final double _deciliterConversion = 1e1;
-  static final double _dekaliterConversion = 1e-1;
-  static final double _hectoliterConversion = 1e-2;
-  static final double _kiloliterConversion = 1e-3;
-  static final double _cubicMeterConversion = 1e-3;
+  final VolumeConverter _converter;
 
-  static final double _teaspoonConversion = 168.936;
-  static final double _tablespoonConversion = 56.3121;
-  static final double _fluidOunceConversion = 35.1951;
-  static final double _cupConversion = 3.51951;
-  static final double _pintConversion = 1.75975;
-  static final double _quartConversion = 0.879877;
-  static final double _gallonConversion = 0.219969;
-
-  static final double _cubicFeetConversion = 0.0353147;
-  static final double _cubicInchConversion = 61.0237;
-
-  static final double _usTeaspoonConversion = 202.884;
-  static final double _usTablespoonConversion = 67.628;
-  static final double _usFluidOunceConversion = 33.814;
-  static final double _usCupConversion = 4.22676;
-  static final double _usPintConversion = 2.11338;
-  static final double _usQuartConversion = 1.05669;
-  static final double _usGallonConversion = 0.264172;
-  static final double _usLegalCupConversion = 4.16667;
-
-  final double _liters;
+  /// The precision used in all conversions.
+  final Precision precision;
 }
