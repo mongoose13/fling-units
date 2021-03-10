@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 void main() {
   group(
     'Constructors',
-        () {
+    () {
       test('zero', () {
         final result = Volume.zero();
 
@@ -553,7 +553,7 @@ void main() {
 
   group(
     'Equality',
-        () {
+    () {
       test('Same units', () {
         expect(Volume.deciliters(123.4), Volume.deciliters(123.4));
         expect(Volume.deciliters(123.4).hashCode,
@@ -688,7 +688,7 @@ void main() {
 
   group(
     'Addition',
-        () {
+    () {
       test('Same units', () {
         expect(Volume.deciliters(123.4) + Volume.deciliters(123.4),
             Volume.deciliters(123.4 + 123.4));
@@ -711,7 +711,7 @@ void main() {
 
   group(
     'Subtraction',
-        () {
+    () {
       test('Same units', () {
         expect(Volume.deciliters(123.4) - Volume.deciliters(234.5),
             Volume.deciliters(123.4 - 234.5));
@@ -739,7 +739,7 @@ void main() {
 
   group(
     'Multiplication',
-        () {
+    () {
       test('Identity', () {
         expect(Volume.deciliters(123.4) * 1.0, Volume.deciliters(123.4));
       });
@@ -768,7 +768,7 @@ void main() {
 
   group(
     'Division',
-        () {
+    () {
       test('Identity', () {
         expect(Volume.deciliters(123.4) / 1.0, Volume.deciliters(123.4));
       });

@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 void main() {
   group(
     'Temperature Constructors',
-        () {
+    () {
       test('zero', () {
         final result = Temperature.absoluteZero();
 
@@ -62,7 +62,7 @@ void main() {
 
   group(
     'Temperature Equality',
-        () {
+    () {
       test('Same units', () {
         expect(Temperature.kelvin(123.4), Temperature.kelvin(123.4));
         expect(Temperature.kelvin(123.4).hashCode,
@@ -160,7 +160,7 @@ void main() {
 
   group(
     'Temperature Addition',
-        () {
+    () {
       test('Same units', () {
         expect(Temperature.kelvin(123) + TemperatureChange.kelvin(32),
             Temperature.kelvin(155));
@@ -177,8 +177,8 @@ void main() {
         expect(() => Temperature.kelvin(123) + TemperatureChange.kelvin(-124),
             throwsArgumentError);
         expect(
-                () =>
-            Temperature.kelvin(123) + TemperatureChange.negativeInfinity(),
+            () =>
+                Temperature.kelvin(123) + TemperatureChange.negativeInfinity(),
             throwsArgumentError);
       });
       test('Infinity', () {
@@ -200,7 +200,7 @@ void main() {
 
   group(
     'Temperature Subtraction',
-        () {
+    () {
       test('Same units', () {
         expect(Temperature.kelvin(123) - TemperatureChange.kelvin(32),
             Temperature.kelvin(91));
