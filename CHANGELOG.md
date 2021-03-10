@@ -1,15 +1,30 @@
 # Change Log for fling_units
-Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
+
+Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the
+rest of your code.
+
+## [v0.4.0](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.4.0) - 2021-03-10
+
+### Feature
+
+* Derived
+  measurements [2716a3a](https://bitbucket.org/gelbermungo/fling-units/commits/2716a3a89682a6ae44111e95da2e75f101c29743)
+* Precision on
+  measurements [9f07029](https://bitbucket.org/gelbermungo/fling-units/commits/9f07029b5d87f95043495ea88cefc0a88c8f2a5c)
 
 ## [v0.3.2](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.3.2) - 2021-03-07
 
 ### Bugs
-* Export Temperature class from the main library [6b4c2e4](https://bitbucket.org/gelbermungo/fling-units/commits/6b4c2e4abdbef01e9b0771fd9d687a60fd86154d)
+
+* Export Temperature class from the main
+  library [6b4c2e4](https://bitbucket.org/gelbermungo/fling-units/commits/6b4c2e4abdbef01e9b0771fd9d687a60fd86154d)
 
 ## [v0.3.1](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.3.1) - 2021-03-06
 
 ### Feature
-* Negation for Volume, Distance, and TemperatureChange [1e1dffa](https://bitbucket.org/gelbermungo/fling-units/commit/1e1dffac9edc5579aa0e0b620d97c5d262c1724a)
+
+* Negation for Volume, Distance, and
+  TemperatureChange [1e1dffa](https://bitbucket.org/gelbermungo/fling-units/commit/1e1dffac9edc5579aa0e0b620d97c5d262c1724a)
 * Piecemeal constructors for Volume and Distance measurements [34c3922](https://bitbucket.org/gelbermungo/fling-units/commit/34c39224f0a95a7b4292e6b6f95345ea933b616a)
 
 ### Docs
