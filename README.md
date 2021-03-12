@@ -1,4 +1,5 @@
-A type safe Dart library for unit conversion.
+A type safe Dart library for unit conversion. Pass around fully abstracted measurements safely and easily to keep your
+code simple!
 
 ## Usage
 Create an instance of the dimension type you want to measure:
@@ -7,7 +8,7 @@ FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.kilometers(246);
 FlingUnits.Distance distanceToTheMoon = FlingUnits.Distance(miles: 238900, feet: 42, inches: 6.3);
 ```
 
-Convert to any other type within that dimension:
+Convert to any other measurement type within that dimension:
 ```dart
 double distanceToSeattleInMiles = distanceToSeattle.miles;
 double distanceToSeattleInInches = distanceToSeattle.inches;
@@ -35,13 +36,11 @@ FlingUnits.Distance computeTotalDistanceWithWiggleRoom(final FlingUnits.Distance
 ```
 
 Ensure type safety:
-
 ```dart
 var nonsense = distanceToSeattle + temperatureInNewYork;  // won't compile!
 ```
 
 Use precision to make sure you express yourself correctly:
-
 ```dart
 var myHeight = Distance.meters(1.5, precision: Precision(2));
 var myHeightInInches = myHeight.inches;  // 59.0
@@ -53,6 +52,7 @@ var myHeightInInches = myHeight.inches;  // 59.0
 
 With few exceptions (due to the nature of those measurements), all measurements support:
 
+- customizable precision for each measurement
 - implement `Comparable` for built-in ordering among similar measurements
 - compare two similar measurements (`>`, `<`, `==`, `!=`, `>=`, `<=`)
 - add or subtract two similar measurements (`+`, `-`)
