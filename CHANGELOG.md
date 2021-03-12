@@ -3,6 +3,15 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the
 rest of your code.
 
+## [v0.4.1](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.4.1) - 2021-03-11
+
+### Docs
+
+* Follow the Effective Dart guide to
+  documentation [ca0674d](https://bitbucket.org/gelbermungo/fling-units/commits/ca0674d38c97b1caf6e8a91cbd09ed38ccdf593f)
+* Update README with precision example and
+  features [e8d3dee](https://bitbucket.org/gelbermungo/fling-units/commits/e8d3dee48fe577e0c7d43580b623fd56c13d564b)
+
 ## [v0.4.0](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v0.4.0) - 2021-03-10
 
 ### Feature
