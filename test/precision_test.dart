@@ -1,4 +1,4 @@
-import 'package:fling_units/src/precision.dart';
+import 'package:fling_units/fling_units.dart';
 import 'package:test/test.dart';
 
 void main() {

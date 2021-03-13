@@ -1,4 +1,4 @@
-import 'dart:math';
+part of fling_units;
 
 /// Represents the amount of precision for a measurement.
 ///
@@ -47,7 +47,7 @@ class Precision {
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
   Precision.combine(final Precision a, final Precision b)
-      : this(min(a.precision, b.precision));
+      : this(math.min(a.precision, b.precision));
 
   /// Combines two [Precision]s per the "addition rule".
   ///

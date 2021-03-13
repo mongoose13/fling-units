@@ -1,49 +1,53 @@
-import 'precision.dart';
+part of fling_units;
 
-/// A generic two-dimensional measurement that can be tailored to the desired
-/// units.
+/// A measurement representing two simpler measurements tied together by either
+/// multiplication or division.
 ///
-/// A "derived measurement" is one which represents two simpler measurements,
-/// tied together by some operation. The most common operations are division and
-/// multiplication. For example, velocity can be modeled as Distance / Time and
-/// Area can be modeled as Distance * Distance.
-class DerivedMeasurement<A, B> {
-  /// Constructs a derived measurement from a pair of simpler measurements and a
-  /// function to bind them.
-  DerivedMeasurement(
-      final A a, final B b, final double Function(double a, double b) function,
-      {final this.precision = Precision.max})
-      : _a = a,
-        _b = b,
-        _function = function;
+/// For example, velocity can be modeled as [Distance] / [Time] and [Area] can
+/// be modeled as [Distance] * [Distance].
+class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
+    extends Measurement<DerivedMeasurement<A, B>> {
+  /// The derived measurement of zero magnitude.
+  const DerivedMeasurement.zero()
+      : _reciprocal = false,
+        super.zero();
+
+  /// The derived measurement of infinite magnitude.
+  const DerivedMeasurement.infinite()
+      : _reciprocal = false,
+        super.infinite();
+
+  /// The derived measurement of negative infinite magnitude.
+  const DerivedMeasurement.negativeInfinite()
+      : _reciprocal = false,
+        super.negativeInfinite();
 
   /// Constructs a derived measurement representing the multiplication of a pair
   /// of simpler measurements.
-  DerivedMeasurement.multiply(final A a, final B b,
-      {final precision = Precision.max})
-      : this(a, b, (double a, double b) => a * b, precision: precision);
+  DerivedMeasurement.multiply(final A a, final B b)
+      : this._(a.si * b.si, Precision.combine(a._precision, b._precision));
 
   /// Constructs a derived measurement representing the division of a pair of
   /// simpler measurements.
-  DerivedMeasurement.divide(final A a, final B b,
-      {final precision = Precision.max})
-      : this(a, b, (double a, double b) => a / b, precision: precision);
+  DerivedMeasurement.divide(final A a, final B b)
+      : this._(
+            a.si / b.si, Precision.combine(a._precision, b._precision), true);
 
-  /// Interprets the derived measurement by binding specific units to each
-  /// dimension.
-  ///
-  /// ```dart
-  /// var fuelEfficiency = DerivedMeasurement<Distance, Volume>(distanceTraveled, gasUsed);
-  /// var milesPerGallon = fuelEfficiency.as(Distance.asMiles, Volume.asGallons);
-  /// ```
-  double as(
-          final double Function(A a) alpha, final double Function(B b) beta) =>
-      precision.withPrecision(_function(alpha(_a), beta(_b)));
+  /// Interprets this using specific units.
+  double as(final MeasurementInterpreter<A> a,
+          final MeasurementInterpreter<B> b) =>
+      _precise(a._of(si) * (_reciprocal ? b._from(1) : b._of(1)));
 
-  /// The precision used for all measurements.
-  final Precision precision;
+  @override
+  DerivedMeasurement<A, B> _construct(
+          final double si, final Precision precision) =>
+      DerivedMeasurement._(si, precision);
 
-  final A _a;
-  final B _b;
-  final double Function(double a, double b) _function;
+  /// Constructs a derived measurement.
+  DerivedMeasurement._(final double si, final Precision precision,
+      [this._reciprocal = false])
+      : super(si, precision);
+
+  /// Whether this has a reciprocal unit.
+  final bool _reciprocal;
 }
