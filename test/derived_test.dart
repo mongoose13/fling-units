@@ -5,122 +5,134 @@ void main() {
   group('multiply', () {
     test('same units', () {
       // given
-      final unit = DerivedMeasurement.multiply(
-        Distance.meters(2),
-        Distance.meters(3),
-        precision: Precision(3),
+      final unit = DerivedMeasurement<Distance, Distance>.multiply(
+        Distance.ofMeters(2, precision: Precision(3)),
+        Distance.ofMeters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.asMeters, Distance.asMeters);
+      final result = unit.as(Distance.meters, Distance.meters);
 
       // then
       expect(result, 6.0);
     });
     test('disparate units', () {
       // given
-      final unit = DerivedMeasurement.multiply(
-        Distance.meters(2),
-        Distance.meters(3),
-        precision: Precision(3),
+      final unit = DerivedMeasurement<Distance, Distance>.multiply(
+        Distance.ofMeters(2, precision: Precision(3)),
+        Distance.ofMeters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.asCentimeters, Distance.asMeters);
+      final result = unit.as(Distance.meters, Distance.decimeters);
 
       // then
-      expect(result, 600.0);
+      expect(result, 60.0);
     });
     test('disparate units transposed', () {
       // given
-      final unit = DerivedMeasurement.multiply(
-        Distance.meters(2),
-        Distance.meters(3),
-        precision: Precision(3),
+      final unit = DerivedMeasurement<Distance, Distance>.multiply(
+        Distance.ofMeters(2, precision: Precision(3)),
+        Distance.ofMeters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.asMeters, Distance.asCentimeters);
+      final result = unit.as(Distance.decimeters, Distance.meters);
 
       // then
-      expect(result, 600.0);
+      expect(result, 60.0);
     });
-    test('different units', () {
+    test('precision maintained', () {
       // given
-      final unit = DerivedMeasurement.multiply(
-        Distance.meters(2),
-        Distance.meters(3),
-        precision: Precision(3),
+      final unit = DerivedMeasurement<Distance, Distance>.multiply(
+        Distance.ofMeters(2, precision: Precision(6)),
+        Distance.ofMeters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.asCentimeters, Distance.asCentimeters);
+      final result = unit.precision;
 
       // then
-      expect(result, 60000.0);
+      expect(result, 3);
     });
   });
 
   group('divide', () {
     test('same units', () {
       // given
-      final unit = DerivedMeasurement.divide(
-        Distance.meters(6),
-        Volume.liters(3),
-        precision: Precision(3),
+      final unit = DerivedMeasurement<Distance, Distance>.divide(
+        Distance.ofMeters(6, precision: Precision(3)),
+        Distance.ofMeters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.asMeters, Volume.asLiters);
+      final result = unit.as(Distance.meters, Distance.meters);
 
       // then
       expect(result, 2.0);
     });
     test('disparate units', () {
       // given
-      final unit = DerivedMeasurement.divide(
-        Distance.meters(6000),
-        Volume.liters(3),
-        precision: Precision(3),
+      final unit = DerivedMeasurement<Distance, Distance>.divide(
+        Distance.ofMeters(6, precision: Precision(3)),
+        Distance.ofMeters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.asKilometers, Volume.asLiters);
-
-      // then
-      expect(result, 2.0);
-    });
-    test('disparate units transposed', () {
-      // given
-      final unit = DerivedMeasurement.divide(
-        Distance.meters(6),
-        Volume.liters(3),
-        precision: Precision(3),
-      );
-
-      // when
-      final result = unit.as(Distance.asMeters, Volume.asDeciliters);
+      final result = unit.as(Distance.meters, Distance.decimeters);
 
       // then
       expect(result, 0.2);
     });
-  });
-
-  group('arbitrary function', () {
-    test('', () {
+    test('disparate units transposed', () {
       // given
-      final unit = DerivedMeasurement(
-        Distance.meters(3),
-        Distance.meters(5),
-        (a, b) => a + b,
-        precision: Precision(3),
+      final unit = DerivedMeasurement<Distance, Distance>.divide(
+        Distance.ofMeters(6, precision: Precision(3)),
+        Distance.ofMeters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.asMeters, Distance.asMeters);
+      final result = unit.as(Distance.decimeters, Distance.meters);
 
       // then
-      expect(result, 8.0);
+      expect(result, 20.0);
+    });
+    test('precision maintained', () {
+      // given
+      final unit = DerivedMeasurement<Distance, Distance>.divide(
+        Distance.ofMeters(6, precision: Precision(6)),
+        Distance.ofMeters(3, precision: Precision(3)),
+      );
+
+      // when
+      final result = unit.precision;
+
+      // then
+      expect(result, 3);
+    });
+    test('disparate measurements', () {
+      // given
+      final unit = DerivedMeasurement<Distance, Volume>.divide(
+          Distance.ofMiles(100, precision: Precision(3)),
+          Volume.ofGallons(5, precision: Precision(3)));
+
+      // when
+      final result = unit.as(Distance.miles, Volume.gallons);
+
+      // then
+      expect(result, 20.0);
+    });
+    test('disparate measurements converted', () {
+      // given
+      final unit = DerivedMeasurement<Distance, Volume>.divide(
+          Distance.ofMiles(100, precision: Precision(3)),
+          Volume.ofGallons(5, precision: Precision(3)));
+
+      // when
+      final result = unit.as(Distance.kilometers, Volume.liters);
+
+      // then
+      expect(result, 7.08);
     });
   });
 }

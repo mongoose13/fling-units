@@ -1,5 +1,11 @@
-import 'converter/temperature.dart';
-import 'precision.dart';
+part of fling_units;
+
+/// The [MeasurementInterpreter] for [TemperatureChange]s.
+class TemperatureChangeInterpreter
+    extends MeasurementInterpreter<TemperatureChange> {
+  /// Constructs a [TemperatureChangeInterpreter].
+  TemperatureChangeInterpreter._(final double kelvin) : super._(kelvin);
+}
 
 /// Represents a change in temperature.
 ///
@@ -22,171 +28,67 @@ import 'precision.dart';
 /// [TemperatureChange] whose value indicates the amount of difference between
 /// the two [Temperature]s. It would not make sense to say that the difference
 /// in temperature is the "thermometer" temperature of 10 degrees.
-class TemperatureChange implements Comparable<TemperatureChange> {
+class TemperatureChange extends Measurement<TemperatureChange> {
+  /// The [TemperatureChangeInterpreter] for Kelvin.
+  static final TemperatureChangeInterpreter kelvin =
+      TemperatureChangeInterpreter._(1.0);
+
+  /// The [TemperatureChangeInterpreter] for degrees Celcius.
+  static final TemperatureChangeInterpreter celcius =
+      TemperatureChangeInterpreter._(1.0);
+
+  /// The [TemperatureChangeInterpreter] for degrees Fahrenheit.
+  static final TemperatureChangeInterpreter fahrenheit =
+      TemperatureChangeInterpreter._(9.0 / 5.0);
+
   /// No change in temperature.
-  const TemperatureChange.zero()
-      : _converter = TemperatureConverter.zero,
-        precision = Precision.max;
+  const TemperatureChange.zero() : super.zero();
 
   /// Infinite temperature change.
-  const TemperatureChange.infinity()
-      : _converter = TemperatureConverter.infinity,
-        precision = Precision.max;
+  const TemperatureChange.infinite() : super.infinite();
 
   /// Negative infinite temperature change.
-  const TemperatureChange.negativeInfinity()
-      : _converter = TemperatureConverter.negativeInfinity,
-        precision = Precision.max;
+  const TemperatureChange.negativeInfinite() : super.negativeInfinite();
 
   /// Constructs a [TemperatureChange] from a Kelvin amount.
-  TemperatureChange.kelvin(final num kelvin,
-      {final this.precision = Precision.max})
-      : _converter = TemperatureConverter.kelvinChange(kelvin.toDouble());
+  TemperatureChange.ofKelvin(final num kelvin,
+      {final Precision precision = Precision.max})
+      : this._(TemperatureChange.kelvin._from(kelvin), precision);
 
   /// Constructs a [TemperatureChange] from a degree Celcius amount.
-  TemperatureChange.celcius(final num celcius,
-      {final this.precision = Precision.max})
-      : _converter = TemperatureConverter.celciusChange(celcius.toDouble());
+  TemperatureChange.ofCelcius(final num celcius,
+      {final Precision precision = Precision.max})
+      : this._(TemperatureChange.celcius._from(celcius), precision);
 
   /// Constructs a [TemperatureChange] from a degree Fahrenheit amount.
-  TemperatureChange.fahrenheit(final num fahrenheit,
-      {final this.precision = Precision.max})
-      : _converter =
-            TemperatureConverter.fahrenheitChange(fahrenheit.toDouble());
+  TemperatureChange.ofFahrenheit(final num fahrenheit,
+      {final Precision precision = Precision.max})
+      : this._(TemperatureChange.fahrenheit._from(fahrenheit), precision);
 
   /// Returns a [TemperatureChange] that represents the positive magnitude of
   /// this.
-  TemperatureChange magnitude() => isNegative
-      ? TemperatureChange.kelvin(-kelvin, precision: precision)
-      : this;
+  TemperatureChange magnitude() => TemperatureChange._(si.abs(), _precision);
 
   /// Interprets this in Kelvin.
-  double get kelvin => precision.withPrecision(_converter.toKelvinChange());
+  double get asKelvin => _preciseOf(kelvin);
 
   /// Interprets this in degrees Celcius.
-  double get celcius => precision.withPrecision(_converter.toCelciusChange());
+  double get asCelcius => _preciseOf(celcius);
 
   /// Interprets this in degrees Fahrenheit.
-  double get fahrenheit =>
-      precision.withPrecision(_converter.toFahrenheitChange());
-
-  /// Returns `true` if this represents a decrease in temperature.
-  bool get isNegative => _converter.isNegative;
-
-  /// Returns `true` if this represents a finite change.
-  bool get isFinite => _converter.isFinite;
-
-  /// Returns `true` if this represents an infinite change.
-  bool get isInfinite => _converter.isInfinite;
-
-  /// Returns `true` if this change cannot be expressed as a number.
-  bool get isNaN => _converter.isNaN;
+  double get asFahrenheit => _preciseOf(fahrenheit);
 
   @override
-  bool operator ==(final dynamic other) =>
-      other is TemperatureChange &&
-      other.kelvin == kelvin &&
-      other.precision == precision;
+  String toString() => '$asKelvin K';
+
+  /// Constructs a [TemperatureChange].
+  TemperatureChange._(final double kelvin, final Precision precision)
+      : super(kelvin, precision);
 
   @override
-  int get hashCode => kelvin.hashCode * precision.hashCode;
-
-  /// Returns `true` if this represents a greater change than another.
-  ///
-  /// Note that a negative change is considered smaller than a positive change,
-  /// so if you are interested in magnitude only, use
-  /// [TemperatureChange.magnitude] first.
-  bool operator >(final TemperatureChange other) => kelvin > other.kelvin;
-
-  /// Returns `true` if this represents an equal or greater change than another.
-  ///
-  /// Note that a negative change is considered smaller than a positive change,
-  /// so if you are interested in magnitude only, use
-  /// [TemperatureChange.magnitude] first.
-  bool operator >=(final TemperatureChange other) => kelvin >= other.kelvin;
-
-  /// Returns `true` if this represents a smaller change than another.
-  ///
-  /// Note that a negative change is considered smaller than a positive change,
-  /// so if you are interested in magnitude only, use
-  /// [TemperatureChange.magnitude] first.
-  bool operator <(final TemperatureChange other) => kelvin < other.kelvin;
-
-  /// Returns `true` if this represents an equal or smaller change than another.
-  ///
-  /// Note that a negative change is considered smaller than a positive change,
-  /// so if you are interested in magnitude only, use
-  /// [TemperatureChange.magnitude] first.
-  bool operator <=(final TemperatureChange other) => kelvin <= other.kelvin;
-
-  @override
-  int compareTo(final TemperatureChange other) {
-    return kelvin.compareTo(other.kelvin);
-  }
-
-  /// Returns the opposite of this.
-  TemperatureChange operator -() =>
-      TemperatureChange.kelvin(-kelvin, precision: precision);
-
-  /// Creates a [TemperatureChange] that is the sum of two others.
-  ///
-  /// ```dart
-  /// TemperatureChange.kelvin(3) + TemperatureChange.zero() == TemperatureChange.kelvin(3)
-  /// TemperatureChange.kelvin(3) + TemperatureChange.kelvin(2) == TemperatureChange.kelvin(5)
-  /// TemperatureChange.kelvin(3) + TemperatureChange.kelvin(-2) == TemperatureChange.kelvin(1)
-  /// TemperatureChange.kelvin(-3) + TemperatureChange.kelvin(2) == TemperatureChange.kelvin(-1)
-  /// ```
-  TemperatureChange operator +(final TemperatureChange other) {
-    return TemperatureChange.kelvin(kelvin + other.kelvin,
-        precision: Precision.add(precision, other.precision));
-  }
-
-  /// Creates a [TemperatureChange] that is the difference of two others.
-  ///
-  /// ```dart
-  /// TemperatureChange.kelvin(3) - TemperatureChange.zero() == TemperatureChange.kelvin(3)
-  /// TemperatureChange.kelvin(3) - TemperatureChange.kelvin(2) == TemperatureChange.kelvin(1)
-  /// TemperatureChange.kelvin(3) - TemperatureChange.kelvin(-2) == TemperatureChange.kelvin(5)
-  /// TemperatureChange.kelvin(-3) - TemperatureChange.kelvin(2) == TemperatureChange.kelvin(-5)
-  /// ```
-  TemperatureChange operator -(final TemperatureChange other) {
-    return TemperatureChange.kelvin(kelvin - other.kelvin,
-        precision: Precision.add(precision, other.precision));
-  }
-
-  /// Creates a [TemperatureChange] that is a multiple of this.
-  ///
-  /// ```dart
-  /// TemperatureChange.kelvin(3) * 0 == TemperatureChange.zero()
-  /// TemperatureChange.kelvin(3) * 1 == TemperatureChange.kelvin(3)
-  /// TemperatureChange.kelvin(3) * 2 == TemperatureChange.kelvin(6)
-  /// TemperatureChange.kelvin(3) * -2 == TemperatureChange.kelvin(-6)
-  /// ```
-  TemperatureChange operator *(final num multiplier) {
-    return TemperatureChange.kelvin(kelvin * multiplier.toDouble(),
-        precision: precision);
-  }
-
-  /// Creates a [TemperatureChange] that is a fraction of this.
-  ///
-  /// ```dart
-  /// TemperatureChange.kelvin(6) / 0 == TemperatureChange.infinity()
-  /// TemperatureChange.kelvin(6) / 1 == TemperatureChange.kelvin(6)
-  /// TemperatureChange.kelvin(6) / 2 == TemperatureChange.kelvin(3)
-  /// TemperatureChange.kelvin(6) / -2 == TemperatureChange.kelvin(-3)
-  /// ```
-  TemperatureChange operator /(final num divisor) {
-    return TemperatureChange.kelvin(kelvin / divisor.toDouble(),
-        precision: precision);
-  }
-
-  @override
-  String toString() => '$kelvin K';
-
-  final TemperatureConverter _converter;
-
-  /// The precision used in all conversions.
-  final Precision precision;
+  TemperatureChange _construct(
+          final double kelvin, final Precision precision) =>
+      TemperatureChange._(kelvin, precision);
 }
 
 /// Represents a "thermometer" temperature.
@@ -210,69 +112,79 @@ class TemperatureChange implements Comparable<TemperatureChange> {
 class Temperature implements Comparable<Temperature> {
   /// Absolute zero.
   const Temperature.absoluteZero()
-      : _converter = TemperatureConverter.zero,
-        precision = Precision.max;
+      : _kelvin = 0.0,
+        _precision = Precision.max;
 
   /// Infinite temperature.
-  const Temperature.infinity()
-      : _converter = TemperatureConverter.infinity,
-        precision = Precision.max;
+  const Temperature.infinite()
+      : _kelvin = double.infinity,
+        _precision = Precision.max;
 
   /// Constructs a [Temperature] from a Kelvin amount.
-  Temperature.kelvin(final num kelvin, {final this.precision = Precision.max})
-      : _converter = TemperatureConverter.kelvin(kelvin.toDouble()) {
+  Temperature.ofKelvin(final num kelvin,
+      {final Precision precision = Precision.max})
+      : _kelvin = kelvin.toDouble(),
+        _precision = precision {
     if (kelvin.isNegative) {
       throw ArgumentError('Temperatures cannot go below 0 Kelvin: $kelvin');
     }
   }
 
   /// Constructs a [Temperature] from a degree Celcius amount.
-  Temperature.celcius(final num celcius, {final this.precision = Precision.max})
-      : _converter = TemperatureConverter.celcius(celcius.toDouble());
+  Temperature.ofCelcius(final num celcius,
+      {final Precision precision = Precision.max})
+      : this.ofKelvin(TemperatureChange.celcius._from(celcius) - _celciusOffset,
+            precision: precision);
 
   /// Constructs a [Temperature] from a degree Fahrenheit amount.
-  Temperature.fahrenheit(final num fahrenheit,
-      {final this.precision = Precision.max})
-      : _converter = TemperatureConverter.fahrenheit(fahrenheit.toDouble());
+  Temperature.ofFahrenheit(final num fahrenheit,
+      {final Precision precision = Precision.max})
+      : this.ofKelvin(
+            TemperatureChange.fahrenheit._from(fahrenheit - _fahrenheitOffset) -
+                _celciusOffset,
+            precision: precision);
 
   /// Interprets this as Kelvin.
-  double get kelvin => precision.withPrecision(_converter.toKelvin());
+  double get asKelvin => _precision.withPrecision(_kelvin);
 
   /// Interprets this as degrees Celcius.
-  double get celcius => precision.withPrecision(_converter.toCelcius());
+  double get asCelcius => _precision
+      .withPrecision(TemperatureChange.celcius._of(_kelvin) + _celciusOffset);
 
   /// Interprets this as degrees Fahrenheit.
-  double get fahrenheit => precision.withPrecision(_converter.toFahrenheit());
+  double get asFahrenheit => _precision.withPrecision(
+      TemperatureChange.fahrenheit._of(_kelvin + _celciusOffset) +
+          _fahrenheitOffset);
 
   /// Returns `true` if this is finite.
-  bool get isFinite => _converter.isFinite;
+  bool get isFinite => _kelvin.isFinite;
 
   /// Returns `true` if this is infinite.
-  bool get isInfinite => _converter.isInfinite;
+  bool get isInfinite => _kelvin.isInfinite;
 
   @override
   bool operator ==(final dynamic other) =>
       other is Temperature &&
-      other.kelvin == kelvin &&
-      other.precision == precision;
+      other._kelvin == _kelvin &&
+      other._precision == _precision;
 
   @override
-  int get hashCode => kelvin.hashCode * precision.hashCode;
+  int get hashCode => _kelvin.hashCode * _precision.hashCode;
 
   /// Returns `true` if this is larger than the other [Temperature].
-  bool operator >(final Temperature other) => kelvin > other.kelvin;
+  bool operator >(final Temperature other) => asKelvin > other.asKelvin;
 
   /// Returns `true` if this is larger than or equal to the other [Temperature].
-  bool operator >=(final Temperature other) => kelvin >= other.kelvin;
+  bool operator >=(final Temperature other) => asKelvin >= other.asKelvin;
 
   /// Returns `true` if this is smaller than the other [Temperature].
-  bool operator <(final Temperature other) => kelvin < other.kelvin;
+  bool operator <(final Temperature other) => asKelvin < other.asKelvin;
 
   /// Returns `true` if this is smaller than or equal to the other [Temperature].
-  bool operator <=(final Temperature other) => kelvin <= other.kelvin;
+  bool operator <=(final Temperature other) => asKelvin <= other.asKelvin;
 
   @override
-  int compareTo(final Temperature other) => kelvin.compareTo(other.kelvin);
+  int compareTo(final Temperature other) => asKelvin.compareTo(other.asKelvin);
 
   /// Creates a [Temperature] representing the application of a [Temperature]
   /// and a [TemperatureChange].
@@ -283,8 +195,8 @@ class Temperature implements Comparable<Temperature> {
   /// Temperature.kelvin(2) + TemperatureChange.kelvin(-1) == Temperature.kelvin(1)
   /// ```
   Temperature operator +(final TemperatureChange change) =>
-      Temperature.kelvin(kelvin + change.kelvin,
-          precision: Precision.add(precision, change.precision));
+      Temperature.ofKelvin(_kelvin + change.si,
+          precision: Precision.add(_precision, change._precision));
 
   /// Creates a [Temperature] representing the application of a [Temperature]
   /// and the opposite of a [TemperatureChange].
@@ -295,23 +207,29 @@ class Temperature implements Comparable<Temperature> {
   /// Temperature.kelvin(3) - TemperatureChange.kelvin(-5) == Temperature.kelvin(8)
   /// ```
   Temperature operator -(final TemperatureChange change) =>
-      Temperature.kelvin(kelvin - change.kelvin,
-          precision: Precision.add(precision, change.precision));
+      Temperature.ofKelvin(_kelvin - change.si,
+          precision: Precision.add(_precision, change._precision));
 
   /// Returns the difference between this and another [Temperature].
   ///
   /// The resulting [TemperatureChange] will be negative if this is smaller than
   /// the other [Temperature].
   TemperatureChange difference(final Temperature other) =>
-      TemperatureChange.kelvin(kelvin - other.kelvin,
-          precision: Precision.add(precision, other.precision));
+      TemperatureChange.ofKelvin(_kelvin - other._kelvin,
+          precision: Precision.add(_precision, other._precision));
 
   @override
-  String toString() => '$kelvin K';
+  String toString() => '$asKelvin K';
 
-  /// The unit converter being used.
-  final TemperatureConverter _converter;
+  /// The offset required for conversions from Kelvin to Celcius.
+  static final double _celciusOffset = -273.15;
+
+  /// The offset required for conversions from Fahrenheit to Celcius.
+  static final double _fahrenheitOffset = 32.0;
+
+  /// The measurement, in Kelvin.
+  final double _kelvin;
 
   /// The precision used in all conversions.
-  final Precision precision;
+  final Precision _precision;
 }

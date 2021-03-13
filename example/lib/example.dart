@@ -4,7 +4,7 @@ void main() {
   // Create an instance of the measurement you care about.
   // You may use any of several construction methods.
   // Include the precision of your measurement for best results!
-  var bodyTemperature = Temperature.fahrenheit(93.4);
+  var bodyTemperature = Temperature.ofFahrenheit(93.4);
   var distanceToSeattle = Distance.imperial(
     miles: 123,
     yards: 15,
@@ -14,7 +14,7 @@ void main() {
   );
   var distanceToTheMoon =
       Distance.metric(kilometers: 382500, precision: Precision(4));
-  var depthsOfMyMind = Volume.infinity();
+  var depthsOfMyMind = Volume.infinite();
 
   //------------------------------------------------//
 
@@ -33,9 +33,9 @@ void main() {
   }
 
   print('\nIt is cold...');
-  while (bodyTemperature < Temperature.fahrenheit(98.6)) {
+  while (bodyTemperature < Temperature.ofFahrenheit(98.6)) {
     print('I need another blanket...');
-    bodyTemperature += TemperatureChange.fahrenheit(2);
+    bodyTemperature += TemperatureChange.ofFahrenheit(2);
   }
   print('Ahh, much better!');
   // Attempting to compare incompatible types is a compile-time error.
@@ -45,12 +45,12 @@ void main() {
 
   // Inherent ordering of items allows sorting lists with the built-in methods.
   var distances = [
-    Distance.inches(1, precision: Precision(3)),
-    Distance.centimeters(1, precision: Precision(3)),
+    Distance.ofInches(1, precision: Precision(3)),
+    Distance.ofCentimeters(1, precision: Precision(3)),
     Distance.zero(),
-    Distance.miles(1, precision: Precision(3)),
-    Distance.feet(-1, precision: Precision(3)),
-    Distance.negativeInfinity(),
+    Distance.ofMiles(1, precision: Precision(3)),
+    Distance.ofFeet(-1, precision: Precision(3)),
+    Distance.negativeInfinite(),
   ];
   print('\nThese are all out of whack: $distances');
   distances.sort();
@@ -60,39 +60,40 @@ void main() {
 
   // When you're ready, interpret the measurement using whatever unit you like.
   print(
-      '\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.yards} yards because I left my driving glasses at home.');
-  print('I can fit ${depthsOfMyMind.cubicMeters} boxes of bananas in my mind.');
+      '\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.asYards} yards because I left my driving glasses at home.');
+  print(
+      'I can fit ${depthsOfMyMind.asCubicMeters} boxes of bananas in my mind.');
 
   //------------------------------------------------//
 
   // Some of the more common derived units have full syntactic support.
-  var monitorSurfaceArea = Area.squareInches(800, precision: Precision(4));
+  var monitorSurfaceArea = Area.ofSquareInches(800, precision: Precision(4));
   print('\nMy monitor dimensions:');
-  print('${monitorSurfaceArea.squareMeters} m^2');
-  print('${monitorSurfaceArea.squareCentimeters} cm^2');
-  print('${monitorSurfaceArea.squareInches} in^2');
+  print('${monitorSurfaceArea.asSquareMeters} m^2');
+  print('${monitorSurfaceArea.asSquareCentimeters} cm^2');
+  print('${monitorSurfaceArea.asSquareInches} in^2');
 
   // You can also build them from their component parts.
-  var oneSquareInch = Area(
-    Distance.inches(1, precision: Precision(3)),
-    Distance.inches(1, precision: Precision(3)),
+  var oneSquareInch = Area.of(
+    Distance.ofInches(1, precision: Precision(3)),
+    Distance.ofInches(1, precision: Precision(3)),
   );
-  print('\nOne square inch is ${oneSquareInch.squareFeet} square feet.');
+  print('\nOne square inch is ${oneSquareInch.asSquareFeet} square feet.');
 
   //------------------------------------------------//
 
-  // Need a derived unit that isn't specifically implemented? Build it!
-  var fuelEconomy = DerivedMeasurement<Distance, Volume>.divide(
+  // Need a derived unit that isn't specifically implemented? Build it yourself!
+  // You can also use the common derived units to create your masterpiece.
+  var fuelConsumption = DerivedMeasurement<Distance, Volume>.divide(
     distanceToSeattle,
-    Volume.gallons(2),
-    precision: Precision(3),
+    Volume.ofUsGallons(2),
   );
   print('\nDriving to Seattle made me realize how great my fuel economy is!');
-  print('${fuelEconomy.as(Distance.asMiles, Volume.asGallons)} mpg');
+  print('${fuelConsumption.as(Distance.miles, Volume.usGallons)} mpg');
   // Interpret the derived unit in any combination of component units.
-  print('${fuelEconomy.as(Distance.asMiles, Volume.asLiters)} mpl');
-  print('${fuelEconomy.as(Distance.asKilometers, Volume.asLiters)} kpl');
-  print('${fuelEconomy.as(Distance.asKilometers, Volume.asGallons)} kpg');
+  print('${fuelConsumption.as(Distance.miles, Volume.liters)} mpl');
+  print('${fuelConsumption.as(Distance.kilometers, Volume.liters)} kpl');
+  print('${fuelConsumption.as(Distance.kilometers, Volume.usGallons)} kpg');
 
   // Have fun!
 }

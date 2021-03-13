@@ -6,12 +6,17 @@
 /// way required by the consumer. This allows for type safety across the
 /// measurement types as well as simplification of business logic in most cases.
 ///
-/// Consider, for instance, a ride-sharing app that aggregates ride information
-/// across several platforms. It may want to compare the distances for each
-/// potential driver from the client, but each source might provide that
-/// information in a different way. By reading the information from each source
-/// into an instance of [Distance], the rest of our app can treat all sources
-/// the same way.
+/// The library uses the following vocabulary:
+/// - **measurement**: A value associated with a unit and a precision, e.g. "32.5 meters".
+/// - **unit**: A way to interpret a measurement, e.g. "kilometers" and "miles" are valid units for a [Distance] measurement.
+/// - **interpret**: A measurement is an abstract concept until it is interpreted with a specific unit in mind, at which point it can be represented as a number and that unit (e.g. "3.2 miles").
+/// - **precision**: The quality of a measurement, from the standpoint of *significant digits*.
+///
+/// Consider a ride-sharing app that aggregates ride information across several
+/// platforms. It may want to compare the distances for each potential driver
+/// from the client, but each source might provide that information in a
+/// different way. By reading the information from each source into an instance
+/// of [Distance], the rest of our app can treat all sources the same way.
 ///
 /// (The following example uses completely made-up APIs for Uber and Lyft.)
 /// ```dart
@@ -59,14 +64,16 @@
 /// ```
 library fling_units;
 
+import 'dart:math' as math;
+
 // derived units
-export 'src/area.dart';
-
+part 'src/area.dart';
 // framework
-export 'src/derived.dart';
-
+part 'src/derived.dart';
 // primary units
-export 'src/distance.dart';
-export 'src/precision.dart';
-export 'src/temperature.dart';
-export 'src/volume.dart';
+part 'src/distance.dart';
+part 'src/interpreter.dart';
+part 'src/measurement.dart';
+part 'src/precision.dart';
+part 'src/temperature.dart';
+part 'src/volume.dart';
