@@ -5,49 +5,67 @@ void main() {
   group('zero', () {
     test('has 0.0 distance', () {
       // given
-      final result = Distance.zero();
+      final distance = Distance.zero();
+
+      // when
+      final result = distance.asMeters;
 
       // then
-      expect(result.asMeters, 0.0);
+      expect(result, 0.0);
     });
     test('has max precision', () {
       // given
-      final result = Distance.zero();
+      final distance = Distance.zero();
+
+      // when
+      final result = distance.precision;
 
       // then
-      expect(result.precision, Precision.max.precision);
+      expect(result, Precision.max.precision);
     });
   });
   group('infinity', () {
     test('has infinite distance', () {
       // given
-      final result = Distance.infinite();
+      final distance = Distance.infinite();
+
+      // when
+      final result = distance.asMeters;
 
       // then
-      expect(result.asMeters, double.infinity);
+      expect(result, double.infinity);
     });
     test('has max precision', () {
       // given
-      final result = Distance.infinite();
+      final distance = Distance.infinite();
+
+      // when
+      final result = distance.precision;
 
       // then
-      expect(result.precision, Precision.max.precision);
+      expect(result, Precision.max.precision);
     });
   });
   group('negativeInfinity', () {
     test('has infinite negative distance', () {
       // given
-      final result = Distance.negativeInfinite();
+      final distance = Distance.negativeInfinite();
+
+      // when
+      final result = distance.asMeters;
 
       // then
-      expect(result.asMeters, double.negativeInfinity);
+      expect(result, double.negativeInfinity);
     });
     test('has max precision', () {
       // given
-      final result = Distance.negativeInfinite();
+      final distance = Distance.negativeInfinite();
+
+      // when
+      final result = distance.precision;
 
       // then
-      expect(result.precision, Precision.max.precision);
+      expect(result, Precision.max.precision);
     });
   });
 

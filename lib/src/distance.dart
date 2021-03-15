@@ -148,40 +148,40 @@ class Distance extends Measurement<Distance> {
       : super(Distance.nauticalMiles._from(nauticalMiles), precision);
 
   /// Interprets this as a number of millimeters.
-  double get asMillimeters => _precise(Distance.millimeters._of(si));
+  double get asMillimeters => _preciseOf(millimeters);
 
   /// Interprets this as a number of centimeters.
-  double get asCentimeters => _precise(Distance.centimeters._of(si));
+  double get asCentimeters => _preciseOf(centimeters);
 
   /// Interprets this as a number of decimeters.
-  double get asDecimeters => _precise(Distance.decimeters._of(si));
+  double get asDecimeters => _preciseOf(decimeters);
 
   /// Interprets this as a number of meters.
-  double get asMeters => _precise(Distance.meters._of(si));
+  double get asMeters => _preciseOf(meters);
 
   /// Interprets this as a number of dekameters.
-  double get asDekameters => _precise(Distance.dekameters._of(si));
+  double get asDekameters => _preciseOf(dekameters);
 
   /// Interprets this as a number of hectometers.
-  double get asHectometers => _precise(Distance.hectometers._of(si));
+  double get asHectometers => _preciseOf(hectometers);
 
   /// Interprets this as a number of kilometers.
-  double get asKilometers => _precise(Distance.kilometers._of(si));
+  double get asKilometers => _preciseOf(kilometers);
 
   /// Interprets this as a number of miles.
-  double get asMiles => _precise(Distance.miles._of(si));
+  double get asMiles => _preciseOf(miles);
 
   /// Interprets this as a number of yards.
-  double get asYards => _precise(Distance.yards._of(si));
+  double get asYards => _preciseOf(yards);
 
   /// Interprets this as a number of feet.
-  double get asFeet => _precise(Distance.feet._of(si));
+  double get asFeet => _preciseOf(feet);
 
   /// Interprets this as a number of inches.
-  double get asInches => _precise(Distance.inches._of(si));
+  double get asInches => _preciseOf(inches);
 
   /// Interprets this as a number of nautical miles.
-  double get asNauticalMiles => _precise(Distance.nauticalMiles._of(si));
+  double get asNauticalMiles => _preciseOf(Distance.nauticalMiles);
 
   @override
   String toString() => '${asMeters} m';
