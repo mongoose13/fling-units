@@ -4,34 +4,37 @@ code simple!
 ## Usage
 Create an instance of the dimension type you want to measure:
 ```dart
-FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.kilometers(246);
-FlingUnits.Distance distanceToTheMoon = FlingUnits.Distance(miles: 238900, feet: 42, inches: 6.3);
+FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.ofKilometers(246);
+FlingUnits.Distance distanceToTheMoon = FlingUnits.Distance.imperial(miles: 238900, feet: 42, inches: 6.3);
 ```
 
 Convert to any other measurement type within that dimension:
+
 ```dart
-double distanceToSeattleInMiles = distanceToSeattle.miles;
-double distanceToSeattleInInches = distanceToSeattle.inches;
+double distanceToSeattleInMiles = distanceToSeattle.asMiles;
+double distanceToSeattleInInches = distanceToSeattle.asInches;
 ```
 
 Perform basic arithmetic:
+
 ```dart
 FlingUnits.Distance distanceToSeattleAndBack = distanceToSeattle * 2;
 FlingUnits.Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
-FlingUnits.Distance distanceToTheEndsOfTheUniverse = FlingUnits.Distance.infinity();
-bool useTheCar = distanceToTravel >= FlingUnits.Distance.miles(1.5);
+FlingUnits.Distance distanceToTheEndsOfTheUniverse = FlingUnits.Distance.infinite();
+bool useTheCar = distanceToTravel >= FlingUnits.Distance.ofMiles(1.5);
 ```
 
 Built-in ordering:
+
 ```dart
-[Distance.zero(), Distance.infinity(), Distance.meters(3), Distance.feet(3), Distance.meters(-2)].sort();
-// produces [Distance.meters(-2), Distance.zero(), Distance.feet(3), Distance.meters(3), Distance.infinity()]
+[Distance.zero(), Distance.infinite(), Distance.ofMeters(3), Distance.ofFeet(3), Distance.ofMeters(-2)].sort();
+// produces [meters(-2), zero(), feet(3), meters(3), infinite()]
 ```
 
 Abstract away the specific units your code needs by passing around the encapsulated types. It doesn't matter which units each portion of your code requires, they can be combined seamlessly:
 ```dart
 FlingUnits.Distance computeTotalDistanceWithWiggleRoom(final FlingUnits.Distance targetDistance) {
-  return targetDistance + FlingUnits.Distance.meters(3.0);
+  return targetDistance + FlingUnits.Distance.ofMeters(3.0);
 }
 ```
 
@@ -41,9 +44,10 @@ var nonsense = distanceToSeattle + temperatureInNewYork;  // won't compile!
 ```
 
 Use precision to make sure you express yourself correctly:
+
 ```dart
-var myHeight = Distance.meters(1.5, precision: Precision(2));
-var myHeightInInches = myHeight.inches;  // 59.0
+var myHeight = Distance.ofMeters(1.5, precision: Precision(2));
+var myHeightInInches = myHeight.asInches;  // 59.0
 ```
 
 ## Supported Features
@@ -133,6 +137,16 @@ US:
 - legal cup
 
 ### Temperature Units
+
 - kelvin
 - celcius
 - fahrenheit
+
+### Time units
+
+- microseconds
+- milliseconds
+- seconds
+- minutes
+- hours
+- days
