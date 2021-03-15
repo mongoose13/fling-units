@@ -72,7 +72,7 @@ void main() {
   group('metric', () {
     test('kilometers parameter', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         kilometers: 1,
         precision: Precision(5),
       );
@@ -85,7 +85,7 @@ void main() {
     });
     test('hectometers parameter', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         hectometers: 1,
         precision: Precision(5),
       );
@@ -98,7 +98,7 @@ void main() {
     });
     test('dekameters parameter', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         dekameters: 1,
         precision: Precision(5),
       );
@@ -111,7 +111,7 @@ void main() {
     });
     test('meters parameter', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         meters: 1,
         precision: Precision(5),
       );
@@ -124,7 +124,7 @@ void main() {
     });
     test('decimeters parameter', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         decimeters: 1,
         precision: Precision(5),
       );
@@ -137,7 +137,7 @@ void main() {
     });
     test('centimeters parameter', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         centimeters: 1,
         precision: Precision(5),
       );
@@ -150,7 +150,7 @@ void main() {
     });
     test('millimeters parameter', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         millimeters: 1,
         precision: Precision(5),
       );
@@ -163,7 +163,7 @@ void main() {
     });
     test('sums parts', () {
       // given
-      final distance = Distance.metric(
+      final distance = Distance.ofMetric(
         kilometers: 1,
         hectometers: 2,
         dekameters: 3,
@@ -185,7 +185,7 @@ void main() {
   group('imperial', () {
     test('miles parameter', () {
       // given
-      final distance = Distance.imperial(
+      final distance = Distance.ofImperial(
         miles: 1,
         precision: Precision(5),
       );
@@ -198,7 +198,7 @@ void main() {
     });
     test('yards parameter', () {
       // given
-      final distance = Distance.imperial(
+      final distance = Distance.ofImperial(
         yards: 1,
         precision: Precision(5),
       );
@@ -211,7 +211,7 @@ void main() {
     });
     test('feet parameter', () {
       // given
-      final distance = Distance.imperial(
+      final distance = Distance.ofImperial(
         feet: 1,
         precision: Precision(5),
       );
@@ -224,7 +224,7 @@ void main() {
     });
     test('inches parameter', () {
       // given
-      final distance = Distance.imperial(
+      final distance = Distance.ofImperial(
         inches: 1,
         precision: Precision(5),
       );
@@ -237,7 +237,7 @@ void main() {
     });
     test('sums parts', () {
       // given
-      final distance = Distance.imperial(
+      final distance = Distance.ofImperial(
         miles: 1,
         yards: 2,
         feet: 3,
@@ -411,7 +411,6 @@ void main() {
       expect(result, 123456.0);
     });
   });
-
   group('asCentimeters', () {
     test('converts to unit', () {
       // given
@@ -424,7 +423,6 @@ void main() {
       expect(result, 12345.6);
     });
   });
-
   group('asDecimeters', () {
     test('converts to unit', () {
       // given
@@ -437,7 +435,6 @@ void main() {
       expect(result, 1234.56);
     });
   });
-
   group('asMeters', () {
     test('converts to unit', () {
       // given
@@ -450,7 +447,6 @@ void main() {
       expect(result, 123.456);
     });
   });
-
   group('asDekameters', () {
     test('converts to unit', () {
       // given
@@ -463,7 +459,6 @@ void main() {
       expect(result, 12.3456);
     });
   });
-
   group('asHectometers', () {
     test('converts to unit', () {
       // given
@@ -476,7 +471,6 @@ void main() {
       expect(result, 1.23456);
     });
   });
-
   group('asKilometers', () {
     test('converts to unit', () {
       // given
@@ -502,7 +496,6 @@ void main() {
       expect(result, 4860.4726);
     });
   });
-
   group('asFeet', () {
     test('converts to unit', () {
       // given
@@ -515,7 +508,6 @@ void main() {
       expect(result, 405.03938);
     });
   });
-
   group('asYards', () {
     test('converts to unit', () {
       // given
@@ -528,7 +520,6 @@ void main() {
       expect(result, 135.01309);
     });
   });
-
   group('asMiles', () {
     test('converts to unit', () {
       // given

@@ -73,10 +73,11 @@ part 'src/derived.dart';
 // primary units
 part 'src/distance.dart';
 part 'src/interpreter.dart';
+
+part 'src/mass.dart';
+
 part 'src/measurement.dart';
 part 'src/precision.dart';
 part 'src/temperature.dart';
-
 part 'src/time.dart';
-
 part 'src/volume.dart';

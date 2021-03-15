@@ -5,7 +5,7 @@ void main() {
   // You may use any of several construction methods.
   // Include the precision of your measurement for best results!
   var bodyTemperature = Temperature.ofFahrenheit(93.4);
-  var distanceToSeattle = Distance.imperial(
+  var distanceToSeattle = Distance.ofImperial(
     miles: 123,
     yards: 15,
     feet: 2,
@@ -13,7 +13,7 @@ void main() {
     precision: Precision(3),
   );
   var distanceToTheMoon =
-      Distance.metric(kilometers: 382500, precision: Precision(4));
+      Distance.ofMetric(kilometers: 382500, precision: Precision(4));
   var depthsOfMyMind = Volume.infinite();
 
   //------------------------------------------------//

@@ -55,7 +55,7 @@ class Distance extends Measurement<Distance> {
   const Distance.negativeInfinite() : super.negativeInfinite();
 
   /// Constructs a [Distance] representing the sum of partial metric amounts.
-  Distance.metric({
+  Distance.ofMetric({
     final num millimeters = 0,
     final num centimeters = 0,
     final num decimeters = 0,
@@ -76,7 +76,7 @@ class Distance extends Measurement<Distance> {
         );
 
   /// Constructs a [Distance] representing the sum of partial Imperial amounts.
-  Distance.imperial({
+  Distance.ofImperial({
     final num miles = 0,
     final num yards = 0,
     final num feet = 0,
