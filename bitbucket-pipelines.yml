@@ -6,8 +6,11 @@ image: google/dart:2.12
 
 pipelines:
   default:
-    - parallel:
-      - step:
-          name: 'Test'
-          script:
-            - pub run test -r json
+    - step:
+        name: 'Install dependencies'
+        script:
+          - pub get
+    - step:
+        name: 'Test'
+        script:
+          - pub run test -r json
