@@ -21,7 +21,8 @@ void main() {
   // Perform basic arithmetic on compatible units.
   var distanceToSeattleAndBack = distanceToSeattle * 2;
   var distanceToSeattleIfYouForgotSomethingAtHome =
-      distanceToSeattleAndBack + distanceToSeattle;
+      (distanceToSeattleAndBack + distanceToSeattle)
+          .withPrecision(Precision(6));
 
   //------------------------------------------------//
 

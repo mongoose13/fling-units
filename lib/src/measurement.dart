@@ -101,6 +101,9 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Returns the number of digits of precision this measurement has.
   int get precision => _precision.precision;
 
+  /// Creates an equivalent measurement with the specified precision.
+  T withPrecision(final Precision precision) => _construct(si, precision);
+
   /// Apply the measurement appropriate precision to a value.
   double _precise(final double value) => _precision.withPrecision(value);
 
