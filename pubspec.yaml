@@ -1,6 +1,6 @@
 name: fling_units
 description: Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
-version: 0.4.1
+version: 1.0.0
 homepage: https://bitbucket.org/gelbermungo/fling-units/wiki/Home
 repository: https://bitbucket.org/gelbermungo/fling-units/src
 issue_tracker: https://bitbucket.org/gelbermungo/fling-units/issues
