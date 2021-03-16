@@ -1110,4 +1110,17 @@ void main() {
       expect(result.si, -2.0);
     });
   });
+
+  group('withPrecision', () {
+    test('sets precision', () {
+      // given
+      final unit = Distance.ofMeters(3.14159);
+
+      // when
+      final result = unit.withPrecision(Precision(4));
+
+      // then
+      expect(result.precision, 4);
+    });
+  });
 }
