@@ -6,8 +6,8 @@ repository: https://bitbucket.org/gelbermungo/fling-units/src
 issue_tracker: https://bitbucket.org/gelbermungo/fling-units/issues
 
 environment:
-  sdk: '>=2.10.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dev_dependencies:
-  pedantic: ^1.9.0
-  test: ^1.14.4
+  pedantic: ^1.11.0
+  test: ^1.16.8

@@ -80,27 +80,31 @@ class Time extends Measurement<Time> {
             precision);
 
   /// Constructs a [Time] from a microsecond amount.
-  Time.ofMicroseconds(final double microseconds, {final Precision precision})
+  Time.ofMicroseconds(final double microseconds,
+      {final Precision precision = Precision.max})
       : this._(Time.microseconds._from(microseconds), precision);
 
   /// Constructs a [Time] from a millisecond amount.
-  Time.ofMilliseconds(final double milliseconds, {final Precision precision})
+  Time.ofMilliseconds(final double milliseconds,
+      {final Precision precision = Precision.max})
       : this._(Time.milliseconds._from(milliseconds), precision);
 
   /// Constructs a [Time] from a second amount.
-  Time.ofSeconds(final double seconds, {final Precision precision})
+  Time.ofSeconds(final double seconds,
+      {final Precision precision = Precision.max})
       : this._(Time.seconds._from(seconds), precision);
 
   /// Constructs a [Time] from a minute amount.
-  Time.ofMinutes(final double minutes, {final Precision precision})
+  Time.ofMinutes(final double minutes,
+      {final Precision precision = Precision.max})
       : this._(Time.minutes._from(minutes), precision);
 
   /// Constructs a [Time] from an hour amount.
-  Time.ofHours(final double hours, {final Precision precision})
+  Time.ofHours(final double hours, {final Precision precision = Precision.max})
       : this._(Time.hours._from(hours), precision);
 
   /// Constructs a [Time] from a day amount.
-  Time.ofDays(final double days, {final Precision precision})
+  Time.ofDays(final double days, {final Precision precision = Precision.max})
       : this._(Time.days._from(days), precision);
 
   /// Constructs a [Time] from a [Duration].
