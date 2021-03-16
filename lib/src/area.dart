@@ -146,7 +146,7 @@ class Area extends Measurement<Area> {
   double get asSquareInches => _precise(Area.squareInches._of(si));
 
   @override
-  String toString() => '${asSquareMeters} m²';
+  String toString() => '$asSquareMeters m²';
 
   @override
   Area _construct(final double squareMeters, final Precision precision) =>

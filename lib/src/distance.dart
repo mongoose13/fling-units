@@ -184,7 +184,7 @@ class Distance extends Measurement<Distance> {
   double get asNauticalMiles => _preciseOf(Distance.nauticalMiles);
 
   @override
-  String toString() => '${asMeters} m';
+  String toString() => '$asMeters m';
 
   @override
   Distance _construct(final double si, final Precision precision) =>
