@@ -7,10 +7,10 @@ part of fling_units;
 /// will generally only require the built-in converters for the [Measurement]
 /// types being used (e.g. [Distance.miles]), but if needed, some
 /// [MeasurementInterpreter] subtypes can be configured further (e.g.
-/// [AreaConverter]).
+/// [AreaInterpreter]).
 ///
 /// Users should not need to access the internal workings of
-/// [MeasurementConverters], but instead pass them to the appropriate
+/// [MeasurementInterpreter]s, but instead pass them to the appropriate
 /// [Measurement] instances for interpretation (typically via an `as()` method,
 /// such as [Area.as]).
 abstract class MeasurementInterpreter<T> {
