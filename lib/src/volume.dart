@@ -10,7 +10,7 @@ class VolumeInterpreter extends MeasurementInterpreter<Volume> {
   /// Constructs a [VolumeInterpreter] that will cube a basic
   /// [DistanceInterpreter].
   VolumeInterpreter.cubed(final DistanceInterpreter a)
-      : this._(math.pow(a._multiplier, 3));
+      : this._(math.pow(a._multiplier, 3).toDouble());
 
   /// Constructs a [VolumeInterpreter].
   VolumeInterpreter._(final double cubicMeters) : super._(cubicMeters);

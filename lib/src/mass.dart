@@ -85,51 +85,59 @@ class Mass extends Measurement<Mass> {
   }) : this._(Mass.pounds._from(pounds) + Mass.ounces._from(ounces), precision);
 
   /// Constructs a [Mass] from a milligram amount.
-  Mass.ofMilligrams(final num milligrams, {final Precision precision})
+  Mass.ofMilligrams(final num milligrams,
+      {final Precision precision = Precision.max})
       : this._(Mass.milligrams._from(milligrams), precision);
 
   /// Constructs a [Mass] from a centigram amount.
-  Mass.ofCentigrams(final num centigrams, {final Precision precision})
+  Mass.ofCentigrams(final num centigrams,
+      {final Precision precision = Precision.max})
       : this._(Mass.centigrams._from(centigrams), precision);
 
   /// Constructs a [Mass] from a decigram amount.
-  Mass.ofDecigrams(final num decigrams, {final Precision precision})
+  Mass.ofDecigrams(final num decigrams,
+      {final Precision precision = Precision.max})
       : this._(Mass.decigrams._from(decigrams), precision);
 
   /// Constructs a [Mass] from a gram amount.
-  Mass.ofGrams(final num grams, {final Precision precision})
+  Mass.ofGrams(final num grams, {final Precision precision = Precision.max})
       : this._(Mass.grams._from(grams), precision);
 
   /// Constructs a [Mass] from a dekagram amount.
-  Mass.ofDekagrams(final num dekagrams, {final Precision precision})
+  Mass.ofDekagrams(final num dekagrams,
+      {final Precision precision = Precision.max})
       : this._(Mass.dekagrams._from(dekagrams), precision);
 
   /// Constructs a [Mass] from a hectogram amount.
-  Mass.ofHectograms(final num hectograms, {final Precision precision})
+  Mass.ofHectograms(final num hectograms,
+      {final Precision precision = Precision.max})
       : this._(Mass.hectograms._from(hectograms), precision);
 
   /// Constructs a [Mass] from a kilogram amount.
-  Mass.ofKilograms(final num kilograms, {final Precision precision})
+  Mass.ofKilograms(final num kilograms,
+      {final Precision precision = Precision.max})
       : this._(Mass.kilograms._from(kilograms), precision);
 
   /// Constructs a [Mass] from a tonne amount.
-  Mass.ofTonnes(final num tonnes, {final Precision precision})
+  Mass.ofTonnes(final num tonnes, {final Precision precision = Precision.max})
       : this._(Mass.tonnes._from(tonnes), precision);
 
   /// Constructs a [Mass] from an ounce amount.
-  Mass.ofOunces(final num ounces, {final Precision precision})
+  Mass.ofOunces(final num ounces, {final Precision precision = Precision.max})
       : this._(Mass.ounces._from(ounces), precision);
 
   /// Constructs a [Mass] from a pound amount.
-  Mass.ofPounds(final num pounds, {final Precision precision})
+  Mass.ofPounds(final num pounds, {final Precision precision = Precision.max})
       : this._(Mass.pounds._from(pounds), precision);
 
   /// Constructs a [Mass] from a short ton amount.
-  Mass.ofShortTons(final num shortTons, {final Precision precision})
+  Mass.ofShortTons(final num shortTons,
+      {final Precision precision = Precision.max})
       : this._(Mass.shortTons._from(shortTons), precision);
 
   /// Constructs a [Mass] from a long ton amount.
-  Mass.ofLongTons(final num longTons, {final Precision precision})
+  Mass.ofLongTons(final num longTons,
+      {final Precision precision = Precision.max})
       : this._(Mass.longTons._from(longTons), precision);
 
   /// Interprets this as a number of milligrams.

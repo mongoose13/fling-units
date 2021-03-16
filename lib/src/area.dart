@@ -8,7 +8,7 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
 
   /// Constructs an [AreaInterpreter] that will square a basic [DistanceInterpreter].
   AreaInterpreter.squared(final DistanceInterpreter a)
-      : this._(math.pow(a._multiplier, 2));
+      : this._(math.pow(a._multiplier, 2).toDouble());
 
   /// Constructs an [AreaInterpreter].
   AreaInterpreter._(final double squareMeters) : super._(squareMeters);
