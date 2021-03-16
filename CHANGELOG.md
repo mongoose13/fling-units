@@ -1,6 +1,10 @@
 # Change Log for fling_units
-
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
+
+## [v1.0.1](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.0.1) - 2021-03-16
+
+### Docs
+* Satisfy pana formatting guidelines [8cdde3c](https://bitbucket.org/gelbermungo/fling-units/commits/8cdde3cd085fa070532c779e35e26a06e3d2e20a)
 
 ## [v1.0.0](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.0.0) - 2021-03-15
 
