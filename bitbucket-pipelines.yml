@@ -1,9 +1,0 @@
-image: google/dart:2.12
-
-pipelines:
-  default:
-    - step:
-        name: 'Test'
-        script:
-          - pub get
-          - pub run test -r json
