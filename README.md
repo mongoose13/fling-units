@@ -1,6 +1,8 @@
 A type safe Dart library for unit conversion. Pass around fully abstracted measurements safely and easily to keep your
 code simple!
 
+![Build Status](https://travis-ci.com/gelbermungo/fling-units.svg?branch=master)
+
 ## Usage
 Create an instance of the dimension type you want to measure:
 ```dart
