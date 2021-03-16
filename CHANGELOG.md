@@ -2,7 +2,7 @@
 
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
-## [v1.0.0](http://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.0.0) - 2021-03-15
+## [v1.0.0](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.0.0) - 2021-03-15
 
 ### Feature
 * Clone a measurement with a specific precision [0ded461](https://bitbucket.org/gelbermungo/fling-units/commits/0ded461dee698269e61572258b3d04fa9078ca13)
