@@ -1,3 +1,5 @@
+![Fling logo](https://f000.backblazeb2.com/file/mongoose-website/fling-title.png)
+
 A type safe Dart library for unit conversion. Pass around fully abstracted measurements safely and easily to keep your
 code simple!
 
