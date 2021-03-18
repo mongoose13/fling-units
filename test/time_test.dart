@@ -155,16 +155,18 @@ void main() {
         hours: 2,
         minutes: 3,
         seconds: 4,
-        milliseconds: 5,
-        microseconds: 6,
-        precision: Precision(13),
+        milliseconds: 567,
+        microseconds: 890,
+        nanoseconds: 123,
+        picoseconds: 456,
+        precision: Precision(18),
       );
 
       // when
       final result = time.asSeconds;
 
       // then
-      expect(result, 93784.005006);
+      expect(result, 93784.567890123456);
     });
   });
   group('ofMicroseconds', () {
@@ -240,6 +242,30 @@ void main() {
     });
   });
 
+  group('asPicoseconds', () {
+    test('converts to unit', () {
+      // given
+      final time = Time.ofSeconds(1.23456, precision: Precision(5));
+
+      // when
+      final result = time.asPicoseconds;
+
+      // then
+      expect(result, 1.2346e12);
+    });
+  });
+  group('asNanoseconds', () {
+    test('converts to unit', () {
+      // given
+      final time = Time.ofSeconds(1.23456, precision: Precision(5));
+
+      // when
+      final result = time.asNanoseconds;
+
+      // then
+      expect(result, 1.2346e9);
+    });
+  });
   group('asMicroseconds', () {
     test('converts to unit', () {
       // given
@@ -249,7 +275,7 @@ void main() {
       final result = time.asMicroseconds;
 
       // then
-      expect(result, 1234600.0);
+      expect(result, 1.2346e6);
     });
   });
   group('asMilliseconds', () {
@@ -261,7 +287,7 @@ void main() {
       final result = time.asMilliseconds;
 
       // then
-      expect(result, 1234.6);
+      expect(result, 1.2346e3);
     });
   });
   group('asSeconds', () {

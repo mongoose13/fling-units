@@ -18,6 +18,12 @@ class TimeInterpreter extends MeasurementInterpreter<Time> {
 /// conversions are acceptable, via the [Time.ofDuration] and [Time.asDuration]
 /// methods.
 class Time extends Measurement<Time> {
+  /// The [TimeInterpreter] for picoseconds.
+  static final TimeInterpreter picoseconds = TimeInterpreter._(1e12);
+
+  /// The [TimeInterpreter] for nanoseconds.
+  static final TimeInterpreter nanoseconds = TimeInterpreter._(1e9);
+
   /// The [TimeInterpreter] for microseconds.
   static final TimeInterpreter microseconds = TimeInterpreter._(1e6);
 
@@ -63,6 +69,8 @@ class Time extends Measurement<Time> {
 
   /// Constructs a [Time] representing the sum of partial amounts.
   Time.of({
+    final num picoseconds = 0,
+    final num nanoseconds = 0,
     final num microseconds = 0,
     final num milliseconds = 0,
     final num seconds = 0,
@@ -71,13 +79,25 @@ class Time extends Measurement<Time> {
     final num days = 0,
     final Precision precision = Precision.max,
   }) : this._(
-            Time.microseconds._from(microseconds) +
+            Time.picoseconds._from(picoseconds) +
+                Time.nanoseconds._from(nanoseconds) +
+                Time.microseconds._from(microseconds) +
                 Time.milliseconds._from(milliseconds) +
                 Time.seconds._from(seconds) +
                 Time.minutes._from(minutes) +
                 Time.hours._from(hours) +
                 Time.days._from(days),
             precision);
+
+  /// Constructs a [Time] from a picosecond amount.
+  Time.ofPicoseconds(final double picoseconds,
+      {final Precision precision = Precision.max})
+      : this._(Time.picoseconds._from(picoseconds), precision);
+
+  /// Constructs a [Time] from a nanosecond amount.
+  Time.ofNanoseconds(final double nanoseconds,
+      {final Precision precision = Precision.max})
+      : this._(Time.nanoseconds._from(nanoseconds), precision);
 
   /// Constructs a [Time] from a microsecond amount.
   Time.ofMicroseconds(final double microseconds,
@@ -116,6 +136,12 @@ class Time extends Measurement<Time> {
   ///
   /// Note that any granularity below microseconds will be lost.
   Duration get asDuration => Duration(microseconds: asMicroseconds.toInt());
+
+  /// Interprets this as a number of microseconds.
+  double get asPicoseconds => _preciseOf(picoseconds);
+
+  /// Interprets this as a number of microseconds.
+  double get asNanoseconds => _preciseOf(nanoseconds);
 
   /// Interprets this as a number of microseconds.
   double get asMicroseconds => _preciseOf(microseconds);
