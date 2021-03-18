@@ -66,6 +66,7 @@ With few exceptions (due to the nature of those measurements), all measurements 
 - add or subtract two similar measurements (`+`, `-`)
 - multiply or divide measurements by a scalar (`*`, `/`)
 - negate measurements (unary `-`)
+- compare magnitude of two measurements (`~/`, `compareMagnitude`)
 
 ### Distance Units
 

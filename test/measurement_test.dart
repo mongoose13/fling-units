@@ -1111,16 +1111,191 @@ void main() {
     });
   });
 
-  group('withPrecision', () {
-    test('sets precision', () {
+  group('~/', () {
+    test('larger over smaller', () {
       // given
-      final unit = Distance.ofMeters(3.14159);
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.ofMeters(2.0);
+
+      // when
+      final result = unit1 ~/ unit2;
+
+      // then
+      expect(result, 2);
+    });
+    test('smaller over larger', () {
+      // given
+      final unit1 = Distance.ofMeters(2.0);
+      final unit2 = Distance.ofMeters(4.0);
+
+      // when
+      final result = unit1 ~/ unit2;
+
+      // then
+      expect(result, 0);
+    });
+    test('opposite signs', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.ofMeters(-2.0);
+
+      // when
+      final result = unit1 ~/ unit2;
+
+      // then
+      expect(result, -2);
+    });
+    test('compare to zero', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.zero();
+
+      // then
+      expect(() => unit1 ~/ unit2, throwsUnsupportedError);
+    });
+    test('compare with zero', () {
+      // given
+      final unit1 = Distance.zero();
+      final unit2 = Distance.ofMeters(4.0);
+
+      // when
+      final result = unit1 ~/ unit2;
+
+      // then
+      expect(result, 0);
+    });
+    test('compare to infinity', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.infinite();
+
+      // when
+      final result = unit1 ~/ unit2;
+
+      // then
+      expect(result, 0);
+    });
+    test('compare with infinity', () {
+      // given
+      final unit1 = Distance.infinite();
+      final unit2 = Distance.ofMeters(4.0);
+
+      // then
+      expect(() => unit1 ~/ unit2, throwsUnsupportedError);
+    });
+  });
+
+  group('compareMagnitude', () {
+    test('no precision', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.ofMeters(2.0);
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, 2.0);
+    });
+    test('opposite sign', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.ofMeters(-2.0);
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, -2.0);
+    });
+    test('with precision', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0, precision: Precision(3));
+      final unit2 = Distance.ofMeters(3.0, precision: Precision(3));
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, 1.3333333333333333);
+    });
+    test('truncating precision', () {
+      // given
+      final unit1 = Distance.ofMeters(3.04999999, precision: Precision(2));
+      final unit2 = Distance.ofMeters(1.49012345, precision: Precision(2));
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, 2.0);
+    });
+    test('compare to zero', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.zero();
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, double.infinity);
+    });
+    test('compare with zero', () {
+      // given
+      final unit1 = Distance.zero();
+      final unit2 = Distance.ofMeters(4.0);
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, 0.0);
+    });
+    test('compare to infinity', () {
+      // given
+      final unit1 = Distance.ofMeters(4.0);
+      final unit2 = Distance.infinite();
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, 0.0);
+    });
+    test('compare with infinity', () {
+      // given
+      final unit1 = Distance.infinite();
+      final unit2 = Distance.ofMeters(4.0);
+
+      // when
+      final result = unit1.compareMagnitude(unit2);
+
+      // then
+      expect(result, double.infinity);
+    });
+  });
+
+  group('withPrecision', () {
+    test('sets smaller precision', () {
+      // given
+      final unit = Distance.ofMeters(3.14159, precision: Precision(6));
 
       // when
       final result = unit.withPrecision(Precision(4));
 
       // then
-      expect(result.precision, 4);
+      expect(result.asMeters, 3.142);
+    });
+    test('sets higher precision', () {
+      // given
+      final unit = Distance.ofMeters(3.14159, precision: Precision(2));
+
+      // when
+      final result = unit.withPrecision(Precision(6));
+
+      // then
+      expect(result.asMeters, 3.14159);
     });
   });
 }

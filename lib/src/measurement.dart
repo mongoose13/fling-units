@@ -95,6 +95,16 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Returns a measurement equivalent to a fraction of this.
   T operator /(final double divisor) => _construct(si / divisor, _precision);
 
+  /// Returns the difference in magnitude between this and another measurement.
+  double compareMagnitude(final T other) => _preciseSI() / other._preciseSI();
+
+  /// Returns the truncating division result of this and another measurement.
+  ///
+  /// Attempting to divide by a measurement of magnitude zero, or attempting to
+  /// divide an infinite measurement, will result in UnsupportedError (`int`
+  /// cannot hold an infinite or `NaN` value).
+  int operator ~/(final T other) => _preciseSI() ~/ other._preciseSI();
+
   @override
   int get hashCode => si.hashCode * _precision.hashCode;
 
@@ -110,6 +120,9 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Apply the measurement appropriate precision to a converted value.
   double _preciseOf(final MeasurementInterpreter<T> converter) =>
       _precision.withPrecision(converter._of(si));
+
+  /// Apply the measurement appropriate precision to the base value.
+  double _preciseSI() => _precise(si);
 
   /// Constructs a new measurement.
   T _construct(final double si, final Precision precision);
