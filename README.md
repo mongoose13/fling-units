@@ -71,6 +71,9 @@ With few exceptions (due to the nature of those measurements), all measurements 
 
 Metric:
 
+- picometers
+- nanometers
+- micrometers
 - millimeters
 - centimeters
 - decimeters
@@ -148,6 +151,8 @@ US:
 
 ### Time units
 
+- picoseconds
+- nanoseconds
 - microseconds
 - milliseconds
 - seconds
