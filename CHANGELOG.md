@@ -1,6 +1,15 @@
 # Change Log for fling_units
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
+## [v1.1.0](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.1.0) - 2021-03-17
+
+### Feature
+* Support for nano- and pico-seconds
+* Support for micro, nano-, and pico-meters
+
+### Docs
+* Add Fling logo to README
+
 ## [v1.0.1](https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.0.1) - 2021-03-16
 
 ### Docs
