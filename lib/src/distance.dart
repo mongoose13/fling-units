@@ -29,6 +29,15 @@ class Distance extends Measurement<Distance> {
   /// The [DistanceInterpreter] for millimeters.
   static final DistanceInterpreter millimeters = DistanceInterpreter._(1e3);
 
+  /// The [DistanceInterpreter] for micrometers.
+  static final DistanceInterpreter micrometers = DistanceInterpreter._(1e6);
+
+  /// The [DistanceInterpreter] for nanometers.
+  static final DistanceInterpreter nanometers = DistanceInterpreter._(1e9);
+
+  /// The [DistanceInterpreter] for picometers.
+  static final DistanceInterpreter picometers = DistanceInterpreter._(1e12);
+
   /// The [DistanceInterpreter] for miles.
   static final DistanceInterpreter miles = DistanceInterpreter._(0.0006213712);
 
@@ -56,6 +65,9 @@ class Distance extends Measurement<Distance> {
 
   /// Constructs a [Distance] representing the sum of partial metric amounts.
   Distance.ofMetric({
+    final num picometers = 0,
+    final num nanometers = 0,
+    final num micrometers = 0,
     final num millimeters = 0,
     final num centimeters = 0,
     final num decimeters = 0,
@@ -71,7 +83,10 @@ class Distance extends Measurement<Distance> {
               Distance.meters._from(meters) +
               Distance.decimeters._from(decimeters) +
               Distance.centimeters._from(centimeters) +
-              Distance.millimeters._from(millimeters),
+              Distance.millimeters._from(millimeters) +
+              Distance.micrometers._from(micrometers) +
+              Distance.nanometers._from(nanometers) +
+              Distance.picometers._from(picometers),
           precision,
         );
 
@@ -125,6 +140,21 @@ class Distance extends Measurement<Distance> {
       {final Precision precision = Precision.max})
       : super(Distance.millimeters._from(millimeters), precision);
 
+  /// Constructs a [Distance] from a micrometer amount.
+  Distance.ofMicrometers(final num micrometers,
+      {final Precision precision = Precision.max})
+      : super(Distance.micrometers._from(micrometers), precision);
+
+  /// Constructs a [Distance] from a nanometer amount.
+  Distance.ofNanometers(final num nanometers,
+      {final Precision precision = Precision.max})
+      : super(Distance.nanometers._from(nanometers), precision);
+
+  /// Constructs a [Distance] from a picometer amount.
+  Distance.ofPicometers(final num picometers,
+      {final Precision precision = Precision.max})
+      : super(Distance.picometers._from(picometers), precision);
+
   /// Constructs a [Distance] from a mile amount.
   Distance.ofMiles(final num miles, {final Precision precision = Precision.max})
       : super(Distance.miles._from(miles), precision);
@@ -146,6 +176,15 @@ class Distance extends Measurement<Distance> {
   Distance.ofNauticalMiles(final num nauticalMiles,
       {final Precision precision = Precision.max})
       : super(Distance.nauticalMiles._from(nauticalMiles), precision);
+
+  /// Interprets this as a number of picometers.
+  double get asPicometers => _preciseOf(picometers);
+
+  /// Interprets this as a number of nanometers.
+  double get asNanometers => _preciseOf(nanometers);
+
+  /// Interprets this as a number of micrometers.
+  double get asMicrometers => _preciseOf(micrometers);
 
   /// Interprets this as a number of millimeters.
   double get asMillimeters => _preciseOf(millimeters);

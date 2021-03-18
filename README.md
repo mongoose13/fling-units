@@ -8,8 +8,8 @@ code simple!
 ## Usage
 Create an instance of the dimension type you want to measure:
 ```dart
-FlingUnits.Distance distanceToSeattle = FlingUnits.Distance.ofKilometers(246);
-FlingUnits.Distance distanceToTheMoon = FlingUnits.Distance.imperial(miles: 238900, feet: 42, inches: 6.3);
+Distance distanceToSeattle = Distance.ofKilometers(246);
+Distance distanceToTheMoon = Distance.ofImperial(miles: 238900, feet: 42, inches: 6.3);
 ```
 
 Convert to any other measurement type within that dimension:
@@ -22,23 +22,23 @@ double distanceToSeattleInInches = distanceToSeattle.asInches;
 Perform basic arithmetic:
 
 ```dart
-FlingUnits.Distance distanceToSeattleAndBack = distanceToSeattle * 2;
-FlingUnits.Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
-FlingUnits.Distance distanceToTheEndsOfTheUniverse = FlingUnits.Distance.infinite();
-bool useTheCar = distanceToTravel >= FlingUnits.Distance.ofMiles(1.5);
+Distance distanceToSeattleAndBack = distanceToSeattle * 2;
+Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
+Distance distanceToTheEndsOfTheUniverse = Distance.infinite();
+bool useTheCar = distanceToTravel >= Distance.ofMiles(1.5);
 ```
 
 Built-in ordering:
 
 ```dart
-[Distance.zero(), Distance.infinite(), Distance.ofMeters(3), Distance.ofFeet(3), Distance.ofMeters(-2)].sort();
-// produces [meters(-2), zero(), feet(3), meters(3), infinite()]
+[Distance.zero(), Distance.infinite(), Distance.ofMeters(3), Distance.ofFeet(3), Distance.ofYards(-2)].sort();
+// produces [yards(-2), zero(), feet(3), meters(3), infinite()]
 ```
 
 Abstract away the specific units your code needs by passing around the encapsulated types. It doesn't matter which units each portion of your code requires, they can be combined seamlessly:
 ```dart
-FlingUnits.Distance computeTotalDistanceWithWiggleRoom(final FlingUnits.Distance targetDistance) {
-  return targetDistance + FlingUnits.Distance.ofMeters(3.0);
+Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
+  return targetDistance + Distance.ofMeters(3.0);
 }
 ```
 
@@ -47,7 +47,7 @@ Ensure type safety:
 var nonsense = distanceToSeattle + temperatureInNewYork;  // won't compile!
 ```
 
-Use precision to make sure you express yourself correctly:
+Express the certainty in your measurements correctly by setting a precision. Conversions will automatically provide appropriate significant digits:
 
 ```dart
 var myHeight = Distance.ofMeters(1.5, precision: Precision(2));

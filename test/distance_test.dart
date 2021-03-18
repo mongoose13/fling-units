@@ -133,7 +133,7 @@ void main() {
       final result = distance.asMeters;
 
       // then
-      expect(result, 0.1);
+      expect(result, 1e-1);
     });
     test('centimeters parameter', () {
       // given
@@ -146,7 +146,7 @@ void main() {
       final result = distance.asMeters;
 
       // then
-      expect(result, 0.01);
+      expect(result, 1e-2);
     });
     test('millimeters parameter', () {
       // given
@@ -159,7 +159,46 @@ void main() {
       final result = distance.asMeters;
 
       // then
-      expect(result, 0.001);
+      expect(result, 1e-3);
+    });
+    test('micrometers parameter', () {
+      // given
+      final distance = Distance.ofMetric(
+        micrometers: 1,
+        precision: Precision(5),
+      );
+
+      // when
+      final result = distance.asMeters;
+
+      // then
+      expect(result, 1e-6);
+    });
+    test('nanometers parameter', () {
+      // given
+      final distance = Distance.ofMetric(
+        nanometers: 1,
+        precision: Precision(5),
+      );
+
+      // when
+      final result = distance.asMeters;
+
+      // then
+      expect(result, 1e-9);
+    });
+    test('picometers parameter', () {
+      // given
+      final distance = Distance.ofMetric(
+        picometers: 1,
+        precision: Precision(5),
+      );
+
+      // when
+      final result = distance.asMeters;
+
+      // then
+      expect(result, 1e-12);
     });
     test('sums parts', () {
       // given
@@ -171,14 +210,17 @@ void main() {
         decimeters: 5,
         centimeters: 6,
         millimeters: 7,
-        precision: Precision(8),
+        micrometers: 890,
+        nanometers: 123,
+        picometers: 456,
+        precision: Precision(16),
       );
 
       // when
       final result = distance.asMeters;
 
       // then
-      expect(result, 1234.567);
+      expect(result, 1234.567890123456);
     });
   });
 
@@ -253,6 +295,42 @@ void main() {
     });
   });
 
+  group('ofPicometers', () {
+    test('converts to base', () {
+      // given
+      final distance = Distance.ofPicometers(1.234e12, precision: Precision(5));
+
+      // when
+      final result = distance.asMeters;
+
+      // then
+      expect(result, 1.234);
+    });
+  });
+  group('ofNanometers', () {
+    test('converts to base', () {
+      // given
+      final distance = Distance.ofNanometers(1.234e9, precision: Precision(5));
+
+      // when
+      final result = distance.asMeters;
+
+      // then
+      expect(result, 1.234);
+    });
+  });
+  group('ofMicrometers', () {
+    test('converts to base', () {
+      // given
+      final distance = Distance.ofMicrometers(1.234e6, precision: Precision(5));
+
+      // when
+      final result = distance.asMeters;
+
+      // then
+      expect(result, 1.234);
+    });
+  });
   group('ofMillimeters', () {
     test('converts to base', () {
       // given
@@ -399,6 +477,42 @@ void main() {
     });
   });
 
+  group('asPicometers', () {
+    test('converts to unit', () {
+      // given
+      final distance = Distance.ofMeters(1.23456, precision: Precision(8));
+
+      // when
+      final result = distance.asPicometers;
+
+      // then
+      expect(result, 1.23456e12);
+    });
+  });
+  group('asNanometers', () {
+    test('converts to unit', () {
+      // given
+      final distance = Distance.ofMeters(1.23456, precision: Precision(8));
+
+      // when
+      final result = distance.asNanometers;
+
+      // then
+      expect(result, 1.23456e9);
+    });
+  });
+  group('asMicrometers', () {
+    test('converts to unit', () {
+      // given
+      final distance = Distance.ofMeters(1.23456, precision: Precision(8));
+
+      // when
+      final result = distance.asMicrometers;
+
+      // then
+      expect(result, 1.23456e6);
+    });
+  });
   group('asMillimeters', () {
     test('converts to unit', () {
       // given
