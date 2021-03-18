@@ -44,7 +44,7 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
       DerivedMeasurement._(si, precision);
 
   /// Constructs a derived measurement.
-  DerivedMeasurement._(final double si, final Precision precision,
+  const DerivedMeasurement._(final double si, final Precision precision,
       [this._reciprocal = false])
       : super(si, precision);
 

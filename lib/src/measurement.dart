@@ -6,7 +6,8 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   final double si;
 
   /// Constructs a basic measurement.
-  Measurement(this.si, final Precision precision) : _precision = precision;
+  const Measurement(this.si, final Precision precision)
+      : _precision = precision;
 
   /// A measurement of zero.
   const Measurement.zero()

@@ -3,7 +3,7 @@ part of fling_units;
 /// Interprets [Distance]s as a specific unit.
 class DistanceInterpreter extends MeasurementInterpreter<Distance> {
   /// Constructs a [DistanceInterpreter].
-  DistanceInterpreter._(final double multiplier) : super._(multiplier);
+  const DistanceInterpreter._(final double multiplier) : super._(multiplier);
 }
 
 /// Represents a single dimension of distance.
@@ -230,6 +230,6 @@ class Distance extends Measurement<Distance> {
       Distance._(si, precision);
 
   /// Constructs a [Distance].
-  Distance._(final double meters, final Precision precision)
+  const Distance._(final double meters, final Precision precision)
       : super(meters, precision);
 }

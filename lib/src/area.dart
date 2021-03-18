@@ -11,7 +11,7 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
       : this._(math.pow(a._multiplier, 2).toDouble());
 
   /// Constructs an [AreaInterpreter].
-  AreaInterpreter._(final double squareMeters) : super._(squareMeters);
+  const AreaInterpreter._(final double multiplier) : super._(multiplier);
 }
 
 /// Represents the two-dimensional derived unit of perpendicular distances.

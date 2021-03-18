@@ -4,7 +4,7 @@ part of fling_units;
 class TemperatureChangeInterpreter
     extends MeasurementInterpreter<TemperatureChange> {
   /// Constructs a [TemperatureChangeInterpreter].
-  TemperatureChangeInterpreter._(final double kelvin) : super._(kelvin);
+  const TemperatureChangeInterpreter._(final double kelvin) : super._(kelvin);
 }
 
 /// Represents a change in temperature.
@@ -82,7 +82,7 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   String toString() => '$asKelvin K';
 
   /// Constructs a [TemperatureChange].
-  TemperatureChange._(final double kelvin, final Precision precision)
+  const TemperatureChange._(final double kelvin, final Precision precision)
       : super(kelvin, precision);
 
   @override

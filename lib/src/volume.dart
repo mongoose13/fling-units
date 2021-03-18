@@ -13,7 +13,7 @@ class VolumeInterpreter extends MeasurementInterpreter<Volume> {
       : this._(math.pow(a._multiplier, 3).toDouble());
 
   /// Constructs a [VolumeInterpreter].
-  VolumeInterpreter._(final double cubicMeters) : super._(cubicMeters);
+  const VolumeInterpreter._(final double cubicMeters) : super._(cubicMeters);
 }
 
 /// Represents a three-dimensional space.
@@ -380,7 +380,7 @@ class Volume extends Measurement<Volume> {
   String toString() => '${asLiters.toString()} L';
 
   /// Constructs a [Volume].
-  Volume._(final double cubicMeters, final Precision precision)
+  const Volume._(final double cubicMeters, final Precision precision)
       : super(cubicMeters, precision);
 
   @override

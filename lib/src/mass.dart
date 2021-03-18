@@ -3,7 +3,7 @@ part of fling_units;
 /// Interprets [Mass]es as a specific unit.
 class MassInterpreter extends MeasurementInterpreter<Mass> {
   /// Constructs a [MassInterpreter].
-  MassInterpreter._(final double multiplier) : super._(multiplier);
+  const MassInterpreter._(final double multiplier) : super._(multiplier);
 }
 
 /// Represents an amount of mass.
@@ -177,7 +177,7 @@ class Mass extends Measurement<Mass> {
   double get asLongTons => _preciseOf(longTons);
 
   /// Constructs a [Mass].
-  Mass._(final double grams, final Precision precision)
+  const Mass._(final double grams, final Precision precision)
       : super(grams, precision);
 
   @override

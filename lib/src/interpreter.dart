@@ -22,7 +22,7 @@ abstract class MeasurementInterpreter<T> {
   double _from(final num value) => value.toDouble() / _multiplier;
 
   /// Constructs a [MeasurementInterpreter].
-  MeasurementInterpreter._(final this._multiplier);
+  const MeasurementInterpreter._(final this._multiplier);
 
   /// The multiplier for the configured unit.
   final double _multiplier;

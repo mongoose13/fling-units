@@ -3,7 +3,7 @@ part of fling_units;
 /// Interprets [Time] as a specific unit.
 class TimeInterpreter extends MeasurementInterpreter<Time> {
   /// Constructs a [TimeInterpreter].
-  TimeInterpreter._(final double multiplier) : super._(multiplier);
+  const TimeInterpreter._(final double multiplier) : super._(multiplier);
 }
 
 /// Represents a duration of time.
@@ -162,7 +162,7 @@ class Time extends Measurement<Time> {
   double get asDays => _preciseOf(days);
 
   /// Constructs a [Time].
-  Time._(final double seconds, final Precision precision)
+  const Time._(final double seconds, final Precision precision)
       : super(seconds, precision);
 
   @override
