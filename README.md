@@ -3,7 +3,9 @@
 A type safe Dart library for unit conversion. Pass around fully abstracted measurements safely and easily to keep your
 code simple!
 
-![Build Status](https://travis-ci.com/gelbermungo/fling-units.svg?branch=master)
+![Build Status](https://img.shields.io/travis/gelbermungo/fling-units/master?style=plastic)
+![Code Quality](https://img.shields.io/codacy/grade/749ee1e8ee2e4d26ab57b3256f422e9a?style=plastic)
+![Pub Version](https://img.shields.io/pub/v/fling_units?style=plastic)
 
 ## Usage
 Create an instance of the dimension type you want to measure:
@@ -60,118 +62,118 @@ var myHeightInInches = myHeight.asInches;  // 59.0
 
 With few exceptions (due to the nature of those measurements), all measurements support:
 
-- customizable precision for each measurement
-- implement `Comparable` for built-in ordering among similar measurements
-- compare two similar measurements (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-- add or subtract two similar measurements (`+`, `-`)
-- multiply or divide measurements by a scalar (`*`, `/`)
-- negate measurements (unary `-`)
-- compare magnitude of two measurements (`~/`, `compareMagnitude`)
+  - customizable precision for each measurement
+  - implement `Comparable` for built-in ordering among similar measurements
+  - compare two similar measurements (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+  - add or subtract two similar measurements (`+`, `-`)
+  - multiply or divide measurements by a scalar (`*`, `/`)
+  - negate measurements (unary `-`)
+  - compare magnitude of two measurements (`~/`, `compareMagnitude`)
 
 ### Distance Units
 
 Metric:
 
-- picometers
-- nanometers
-- micrometers
-- millimeters
-- centimeters
-- decimeters
-- meters
-- dekameters
-- hectometers
-- kilometers
+  - picometers
+  - nanometers
+  - micrometers
+  - millimeters
+  - centimeters
+  - decimeters
+  - meters
+  - dekameters
+  - hectometers
+  - kilometers
 
 Imperial:
 
-- inches
-- feet
-- yards
-- miles
+  - inches
+  - feet
+  - yards
+  - miles
 
 Nautical:
 
-- nautical miles
+  - nautical miles
 
 ### Area Units
 
 Metric:
 
-- square millimeters
-- square centimeters
-- square meters
-- square kilometers
+  - square millimeters
+  - square centimeters
+  - square meters
+  - square kilometers
 
 Imperial:
 
-- square inches
-- square feet
-- square yards
-- square miles
+  - square inches
+  - square feet
+  - square yards
+  - square miles
 
 ### Volume Units
 
 Metric:
 
-- milliliters
-- centiliters
-- deciliters
-- liters
-- dekaliters
-- hectoliters
-- kiloliters
-- cubic meter
+  - milliliters
+  - centiliters
+  - deciliters
+  - liters
+  - dekaliters
+  - hectoliters
+  - kiloliters
+  - cubic meter
 
 Imperial:
-- teaspoon
-- tablespoon
-- fluid ounce
-- cup
-- pint
-- quart
-- gallon
-- cubic foot
-- cubic inch
+  - teaspoon
+  - tablespoon
+  - fluid ounce
+  - cup
+  - pint
+  - quart
+  - gallon
+  - cubic foot
+  - cubic inch
 
 US:
-- teaspoon
-- tablespoon
-- fluid ounce
-- cup
-- pint
-- quart
-- gallon
-- legal cup
+  - teaspoon
+  - tablespoon
+  - fluid ounce
+  - cup
+  - pint
+  - quart
+  - gallon
+  - legal cup
 
 ### Temperature Units
 
-- kelvin
-- celcius
-- fahrenheit
+  - kelvin
+  - celcius
+  - fahrenheit
 
 ### Time units
 
-- picoseconds
-- nanoseconds
-- microseconds
-- milliseconds
-- seconds
-- minutes
-- hours
-- days
+  - picoseconds
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
 
 ### Mass units
 
-- milligrams
-- centigrams
-- decigrams
-- grams
-- dekagrams
-- hectograms
-- kilograms
-- tonnes
-- ounces
-- pounds
-- short (US) tons
-- long (UK) tons
+  - milligrams
+  - centigrams
+  - decigrams
+  - grams
+  - dekagrams
+  - hectograms
+  - kilograms
+  - tonnes
+  - ounces
+  - pounds
+  - short (US) tons
+  - long (UK) tons
