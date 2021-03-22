@@ -1,7 +1,16 @@
 # Change Log for fling\_units
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
-## Unreleased
+## [Unreleased]
+## [1.1.2] - 2021-03-21
+### Changed
+- Treat warnings as errors during dartanalyzer runs
+
+### Fixed
+- Correct template for CHANGELOG entries
+- Fix Dart warnings in README
+
+## [1.1.1] - 2021-03-20
 ### Added
 - Cider-style CHANGELOG and config
 - Magnitude comparisons via truncating division and a special division method
@@ -9,12 +18,9 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit 
 
 ### Changed
 - Allow const instances of units
-- Treat warnings as errors during dartanalyzer runs
 
 ### Fixed
 - Markdown style suggestions in README
-- Fix Dart warnings in README
-- Correct template for CHANGELOG entries
 
 ## [1.1.0] - 2021-03-17
 ### Added
@@ -104,6 +110,9 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit 
 ### Added
 - Initial package setup
 
+[Unreleased]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/HEAD/
+[1.1.2]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/1.1.2/
+[1.1.1]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.1.1
 [1.1.0]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.1.0
 [1.0.1]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.0.1
 [1.0.0]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/v1.0.0
