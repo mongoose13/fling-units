@@ -3,38 +3,46 @@
 A type safe Dart library for unit conversion. Pass around fully abstracted measurements safely and easily to keep your
 code simple!
 
-![Build Status](https://img.shields.io/travis/gelbermungo/fling-units/master?style=plastic)
-![Code Quality](https://img.shields.io/codacy/grade/749ee1e8ee2e4d26ab57b3256f422e9a?style=plastic)
-![Pub Version](https://img.shields.io/pub/v/fling_units?style=plastic)
+[![Build Status](https://img.shields.io/travis/gelbermungo/fling-units/master?style=plastic)](https://travis-ci.com/bitbucket/gelbermungo/fling-units)
+[![Code Quality](https://img.shields.io/codacy/grade/749ee1e8ee2e4d26ab57b3256f422e9a?style=plastic)](https://www.codacy.com/bb/gelbermungo/fling-units/dashboard)
+[![Pub Version](https://img.shields.io/pub/v/fling_units?style=plastic)](https://pub.dev/packages/fling_units)
 
 ## Usage
 Create an instance of the dimension type you want to measure:
 ```dart
-Distance distanceToSeattle = Distance.ofKilometers(246);
-Distance distanceToTheMoon = Distance.ofImperial(miles: 238900, feet: 42, inches: 6.3);
+void main() {
+  Distance distanceToSeattle = Distance.ofKilometers(246);
+  Distance distanceToTheMoon = Distance.ofImperial(miles: 238900, feet: 42, inches: 6.3);
+}
 ```
 
 Convert to any other measurement type within that dimension:
 
 ```dart
-double distanceToSeattleInMiles = distanceToSeattle.asMiles;
-double distanceToSeattleInInches = distanceToSeattle.asInches;
+void main() {
+  double distanceToSeattleInMiles = distanceToSeattle.asMiles;
+  double distanceToSeattleInInches = distanceToSeattle.asInches;
+}
 ```
 
 Perform basic arithmetic:
 
 ```dart
-Distance distanceToSeattleAndBack = distanceToSeattle * 2;
-Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
-Distance distanceToTheEndsOfTheUniverse = Distance.infinite();
-bool useTheCar = distanceToTravel >= Distance.ofMiles(1.5);
+void main() {
+  Distance distanceToSeattleAndBack = distanceToSeattle * 2;
+  Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
+  Distance distanceToTheEndsOfTheUniverse = Distance.infinite();
+  bool useTheCar = distanceToTravel >= Distance.ofMiles(1.5);
+}
 ```
 
 Built-in ordering:
 
 ```dart
-[Distance.zero(), Distance.infinite(), Distance.ofMeters(3), Distance.ofFeet(3), Distance.ofYards(-2)].sort();
-// produces [yards(-2), zero(), feet(3), meters(3), infinite()]
+void main() {
+  [Distance.zero(), Distance.infinite(), Distance.ofMeters(3), Distance.ofFeet(3), Distance.ofYards(-2)].sort();
+  // produces [yards(-2), zero(), feet(3), meters(3), infinite()]
+}
 ```
 
 Abstract away the specific units your code needs by passing around the encapsulated types. It doesn't matter which units each portion of your code requires, they can be combined seamlessly:
@@ -46,14 +54,18 @@ Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
 
 Ensure type safety:
 ```dart
-var nonsense = distanceToSeattle + temperatureInNewYork;  // won't compile!
+void main() {
+  var nonsense = distanceToSeattle + temperatureInNewYork; // won't compile!
+}
 ```
 
 Express the certainty in your measurements correctly by setting a precision. Conversions will automatically provide appropriate significant digits:
 
 ```dart
-var myHeight = Distance.ofMeters(1.5, precision: Precision(2));
-var myHeightInInches = myHeight.asInches;  // 59.0
+void main() {
+  var myHeight = Distance.ofMeters(1.5, precision: Precision(2));
+  var myHeightInInches = myHeight.asInches; // 59.0
+}
 ```
 
 ## Supported Features

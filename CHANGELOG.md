@@ -9,6 +9,8 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit 
 
 ### Changed
 - Allow const instances of units
+- Fix Dart warnings in README
+- Treat warnings as errors during dartanalyzer runs
 
 ### Fixed
 - Markdown style suggestions
