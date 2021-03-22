@@ -9,11 +9,12 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit 
 
 ### Changed
 - Allow const instances of units
-- Fix Dart warnings in README
 - Treat warnings as errors during dartanalyzer runs
 
 ### Fixed
-- Markdown style suggestions
+- Markdown style suggestions in README
+- Fix Dart warnings in README
+- Correct template for CHANGELOG entries
 
 ## [1.1.0] - 2021-03-17
 ### Added
