@@ -2,6 +2,16 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
 ## [Unreleased]
+Note: a lot of the old methods are marked "deprecated" as of 1.2.0 - these methods will remain in the library
+until 2.0.0, but will not be enhanced or expanded further. Hints for migrating are provided with each deprecated
+method, and our hope is that this update will allow us to build a more flexible and scalable library for future
+releases. We encourage you to use the replacement methods now and to give us feedback on how well they work!
+
+### Changed
+- Refactor unit converters for more flexibility
+- Deprecate duplicated functionality
+- Examples and documentation for unit converters
+
 ## [1.1.2] - 2021-03-21
 ### Changed
 - Treat warnings as errors during dartanalyzer runs

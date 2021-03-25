@@ -5,7 +5,7 @@ part of fling_units;
 /// [MeasurementInterpreter]s allow [Measurement]s to be interpreted as whatever
 /// unit the [MeasurementInterpreter] was configured for. Users of the library
 /// will generally only require the built-in converters for the [Measurement]
-/// types being used (e.g. [Distance.miles]), but if needed, some
+/// types being used (e.g. [miles]), but if needed, some
 /// [MeasurementInterpreter] subtypes can be configured further (e.g.
 /// [AreaInterpreter]).
 ///
@@ -15,15 +15,18 @@ part of fling_units;
 /// such as [Area.as]).
 abstract class MeasurementInterpreter<T> {
   /// Interprets the base value according to the configured unit.
-  double _of(final num value) => value.toDouble() * _multiplier;
+  double _of(final num value) => value.toDouble() * _unitMultiplier;
 
   /// Interprets the provided value as if it were of the configured unit,
   /// returning the base value.
-  double _from(final num value) => value.toDouble() / _multiplier;
+  double _from(final num value) => value.toDouble() / _unitMultiplier;
+
+  /// Creates a measurement based on the value and the configured multiplier.
+  T call(final double value, {final Precision precision = Precision.max});
 
   /// Constructs a [MeasurementInterpreter].
-  const MeasurementInterpreter._(final this._multiplier);
+  const MeasurementInterpreter._(final this._unitMultiplier);
 
   /// The multiplier for the configured unit.
-  final double _multiplier;
+  final double _unitMultiplier;
 }

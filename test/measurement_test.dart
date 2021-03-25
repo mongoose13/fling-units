@@ -15,7 +15,7 @@ void main() {
     });
     test('on a positive finite unit', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit.isNegative;
@@ -25,7 +25,7 @@ void main() {
     });
     test('on a negative finite unit', () {
       // given
-      final unit = Distance.ofMeters(-2, precision: Precision(5));
+      final unit = meters(-2, precision: Precision(5));
 
       // when
       final result = unit.isNegative;
@@ -55,7 +55,7 @@ void main() {
     });
     test('on a nonexistent unit', () {
       // given
-      final unit = Distance.ofMeters(double.nan, precision: Precision(5));
+      final unit = meters(double.nan, precision: Precision(5));
 
       // when
       final result = unit.isNegative;
@@ -78,7 +78,7 @@ void main() {
     });
     test('on a positive finite unit', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit.isFinite;
@@ -88,7 +88,7 @@ void main() {
     });
     test('on a negative finite unit', () {
       // given
-      final unit = Distance.ofMeters(-2, precision: Precision(5));
+      final unit = meters(-2, precision: Precision(5));
 
       // when
       final result = unit.isFinite;
@@ -118,7 +118,7 @@ void main() {
     });
     test('on a nonexistent unit', () {
       // given
-      final unit = Distance.ofMeters(double.nan, precision: Precision(5));
+      final unit = meters(double.nan, precision: Precision(5));
 
       // when
       final result = unit.isFinite;
@@ -141,7 +141,7 @@ void main() {
     });
     test('on a positive finite unit', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit.isInfinite;
@@ -151,7 +151,7 @@ void main() {
     });
     test('on a negative finite unit', () {
       // given
-      final unit = Distance.ofMeters(-2, precision: Precision(5));
+      final unit = meters(-2, precision: Precision(5));
 
       // when
       final result = unit.isInfinite;
@@ -181,7 +181,7 @@ void main() {
     });
     test('on a nonexistent unit', () {
       // given
-      final unit = Distance.ofMeters(double.nan, precision: Precision(5));
+      final unit = meters(double.nan, precision: Precision(5));
 
       // when
       final result = unit.isInfinite;
@@ -204,7 +204,7 @@ void main() {
     });
     test('on a positive finite unit', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit.isNaN;
@@ -214,7 +214,7 @@ void main() {
     });
     test('on a negative finite unit', () {
       // given
-      final unit = Distance.ofMeters(-2, precision: Precision(5));
+      final unit = meters(-2, precision: Precision(5));
 
       // when
       final result = unit.isNaN;
@@ -244,7 +244,7 @@ void main() {
     });
     test('on a nonexistent unit', () {
       // given
-      final unit = Distance.ofMeters(double.nan, precision: Precision(5));
+      final unit = meters(double.nan, precision: Precision(5));
 
       // when
       final result = unit.isNaN;
@@ -267,7 +267,7 @@ void main() {
     });
     test('same object', () {
       // given
-      final unit = Distance.ofMeters(3, precision: Precision(5));
+      final unit = meters(3, precision: Precision(5));
 
       // when
       final result = unit.hashCode == unit.hashCode;
@@ -277,8 +277,8 @@ void main() {
     });
     test('identical object', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1.hashCode == unit2.hashCode;
@@ -301,7 +301,7 @@ void main() {
     });
     test('same object', () {
       // given
-      final unit = Distance.ofMeters(3, precision: Precision(5));
+      final unit = meters(3, precision: Precision(5));
 
       // when
       final result = unit == unit;
@@ -311,8 +311,8 @@ void main() {
     });
     test('identical object', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 == unit2;
@@ -322,8 +322,8 @@ void main() {
     });
     test('different value', () {
       // given
-      final unit1 = Distance.ofMeters(4, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(4, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 == unit2;
@@ -333,8 +333,8 @@ void main() {
     });
     test('different precision', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(4));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(4));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 == unit2;
@@ -347,8 +347,8 @@ void main() {
   group('>', () {
     test('same value', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 > unit2;
@@ -358,8 +358,8 @@ void main() {
     });
     test('smaller value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 > unit2;
@@ -369,8 +369,8 @@ void main() {
     });
     test('larger value', () {
       // given
-      final unit1 = Distance.ofMeters(4, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(4, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 > unit2;
@@ -381,7 +381,7 @@ void main() {
     test('from infinite', () {
       // given
       final unit1 = Distance.infinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 > unit2;
@@ -391,7 +391,7 @@ void main() {
     });
     test('to infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.infinite();
 
       // when
@@ -403,7 +403,7 @@ void main() {
     test('from negative infinite', () {
       // given
       final unit1 = Distance.negativeInfinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 > unit2;
@@ -413,7 +413,7 @@ void main() {
     });
     test('to negative infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.negativeInfinite();
 
       // when
@@ -427,8 +427,8 @@ void main() {
   group('>=', () {
     test('same value', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 >= unit2;
@@ -438,8 +438,8 @@ void main() {
     });
     test('smaller value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 >= unit2;
@@ -449,8 +449,8 @@ void main() {
     });
     test('larger value', () {
       // given
-      final unit1 = Distance.ofMeters(4, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(4, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 >= unit2;
@@ -461,7 +461,7 @@ void main() {
     test('from infinite', () {
       // given
       final unit1 = Distance.infinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 >= unit2;
@@ -471,7 +471,7 @@ void main() {
     });
     test('to infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.infinite();
 
       // when
@@ -483,7 +483,7 @@ void main() {
     test('from negative infinite', () {
       // given
       final unit1 = Distance.negativeInfinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 >= unit2;
@@ -493,7 +493,7 @@ void main() {
     });
     test('to negative infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.negativeInfinite();
 
       // when
@@ -507,8 +507,8 @@ void main() {
   group('<', () {
     test('same value', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 < unit2;
@@ -518,8 +518,8 @@ void main() {
     });
     test('smaller value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 < unit2;
@@ -529,8 +529,8 @@ void main() {
     });
     test('larger value', () {
       // given
-      final unit1 = Distance.ofMeters(4, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(4, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 < unit2;
@@ -541,7 +541,7 @@ void main() {
     test('from infinite', () {
       // given
       final unit1 = Distance.infinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 < unit2;
@@ -551,7 +551,7 @@ void main() {
     });
     test('to infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.infinite();
 
       // when
@@ -563,7 +563,7 @@ void main() {
     test('from negative infinite', () {
       // given
       final unit1 = Distance.negativeInfinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 < unit2;
@@ -573,7 +573,7 @@ void main() {
     });
     test('to negative infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.negativeInfinite();
 
       // when
@@ -587,8 +587,8 @@ void main() {
   group('<=', () {
     test('same value', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 <= unit2;
@@ -598,8 +598,8 @@ void main() {
     });
     test('smaller value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 <= unit2;
@@ -609,8 +609,8 @@ void main() {
     });
     test('larger value', () {
       // given
-      final unit1 = Distance.ofMeters(4, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(4, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 <= unit2;
@@ -621,7 +621,7 @@ void main() {
     test('from infinite', () {
       // given
       final unit1 = Distance.infinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 <= unit2;
@@ -631,7 +631,7 @@ void main() {
     });
     test('to infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.infinite();
 
       // when
@@ -643,7 +643,7 @@ void main() {
     test('from negative infinite', () {
       // given
       final unit1 = Distance.negativeInfinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 <= unit2;
@@ -653,7 +653,7 @@ void main() {
     });
     test('to negative infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.negativeInfinite();
 
       // when
@@ -667,8 +667,8 @@ void main() {
   group('compareTo', () {
     test('same value', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1.compareTo(unit2);
@@ -678,8 +678,8 @@ void main() {
     });
     test('smaller value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1.compareTo(unit2);
@@ -689,8 +689,8 @@ void main() {
     });
     test('larger value', () {
       // given
-      final unit1 = Distance.ofMeters(4, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(4, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1.compareTo(unit2);
@@ -701,7 +701,7 @@ void main() {
     test('from infinite', () {
       // given
       final unit1 = Distance.infinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1.compareTo(unit2);
@@ -711,7 +711,7 @@ void main() {
     });
     test('to infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.infinite();
 
       // when
@@ -723,7 +723,7 @@ void main() {
     test('from negative infinite', () {
       // given
       final unit1 = Distance.negativeInfinite();
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1.compareTo(unit2);
@@ -733,7 +733,7 @@ void main() {
     });
     test('to negative infinite', () {
       // given
-      final unit1 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(3, precision: Precision(5));
       final unit2 = Distance.negativeInfinite();
 
       // when
@@ -747,7 +747,7 @@ void main() {
   group('unary -', () {
     test('positive finite changes sign', () {
       // given
-      final unit = Distance.ofMeters(3, precision: Precision(5));
+      final unit = meters(3, precision: Precision(5));
 
       // when
       final result = -unit;
@@ -757,7 +757,7 @@ void main() {
     });
     test('positive finite keeps precision', () {
       // given
-      final unit = Distance.ofMeters(3, precision: Precision(5));
+      final unit = meters(3, precision: Precision(5));
 
       // when
       final result = -unit;
@@ -830,8 +830,8 @@ void main() {
   group('+', () {
     test('identity', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(0, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(0, precision: Precision(5));
 
       // when
       final result = unit1 + unit2;
@@ -841,8 +841,8 @@ void main() {
     });
     test('both positive increases value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 + unit2;
@@ -852,8 +852,8 @@ void main() {
     });
     test('one negative decreases value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(-3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(-3, precision: Precision(5));
 
       // when
       final result = unit1 + unit2;
@@ -863,7 +863,7 @@ void main() {
     });
     test('infinite', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
       final unit2 = Distance.infinite();
 
       // when
@@ -874,7 +874,7 @@ void main() {
     });
     test('negative infinite', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
       final unit2 = Distance.negativeInfinite();
 
       // when
@@ -885,8 +885,8 @@ void main() {
     });
     test('precision is maxed', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 + unit2;
@@ -899,8 +899,8 @@ void main() {
   group('binary -', () {
     test('identity', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(0, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(0, precision: Precision(5));
 
       // when
       final result = unit1 - unit2;
@@ -910,8 +910,8 @@ void main() {
     });
     test('both positive decreases value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 - unit2;
@@ -921,8 +921,8 @@ void main() {
     });
     test('one negative increases value', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(-3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(-3, precision: Precision(5));
 
       // when
       final result = unit1 - unit2;
@@ -932,7 +932,7 @@ void main() {
     });
     test('infinite', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
       final unit2 = Distance.infinite();
 
       // when
@@ -943,7 +943,7 @@ void main() {
     });
     test('negative infinite', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
       final unit2 = Distance.negativeInfinite();
 
       // when
@@ -954,8 +954,8 @@ void main() {
     });
     test('precision is maxed', () {
       // given
-      final unit1 = Distance.ofMeters(2, precision: Precision(5));
-      final unit2 = Distance.ofMeters(3, precision: Precision(5));
+      final unit1 = meters(2, precision: Precision(5));
+      final unit2 = meters(3, precision: Precision(5));
 
       // when
       final result = unit1 - unit2;
@@ -968,7 +968,7 @@ void main() {
   group('*', () {
     test('identity', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit * 1;
@@ -978,7 +978,7 @@ void main() {
     });
     test('zero multiplier', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit * 0;
@@ -998,7 +998,7 @@ void main() {
     });
     test('infinite multiplier', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit * double.infinity;
@@ -1018,7 +1018,7 @@ void main() {
     });
     test('positive multiplier', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit * 3;
@@ -1028,7 +1028,7 @@ void main() {
     });
     test('negative multiplier', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit * -3;
@@ -1041,7 +1041,7 @@ void main() {
   group('/', () {
     test('identity', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit / 1;
@@ -1051,7 +1051,7 @@ void main() {
     });
     test('zero divisor', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit / 0;
@@ -1071,7 +1071,7 @@ void main() {
     });
     test('infinite divisor', () {
       // given
-      final unit = Distance.ofMeters(2, precision: Precision(5));
+      final unit = meters(2, precision: Precision(5));
 
       // when
       final result = unit / double.infinity;
@@ -1091,7 +1091,7 @@ void main() {
     });
     test('positive divisor', () {
       // given
-      final unit = Distance.ofMeters(6, precision: Precision(5));
+      final unit = meters(6, precision: Precision(5));
 
       // when
       final result = unit / 3;
@@ -1101,7 +1101,7 @@ void main() {
     });
     test('negative divisor', () {
       // given
-      final unit = Distance.ofMeters(6, precision: Precision(5));
+      final unit = meters(6, precision: Precision(5));
 
       // when
       final result = unit / -3;
@@ -1114,8 +1114,8 @@ void main() {
   group('~/', () {
     test('larger over smaller', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
-      final unit2 = Distance.ofMeters(2.0);
+      final unit1 = meters(4.0);
+      final unit2 = meters(2.0);
 
       // when
       final result = unit1 ~/ unit2;
@@ -1125,8 +1125,8 @@ void main() {
     });
     test('smaller over larger', () {
       // given
-      final unit1 = Distance.ofMeters(2.0);
-      final unit2 = Distance.ofMeters(4.0);
+      final unit1 = meters(2.0);
+      final unit2 = meters(4.0);
 
       // when
       final result = unit1 ~/ unit2;
@@ -1136,8 +1136,8 @@ void main() {
     });
     test('opposite signs', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
-      final unit2 = Distance.ofMeters(-2.0);
+      final unit1 = meters(4.0);
+      final unit2 = meters(-2.0);
 
       // when
       final result = unit1 ~/ unit2;
@@ -1147,7 +1147,7 @@ void main() {
     });
     test('compare to zero', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
+      final unit1 = meters(4.0);
       final unit2 = Distance.zero();
 
       // then
@@ -1156,7 +1156,7 @@ void main() {
     test('compare with zero', () {
       // given
       final unit1 = Distance.zero();
-      final unit2 = Distance.ofMeters(4.0);
+      final unit2 = meters(4.0);
 
       // when
       final result = unit1 ~/ unit2;
@@ -1166,7 +1166,7 @@ void main() {
     });
     test('compare to infinity', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
+      final unit1 = meters(4.0);
       final unit2 = Distance.infinite();
 
       // when
@@ -1178,7 +1178,7 @@ void main() {
     test('compare with infinity', () {
       // given
       final unit1 = Distance.infinite();
-      final unit2 = Distance.ofMeters(4.0);
+      final unit2 = meters(4.0);
 
       // then
       expect(() => unit1 ~/ unit2, throwsUnsupportedError);
@@ -1188,8 +1188,8 @@ void main() {
   group('compareMagnitude', () {
     test('no precision', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
-      final unit2 = Distance.ofMeters(2.0);
+      final unit1 = meters(4.0);
+      final unit2 = meters(2.0);
 
       // when
       final result = unit1.compareMagnitude(unit2);
@@ -1199,8 +1199,8 @@ void main() {
     });
     test('opposite sign', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
-      final unit2 = Distance.ofMeters(-2.0);
+      final unit1 = meters(4.0);
+      final unit2 = meters(-2.0);
 
       // when
       final result = unit1.compareMagnitude(unit2);
@@ -1210,8 +1210,8 @@ void main() {
     });
     test('with precision', () {
       // given
-      final unit1 = Distance.ofMeters(4.0, precision: Precision(3));
-      final unit2 = Distance.ofMeters(3.0, precision: Precision(3));
+      final unit1 = meters(4.0, precision: Precision(3));
+      final unit2 = meters(3.0, precision: Precision(3));
 
       // when
       final result = unit1.compareMagnitude(unit2);
@@ -1221,8 +1221,8 @@ void main() {
     });
     test('truncating precision', () {
       // given
-      final unit1 = Distance.ofMeters(3.04999999, precision: Precision(2));
-      final unit2 = Distance.ofMeters(1.49012345, precision: Precision(2));
+      final unit1 = meters(3.04999999, precision: Precision(2));
+      final unit2 = meters(1.49012345, precision: Precision(2));
 
       // when
       final result = unit1.compareMagnitude(unit2);
@@ -1232,7 +1232,7 @@ void main() {
     });
     test('compare to zero', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
+      final unit1 = meters(4.0);
       final unit2 = Distance.zero();
 
       // when
@@ -1244,7 +1244,7 @@ void main() {
     test('compare with zero', () {
       // given
       final unit1 = Distance.zero();
-      final unit2 = Distance.ofMeters(4.0);
+      final unit2 = meters(4.0);
 
       // when
       final result = unit1.compareMagnitude(unit2);
@@ -1254,7 +1254,7 @@ void main() {
     });
     test('compare to infinity', () {
       // given
-      final unit1 = Distance.ofMeters(4.0);
+      final unit1 = meters(4.0);
       final unit2 = Distance.infinite();
 
       // when
@@ -1266,7 +1266,7 @@ void main() {
     test('compare with infinity', () {
       // given
       final unit1 = Distance.infinite();
-      final unit2 = Distance.ofMeters(4.0);
+      final unit2 = meters(4.0);
 
       // when
       final result = unit1.compareMagnitude(unit2);
@@ -1279,23 +1279,23 @@ void main() {
   group('withPrecision', () {
     test('sets smaller precision', () {
       // given
-      final unit = Distance.ofMeters(3.14159, precision: Precision(6));
+      final unit = meters(3.14159, precision: Precision(6));
 
       // when
       final result = unit.withPrecision(Precision(4));
 
       // then
-      expect(result.asMeters, 3.142);
+      expect(result.as(meters), 3.142);
     });
     test('sets higher precision', () {
       // given
-      final unit = Distance.ofMeters(3.14159, precision: Precision(2));
+      final unit = meters(3.14159, precision: Precision(2));
 
       // when
       final result = unit.withPrecision(Precision(6));
 
       // then
-      expect(result.asMeters, 3.14159);
+      expect(result.as(meters), 3.14159);
     });
   });
 }

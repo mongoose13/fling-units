@@ -6,12 +6,12 @@ void main() {
     test('same units', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.multiply(
-        Distance.ofMeters(2, precision: Precision(3)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(2, precision: Precision(3)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.meters, Distance.meters);
+      final result = unit.as(meters, meters);
 
       // then
       expect(result, 6.0);
@@ -19,12 +19,12 @@ void main() {
     test('disparate units', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.multiply(
-        Distance.ofMeters(2, precision: Precision(3)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(2, precision: Precision(3)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.meters, Distance.decimeters);
+      final result = unit.as(meters, deci.meters);
 
       // then
       expect(result, 60.0);
@@ -32,12 +32,12 @@ void main() {
     test('disparate units transposed', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.multiply(
-        Distance.ofMeters(2, precision: Precision(3)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(2, precision: Precision(3)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.decimeters, Distance.meters);
+      final result = unit.as(deci.meters, meters);
 
       // then
       expect(result, 60.0);
@@ -45,8 +45,8 @@ void main() {
     test('precision maintained', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.multiply(
-        Distance.ofMeters(2, precision: Precision(6)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(2, precision: Precision(6)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
@@ -61,12 +61,12 @@ void main() {
     test('same units', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.divide(
-        Distance.ofMeters(6, precision: Precision(3)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(6, precision: Precision(3)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.meters, Distance.meters);
+      final result = unit.as(meters, meters);
 
       // then
       expect(result, 2.0);
@@ -74,12 +74,12 @@ void main() {
     test('disparate units', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.divide(
-        Distance.ofMeters(6, precision: Precision(3)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(6, precision: Precision(3)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.meters, Distance.decimeters);
+      final result = unit.as(meters, deci.meters);
 
       // then
       expect(result, 0.2);
@@ -87,12 +87,12 @@ void main() {
     test('disparate units transposed', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.divide(
-        Distance.ofMeters(6, precision: Precision(3)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(6, precision: Precision(3)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
-      final result = unit.as(Distance.decimeters, Distance.meters);
+      final result = unit.as(deci.meters, meters);
 
       // then
       expect(result, 20.0);
@@ -100,8 +100,8 @@ void main() {
     test('precision maintained', () {
       // given
       final unit = DerivedMeasurement<Distance, Distance>.divide(
-        Distance.ofMeters(6, precision: Precision(6)),
-        Distance.ofMeters(3, precision: Precision(3)),
+        meters(6, precision: Precision(6)),
+        meters(3, precision: Precision(3)),
       );
 
       // when
@@ -113,11 +113,11 @@ void main() {
     test('disparate measurements', () {
       // given
       final unit = DerivedMeasurement<Distance, Volume>.divide(
-          Distance.ofMiles(100, precision: Precision(3)),
-          Volume.ofGallons(5, precision: Precision(3)));
+          miles(100, precision: Precision(3)),
+          gallons(5, precision: Precision(3)));
 
       // when
-      final result = unit.as(Distance.miles, Volume.gallons);
+      final result = unit.as(miles, gallons);
 
       // then
       expect(result, 20.0);
@@ -125,11 +125,11 @@ void main() {
     test('disparate measurements converted', () {
       // given
       final unit = DerivedMeasurement<Distance, Volume>.divide(
-          Distance.ofMiles(100, precision: Precision(3)),
-          Volume.ofGallons(5, precision: Precision(3)));
+          miles(100, precision: Precision(3)),
+          gallons(5, precision: Precision(3)));
 
       // when
-      final result = unit.as(Distance.kilometers, Volume.liters);
+      final result = unit.as(kilo.meters, liters);
 
       // then
       expect(result, 7.08);

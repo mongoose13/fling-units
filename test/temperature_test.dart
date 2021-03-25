@@ -164,20 +164,20 @@ void main() {
     'Temperature Addition',
     () {
       test('Same units', () {
-        expect(Temperature.ofKelvin(123) + TemperatureChange.ofKelvin(32),
+        expect(Temperature.ofKelvin(123) + kelvin(32),
             Temperature.ofKelvin(155));
-        expect(Temperature.ofKelvin(123) + TemperatureChange.ofKelvin(-32),
+        expect(Temperature.ofKelvin(123) + kelvin(-32),
             Temperature.ofKelvin(91));
       });
       test('Different units', () {
-        expect(Temperature.ofKelvin(123) + TemperatureChange.ofFahrenheit(32),
+        expect(Temperature.ofKelvin(123) + fahrenheit(32),
             Temperature.ofKelvin(140.77777777777777));
-        expect(Temperature.ofKelvin(123) + TemperatureChange.ofFahrenheit(-32),
+        expect(Temperature.ofKelvin(123) + fahrenheit(-32),
             Temperature.ofKelvin(105.22222222222223));
       });
       test('Invalid', () {
         expect(
-            () => Temperature.ofKelvin(123) + TemperatureChange.ofKelvin(-124),
+            () => Temperature.ofKelvin(123) + kelvin(-124),
             throwsArgumentError);
         expect(
             () =>
@@ -188,15 +188,15 @@ void main() {
       test('Infinity', () {
         expect(Temperature.ofKelvin(123) + TemperatureChange.infinite(),
             Temperature.infinite());
-        expect(Temperature.infinite() + TemperatureChange.ofKelvin(123),
+        expect(Temperature.infinite() + kelvin(123),
             Temperature.infinite());
-        expect(Temperature.infinite() + TemperatureChange.ofKelvin(-123),
+        expect(Temperature.infinite() + kelvin(-123),
             Temperature.infinite());
       });
       test('Identity', () {
         expect(Temperature.ofKelvin(123) + TemperatureChange.zero(),
             Temperature.ofKelvin(123));
-        expect(Temperature.absoluteZero() + TemperatureChange.ofKelvin(123),
+        expect(Temperature.absoluteZero() + kelvin(123),
             Temperature.ofKelvin(123));
       });
     },
@@ -206,20 +206,20 @@ void main() {
     'Temperature Subtraction',
     () {
       test('Same units', () {
-        expect(Temperature.ofKelvin(123) - TemperatureChange.ofKelvin(32),
+        expect(Temperature.ofKelvin(123) - kelvin(32),
             Temperature.ofKelvin(91));
-        expect(Temperature.ofKelvin(123) - TemperatureChange.ofKelvin(-32),
+        expect(Temperature.ofKelvin(123) - kelvin(-32),
             Temperature.ofKelvin(155));
       });
       test('Different units', () {
-        expect(Temperature.ofKelvin(123) - TemperatureChange.ofFahrenheit(32),
+        expect(Temperature.ofKelvin(123) - fahrenheit(32),
             Temperature.ofKelvin(105.22222222222223));
-        expect(Temperature.ofKelvin(123) - TemperatureChange.ofFahrenheit(-32),
+        expect(Temperature.ofKelvin(123) - fahrenheit(-32),
             Temperature.ofKelvin(140.77777777777777));
       });
       test('Invalid', () {
         expect(
-            () => Temperature.ofKelvin(123) - TemperatureChange.ofKelvin(124),
+            () => Temperature.ofKelvin(123) - kelvin(124),
             throwsArgumentError);
         expect(() => Temperature.ofKelvin(123) - TemperatureChange.infinite(),
             throwsArgumentError);
@@ -227,64 +227,17 @@ void main() {
       test('Infinity', () {
         expect(Temperature.ofKelvin(123) - TemperatureChange.negativeInfinite(),
             Temperature.infinite());
-        expect(Temperature.infinite() - TemperatureChange.ofKelvin(123),
+        expect(Temperature.infinite() - kelvin(123),
             Temperature.infinite());
-        expect(Temperature.infinite() - TemperatureChange.ofKelvin(-123),
+        expect(Temperature.infinite() - kelvin(-123),
             Temperature.infinite());
       });
       test('Identity', () {
         expect(Temperature.ofKelvin(123) - TemperatureChange.zero(),
             Temperature.ofKelvin(123));
-        expect(Temperature.absoluteZero() - TemperatureChange.ofKelvin(-123),
+        expect(Temperature.absoluteZero() - kelvin(-123),
             Temperature.ofKelvin(123));
       });
     },
   );
-
-  group('TemperatureChange Constructors', () {
-    test('zero', () {
-      final result = TemperatureChange.zero();
-
-      expect(result.asKelvin, 0.0);
-      expect(result.asCelcius, 0.0);
-      expect(result.asFahrenheit, 0.0);
-    });
-    test('infinity', () {
-      final result = TemperatureChange.infinite();
-
-      expect(result.asKelvin, double.infinity);
-      expect(result.asCelcius, double.infinity);
-      expect(result.asFahrenheit, double.infinity);
-    });
-    test('negative infinity', () {
-      final result = TemperatureChange.negativeInfinite();
-
-      expect(result.asKelvin, double.negativeInfinity);
-      expect(result.asCelcius, double.negativeInfinity);
-      expect(result.asFahrenheit, double.negativeInfinity);
-    });
-    test('kelvin', () {
-      final result = TemperatureChange.ofKelvin(123.4, precision: Precision(5));
-
-      expect(result.asKelvin, 123.4);
-      expect(result.asCelcius, 123.4);
-      expect(result.asFahrenheit, 222.12);
-    });
-    test('celcius', () {
-      final result =
-          TemperatureChange.ofCelcius(123.4, precision: Precision(5));
-
-      expect(result.asKelvin, 123.4);
-      expect(result.asCelcius, 123.4);
-      expect(result.asFahrenheit, 222.12);
-    });
-    test('fahrenheit', () {
-      final result =
-          TemperatureChange.ofFahrenheit(123.4, precision: Precision(5));
-
-      expect(result.asKelvin, 68.556);
-      expect(result.asCelcius, 68.556);
-      expect(result.asFahrenheit, 123.4);
-    });
-  });
 }

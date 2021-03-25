@@ -8,7 +8,7 @@ void main() {
       final result = Volume.zero();
 
       // then
-      expect(result.asCubicMeters, 0.0);
+      expect(result.asVolume(Volume.cubic(meters)), 0.0);
     });
     test('has max precision', () {
       // given
@@ -24,7 +24,7 @@ void main() {
       final result = Volume.infinite();
 
       // then
-      expect(result.asCubicMeters, double.infinity);
+      expect(result.asVolume(Volume.cubic(meters)), double.infinity);
     });
     test('has max precision', () {
       // given
@@ -40,7 +40,7 @@ void main() {
       final result = Volume.negativeInfinite();
 
       // then
-      expect(result.asCubicMeters, double.negativeInfinity);
+      expect(result.asVolume(Volume.cubic(meters)), double.negativeInfinity);
     });
     test('has max precision', () {
       // given
@@ -51,6 +51,435 @@ void main() {
     });
   });
 
+  group('of', () {
+    test('multiplies component parts', () {
+      // given
+      final volume = Volume.of(
+        meters(2, precision: Precision(5)),
+        meters(3, precision: Precision(5)),
+        meters(4, precision: Precision(5)),
+      );
+
+      // when
+      final result = volume.asVolume(Volume.cubic(meters));
+
+      // then
+      expect(result, 24.0);
+    });
+    test('retains correct precision', () {
+      // given
+      final volume = Volume.of(
+        meters(2, precision: Precision(5)),
+        meters(3, precision: Precision(3)),
+        meters(4, precision: Precision(4)),
+      );
+
+      // when
+      final result = volume.precision;
+
+      // then
+      expect(result, 3);
+    });
+  });
+
+  group('as', () {
+    test('converts to unit', () {
+      // given
+      final mass = grams(123.456, precision: Precision(8));
+
+      // when
+      final result = mass.as(pounds);
+
+      // then
+      expect(result, 0.27217389);
+    });
+  });
+
+  group('sum', () {
+    test('adds parts', () {
+      // given
+      final volume = Volume.sum([
+        Volume.cubic(milli.meters)(1000),
+        Volume.cubic(centi.meters)(200),
+        Volume.cubic(deci.meters)(30),
+        Volume.cubic(meters)(4),
+      ], precision: Precision(10));
+
+      // when
+      final result = volume.asVolume(Volume.cubic(meters));
+
+      // then
+      expect(result, 4.030201);
+    });
+  });
+
+  group('as', () {
+    test('converts to unit', () {
+      // given
+      final mass = grams(123.456, precision: Precision(8));
+
+      // when
+      final result = mass.as(pounds);
+
+      // then
+      expect(result, 0.27217389);
+    });
+  });
+
+  group('liters', () {
+    test('converts to base', () {
+      // given
+      final volume = liters(1234.0, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 1234.0);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.liters(1234.0, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 1.234);
+    });
+  });
+  group('teaspoons', () {
+    test('converts to base', () {
+      // given
+      final volume = teaspoons(1234.0, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 7.3045);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.teaspoons(1.234e6, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 7.3045);
+    });
+  });
+  group('tablespoons', () {
+    test('converts to base', () {
+      // given
+      final volume = tablespoons(1234.0, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 21.914);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.tablespoons(1.234e6, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 21.914);
+    });
+  });
+  group('fluidOunces', () {
+    test('converts to base', () {
+      // given
+      final volume = fluidOunces(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 35.062);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.fluidOunces(1.234e6, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 35.062);
+    });
+  });
+  group('cups', () {
+    test('converts to base', () {
+      // given
+      final volume = cups(1.234e2, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 35.062);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.cups(1.234e5, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 35.062);
+    });
+  });
+  group('pints', () {
+    test('converts to base', () {
+      // given
+      final volume = pints(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.70124);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.pints(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.70124);
+    });
+  });
+  group('quarts', () {
+    test('converts to base', () {
+      // given
+      final volume = quarts(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 1.4025);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.quarts(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 1.4025);
+    });
+  });
+  group('gallons', () {
+    test('converts to base', () {
+      // given
+      final volume = gallons(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 5.6099);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.gallons(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 5.6099);
+    });
+  });
+  group('usTeaspoons', () {
+    test('converts to base', () {
+      // given
+      final volume = usTeaspoons(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 6.0823);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usTeaspoons(1.234e6, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 6.0823);
+    });
+  });
+  group('usTablespoons', () {
+    test('converts to base', () {
+      // given
+      final volume = usTablespoons(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 18.247);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usTablespoons(1.234e6, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 18.247);
+    });
+  });
+  group('usFluidOunces', () {
+    test('converts to base', () {
+      // given
+      final volume = usFluidOunces(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 36.494);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usFluidOunces(1.234e6, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 36.494);
+    });
+  });
+  group('usCups', () {
+    test('converts to base', () {
+      // given
+      final volume = usCups(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.29195);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usCups(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.29195);
+    });
+  });
+  group('usPints', () {
+    test('converts to base', () {
+      // given
+      final volume = usPints(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.5839);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usPints(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.5839);
+    });
+  });
+  group('usQuarts', () {
+    test('converts to base', () {
+      // given
+      final volume = usQuarts(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 1.1678);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usQuarts(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 1.1678);
+    });
+  });
+  group('usGallons', () {
+    test('converts to base', () {
+      // given
+      final volume = usGallons(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 4.6712);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usGallons(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 4.6712);
+    });
+  });
+  group('usLegalCups', () {
+    test('converts to base', () {
+      // given
+      final volume = usLegalCups(1.234, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.29616);
+    });
+    test('applies prefixes', () {
+      // given
+      final volume = milli.usLegalCups(1.234e3, precision: Precision(5));
+
+      // when
+      final result = volume.asVolume(liters);
+
+      // then
+      expect(result, 0.29616);
+    });
+  });
+
+  // -------------------- DEPRECATED -------------------- //
   group('metric', () {
     test('kiloliters parameter', () {
       // given

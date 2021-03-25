@@ -2,51 +2,133 @@ part of fling_units;
 
 /// Interprets [Mass]es as a specific unit.
 class MassInterpreter extends MeasurementInterpreter<Mass> {
+  @override
+  Mass call(final num value, {final Precision precision = Precision.max}) =>
+      Mass._(_from(value), precision);
+
   /// Constructs a [MassInterpreter].
   const MassInterpreter._(final double multiplier) : super._(multiplier);
+
+  /// Produces a [MassInterpreter] that is a multiple of this.
+  MassInterpreter _withPrefix(final double multiplier) =>
+      MassInterpreter._(_unitMultiplier / multiplier);
+
+  /// The interpreter for grams.
+  static const _grams = MassInterpreter._(1e0);
+
+  /// The interpreter for tonnes.
+  static const _tonnes = MassInterpreter._(1e-6);
+
+  /// The interpreter for atomic mass units.
+  static const _atomicMassUnits = MassInterpreter._(6.022136651e23);
+
+  /// The interpreter for long tons.
+  static const _longTons = MassInterpreter._(9.842065276e-7);
+
+  /// The interpreter for short tons.
+  static const _shortTons = MassInterpreter._(1.1023e-6);
+
+  /// The interpreter for pounds.
+  static const _pounds = MassInterpreter._(0.0022046226);
+
+  /// The interpreter for ounces.
+  static const _ounces = MassInterpreter._(0.0352739619);
+}
+
+/// The interpreter for grams.
+const grams = MassInterpreter._grams;
+
+/// The interpreter for tonnes.
+const tonnes = MassInterpreter._tonnes;
+
+/// The interpreter for atomic mass units.
+const atomicMassUnits = MassInterpreter._atomicMassUnits;
+
+/// The interpreter for long tons.
+const longTons = MassInterpreter._longTons;
+
+/// The interpreter for short tons.
+const shortTons = MassInterpreter._shortTons;
+
+/// The interpreter for pounds.
+const pounds = MassInterpreter._pounds;
+
+/// The interpreter for ounces.
+const ounces = MassInterpreter._ounces;
+
+abstract class MassPrefix {
+  /// Applies this to a gram amount.
+  MassInterpreter get grams => MassInterpreter._grams._withPrefix(_multiplier);
+
+  /// Applies this to a tonne amount.
+  MassInterpreter get tonnes =>
+      MassInterpreter._tonnes._withPrefix(_multiplier);
+
+  /// The [MassInterpreter] for atomic mass units.
+  MassInterpreter get atomicMassUnits =>
+      MassInterpreter._atomicMassUnits._withPrefix(_multiplier);
+
+  /// The [MassInterpreter] for long tons.
+  MassInterpreter get longTons =>
+      MassInterpreter._longTons._withPrefix(_multiplier);
+
+  /// The [MassInterpreter] for short tons.
+  MassInterpreter get shortTons =>
+      MassInterpreter._shortTons._withPrefix(_multiplier);
+
+  /// The [MassInterpreter] for pounds.
+  MassInterpreter get pounds =>
+      MassInterpreter._pounds._withPrefix(_multiplier);
+
+  /// The [MassInterpreter] for ounces.
+  MassInterpreter get ounces =>
+      MassInterpreter._ounces._withPrefix(_multiplier);
+
+  /// The prefix multiplier applied to this measurement.
+  double get _multiplier;
 }
 
 /// Represents an amount of mass.
 class Mass extends Measurement<Mass> {
-  /// The [MassInterpreter] for milligrams.
-  static final MassInterpreter milligrams = MassInterpreter._(1e3);
+  @Deprecated("Use 'milli.grams' instead")
+  static final MassInterpreter milligrams = milli.grams;
 
-  /// The [MassInterpreter] for centigrams.
-  static final MassInterpreter centigrams = MassInterpreter._(1e2);
+  @Deprecated("Use 'centi.grams' instead")
+  static final MassInterpreter centigrams = centi.grams;
 
-  /// The [MassInterpreter] for decigrams.
-  static final MassInterpreter decigrams = MassInterpreter._(1e1);
+  @Deprecated("Use 'deci.grams' instead")
+  static final MassInterpreter decigrams = deci.grams;
 
-  /// The [MassInterpreter] for grams.
-  static final MassInterpreter grams = MassInterpreter._(1e0);
+  @Deprecated("Use 'grams' instead")
+  static final MassInterpreter grams = MassInterpreter._grams;
 
-  /// The [MassInterpreter] for dekagrams.
-  static final MassInterpreter dekagrams = MassInterpreter._(1e-1);
+  @Deprecated("Use 'deka.grams' instead")
+  static final MassInterpreter dekagrams = deka.grams;
 
-  /// The [MassInterpreter] for hectograms.
-  static final MassInterpreter hectograms = MassInterpreter._(1e-2);
+  @Deprecated("Use 'hecto.grams' instead")
+  static final MassInterpreter hectograms = hecto.grams;
 
-  /// The [MassInterpreter] for kilograms.
-  static final MassInterpreter kilograms = MassInterpreter._(1e-3);
+  @Deprecated("Use 'kilo.grams' instead")
+  static final MassInterpreter kilograms = kilo.grams;
 
-  /// The [MassInterpreter] for tonnes.
-  static final MassInterpreter tonnes = MassInterpreter._(1e-6);
+  @Deprecated("Use 'tonnes' instead")
+  static final MassInterpreter tonnes = MassInterpreter._tonnes;
 
-  /// The [MassInterpreter] for atomic mass units.
+  @Deprecated("Use 'atomicMassUnits' instead")
   static final MassInterpreter atomicMassUnit =
-      MassInterpreter._(6.022136651e23);
+      MassInterpreter._atomicMassUnits;
 
-  /// The [MassInterpreter] for long tons.
-  static final MassInterpreter longTons = MassInterpreter._(9.842065276e-7);
+  @Deprecated("Use 'longTons' instead")
+  static final MassInterpreter longTons = MassInterpreter._longTons;
 
-  /// The [MassInterpreter] for short tons.
-  static final MassInterpreter shortTons = MassInterpreter._(1.1023e-6);
+  @Deprecated("Use 'shortTons' instead")
+  static final MassInterpreter shortTons = MassInterpreter._shortTons;
 
-  /// The [MassInterpreter] for pounds.
-  static final MassInterpreter pounds = MassInterpreter._(0.0022046226);
+  @Deprecated("Use 'pounds' instead")
+  static final MassInterpreter pounds = MassInterpreter._pounds;
 
-  /// The [MassInterpreter] for ounces.
-  static final MassInterpreter ounces = MassInterpreter._(0.0352739619);
+  @Deprecated("Use 'ounces' instead")
+  static final MassInterpreter ounces = MassInterpreter._ounces;
 
   /// Zero mass.
   const Mass.zero() : super.zero();
@@ -57,7 +139,12 @@ class Mass extends Measurement<Mass> {
   /// Infinite negative mass.
   const Mass.negativeInfinite() : super.negativeInfinite();
 
-  /// Constructs a [Mass] representing the sum of partial metric amounts.
+  /// Constructs a [Mass] representing the sum of any number of other [Mass]es.
+  Mass.sum(final Iterable<Mass> parts,
+      {final Precision precision = Precision.max})
+      : super.sum(parts, precision);
+
+  @Deprecated("Use 'Mass.sum()' instead")
   Mass.ofMetric({
     final num milligrams = 0,
     final num centigrams = 0,
@@ -67,114 +154,120 @@ class Mass extends Measurement<Mass> {
     final num hectograms = 0,
     final num kilograms = 0,
     final Precision precision = Precision.max,
-  }) : this._(
-            Mass.milligrams._from(milligrams) +
-                Mass.centigrams._from(centigrams) +
-                Mass.decigrams._from(decigrams) +
-                Mass.grams._from(grams) +
-                Mass.dekagrams._from(dekagrams) +
-                Mass.hectograms._from(hectograms) +
-                Mass.kilograms._from(kilograms),
-            precision);
+  }) : this.sum([
+          milli.grams(milligrams),
+          centi.grams(centigrams),
+          deci.grams(decigrams),
+          MassInterpreter._grams(grams),
+          deka.grams(dekagrams),
+          hecto.grams(hectograms),
+          kilo.grams(kilograms),
+        ], precision: precision);
 
-  /// Constructs a [Mass] representing the sum of partial imperial amounts.
+  @Deprecated("Use 'Mass.sum()' instead")
   Mass.ofImperial({
     final num pounds = 0,
     final num ounces = 0,
     final Precision precision = Precision.max,
-  }) : this._(Mass.pounds._from(pounds) + Mass.ounces._from(ounces), precision);
+  }) : this.sum([
+          MassInterpreter._pounds(pounds),
+          MassInterpreter._ounces(ounces),
+        ], precision: precision);
 
-  /// Constructs a [Mass] from a milligram amount.
+  @Deprecated("Use 'milli.grams()' instead")
   Mass.ofMilligrams(final num milligrams,
       {final Precision precision = Precision.max})
-      : this._(Mass.milligrams._from(milligrams), precision);
+      : this._(milli.grams._from(milligrams), precision);
 
-  /// Constructs a [Mass] from a centigram amount.
+  @Deprecated("Use 'centi.grams()' instead")
   Mass.ofCentigrams(final num centigrams,
       {final Precision precision = Precision.max})
-      : this._(Mass.centigrams._from(centigrams), precision);
+      : this._(centi.grams._from(centigrams), precision);
 
-  /// Constructs a [Mass] from a decigram amount.
+  @Deprecated("Use 'deci.grams()' instead")
   Mass.ofDecigrams(final num decigrams,
       {final Precision precision = Precision.max})
-      : this._(Mass.decigrams._from(decigrams), precision);
+      : this._(deci.grams._from(decigrams), precision);
 
-  /// Constructs a [Mass] from a gram amount.
+  @Deprecated("Use 'grams()' instead")
   Mass.ofGrams(final num grams, {final Precision precision = Precision.max})
-      : this._(Mass.grams._from(grams), precision);
+      : this._(MassInterpreter._grams._from(grams), precision);
 
-  /// Constructs a [Mass] from a dekagram amount.
+  @Deprecated("Use 'deka.grams()' instead")
   Mass.ofDekagrams(final num dekagrams,
       {final Precision precision = Precision.max})
-      : this._(Mass.dekagrams._from(dekagrams), precision);
+      : this._(deka.grams._from(dekagrams), precision);
 
-  /// Constructs a [Mass] from a hectogram amount.
+  @Deprecated("Use 'hecto.grams()' instead")
   Mass.ofHectograms(final num hectograms,
       {final Precision precision = Precision.max})
-      : this._(Mass.hectograms._from(hectograms), precision);
+      : this._(hecto.grams._from(hectograms), precision);
 
-  /// Constructs a [Mass] from a kilogram amount.
+  @Deprecated("Use 'kilo.grams()' instead")
   Mass.ofKilograms(final num kilograms,
       {final Precision precision = Precision.max})
-      : this._(Mass.kilograms._from(kilograms), precision);
+      : this._(kilo.grams._from(kilograms), precision);
 
-  /// Constructs a [Mass] from a tonne amount.
+  @Deprecated("Use 'tonnes()' instead")
   Mass.ofTonnes(final num tonnes, {final Precision precision = Precision.max})
-      : this._(Mass.tonnes._from(tonnes), precision);
+      : this._(MassInterpreter._tonnes._from(tonnes), precision);
 
-  /// Constructs a [Mass] from an ounce amount.
+  @Deprecated("Use 'ounces()' instead")
   Mass.ofOunces(final num ounces, {final Precision precision = Precision.max})
-      : this._(Mass.ounces._from(ounces), precision);
+      : this._(MassInterpreter._ounces._from(ounces), precision);
 
-  /// Constructs a [Mass] from a pound amount.
+  @Deprecated("Use 'pounds()' instead")
   Mass.ofPounds(final num pounds, {final Precision precision = Precision.max})
-      : this._(Mass.pounds._from(pounds), precision);
+      : this._(MassInterpreter._pounds._from(pounds), precision);
 
-  /// Constructs a [Mass] from a short ton amount.
+  @Deprecated("Use 'shortTons()' instead")
   Mass.ofShortTons(final num shortTons,
       {final Precision precision = Precision.max})
-      : this._(Mass.shortTons._from(shortTons), precision);
+      : this._(MassInterpreter._shortTons._from(shortTons), precision);
 
-  /// Constructs a [Mass] from a long ton amount.
+  @Deprecated("Use 'longTons()' instead")
   Mass.ofLongTons(final num longTons,
       {final Precision precision = Precision.max})
-      : this._(Mass.longTons._from(longTons), precision);
+      : this._(MassInterpreter._longTons._from(longTons), precision);
 
-  /// Interprets this as a number of milligrams.
-  double get asMilligrams => _preciseOf(milligrams);
+  /// Interprets this using the specified units.
+  double as(final MassInterpreter interpreter) => _preciseOf(interpreter);
 
-  /// Interprets this as a number of centigrams.
-  double get asCentigrams => _preciseOf(centigrams);
+  @Deprecated("Use 'as(milli.grams)' instead")
+  double get asMilligrams => as(milli.grams);
 
-  /// Interprets this as a number of decigrams.
-  double get asDecigrams => _preciseOf(decigrams);
+  @Deprecated("Use 'as(centi.grams)' instead")
+  double get asCentigrams => as(centi.grams);
 
-  /// Interprets this as a number of grams.
-  double get asGrams => _preciseOf(grams);
+  @Deprecated("Use 'as(deci.grams)' instead")
+  double get asDecigrams => as(deci.grams);
 
-  /// Interprets this as a number of dekagrams.
-  double get asDekagrams => _preciseOf(dekagrams);
+  @Deprecated("Use 'as(grams)' instead")
+  double get asGrams => as(MassInterpreter._grams);
 
-  /// Interprets this as a number of hectograms.
-  double get asHectograms => _preciseOf(hectograms);
+  @Deprecated("Use 'as(deka.grams)' instead")
+  double get asDekagrams => as(deka.grams);
 
-  /// Interprets this as a number of kilograms.
-  double get asKilograms => _preciseOf(kilograms);
+  @Deprecated("Use 'as(hecto.grams)' instead")
+  double get asHectograms => as(hecto.grams);
 
-  /// Interprets this as a number of metric tonnes.
-  double get asTonnes => _preciseOf(tonnes);
+  @Deprecated("Use 'as(kilo.grams)' instead")
+  double get asKilograms => as(kilo.grams);
 
-  /// Interprets this as a number of ounces.
-  double get asOunces => _preciseOf(ounces);
+  @Deprecated("Use 'as(tonnes)' instead")
+  double get asTonnes => as(MassInterpreter._tonnes);
 
-  /// Interprets this as a number of pounds.
-  double get asPounds => _preciseOf(pounds);
+  @Deprecated("Use 'as(ounces)' instead")
+  double get asOunces => as(MassInterpreter._ounces);
 
-  /// Interprets this as a number of short (US) tons.
-  double get asShortTons => _preciseOf(shortTons);
+  @Deprecated("Use 'as(pounds)' instead")
+  double get asPounds => as(MassInterpreter._pounds);
 
-  /// Interprets this as a number of long (UK) tons.
-  double get asLongTons => _preciseOf(longTons);
+  @Deprecated("Use 'as(shortTons)' instead")
+  double get asShortTons => as(MassInterpreter._shortTons);
+
+  @Deprecated("Use 'as(longTons)' instead")
+  double get asLongTons => as(MassInterpreter._longTons);
 
   /// Constructs a [Mass].
   const Mass._(final double grams, final Precision precision)

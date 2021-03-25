@@ -8,7 +8,7 @@ void main() {
       final mass = Mass.zero();
 
       // when
-      final result = mass.asGrams;
+      final result = mass.as(grams);
 
       // then
       expect(result, 0.0);
@@ -30,7 +30,7 @@ void main() {
       final mass = Mass.infinite();
 
       // when
-      final result = mass.asGrams;
+      final result = mass.as(grams);
 
       // then
       expect(result, double.infinity);
@@ -52,7 +52,7 @@ void main() {
       final mass = Mass.negativeInfinite();
 
       // when
-      final result = mass.asGrams;
+      final result = mass.as(grams);
 
       // then
       expect(result, double.negativeInfinity);
@@ -69,6 +69,193 @@ void main() {
     });
   });
 
+  group('sum', () {
+    test('', () {
+      // given
+      final mass = Mass.sum([
+        grams(1),
+        kilo.grams(2),
+        centi.grams(3),
+        deci.grams(4),
+      ], precision: Precision(8));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 2001.43);
+    });
+  });
+
+  group('as', () {
+    test('converts to unit', () {
+      // given
+      final mass = grams(123.456, precision: Precision(8));
+
+      // when
+      final result = mass.as(pounds);
+
+      // then
+      expect(result, 0.27217389);
+    });
+  });
+
+  group('grams', () {
+    test('converts to base', () {
+      // given
+      final mass = grams(1234.0, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1234.0);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.grams(1234.0, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.234);
+    });
+  });
+  group('atomicMassUnits', () {
+    test('converts to base', () {
+      // given
+      final mass = atomicMassUnits(1.234e24, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 2.0491);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.atomicMassUnits(1.234e27, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 2.0491);
+    });
+  });
+  group('tonnes', () {
+    test('converts to base', () {
+      // given
+      final mass = tonnes(1.234e-6, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.234);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.tonnes(1.234e-3, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.234);
+    });
+  });
+  group('short tons', () {
+    test('converts to base', () {
+      // given
+      final mass = shortTons(1.234e-6, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.1195);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.shortTons(1.234e-3, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.1195);
+    });
+  });
+  group('long tons', () {
+    test('converts to base', () {
+      // given
+      final mass = longTons(1.234e-6, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.2538);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.longTons(1.234e-3, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.2538);
+    });
+  });
+  group('pounds', () {
+    test('converts to base', () {
+      // given
+      final mass = pounds(1.234, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 559.73);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.pounds(1.234e3, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 559.73);
+    });
+  });
+  group('ounces', () {
+    test('converts to base', () {
+      // given
+      final mass = ounces(1.234, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 34.983);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.ounces(1.234e3, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 34.983);
+    });
+  });
+
+  // -------------------- DEPRECATED -------------------- //
   group('metric', () {
     test('kilograms parameter', () {
       // given

@@ -8,7 +8,7 @@ void main() {
       final time = Time.zero();
 
       // when
-      final result = time.asSeconds;
+      final result = time.as(seconds);
 
       // then
       expect(result, 0.0);
@@ -30,7 +30,7 @@ void main() {
       final time = Time.infinite();
 
       // when
-      final result = time.asSeconds;
+      final result = time.as(seconds);
 
       // then
       expect(result, double.infinity);
@@ -52,7 +52,7 @@ void main() {
       final time = Time.negativeInfinite();
 
       // when
-      final result = time.asSeconds;
+      final result = time.as(seconds);
 
       // then
       expect(result, double.negativeInfinity);
@@ -69,6 +69,127 @@ void main() {
     });
   });
 
+  group('sum', () {
+    test('adds parts', () {
+      // given
+      final time = Time.sum([
+        seconds(1),
+        deci.seconds(2),
+        hecto.seconds(3),
+        minutes(4),
+      ], precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 541.2);
+    });
+  });
+
+  group('as', () {
+    test('converts to unit', () {
+      // given
+      final time = seconds(1.23456e2, precision: Precision(8));
+
+      // when
+      final result = time.as(minutes);
+
+      // then
+      expect(result, 2.0576);
+    });
+  });
+
+  group('seconds', () {
+    test('converts to base', () {
+      // given
+      final time = seconds(1.234, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 1.234);
+    });
+    test('applies prefixes', () {
+      // given
+      final time = milli.seconds(1234.0, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 1.234);
+    });
+  });
+  group('minutes', () {
+    test('converts to base', () {
+      // given
+      final time = minutes(1.234, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 74.04);
+    });
+    test('applies prefixes', () {
+      // given
+      final time = milli.minutes(1234.0, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 74.04);
+    });
+  });
+  group('hours', () {
+    test('converts to base', () {
+      // given
+      final time = hours(1.234, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 4442.4);
+    });
+    test('applies prefixes', () {
+      // given
+      final time = milli.hours(1234.0, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 4442.4);
+    });
+  });
+  group('days', () {
+    test('converts to base', () {
+      // given
+      final time = days(1.234, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 106620.0);
+    });
+    test('applies prefixes', () {
+      // given
+      final time = milli.days(1234.0, precision: Precision(5));
+
+      // when
+      final result = time.as(seconds);
+
+      // then
+      expect(result, 106620.0);
+    });
+  });
+
+  // -------------------- DEPRECATED -------------------- //
   group('of', () {
     test('microseconds parameter', () {
       // given

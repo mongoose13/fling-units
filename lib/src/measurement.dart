@@ -9,6 +9,13 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   const Measurement(this.si, final Precision precision)
       : _precision = precision;
 
+  /// Constructs a measurement representing the sum of other measurements.
+  Measurement.sum(final Iterable<T> parts, final Precision precision)
+      : this(
+            parts.fold(
+                0.0, (previousValue, element) => previousValue + element.si),
+            precision);
+
   /// A measurement of zero.
   const Measurement.zero()
       : si = 0.0,

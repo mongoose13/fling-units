@@ -64,6 +64,7 @@
 /// ```
 library fling_units;
 
+// imports
 import 'dart:math' as math;
 
 // framework
@@ -71,6 +72,7 @@ part 'src/measurement.dart';
 part 'src/derived.dart';
 part 'src/interpreter.dart';
 part 'src/precision.dart';
+part 'src/prefix.dart';
 
 // derived units
 part 'src/area.dart';
@@ -80,4 +82,5 @@ part 'src/volume.dart';
 part 'src/distance.dart';
 part 'src/mass.dart';
 part 'src/temperature.dart';
+part 'src/temperature_change.dart';
 part 'src/time.dart';
