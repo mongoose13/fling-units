@@ -222,8 +222,7 @@ void main() {
   group('nauticalMiles', () {
     test('converts to base', () {
       // given
-      final distance =
-      nauticalMiles(1234.0, precision: Precision(5));
+      final distance = nauticalMiles(1234.0, precision: Precision(5));
 
       // when
       final result = distance.as(meters);

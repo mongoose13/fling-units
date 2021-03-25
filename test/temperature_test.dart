@@ -164,10 +164,10 @@ void main() {
     'Temperature Addition',
     () {
       test('Same units', () {
-        expect(Temperature.ofKelvin(123) + kelvin(32),
-            Temperature.ofKelvin(155));
-        expect(Temperature.ofKelvin(123) + kelvin(-32),
-            Temperature.ofKelvin(91));
+        expect(
+            Temperature.ofKelvin(123) + kelvin(32), Temperature.ofKelvin(155));
+        expect(
+            Temperature.ofKelvin(123) + kelvin(-32), Temperature.ofKelvin(91));
       });
       test('Different units', () {
         expect(Temperature.ofKelvin(123) + fahrenheit(32),
@@ -176,8 +176,7 @@ void main() {
             Temperature.ofKelvin(105.22222222222223));
       });
       test('Invalid', () {
-        expect(
-            () => Temperature.ofKelvin(123) + kelvin(-124),
+        expect(() => Temperature.ofKelvin(123) + kelvin(-124),
             throwsArgumentError);
         expect(
             () =>
@@ -188,10 +187,8 @@ void main() {
       test('Infinity', () {
         expect(Temperature.ofKelvin(123) + TemperatureChange.infinite(),
             Temperature.infinite());
-        expect(Temperature.infinite() + kelvin(123),
-            Temperature.infinite());
-        expect(Temperature.infinite() + kelvin(-123),
-            Temperature.infinite());
+        expect(Temperature.infinite() + kelvin(123), Temperature.infinite());
+        expect(Temperature.infinite() + kelvin(-123), Temperature.infinite());
       });
       test('Identity', () {
         expect(Temperature.ofKelvin(123) + TemperatureChange.zero(),
@@ -206,10 +203,10 @@ void main() {
     'Temperature Subtraction',
     () {
       test('Same units', () {
-        expect(Temperature.ofKelvin(123) - kelvin(32),
-            Temperature.ofKelvin(91));
-        expect(Temperature.ofKelvin(123) - kelvin(-32),
-            Temperature.ofKelvin(155));
+        expect(
+            Temperature.ofKelvin(123) - kelvin(32), Temperature.ofKelvin(91));
+        expect(
+            Temperature.ofKelvin(123) - kelvin(-32), Temperature.ofKelvin(155));
       });
       test('Different units', () {
         expect(Temperature.ofKelvin(123) - fahrenheit(32),
@@ -219,18 +216,15 @@ void main() {
       });
       test('Invalid', () {
         expect(
-            () => Temperature.ofKelvin(123) - kelvin(124),
-            throwsArgumentError);
+            () => Temperature.ofKelvin(123) - kelvin(124), throwsArgumentError);
         expect(() => Temperature.ofKelvin(123) - TemperatureChange.infinite(),
             throwsArgumentError);
       });
       test('Infinity', () {
         expect(Temperature.ofKelvin(123) - TemperatureChange.negativeInfinite(),
             Temperature.infinite());
-        expect(Temperature.infinite() - kelvin(123),
-            Temperature.infinite());
-        expect(Temperature.infinite() - kelvin(-123),
-            Temperature.infinite());
+        expect(Temperature.infinite() - kelvin(123), Temperature.infinite());
+        expect(Temperature.infinite() - kelvin(-123), Temperature.infinite());
       });
       test('Identity', () {
         expect(Temperature.ofKelvin(123) - TemperatureChange.zero(),
