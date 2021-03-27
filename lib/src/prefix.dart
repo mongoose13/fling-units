@@ -5,6 +5,7 @@ class MeasurementPrefix
     with
         DistancePrefix,
         MassPrefix,
+        QuantityPrefix,
         TemperaturePrefix,
         TimePrefix,
         VolumePrefix {

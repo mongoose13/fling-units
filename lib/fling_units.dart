@@ -81,6 +81,7 @@ part 'src/volume.dart';
 // primary units
 part 'src/distance.dart';
 part 'src/mass.dart';
+part 'src/quantity.dart';
 part 'src/temperature.dart';
 part 'src/temperature_change.dart';
 part 'src/time.dart';
