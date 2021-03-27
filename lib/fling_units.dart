@@ -81,6 +81,9 @@ part 'src/volume.dart';
 // primary units
 part 'src/charge.dart';
 part 'src/distance.dart';
+
+part 'src/luminosity.dart';
+
 part 'src/mass.dart';
 part 'src/quantity.dart';
 part 'src/temperature.dart';

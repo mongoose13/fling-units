@@ -22,7 +22,7 @@ const amperes = ChargeInterpreter._amperes;
 
 /// Applies a prefix to various quantity units.
 abstract class ChargePrefix {
-  /// Applies this to a unit amount.
+  /// Applies this to an ampere amount.
   ChargeInterpreter get amperes =>
       ChargeInterpreter._amperes._withPrefix(_multiplier);
 

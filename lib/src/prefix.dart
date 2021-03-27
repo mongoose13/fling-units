@@ -5,6 +5,7 @@ class MeasurementPrefix
     with
         ChargePrefix,
         DistancePrefix,
+        LuminosityPrefix,
         MassPrefix,
         QuantityPrefix,
         TemperaturePrefix,

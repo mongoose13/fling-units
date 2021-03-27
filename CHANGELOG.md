@@ -5,6 +5,7 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit 
 ### Added
 - Support for quantity measurements (e.g. moles)
 - Support for electric charge measurements (e.g. amperes)
+- Support for luminance measurements (e.g. candela)
 - Support for daltons and electron rest mass
 
 ### Changed
