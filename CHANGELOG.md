@@ -5,6 +5,7 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit 
 ### Added
 - Update toString methods for a few measurement types
 - Support for Quantity measurements (e.g. moles)
+- Support for daltons and electron rest mass
 
 ## [1.2.0] - 2021-03-25
 Note: a lot of the old methods are marked "deprecated" as of 1.2.0 - these methods will remain in the library

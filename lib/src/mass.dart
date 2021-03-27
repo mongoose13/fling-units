@@ -22,6 +22,12 @@ class MassInterpreter extends MeasurementInterpreter<Mass> {
   /// The interpreter for atomic mass units.
   static const _atomicMassUnits = MassInterpreter._(6.022136651e23);
 
+  /// The interpreter for daltons.
+  static const _daltons = MassInterpreter._(6.02214076208e23);
+
+  /// The interpreter for electron rest mass.
+  static const _electronRestMass = MassInterpreter._(1.09776910594e27);
+
   /// The interpreter for long tons.
   static const _longTons = MassInterpreter._(9.842065276e-7);
 
@@ -43,6 +49,12 @@ const tonnes = MassInterpreter._tonnes;
 
 /// The interpreter for atomic mass units.
 const atomicMassUnits = MassInterpreter._atomicMassUnits;
+
+/// The interpreter for daltons.
+const daltons = MassInterpreter._daltons;
+
+/// The interpreter for electron rest mass.
+const electronRestMass = MassInterpreter._electronRestMass;
 
 /// The interpreter for long tons.
 const longTons = MassInterpreter._longTons;
@@ -67,6 +79,14 @@ abstract class MassPrefix {
   /// The [MassInterpreter] for atomic mass units.
   MassInterpreter get atomicMassUnits =>
       MassInterpreter._atomicMassUnits._withPrefix(_multiplier);
+
+  /// Applies this to a dalton amount.
+  MassInterpreter get daltons =>
+      MassInterpreter._daltons._withPrefix(_multiplier);
+
+  /// Applies this to an electron rest mass amount.
+  MassInterpreter get electronRestMass =>
+      MassInterpreter._electronRestMass._withPrefix(_multiplier);
 
   /// The [MassInterpreter] for long tons.
   MassInterpreter get longTons =>

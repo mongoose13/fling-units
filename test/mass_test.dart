@@ -144,6 +144,50 @@ void main() {
       expect(result, 2.0491);
     });
   });
+  group('daltons', () {
+    test('converts to base', () {
+      // given
+      final mass = daltons(1.0, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.6605e-24);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.daltons(1.0, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 1.6605e-27);
+    });
+  });
+  group('electronRestMass', () {
+    test('converts to base', () {
+      // given
+      final mass = electronRestMass(1.0, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 9.1094e-28);
+    });
+    test('applies prefixes', () {
+      // given
+      final mass = milli.electronRestMass(1.0, precision: Precision(5));
+
+      // when
+      final result = mass.as(grams);
+
+      // then
+      expect(result, 9.1094e-31);
+    });
+  });
   group('tonnes', () {
     test('converts to base', () {
       // given
