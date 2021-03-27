@@ -19,15 +19,17 @@ even better by creating an issue!
 ## Usage
 
 Create an instance of the dimension type you want to measure:
+
 ```dart
 void main() {
-  Distance distanceToSeattle = kilo.meters(246);  // you can use metric prefixes with any unit
+  Distance distanceToSeattle = kilo.meters(246); // you can use metric prefixes with any unit
   Distance distanceToTheMoon = Distance.sum([miles(238900), feet(42), inches(6.3)]);
   Mass massOfTheMoon = yocto.grams(73.5);
 }
 ```
 
 Convert to any other measurement type within that dimension:
+
 ```dart
 void main() {
   double distanceToSeattleInMiles = distanceToSeattle.as(miles);
@@ -37,23 +39,25 @@ void main() {
 ```
 
 Perform basic arithmetic:
+
 ```dart
 void main() {
   // multiplication
   Distance distanceToSeattleAndBack = distanceToSeattle * 2;
-  
+
   // addition
   Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
-  
+
   // support for infinite measurements
   Distance distanceToTheEndsOfTheUniverse = Distance.infinite();
-  
+
   // compare measurements within the same dimension
   bool useTheCar = distanceToTravel >= miles(1.5);
 }
 ```
 
 Built-in ordering:
+
 ```dart
 void main() {
   [Distance.zero(), Distance.infinite(), meters(3), feet(3), yards(-2)].sort();
@@ -63,6 +67,7 @@ void main() {
 
 Abstract away the specific units your code needs by passing around the encapsulated types. It doesn't matter which units
 each portion of your code requires; they can be combined seamlessly:
+
 ```dart
 Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
   return targetDistance + meters(3.0);
@@ -70,6 +75,7 @@ Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
 ```
 
 There is full support for some of the more common derived units, e.g. *Area* and *Volume*.
+
 ```dart
 void main() {
   Area myBackYardSize = Area.of(feet(100), feet(70));
@@ -81,6 +87,7 @@ void main() {
 ```
 
 You can create your own basic derived units (with all the basic features you'd expect) from existing units:
+
 ```dart
 void main() {
   var fuelEconomy = DerivedMeasurement<Distance, Volume>.divide(kilo.meters(100), liters(6));
@@ -92,6 +99,7 @@ void main() {
 ```
 
 Ensure type safety at compile time:
+
 ```dart
 void main() {
   // none of these lines will compile!
@@ -103,6 +111,7 @@ void main() {
 
 Express the certainty in your measurements correctly by setting a precision. Conversions will automatically provide
 appropriate significant digits:
+
 ```dart
 void main() {
   var myHeight = meters(1.5, precision: Precision(2));
@@ -115,83 +124,98 @@ void main() {
 ### Operations
 
 With few exceptions (due to the nature of those measurements), all measurements support:
-  - all standard metric prefixes for each unit
-  - customizable precision for each measurement
-  - implement `Comparable` for built-in ordering among similar measurements
-  - compare two similar measurements (`>`, `<`, `==`, `!=`, `>=`, `<=`)
-  - add or subtract two similar measurements (`+`, `-`)
-  - multiply or divide measurements by a scalar (`*`, `/`)
-  - negate measurements (unary `-`)
-  - compare magnitude of two measurements (`~/`, `compareMagnitude`)
+
+- all standard metric prefixes for each unit
+- customizable precision for each measurement
+- implement `Comparable` for built-in ordering among similar measurements
+- compare two similar measurements (`>`, `<`, `==`, `!=`, `>=`, `<=`)
+- add or subtract two similar measurements (`+`, `-`)
+- multiply or divide measurements by a scalar (`*`, `/`)
+- negate measurements (unary `-`)
+- compare magnitude of two measurements (`~/`, `compareMagnitude`)
 
 ### SI Prefixes
 
 Can be applied to any unit:
-  - yocto
-  - zepto
-  - atto
-  - femto
-  - pico
-  - nano
-  - micro
-  - milli
-  - centi
-  - deci
-  - deka
-  - hecto
-  - kilo
-  - mega
-  - giga
-  - tera
-  - peta
-  - exa
-  - zetta
-  - yotta
+
+- yocto
+- zepto
+- atto
+- femto
+- pico
+- nano
+- micro
+- milli
+- centi
+- deci
+- deka
+- hecto
+- kilo
+- mega
+- giga
+- tera
+- peta
+- exa
+- zetta
+- yotta
 
 ### Distance Units
 
-  - meters
-  - inches
-  - feet
-  - yards
-  - miles
-  - nautical miles
+- meters
+- inches
+- feet
+- yards
+- miles
+- nautical miles
 
 ### Area Units
 
-  - any Distance unit x any other Distance unit
+- any Distance unit x any other Distance unit
 
 ### Volume Units
 
-  - liters
-  - teaspoon (Imperial / US)
-  - tablespoon (Imperial / US)
-  - fluid ounce (Imperial / US)
-  - cup (Imperial / US / US Legal)
-  - pint (Imperial / US)
-  - quart (Imperial / US)
-  - gallon (Imperial / US)
-  - cubic foot
-  - cubic inch
+- liters
+- teaspoon (Imperial / US)
+- tablespoon (Imperial / US)
+- fluid ounce (Imperial / US)
+- cup (Imperial / US / US Legal)
+- pint (Imperial / US)
+- quart (Imperial / US)
+- gallon (Imperial / US)
+- cubic foot
+- cubic inch
 
 ### Temperature Units
 
-  - kelvin
-  - celcius
-  - fahrenheit
+- kelvin
+- celcius
+- fahrenheit
 
 ### Time units
 
-  - seconds
-  - minutes
-  - hours
-  - days
+- seconds
+- minutes
+- hours
+- days
 
 ### Mass units
 
-  - grams
-  - tonnes
-  - ounces
-  - pounds
-  - short (US) tons
-  - long (UK) tons
+- grams
+- tonnes
+- ounces
+- pounds
+- short (US) tons
+- long (UK) tons
+- atomic mass units
+- daltons
+- electron rest mass
+
+### Electric Charge units
+
+- amperes
+
+### Luminous Intensity units
+
+- candela
+- candlepower
+- Hefnerkerze
