@@ -79,6 +79,7 @@ part 'src/area.dart';
 part 'src/volume.dart';
 
 // primary units
+part 'src/charge.dart';
 part 'src/distance.dart';
 part 'src/mass.dart';
 part 'src/quantity.dart';

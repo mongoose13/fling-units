@@ -20,6 +20,7 @@ class StandardQuantityInterpreter extends MeasurementInterpreter<Quantity>
   Quantity call(final num value, {final Precision precision = Precision.max}) =>
       Quantity._(_from(value), precision);
 
+  /// The interpreter for moles.
   static const _moles = StandardQuantityInterpreter._(1e0);
 }
 
@@ -39,6 +40,7 @@ class TruncatingQuantityInterpreter
   Quantity call(final num value, {final Precision precision = Precision.max}) =>
       Quantity._(_from(value), precision);
 
+  /// The interpreter for units (discrete items).
   static const _units = TruncatingQuantityInterpreter._(6.02214076e23);
 }
 
