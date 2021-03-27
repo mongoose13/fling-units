@@ -220,6 +220,9 @@ class Time extends Measurement<Time> {
   @Deprecated("Use 'as(days)' instead")
   double get asDays => as(TimeInterpreter._days);
 
+  @override
+  String toString() => '${as(TimeInterpreter._seconds)} s';
+
   /// Constructs a [Time].
   const Time._(final double seconds, final Precision precision)
       : super(seconds, precision);

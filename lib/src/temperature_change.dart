@@ -135,7 +135,7 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   double get asFahrenheit => as(TemperatureChangeInterpreter._fahrenheit);
 
   @override
-  String toString() => '${as(TemperatureChangeInterpreter._kelvin)} K';
+  String toString() => '${as(TemperatureChangeInterpreter._kelvin)} K change';
 
   /// Constructs a [TemperatureChange].
   const TemperatureChange._(final double kelvin, final Precision precision)

@@ -2,6 +2,9 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit types you need to work with from the rest of your code.
 
 ## [Unreleased]
+### Added
+- Update toString methods for a few measurement types
+
 ## [1.2.0] - 2021-03-25
 Note: a lot of the old methods are marked "deprecated" as of 1.2.0 - these methods will remain in the library
 until 2.0.0, but will not be enhanced or expanded further. Hints for migrating are provided with each deprecated

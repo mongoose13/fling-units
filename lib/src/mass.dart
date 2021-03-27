@@ -269,6 +269,9 @@ class Mass extends Measurement<Mass> {
   @Deprecated("Use 'as(longTons)' instead")
   double get asLongTons => as(MassInterpreter._longTons);
 
+  @override
+  String toString() => '${as(MassInterpreter._grams)} g';
+
   /// Constructs a [Mass].
   const Mass._(final double grams, final Precision precision)
       : super(grams, precision);
