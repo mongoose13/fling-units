@@ -110,6 +110,16 @@ void main() {
       // then
       expect(result, 0.20491);
     });
+    test('applies prefixes', () {
+      // given
+      final quantity = milli.units(1.234e27, precision: Precision(5));
+
+      // when
+      final result = quantity.as(moles);
+
+      // then
+      expect(result, 2.0491);
+    });
     test('truncates results', () {
       // given
       final quantity = units(1.678, precision: Precision(5));
@@ -125,6 +135,16 @@ void main() {
     test('converts to base', () {
       // given
       final quantity = moles(1.234, precision: Precision(5));
+
+      // when
+      final result = quantity.as(moles);
+
+      // then
+      expect(result, 1.234);
+    });
+    test('applies prefixes', () {
+      // given
+      final quantity = milli.moles(1.234e3, precision: Precision(5));
 
       // when
       final result = quantity.as(moles);
