@@ -9,15 +9,11 @@ void main() {
         final result = Temperature.absoluteZero();
 
         expect(result.asKelvin, 0.0);
-        expect(result.asCelcius, -273.15);
-        expect(result.asFahrenheit, -459.66999999999996);
       });
       test('infinity', () {
         final result = Temperature.infinite();
 
         expect(result.asKelvin, double.infinity);
-        expect(result.asCelcius, double.infinity);
-        expect(result.asFahrenheit, double.infinity);
       });
       test('below absolute zero', () {
         expect(() => Temperature.ofKelvin(-1), throwsArgumentError);
@@ -26,36 +22,83 @@ void main() {
         final result = Temperature.ofKelvin(290.0);
 
         expect(result.asKelvin, 290);
-        expect(result.asCelcius, 16.850000000000023);
-        expect(result.asFahrenheit, 62.33000000000004);
       });
       test('celcius', () {
         final result = Temperature.ofCelcius(20.0);
 
         expect(result.asKelvin, 293.15);
-        expect(result.asCelcius, 20.0);
-        expect(result.asFahrenheit, 68.0);
       });
       test('fahrenheit', () {
         final result = Temperature.ofFahrenheit(70.0, precision: Precision(5));
 
         expect(result.asKelvin, 294.26);
-        expect(result.asCelcius, 21.111);
-        expect(result.asFahrenheit, 70.0);
       });
     },
   );
 
-  group('Temperature Checks', () {
-    test('isFinite', () {
-      expect(Temperature.ofKelvin(300).isFinite, true);
-      expect(Temperature.absoluteZero().isFinite, true);
-      expect(Temperature.infinite().isFinite, false);
+  group('isFinite', () {
+    test('finite number', () {
+      // given
+      final temperature = Temperature.ofKelvin(300);
+
+      // when
+      final result = temperature.isFinite;
+
+      // then
+      expect(result, true);
     });
-    test('isInfinite', () {
-      expect(Temperature.ofKelvin(300).isInfinite, false);
-      expect(Temperature.absoluteZero().isInfinite, false);
-      expect(Temperature.infinite().isInfinite, true);
+    test('absolute zero', () {
+      // given
+      final temperature = Temperature.absoluteZero();
+
+      // when
+      final result = temperature.isFinite;
+
+      // then
+      expect(result, true);
+    });
+    test('infinite', () {
+      // given
+      final temperature = Temperature.infinite();
+
+      // when
+      final result = temperature.isFinite;
+
+      // then
+      expect(result, false);
+    });
+  });
+
+  group('isInfinite', () {
+    test('finite number', () {
+      // given
+      final temperature = Temperature.ofKelvin(300);
+
+      // when
+      final result = temperature.isInfinite;
+
+      // then
+      expect(result, false);
+    });
+    test('absolute zero', () {
+      // given
+      final temperature = Temperature.absoluteZero();
+
+      // when
+      final result = temperature.isInfinite;
+
+      // then
+      expect(result, false);
+    });
+    test('infinite', () {
+      // given
+      final temperature = Temperature.infinite();
+
+      // when
+      final result = temperature.isInfinite;
+
+      // then
+      expect(result, true);
     });
   });
 
@@ -160,78 +203,151 @@ void main() {
     });
   });
 
-  group(
-    'Temperature Addition',
-    () {
-      test('Same units', () {
-        expect(
-            Temperature.ofKelvin(123) + kelvin(32), Temperature.ofKelvin(155));
-        expect(
-            Temperature.ofKelvin(123) + kelvin(-32), Temperature.ofKelvin(91));
-      });
-      test('Different units', () {
-        expect(Temperature.ofKelvin(123) + fahrenheit(32),
-            Temperature.ofKelvin(140.77777777777777));
-        expect(Temperature.ofKelvin(123) + fahrenheit(-32),
-            Temperature.ofKelvin(105.22222222222223));
-      });
-      test('Invalid', () {
-        expect(() => Temperature.ofKelvin(123) + kelvin(-124),
-            throwsArgumentError);
-        expect(
-            () =>
-                Temperature.ofKelvin(123) +
-                TemperatureChange.negativeInfinite(),
-            throwsArgumentError);
-      });
-      test('Infinity', () {
-        expect(Temperature.ofKelvin(123) + TemperatureChange.infinite(),
-            Temperature.infinite());
-        expect(Temperature.infinite() + kelvin(123), Temperature.infinite());
-        expect(Temperature.infinite() + kelvin(-123), Temperature.infinite());
-      });
-      test('Identity', () {
-        expect(Temperature.ofKelvin(123) + TemperatureChange.zero(),
-            Temperature.ofKelvin(123));
-        expect(Temperature.absoluteZero() + kelvin(123),
-            Temperature.ofKelvin(123));
-      });
-    },
-  );
+  group('+', () {
+    test('base values are summed', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = kelvin(32);
 
-  group(
-    'Temperature Subtraction',
-    () {
-      test('Same units', () {
-        expect(
-            Temperature.ofKelvin(123) - kelvin(32), Temperature.ofKelvin(91));
-        expect(
-            Temperature.ofKelvin(123) - kelvin(-32), Temperature.ofKelvin(155));
-      });
-      test('Different units', () {
-        expect(Temperature.ofKelvin(123) - fahrenheit(32),
-            Temperature.ofKelvin(105.22222222222223));
-        expect(Temperature.ofKelvin(123) - fahrenheit(-32),
-            Temperature.ofKelvin(140.77777777777777));
-      });
-      test('Invalid', () {
-        expect(
-            () => Temperature.ofKelvin(123) - kelvin(124), throwsArgumentError);
-        expect(() => Temperature.ofKelvin(123) - TemperatureChange.infinite(),
-            throwsArgumentError);
-      });
-      test('Infinity', () {
-        expect(Temperature.ofKelvin(123) - TemperatureChange.negativeInfinite(),
-            Temperature.infinite());
-        expect(Temperature.infinite() - kelvin(123), Temperature.infinite());
-        expect(Temperature.infinite() - kelvin(-123), Temperature.infinite());
-      });
-      test('Identity', () {
-        expect(Temperature.ofKelvin(123) - TemperatureChange.zero(),
-            Temperature.ofKelvin(123));
-        expect(Temperature.absoluteZero() - kelvin(-123),
-            Temperature.ofKelvin(123));
-      });
-    },
-  );
+      // when
+      final result = temperature + change;
+
+      // then
+      expect(result.asKelvin, 155);
+    });
+    test('negative base values are summed', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = kelvin(-32);
+
+      // when
+      final result = temperature + change;
+
+      // then
+      expect(result.asKelvin, 91);
+    });
+    test('precision is maintained', () {
+      // given
+      final temperature = Temperature.ofKelvin(123, precision: Precision(3));
+      final change = kelvin(32, precision: Precision(2));
+
+      // when
+      final result = temperature + change;
+
+      // then
+      expect(result.precision, 3);
+    });
+    test('precision is recalculated below the decimal', () {
+      // given
+      final temperature = Temperature.ofKelvin(123.45, precision: Precision(5));
+      final change = kelvin(987.65, precision: Precision(5));
+
+      // when
+      final result = temperature + change;
+
+      // then
+      expect(result.precision, 6);
+    });
+    test('invalid', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = kelvin(-124);
+
+      // then
+      expect(() => temperature + change, throwsArgumentError);
+    });
+    test('infinity', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = TemperatureChange.infinite();
+
+      // when
+      final result = temperature + change;
+
+      // then
+      expect(result, Temperature.infinite());
+    });
+    test('negative infinity', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = TemperatureChange.negativeInfinite();
+
+      // then
+      expect(() => temperature + change, throwsArgumentError);
+    });
+  });
+
+  group('-', () {
+    test('base values are subtracted', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = kelvin(32);
+
+      // when
+      final result = temperature - change;
+
+      // then
+      expect(result.asKelvin, 91);
+    });
+    test('negative base values are summed', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = kelvin(-32);
+
+      // when
+      final result = temperature - change;
+
+      // then
+      expect(result.asKelvin, 155);
+    });
+    test('precision is maintained', () {
+      // given
+      final temperature = Temperature.ofKelvin(123, precision: Precision(3));
+      final change = kelvin(32, precision: Precision(2));
+
+      // when
+      final result = temperature - change;
+
+      // then
+      expect(result.precision, 2);
+    });
+    test('precision is recalculated below the decimal', () {
+      // given
+      final temperature = Temperature.ofKelvin(123.45, precision: Precision(5));
+      final change = kelvin(24.65, precision: Precision(4));
+
+      // when
+      final result = temperature - change;
+
+      // then
+      expect(result.precision, 4);
+    });
+    test('invalid', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = kelvin(124);
+
+      // then
+      expect(() => temperature - change, throwsArgumentError);
+    });
+    test('infinity', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = TemperatureChange.infinite();
+
+      // then
+      expect(() => temperature - change, throwsArgumentError);
+    });
+    test('negative infinity', () {
+      // given
+      final temperature = Temperature.ofKelvin(123);
+      final change = TemperatureChange.negativeInfinite();
+
+      // when
+      final result = temperature - change;
+
+      // then
+      expect(result, Temperature.infinite());
+    });
+  });
 }

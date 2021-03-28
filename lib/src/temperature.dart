@@ -74,6 +74,9 @@ class Temperature implements Comparable<Temperature> {
   /// Returns `true` if this is infinite.
   bool get isInfinite => _kelvin.isInfinite;
 
+  /// Returns the digits of precision this measurement has.
+  int get precision => _precision.precision;
+
   @override
   bool operator ==(final dynamic other) =>
       other is Temperature &&
@@ -108,7 +111,8 @@ class Temperature implements Comparable<Temperature> {
   /// ```
   Temperature operator +(final TemperatureChange change) =>
       Temperature.ofKelvin(_kelvin + change.si,
-          precision: Precision.add(_precision, change._precision));
+          precision: Precision.addition(
+              kelvin(_kelvin, precision: _precision), change));
 
   /// Creates a [Temperature] representing the application of a [Temperature]
   /// and the opposite of a [TemperatureChange].
@@ -120,7 +124,8 @@ class Temperature implements Comparable<Temperature> {
   /// ```
   Temperature operator -(final TemperatureChange change) =>
       Temperature.ofKelvin(_kelvin - change.si,
-          precision: Precision.add(_precision, change._precision));
+          precision: Precision.addition(
+              kelvin(_kelvin, precision: _precision), -change));
 
   /// Returns the difference between this and another [Temperature].
   ///
@@ -128,7 +133,8 @@ class Temperature implements Comparable<Temperature> {
   /// the other [Temperature].
   TemperatureChange difference(final Temperature other) =>
       kelvin(_kelvin - other._kelvin,
-          precision: Precision.add(_precision, other._precision));
+          precision: Precision.addition(kelvin(_kelvin, precision: _precision),
+              kelvin(other._kelvin, precision: other._precision)));
 
   @override
   String toString() => '$asKelvin K';

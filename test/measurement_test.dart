@@ -883,16 +883,16 @@ void main() {
       // then
       expect(result.si, double.negativeInfinity);
     });
-    test('precision is maxed', () {
+    test('precision is set correctly', () {
       // given
-      final unit1 = meters(2, precision: Precision(5));
-      final unit2 = meters(3, precision: Precision(5));
+      final unit1 = meters(97.101, precision: Precision(5));
+      final unit2 = meters(3.456789, precision: Precision(8));
 
       // when
       final result = unit1 + unit2;
 
       // then
-      expect(result.precision, Precision.max.precision);
+      expect(result.precision, 6);
     });
   });
 
@@ -952,16 +952,16 @@ void main() {
       // then
       expect(result.si, double.infinity);
     });
-    test('precision is maxed', () {
+    test('precision is set correctly', () {
       // given
-      final unit1 = meters(2, precision: Precision(5));
-      final unit2 = meters(3, precision: Precision(5));
+      final unit1 = meters(3.45, precision: Precision(3));
+      final unit2 = meters(3.21, precision: Precision(5));
 
       // when
       final result = unit1 - unit2;
 
       // then
-      expect(result.precision, Precision.max.precision);
+      expect(result.precision, 2);
     });
   });
 

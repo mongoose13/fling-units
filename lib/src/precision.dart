@@ -49,16 +49,57 @@ class Precision {
   Precision.combine(final Precision a, final Precision b)
       : this(math.min(a.precision, b.precision));
 
+  @Deprecated("Use 'addition()' instead")
+  Precision.add(final Precision a, final Precision b) : this._max();
+
   /// Combines two [Precision]s per the "addition rule".
   ///
   /// Use this when adding or subtracting two numbers to determine the correct
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
+  static Precision addition<T extends Measurement<T>>(
+      final Measurement<T> a, final Measurement<T> b) {
+    if (a.isInfinite || b.isInfinite) {
+      return Precision._max();
+    }
+    final precisionA = digitsAfterDecimal(a);
+    final precisionB = digitsAfterDecimal(b);
+    final beforeDecimal = digitsBeforeDecimal(a._preciseSI() + b._preciseSI());
+    return Precision(beforeDecimal + math.min(precisionA, precisionB));
+  }
+
+  /// Calculates the number of significant digits after the decimal point.
   ///
-  /// Note that currently the result will always have maximum precision (for the
-  /// time being - future versions will fix this).
-  Precision.add(final Precision a, final Precision b) : this._max();
+  /// This only considers digits that fall within the measurement's precision,
+  /// e.g.:
+  ///
+  /// ```dart
+  /// digitsAfterDecimal(meters(1.2345));                           // 4
+  /// digitsAfterDecimal(meters(1.2345, precision: Precision(3)));  // 2
+  /// ```
+  static int digitsAfterDecimal(final Measurement measurement) {
+    if (measurement.isInfinite || measurement.isNaN) {
+      return 0;
+    }
+    final string = measurement._preciseSI().toStringAsExponential();
+    final locationOfE = string.indexOf('e');
+    return math.max(
+        measurement.precision -
+            int.parse(string.substring(locationOfE + 1)) -
+            1,
+        0);
+  }
+
+  /// Calculates the number of digits (significant or not) before the decimal.
+  static int digitsBeforeDecimal(final double number) {
+    if (number.isInfinite || number.isNaN) {
+      return Precision.max.precision;
+    }
+    final string = number.toStringAsExponential();
+    return math.max(
+        int.parse(string.substring(string.indexOf('e') + 1)) + 1, 0);
+  }
 
   /// Interprets the specified number according to this Precision.
   double withPrecision(final double value) =>

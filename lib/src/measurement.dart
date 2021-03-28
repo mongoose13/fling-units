@@ -90,11 +90,11 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
 
   /// Returns a measurement equivalent to the sum of two others.
   T operator +(final T other) =>
-      _construct(si + other.si, Precision.add(_precision, other._precision));
+      _construct(si + other.si, Precision.addition(this, other));
 
   /// Returns a measurement equivalent to the difference between two others.
   T operator -(final T other) =>
-      _construct(si - other.si, Precision.add(_precision, other._precision));
+      _construct(si - other.si, Precision.addition(this, -other));
 
   /// Returns a measurement equivalent to a multiple of this.
   T operator *(final double multiplier) =>

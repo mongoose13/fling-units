@@ -94,4 +94,270 @@ void main() {
       expect(result, Precision.max);
     });
   });
+
+  group('digitsBeforeDecimal', () {
+    test('mixed number', () {
+      // given
+      final measurement = meters(12.3456, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, 2);
+    });
+    test('number below 1', () {
+      // given
+      final measurement = meters(1.23456e-2, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, 0);
+    });
+    test('beyond maximum int', () {
+      // given
+      final measurement = meters(1.23456e25, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, 26);
+    });
+    test('beyond minimum double', () {
+      // given
+      final measurement = meters(1.23456e-35, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, 0);
+    });
+    test('negative', () {
+      // given
+      final measurement = meters(-12.3456, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, 2);
+    });
+    test('infinity', () {
+      // given
+      final measurement = Distance.infinite();
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, Precision.max.precision);
+    });
+    test('negative infinity', () {
+      // given
+      final measurement = Distance.negativeInfinite();
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, Precision.max.precision);
+    });
+    test('NaN', () {
+      // given
+      final measurement = Distance.infinite() + Distance.negativeInfinite();
+
+      // when
+      final result = Precision.digitsBeforeDecimal(measurement.as(meters));
+
+      // then
+      expect(result, Precision.max.precision);
+    });
+  });
+
+  group('digitsAfterDecimal', () {
+    test('mixed number, same precision', () {
+      // given
+      final measurement = meters(12.3456, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 4);
+    });
+    test('mixed number, hidden precision', () {
+      // given
+      final measurement = meters(1.2, precision: Precision(4));
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 3);
+    });
+    test('number below 1', () {
+      // given
+      final measurement = meters(1.23456e-3, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 8);
+    });
+    test('beyond maximum int', () {
+      // given
+      final measurement = meters(1.23456e33, precision: Precision(6));
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 0);
+    });
+    test('single digit negative exponent', () {
+      // given
+      final measurement = meters(1.2e-9, precision: Precision(2));
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 10);
+    });
+    test('double digit negative exponent', () {
+      // given
+      final measurement = meters(1.2e-10, precision: Precision(2));
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 11);
+    });
+    test('beyond minimum double', () {
+      // given
+      final measurement = meters(1.2e-33, precision: Precision(2));
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 34);
+    });
+    test('infinity', () {
+      // given
+      final measurement = Distance.infinite();
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 0);
+    });
+    test('negative infinity', () {
+      // given
+      final measurement = Distance.negativeInfinite();
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 0);
+    });
+    test('NaN', () {
+      // given
+      final measurement = Distance.infinite() + Distance.negativeInfinite();
+
+      // when
+      final result = Precision.digitsAfterDecimal(measurement);
+
+      // then
+      expect(result, 0);
+    });
+  });
+
+  group('addition', () {
+    test('integer numbers', () {
+      // given
+      final measurement1 = meters(12, precision: Precision(2));
+      final measurement2 = meters(345, precision: Precision(3));
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 3);
+    });
+    test('integer numbers with decreased precision', () {
+      // given
+      final measurement1 = meters(123, precision: Precision(3));
+      final measurement2 = meters(-45, precision: Precision(2));
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 2);
+    });
+    test('mixed numbers', () {
+      // given
+      final measurement1 = meters(1.234, precision: Precision(4));
+      final measurement2 = meters(1.234, precision: Precision(4));
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 4);
+    });
+    test('mixed numbers give magnitude increase', () {
+      // given
+      final measurement1 = meters(1.234, precision: Precision(4));
+      final measurement2 = meters(9.234, precision: Precision(4));
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 5);
+    });
+    test('mixed numbers give magnitude decrease', () {
+      // given
+      final measurement1 = meters(123.45, precision: Precision(5));
+      final measurement2 = meters(24.65, precision: Precision(4));
+
+      // when
+      final result = Precision.addition(measurement1, -measurement2);
+
+      // then
+      expect(result.precision, 4);
+    });
+    test('smallest decimal is accepted', () {
+      // given
+      final measurement1 = meters(1.2, precision: Precision(2));
+      final measurement2 = meters(1.234, precision: Precision(4));
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 2);
+    });
+    test('numbers lower than 1', () {
+      // given
+      final measurement1 = milli.meters(1.234, precision: Precision(4));
+      final measurement2 = milli.meters(1.234, precision: Precision(4));
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 6);
+    });
+  });
 }

@@ -14,6 +14,7 @@ types you need to work with from the rest of your code.
 
 ### Changed
 
+- Addition and subtraction use correct result precision
 - Update toString methods for a few measurement types
 - Write Good suggestions for README
 
