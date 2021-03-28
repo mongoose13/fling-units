@@ -53,11 +53,11 @@ const moles = StandardQuantityInterpreter._moles;
 /// Applies a prefix to various quantity units.
 abstract class QuantityPrefix {
   /// Applies this to a unit amount.
-  StandardQuantityInterpreter get units =>
+  QuantityInterpreter get units =>
       TruncatingQuantityInterpreter._units._withPrefix(_multiplier);
 
   /// Applies this to a mole amount.
-  StandardQuantityInterpreter get moles =>
+  QuantityInterpreter get moles =>
       StandardQuantityInterpreter._moles._withPrefix(_multiplier);
 
   /// The prefix multiplier applied to this measurement.
