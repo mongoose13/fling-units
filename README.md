@@ -14,8 +14,8 @@ measurements safely and easily to keep your code simple!
 **fling_units** is designed to simplify working with any measurement unit within
 a code base by abstracting measurements to basic types that can be "interpreted"
 into any valid unit of that type, all in a type-safe way. This means you will
-never accidentally pass around a measurement of the wrong type or unit again
-without seeing red squigglies in your IDE.
+never pass around a measurement of the wrong type or unit again without seeing
+red squigglies in your IDE.
 
 Have a look at the examples below for more details on what is possible, and let
 me know how **fling_units** can be made even better by creating an issue!
@@ -74,7 +74,7 @@ void main() {
 
 Abstract away the specific units your code needs by passing around the
 encapsulated types. It doesn't matter which units each portion of your code
-requires; they can be combined seamlessly:
+requires; you can combine them seamlessly:
 
 ```dart
 Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
@@ -141,7 +141,7 @@ support:
 
 - all standard metric prefixes for each unit
 - customizable precision for each measurement
-- implement `Comparable` for built-in ordering among similar measurements
+- `Comparable` for built-in ordering among similar measurements
 - compare two similar measurements (`>`, `<`, `==`, `!=`, `>=`, `<=`)
 - add or subtract two similar measurements (`+`, `-`)
 - multiply or divide measurements by a scalar (`*`, `/`)
@@ -150,7 +150,7 @@ support:
 
 ### SI Prefixes
 
-Can be applied to any unit:
+Work with any unit:
 
 - yocto
 - zepto
