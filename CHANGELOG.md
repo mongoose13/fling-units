@@ -5,6 +5,10 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
+### Changed
+
+- Write Good suggestions for wordiness
+
 ## [1.3.0] - 2021-03-28
 
 ### Added
@@ -17,17 +21,17 @@ types you need to work with from the rest of your code.
 ### Changed
 
 - Addition and subtraction use correct result precision
-- Update toString methods for a few measurement types
+- Update toString methods for measurement types
 - Write Good suggestions for README
 
 ## [1.2.0] - 2021-03-25
 
-Note: a lot of the old methods are marked "deprecated" as of 1.2.0 - these
-methods will remain in the library until 2.0.0, but will not be enhanced or
-expanded further. Hints for migrating are provided with each deprecated method,
-and our hope is that this update will allow us to build a more flexible and
-scalable library for future releases. We encourage you to use the replacement
-methods now and to give us feedback on how well they work!
+Note: we have deprecated a lot of the old methods - these methods will remain in
+the library until 2.0.0, but we will not enhance or expand them further. Each
+deprecated method has hints for migrating to the new form, and our hope is that
+this update will allow us to build a more flexible and scalable library for
+future releases. We encourage you to use the replacement methods now and to give
+us feedback on how well they work!
 
 ### Changed
 
@@ -51,7 +55,7 @@ methods now and to give us feedback on how well they work!
 ### Added
 
 - Cider-style CHANGELOG and config
-- Magnitude comparisons via truncating division and a special division method
+- Comparisons via truncating division and a special division method
 - Document supported metric prefixes
 
 ### Changed
@@ -74,7 +78,7 @@ methods now and to give us feedback on how well they work!
 
 ### Changed
 
-- Satisfy pana formatting guidelines
+- pana formatting guidelines
 
 ## [1.0.0] - 2021-03-15
 

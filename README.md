@@ -3,7 +3,7 @@
 ![Fling logo](https://f000.backblazeb2.com/file/mongoose-website/fling-title.png)
 
 A type safe Dart library for unit conversion. Pass around fully abstracted
-measurements safely and easily to keep your code simple!
+measurements to keep your code simple!
 
 [![Build Status](https://img.shields.io/travis/gelbermungo/fling-units/master?style=plastic)](https://travis-ci.com/bitbucket/gelbermungo/fling-units)
 [![Code Quality](https://img.shields.io/codacy/grade/749ee1e8ee2e4d26ab57b3256f422e9a?style=plastic)](https://www.codacy.com/bb/gelbermungo/fling-units/dashboard)
@@ -11,14 +11,43 @@ measurements safely and easily to keep your code simple!
 
 ## Overview
 
-**fling_units** is designed to simplify working with any measurement unit within
+We designed **fling_units** to simplify working with any measurement unit within
 a code base by abstracting measurements to basic types that can be "interpreted"
 into any valid unit of that type, all in a type-safe way. This means you will
 never pass around a measurement of the wrong type or unit again without seeing
 red squigglies in your IDE.
 
 Have a look at the examples below for more details on what is possible, and let
-me know how **fling_units** can be made even better by creating an issue!
+me know how we can improve **fling_units** by creating an issue!
+
+## Philosophy
+
+### Design goals
+
+- **Simplicity**: Casual users must be able to pick up the basic features. We
+  prefer idiomatic approaches since users will already have experience with
+  them. The library will not offer confusing or difficult options.
+
+- **Safety**: We will protect against invalid or incorrect usage. We favor
+  compile-time checks over runtime checks. If something is possible with the
+  library, it must be valid in the real world.
+
+- **Correctness**: Conversions must be accurate. The limiting factor in accuracy
+  is the measurement itself, not the library. Bug fixes take top priority.
+
+- **Minimalism**: We will not depend on larger libraries or other difficult
+  dependencies. Including the library into a project must be easy and must not
+  require any configuration or complicated setup.
+
+### Things that matter less
+
+- **Performance**: While we will not try to make the library slower than it
+  needs to be, we will not make small performance enhancements at the cost of
+  other design goals.
+
+- **Memory**: We will not reduce memory footprint at the cost of one of the
+  other design goals, but we will keep the library as small and unobtrusive as
+  possible.
 
 ## Usage
 
@@ -73,8 +102,8 @@ void main() {
 ```
 
 Abstract away the specific units your code needs by passing around the
-encapsulated types. It doesn't matter which units each portion of your code
-requires; you can combine them seamlessly:
+encapsulated types. It doesn't matter which units different parts of your code
+require; you can combine them seamlessly:
 
 ```dart
 Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
@@ -82,8 +111,7 @@ Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
 }
 ```
 
-There is full support for some of the more common derived units, e.g. *Area*
-and *Volume*.
+The more common derived units, e.g. *Area* and *Volume*, have full support:
 
 ```dart
 void main() {
@@ -122,8 +150,8 @@ void main() {
 }
 ```
 
-Express the certainty in your measurements correctly by setting a precision.
-Conversions will automatically provide appropriate significant digits:
+Express the certainty in your measurements by setting a precision. Conversions
+will automatically provide appropriate significant digits:
 
 ```dart
 void main() {
@@ -146,7 +174,7 @@ support:
 - add or subtract two similar measurements (`+`, `-`)
 - multiply or divide measurements by a scalar (`*`, `/`)
 - negate measurements (unary `-`)
-- compare magnitude of two measurements (`~/`, `compareMagnitude`)
+- measurement comparisons (`~/`, `compareMagnitude`)
 
 ### SI Prefixes
 
