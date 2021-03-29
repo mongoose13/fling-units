@@ -5,6 +5,10 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
+### Added
+
+- Visitor pattern support for all measurement types
+
 ### Changed
 
 - Write Good suggestions for wordiness

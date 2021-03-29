@@ -253,6 +253,10 @@ class Mass extends Measurement<Mass> {
   /// Interprets this using the specified units.
   double as(final MassInterpreter interpreter) => _preciseOf(interpreter);
 
+  @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitMass(this);
+
   @Deprecated("Use 'as(milli.grams)' instead")
   double get asMilligrams => as(milli.grams);
 

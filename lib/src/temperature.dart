@@ -136,6 +136,10 @@ class Temperature implements Comparable<Temperature> {
           precision: Precision.addition(kelvin(_kelvin, precision: _precision),
               kelvin(other._kelvin, precision: other._precision)));
 
+  /// Accept a measurement visitor.
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitTemperature(this);
+
   @override
   String toString() => '$asKelvin K';
 

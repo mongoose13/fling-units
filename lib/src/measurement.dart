@@ -122,6 +122,9 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Creates an equivalent measurement with the specified precision.
   T withPrecision(final Precision precision) => _construct(si, precision);
 
+  /// Accept a visitor object for double-dispatch.
+  void acceptVisitor(final MeasurementVisitor visitor);
+
   /// Apply the measurement appropriate precision to a value.
   double _precise(final double value) => _precision.withPrecision(value);
 

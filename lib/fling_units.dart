@@ -74,6 +74,8 @@ part 'src/interpreter.dart';
 part 'src/precision.dart';
 part 'src/prefix.dart';
 
+part 'src/visitor.dart';
+
 // derived units
 part 'src/area.dart';
 part 'src/volume.dart';

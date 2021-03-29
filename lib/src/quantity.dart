@@ -97,6 +97,10 @@ class Quantity extends Measurement<Quantity> {
   double as(final QuantityInterpreter interpreter) => _preciseOf(interpreter);
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitQuantity(this);
+
+  @override
   String toString() => '${as(units)}';
 
   @override

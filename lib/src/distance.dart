@@ -305,6 +305,10 @@ class Distance extends Measurement<Distance> {
   double get asNauticalMiles => as(nauticalMiles);
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitDistance(this);
+
+  @override
   String toString() => '${as(DistanceInterpreter._meters)} m';
 
   @override

@@ -152,6 +152,10 @@ class Area extends Measurement<Area> {
   double get asSquareInches => asArea(square(inches));
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitArea(this);
+
+  @override
   String toString() => '${asArea(square(meters))} m²';
 
   @override

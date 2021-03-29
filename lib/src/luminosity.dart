@@ -72,6 +72,10 @@ class Luminosity extends Measurement<Luminosity> {
   double as(final LuminosityInterpreter interpreter) => _preciseOf(interpreter);
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitLuminosity(this);
+
+  @override
   String toString() => '${as(candela)}';
 
   @override

@@ -39,6 +39,10 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
       _precise(a._of(si) * (_reciprocal ? b._from(1) : b._of(1)));
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitDerived(this);
+
+  @override
   DerivedMeasurement<A, B> _construct(
           final double si, final Precision precision) =>
       DerivedMeasurement._(si, precision);

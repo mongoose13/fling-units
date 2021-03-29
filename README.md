@@ -15,7 +15,7 @@ We designed **fling_units** to simplify working with any measurement unit within
 a code base by abstracting measurements to basic types that can be "interpreted"
 into any valid unit of that type, all in a type-safe way. This means you will
 never pass around a measurement of the wrong type or unit again without seeing
-red squigglies in your IDE.
+red squiggles in your IDE.
 
 Have a look at the examples below for more details on what is possible, and let
 me know how we can improve **fling_units** by creating an issue!
@@ -33,7 +33,8 @@ me know how we can improve **fling_units** by creating an issue!
   library, it must be valid in the real world.
 
 - **Correctness**: Conversions must be accurate. The limiting factor in accuracy
-  is the measurement itself, not the library. Bug fixes take top priority.
+  is the measurement itself, not the library. Bug fixes take top priority. Full
+  test coverage is required.
 
 - **Minimalism**: We will not depend on larger libraries or other difficult
   dependencies. Including the library into a project must be easy and must not
@@ -175,6 +176,7 @@ support:
 - multiply or divide measurements by a scalar (`*`, `/`)
 - negate measurements (unary `-`)
 - measurement comparisons (`~/`, `compareMagnitude`)
+- visitor pattern compatible
 
 ### SI Prefixes
 

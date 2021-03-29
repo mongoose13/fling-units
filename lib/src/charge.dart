@@ -55,6 +55,10 @@ class Charge extends Measurement<Charge> {
   double as(final ChargeInterpreter interpreter) => _preciseOf(interpreter);
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitCharge(this);
+
+  @override
   String toString() => '${as(amperes)}';
 
   @override

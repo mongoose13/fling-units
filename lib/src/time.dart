@@ -221,6 +221,10 @@ class Time extends Measurement<Time> {
   double get asDays => as(TimeInterpreter._days);
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitTime(this);
+
+  @override
   String toString() => '${as(TimeInterpreter._seconds)} s';
 
   /// Constructs a [Time].

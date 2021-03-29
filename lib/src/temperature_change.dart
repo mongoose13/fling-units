@@ -135,6 +135,10 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   double get asFahrenheit => as(TemperatureChangeInterpreter._fahrenheit);
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitTemperatureChange(this);
+
+  @override
   String toString() => '${as(TemperatureChangeInterpreter._kelvin)} K change';
 
   /// Constructs a [TemperatureChange].

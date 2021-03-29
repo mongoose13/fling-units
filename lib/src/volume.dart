@@ -566,6 +566,10 @@ class Volume extends Measurement<Volume> {
   double get asUsLegalCups => asVolume(VolumeInterpreter._usLegalCups);
 
   @override
+  void acceptVisitor(final MeasurementVisitor visitor) =>
+      visitor.visitVolume(this);
+
+  @override
   String toString() => '${asVolume(VolumeInterpreter._liters).toString()} L';
 
   /// Constructs a [Volume].
