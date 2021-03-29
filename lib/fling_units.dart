@@ -68,26 +68,36 @@ library fling_units;
 import 'dart:math' as math;
 
 // framework
-part 'src/measurement.dart';
-part 'src/derived.dart';
-part 'src/interpreter.dart';
-part 'src/precision.dart';
-part 'src/prefix.dart';
+part 'src/measurements/measurement.dart';
 
-part 'src/visitor.dart';
+part 'src/measurements/derived.dart';
+
+part 'src/core/interpreter.dart';
+
+part 'src/core/precision.dart';
+
+part 'src/core/prefix.dart';
+
+part 'src/core/visitor.dart';
 
 // derived units
-part 'src/area.dart';
-part 'src/volume.dart';
+part 'src/measurements/area.dart';
+
+part 'src/measurements/volume.dart';
 
 // primary units
-part 'src/charge.dart';
-part 'src/distance.dart';
+part 'src/measurements/charge.dart';
 
-part 'src/luminosity.dart';
+part 'src/measurements/distance.dart';
 
-part 'src/mass.dart';
-part 'src/quantity.dart';
-part 'src/temperature.dart';
-part 'src/temperature_change.dart';
-part 'src/time.dart';
+part 'src/measurements/luminosity.dart';
+
+part 'src/measurements/mass.dart';
+
+part 'src/measurements/quantity.dart';
+
+part 'src/measurements/temperature.dart';
+
+part 'src/measurements/temperature_change.dart';
+
+part 'src/measurements/time.dart';

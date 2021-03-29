@@ -11,6 +11,7 @@ types you need to work with from the rest of your code.
 
 ### Changed
 
+- Organized source code
 - Write Good suggestions for wordiness
 
 ## [1.3.0] - 2021-03-28
