@@ -5,6 +5,8 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
+## [1.4.0] - 2021-03-30
+
 ### Added
 
 - Visitor pattern support for all measurement types
@@ -192,6 +194,8 @@ us feedback on how well they work!
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/HEAD/
+
+[1.4.0]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/1.4.0/
 
 [1.3.0]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/1.3.0/
 
