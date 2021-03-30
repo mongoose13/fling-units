@@ -31,20 +31,20 @@ abstract class MeasurementInterpreter<T> {
   final double _unitMultiplier;
 }
 
-/// A [MeasurementInterpreter] that truncates its results to `int`s.
+/// A [MeasurementInterpreter] that rounds its results to `int`s.
 ///
 /// This is useful for measurements that should not be represented fractionally,
 /// e.g. the number of items in a collection.
-abstract class TruncatingMeasurementInterpreter<T>
+abstract class RoundingMeasurementInterpreter<T>
     extends MeasurementInterpreter<T> {
   @override
   double _of(final num value) =>
-      (value.toDouble() * _unitMultiplier).truncateToDouble();
+      (value.toDouble() * _unitMultiplier).roundToDouble();
 
   @override
   double _from(final num value) => value.toDouble() / _unitMultiplier;
 
-  /// Constructs a [TruncatingMeasurementInterpreter].
-  const TruncatingMeasurementInterpreter._(final double unitMultiplier)
+  /// Constructs a [RoundingMeasurementInterpreter].
+  const RoundingMeasurementInterpreter._(final double unitMultiplier)
       : super._(unitMultiplier);
 }

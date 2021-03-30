@@ -120,7 +120,7 @@ void main() {
       // then
       expect(result, 2.0491);
     });
-    test('truncates results', () {
+    test('rounds up', () {
       // given
       final quantity = units(1.678, precision: Precision(5));
 
@@ -128,7 +128,27 @@ void main() {
       final result = quantity.as(units);
 
       // then
+      expect(result, 2);
+    });
+    test('rounds down', () {
+      // given
+      final quantity = units(1.456, precision: Precision(5));
+
+      // when
+      final result = quantity.as(units);
+
+      // then
       expect(result, 1);
+    });
+    test('maintains whole numbers', () {
+      // given
+      final quantity = units(2, precision: Precision(5));
+
+      // when
+      final result = quantity.as(units);
+
+      // then
+      expect(result, 2);
     });
   });
   group('moles', () {

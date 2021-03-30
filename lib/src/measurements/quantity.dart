@@ -25,27 +25,27 @@ class StandardQuantityInterpreter extends MeasurementInterpreter<Quantity>
 }
 
 /// Interprets [Quantity]s as a specific unit, truncating results.
-class TruncatingQuantityInterpreter
-    extends TruncatingMeasurementInterpreter<Quantity>
+class RoundingQuantityInterpreter
+    extends RoundingMeasurementInterpreter<Quantity>
     implements QuantityInterpreter {
-  /// Constructs a [TruncatingQuantityInterpreter].
-  const TruncatingQuantityInterpreter._(final double multiplier)
+  /// Constructs a [RoundingQuantityInterpreter].
+  const RoundingQuantityInterpreter._(final double multiplier)
       : super._(multiplier);
 
-  /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
-  StandardQuantityInterpreter _withPrefix(final double multiplier) =>
-      StandardQuantityInterpreter._(_unitMultiplier / multiplier);
+  /// Produces a [RoundingQuantityInterpreter] that is a fraction of this.
+  RoundingQuantityInterpreter _withPrefix(final double multiplier) =>
+      RoundingQuantityInterpreter._(_unitMultiplier / multiplier);
 
   @override
   Quantity call(final num value, {final Precision precision = Precision.max}) =>
       Quantity._(_from(value), precision);
 
   /// The interpreter for units (discrete items).
-  static const _units = TruncatingQuantityInterpreter._(6.02214076e23);
+  static const _units = RoundingQuantityInterpreter._(6.02214076e23);
 }
 
 /// The interpreter for units.
-const units = TruncatingQuantityInterpreter._units;
+const units = RoundingQuantityInterpreter._units;
 
 /// The interpreter for moles.
 const moles = StandardQuantityInterpreter._moles;
@@ -54,7 +54,7 @@ const moles = StandardQuantityInterpreter._moles;
 abstract class QuantityPrefix {
   /// Applies this to a unit amount.
   QuantityInterpreter get units =>
-      TruncatingQuantityInterpreter._units._withPrefix(_multiplier);
+      RoundingQuantityInterpreter._units._withPrefix(_multiplier);
 
   /// Applies this to a mole amount.
   QuantityInterpreter get moles =>
