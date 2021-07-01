@@ -5,6 +5,13 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
+## [2.0.0] - 2021-07-01
+
+### Changed
+
+- Upgraded dependencies to latest
+- Removed all deprecated members
+
 ## [1.4.1] - 2021-03-30
 
 ### Changed
@@ -200,6 +207,8 @@ us feedback on how well they work!
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/HEAD/
+
+[2.0.0]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/2.0.0/
 
 [1.4.1]: https://bitbucket.org/gelbermungo/fling-units/commits/tag/1.4.1/
 
