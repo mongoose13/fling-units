@@ -74,18 +74,6 @@ abstract class TemperaturePrefix {
 /// the two [Temperature]s. It would not make sense to say that the difference
 /// in temperature is the "thermometer" temperature of 10 degrees.
 class TemperatureChange extends Measurement<TemperatureChange> {
-  @Deprecated("Use 'kelvin' instead")
-  static final TemperatureChangeInterpreter kelvin =
-      TemperatureChangeInterpreter._kelvin;
-
-  @Deprecated("Use 'celcius' instead")
-  static final TemperatureChangeInterpreter celcius =
-      TemperatureChangeInterpreter._celcius;
-
-  @Deprecated("Use 'fahrenheit' instead")
-  static final TemperatureChangeInterpreter fahrenheit =
-      TemperatureChangeInterpreter._fahrenheit;
-
   /// No change in temperature.
   const TemperatureChange.zero() : super.zero();
 
@@ -101,22 +89,6 @@ class TemperatureChange extends Measurement<TemperatureChange> {
       {final Precision precision = Precision.max})
       : super.sum(parts, precision);
 
-  @Deprecated("Use 'kelvin()' instead")
-  TemperatureChange.ofKelvin(final num kelvin,
-      {final Precision precision = Precision.max})
-      : super(TemperatureChangeInterpreter._kelvin._from(kelvin), precision);
-
-  @Deprecated("Use 'celcius()' instead")
-  TemperatureChange.ofCelcius(final num celcius,
-      {final Precision precision = Precision.max})
-      : super(TemperatureChangeInterpreter._celcius._from(celcius), precision);
-
-  @Deprecated("Use 'fahrenheit()' instead")
-  TemperatureChange.ofFahrenheit(final num fahrenheit,
-      {final Precision precision = Precision.max})
-      : super(TemperatureChangeInterpreter._fahrenheit._from(fahrenheit),
-            precision);
-
   /// Returns a [TemperatureChange] that represents the positive magnitude of
   /// this.
   TemperatureChange magnitude() => TemperatureChange._(si.abs(), _precision);
@@ -124,15 +96,6 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   /// Interprets this using the specified units.
   double as(final TemperatureChangeInterpreter interpreter) =>
       _preciseOf(interpreter);
-
-  @Deprecated("Use 'as(kelvin)' instead")
-  double get asKelvin => as(TemperatureChangeInterpreter._kelvin);
-
-  @Deprecated("Use 'as(celcius)' instead")
-  double get asCelcius => as(TemperatureChangeInterpreter._celcius);
-
-  @Deprecated("Use 'as(fahrenheit)' instead")
-  double get asFahrenheit => as(TemperatureChangeInterpreter._fahrenheit);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

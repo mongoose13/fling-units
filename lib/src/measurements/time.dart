@@ -70,45 +70,6 @@ abstract class TimePrefix {
 /// conversions are acceptable, via the [Time.ofDuration] and [Time.asDuration]
 /// methods.
 class Time extends Measurement<Time> {
-  @Deprecated("Use 'pico.seconds' instead")
-  static final TimeInterpreter picoseconds = pico.seconds;
-
-  @Deprecated("Use 'nano.seconds' instead")
-  static final TimeInterpreter nanoseconds = nano.seconds;
-
-  @Deprecated("Use 'micro.seconds' instead")
-  static final TimeInterpreter microseconds = micro.seconds;
-
-  @Deprecated("Use 'milli.seconds' instead")
-  static final TimeInterpreter milliseconds = milli.seconds;
-
-  @Deprecated("Use 'centi.seconds' instead")
-  static final TimeInterpreter centiseconds = centi.seconds;
-
-  @Deprecated("Use 'deci.seconds' instead")
-  static final TimeInterpreter deciseconds = deci.seconds;
-
-  @Deprecated("Use 'seconds' instead")
-  static final TimeInterpreter seconds = TimeInterpreter._seconds;
-
-  @Deprecated("Use 'deka.seconds' instead")
-  static final TimeInterpreter dekaseconds = deka.seconds;
-
-  @Deprecated("Use 'hecto.seconds' instead")
-  static final TimeInterpreter hectoseconds = hecto.seconds;
-
-  @Deprecated("Use 'kilo.seconds' instead")
-  static final TimeInterpreter kiloseconds = kilo.seconds;
-
-  @Deprecated("Use 'minutes' instead")
-  static final TimeInterpreter minutes = TimeInterpreter._minutes;
-
-  @Deprecated("Use 'hours' instead")
-  static final TimeInterpreter hours = TimeInterpreter._hours;
-
-  @Deprecated("Use 'days' instead")
-  static final TimeInterpreter days = TimeInterpreter._days;
-
   /// The time of duration zero.
   const Time.zero() : super.zero();
 
@@ -123,66 +84,6 @@ class Time extends Measurement<Time> {
       {final Precision precision = Precision.max})
       : super.sum(parts, precision);
 
-  @Deprecated("Use 'Time.sum()' instead")
-  Time.of({
-    final num picoseconds = 0,
-    final num nanoseconds = 0,
-    final num microseconds = 0,
-    final num milliseconds = 0,
-    final num seconds = 0,
-    final num minutes = 0,
-    final num hours = 0,
-    final num days = 0,
-    final Precision precision = Precision.max,
-  }) : this.sum([
-          pico.seconds(picoseconds),
-          nano.seconds(nanoseconds),
-          micro.seconds(microseconds),
-          milli.seconds(milliseconds),
-          TimeInterpreter._seconds(seconds),
-          TimeInterpreter._minutes(minutes),
-          TimeInterpreter._hours(hours),
-          TimeInterpreter._days(days),
-        ], precision: precision);
-
-  @Deprecated("Use 'pico.seconds()' instead")
-  Time.ofPicoseconds(final double picoseconds,
-      {final Precision precision = Precision.max})
-      : this._(pico.seconds._from(picoseconds), precision);
-
-  @Deprecated("Use 'nano.seconds()' instead")
-  Time.ofNanoseconds(final double nanoseconds,
-      {final Precision precision = Precision.max})
-      : this._(nano.seconds._from(nanoseconds), precision);
-
-  @Deprecated("Use 'micro.seconds()' instead")
-  Time.ofMicroseconds(final double microseconds,
-      {final Precision precision = Precision.max})
-      : this._(micro.seconds._from(microseconds), precision);
-
-  @Deprecated("Use 'milli.seconds()' instead")
-  Time.ofMilliseconds(final double milliseconds,
-      {final Precision precision = Precision.max})
-      : this._(milli.seconds._from(milliseconds), precision);
-
-  @Deprecated("Use 'seconds()' instead")
-  Time.ofSeconds(final double seconds,
-      {final Precision precision = Precision.max})
-      : this._(TimeInterpreter._seconds._from(seconds), precision);
-
-  @Deprecated("Use 'minutes()' instead")
-  Time.ofMinutes(final double minutes,
-      {final Precision precision = Precision.max})
-      : this._(TimeInterpreter._minutes._from(minutes), precision);
-
-  @Deprecated("Use 'hours()' instead")
-  Time.ofHours(final double hours, {final Precision precision = Precision.max})
-      : this._(TimeInterpreter._hours._from(hours), precision);
-
-  @Deprecated("Use 'days()' instead")
-  Time.ofDays(final double days, {final Precision precision = Precision.max})
-      : this._(TimeInterpreter._days._from(days), precision);
-
   /// Constructs a [Time] from a [Duration].
   Time.ofDuration(final Duration duration,
       {final Precision precision = Precision.max})
@@ -195,30 +96,6 @@ class Time extends Measurement<Time> {
 
   /// Interprets this using the specified units.
   double as(final TimeInterpreter interpreter) => _preciseOf(interpreter);
-
-  @Deprecated("Use 'as(pico.seconds)' instead")
-  double get asPicoseconds => as(pico.seconds);
-
-  @Deprecated("Use 'as(nano.seconds)' instead")
-  double get asNanoseconds => as(nano.seconds);
-
-  @Deprecated("Use 'as(micro.seconds)' instead")
-  double get asMicroseconds => as(micro.seconds);
-
-  @Deprecated("Use 'as(milli.seconds)' instead")
-  double get asMilliseconds => as(milli.seconds);
-
-  @Deprecated("Use 'as(seconds)' instead")
-  double get asSeconds => as(TimeInterpreter._seconds);
-
-  @Deprecated("Use 'as(minutes)' instead")
-  double get asMinutes => as(TimeInterpreter._minutes);
-
-  @Deprecated("Use 'as(hours)' instead")
-  double get asHours => as(TimeInterpreter._hours);
-
-  @Deprecated("Use 'as(days)' instead")
-  double get asDays => as(TimeInterpreter._days);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

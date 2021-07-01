@@ -81,20 +81,6 @@ void main() {
     });
   });
 
-  group('add', () {
-    test('always gives max value', () {
-      // given
-      final precision1 = Precision(3);
-      final precision2 = Precision(2);
-
-      // when
-      final result = Precision.add(precision1, precision2);
-
-      // then
-      expect(result, Precision.max);
-    });
-  });
-
   group('digitsBeforeDecimal', () {
     test('mixed number', () {
       // given

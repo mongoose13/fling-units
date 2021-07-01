@@ -49,9 +49,6 @@ class Precision {
   Precision.combine(final Precision a, final Precision b)
       : this(math.min(a.precision, b.precision));
 
-  @Deprecated("Use 'addition()' instead")
-  Precision.add(final Precision a, final Precision b) : this._max();
-
   /// Combines two [Precision]s per the "addition rule".
   ///
   /// Use this when adding or subtracting two numbers to determine the correct
