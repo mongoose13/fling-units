@@ -2,6 +2,10 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## 2.0.2 - 2022-05-07
+### Changed
+- Updated all project URLs
+
 ## 2.0.1 - 2022-05-07
 ### Added
 - CircleCI testing and validation
