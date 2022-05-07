@@ -86,7 +86,7 @@ workflows:
 jobs:
   test:
     docker:
-      - image: google/dart:2.9.1
+      - image: dart:latest
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -95,10 +95,10 @@ jobs:
           shell: "/bin/bash -eo pipefail"
       - run:
           name: Make folder for test results
-          command: mkdir -p test-results/dart-tests
+          command: mkdir -p test-results
       - run:
           name: Run tests
-          command: pub run test --reporter json | tojunit --output test-results/dart-tests/circleci_dart_demo_test-report.xml
+          command: pub run test --reporter json | tojunit --output test-results/test-report.xml
       - store_test_results:
           path: test-results
 
