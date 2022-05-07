@@ -52,9 +52,12 @@ workflows:
     jobs:
       - validate
       - test
-  publish:
-    jobs:
-      - publish
+      # Uncomment to allow manual publish step
+      #- publish:
+      #    type: approval
+      #    requires:
+      #      - test
+      #      - validate
 
 ##################
 # Job Definitions
@@ -100,4 +103,4 @@ jobs:
           shell: "/bin/bash -eo pipefail"
       - run:
           name: Deploy to pub.dev
-          command: dart pub publish
+          command: yes | dart pub publish
