@@ -98,7 +98,7 @@ jobs:
           command: mkdir -p test-results
       - run:
           name: Run tests
-          command: dart pub run test --reporter json | tojunit --output test-results/test-report.xml
+          command: dart pub run test --reporter json | << parameters.pub-cache >>/bin/tojunit --output test-results/test-report.xml
       - store_test_results:
           path: test-results
 
