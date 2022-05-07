@@ -75,6 +75,9 @@ jobs:
       - run:
           name: Run Dart formatter
           command: dart format --set-exit-if-changed lib
+      - run:
+          name: Run the example script
+          command: dart example/lib/example.dart
   test:
     docker:
       - image: dart:latest
