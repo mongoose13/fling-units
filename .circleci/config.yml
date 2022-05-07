@@ -95,10 +95,10 @@ jobs:
           shell: "/bin/bash -eo pipefail"
       - run:
           name: Make folder for test results
-          command: mkdir -p test-results
+          command: mkdir -p test-results/dart-tests
       - run:
           name: Run tests
-          command: dart pub run test --reporter json | ~/.pub-cache/bin/tojunit --output test-results/test-report.xml
+          command: dart pub run test --reporter json | ~/.pub-cache/bin/tojunit --output test-results/dart-tests/test-report.xml
       - store_test_results:
           path: test-results
 
