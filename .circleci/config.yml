@@ -30,13 +30,17 @@ commands:
             - v1.4-dependencies-{{ arch }}-{{ checksum "pubspec.lock" }}
             - v1.4-dependencies-{{ arch }}-
       - run:
-          name: Download deps
+          name: Download dependencies
           shell: << parameters.shell >>
           command: dart pub get
       - run:
-          name: Get junitreporter
+          name: Get jUnit Reporter
           shell: << parameters.shell >>
           command: dart pub global activate junitreport
+      - run:
+          name: Get Pana
+          shell: << parameters.shell >>
+          command: dart pub global activate pana
       - save_cache:
           key: v1.4-dependencies-{{ arch }}-{{ checksum "pubspec.lock" }}
           paths:
@@ -78,6 +82,9 @@ jobs:
       - run:
           name: Run the example script
           command: dart example/lib/example.dart
+      - run:
+          name: Run Pana
+          command: ~/.pub-cache/bin/pana --no-warning --exit-code-threshold 0
   test:
     docker:
       - image: dart:latest
