@@ -107,7 +107,8 @@ void main() {
   // extensions. We recommend wrapping doubles in parenthesis for readability.
   var yourBucketSize = 3.liters;
   var myBucketSize = (1.5).deka.liters;
-  print('\nMy bucket is ${myBucketSize.compareMagnitude(yourBucketSize)} times bigger than yours!');
+  print(
+      '\nMy bucket is ${myBucketSize.compareMagnitude(yourBucketSize)} times bigger than yours!');
 
   // Have fun!
 }

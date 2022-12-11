@@ -14,101 +14,142 @@ extension NumExtension on num {
 
   /// Creates a meter measurement.
   Distance get meters => DistanceInterpreter._meters(this);
+
   /// Creates a mile measurement.
   Distance get miles => DistanceInterpreter._miles(this);
+
   /// Creates a yard measurement.
   Distance get yards => DistanceInterpreter._yards(this);
+
   /// Creates a foot measurement.
   Distance get feet => DistanceInterpreter._feet(this);
+
   /// Creates an inch measurement.
   Distance get inches => DistanceInterpreter._inches(this);
+
   /// Creates a nautical mile measurement.
   Distance get nauticalMiles => DistanceInterpreter._nauticalMiles(this);
 
   /// Creates a candela measurement.
   Luminosity get candela => LuminosityInterpreter._candela(this);
+
   /// Creates a candlepower measurement.
   Luminosity get candlepower => LuminosityInterpreter._candlepower(this);
+
   /// Creates a hefnerkerze measurement.
   Luminosity get hefnerkerze => LuminosityInterpreter._hefnerkerze(this);
 
   /// Creates a gram measurement.
   Mass get grams => MassInterpreter._grams(this);
+
   /// Creates a tonne measurement.
   Mass get tonnes => MassInterpreter._tonnes(this);
+
   /// Creates a atomic mass unit measurement.
   Mass get atomicMassUnits => MassInterpreter._atomicMassUnits(this);
+
   /// Creates a dalton measurement.
   Mass get daltons => MassInterpreter._daltons(this);
+
   /// Creates an electron mass measurement.
   Mass get electronRestMass => MassInterpreter._electronRestMass(this);
+
   /// Creates a long ton measurement.
   Mass get longTons => MassInterpreter._longTons(this);
+
   /// Creates a short ton measurement.
   Mass get shortTons => MassInterpreter._shortTons(this);
+
   /// Creates a pound measurement.
   Mass get pounds => MassInterpreter._pounds(this);
+
   /// Creates an ounce measurement.
   Mass get ounces => MassInterpreter._ounces(this);
 
   /// Creates a unit measurement.
   Quantity get units => RoundingQuantityInterpreter._units(this);
+
   /// Creates a mole measurement.
   Quantity get moles => StandardQuantityInterpreter._moles(this);
 
   /// Creates a kelvin change measurement.
-  TemperatureChange get kelvin => TemperatureChangeInterpreter._kelvin(toDouble());
+  TemperatureChange get kelvin =>
+      TemperatureChangeInterpreter._kelvin(toDouble());
+
   /// Creates a celcius change measurement.
-  TemperatureChange get celcius => TemperatureChangeInterpreter._celcius(toDouble());
+  TemperatureChange get celcius =>
+      TemperatureChangeInterpreter._celcius(toDouble());
+
   /// Creates a fahrenheit change measurement.
-  TemperatureChange get fahrenheit => TemperatureChangeInterpreter._fahrenheit(toDouble());
+  TemperatureChange get fahrenheit =>
+      TemperatureChangeInterpreter._fahrenheit(toDouble());
 
   /// Creates a kelvin measurement.
   Temperature get ofKelvin => Temperature.ofKelvin(this);
+
   /// Creates a celcius measurement.
   Temperature get ofCelcius => Temperature.ofCelcius(this);
+
   /// Creates a fahrenheit measurement.
   Temperature get ofFahrenheit => Temperature.ofFahrenheit(this);
 
   /// Creates a day measurement.
   Time get days => TimeInterpreter._days(this);
+
   /// Creates an hour measurement.
   Time get hours => TimeInterpreter._hours(this);
+
   /// Creates a minute measurement.
   Time get minutes => TimeInterpreter._minutes(this);
+
   /// Creates a second measurement.
   Time get seconds => TimeInterpreter._seconds(this);
 
   /// Creates a liter measurement.
   Volume get liters => VolumeInterpreter._liters(this);
+
   /// Creates a teaspoon measurement.
   Volume get teaspoons => VolumeInterpreter._teaspoons(this);
+
   /// Creates a tablespoon measurement.
   Volume get tablespoons => VolumeInterpreter._tablespoons(this);
+
   /// Creates a fluid ounce measurement.
   Volume get fluidOunces => VolumeInterpreter._fluidOunces(this);
+
   /// Creates a cup measurement.
   Volume get cups => VolumeInterpreter._cups(this);
+
   /// Creates a pint measurement.
   Volume get pints => VolumeInterpreter._pints(this);
+
   /// Creates a quart measurement.
   Volume get quarts => VolumeInterpreter._quarts(this);
+
   /// Creates a gallon measurement.
   Volume get gallons => VolumeInterpreter._gallons(this);
+
   /// Creates a US teaspoon measurement.
   Volume get usTeaspoons => VolumeInterpreter._usTeaspoons(this);
+
   /// Creates a US tablespoon measurement.
   Volume get usTablespoons => VolumeInterpreter._usTablespoons(this);
+
   /// Creates a US fluid ounce measurement.
   Volume get usFluidOunces => VolumeInterpreter._usFluidOunces(this);
+
   /// Creates a US cup measurement.
   Volume get usCups => VolumeInterpreter._usCups(this);
+
   /// Creates a US pint measurement.
   Volume get usPints => VolumeInterpreter._usPints(this);
+
   /// Creates a US quart measurement.
   Volume get usQuarts => VolumeInterpreter._usQuarts(this);
+
   /// Creates a US gallon measurement.
   Volume get usGallons => VolumeInterpreter._usGallons(this);
+
   /// Creates a US legal cup measurement.
   Volume get usLegalCups => VolumeInterpreter._usLegalCups(this);
 
