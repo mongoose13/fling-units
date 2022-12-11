@@ -33,7 +33,7 @@ class Precision {
   /// digits. Any attempt to use a higher number will fail with an
   /// [ArgumentError]. Precision below 1 digit is meaningless and will also
   /// result in an [ArgumentError].
-  Precision(final this.precision) {
+  Precision(this.precision) {
     if (precision < 1 || precision > 21) {
       throw ArgumentError(
           'Precision must be a positive integer between 1 and 21');

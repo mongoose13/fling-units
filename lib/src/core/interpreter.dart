@@ -25,7 +25,7 @@ abstract class MeasurementInterpreter<T> {
   T call(final double value, {final Precision precision = Precision.max});
 
   /// Constructs a [MeasurementInterpreter].
-  const MeasurementInterpreter._(final this._unitMultiplier);
+  const MeasurementInterpreter._(this._unitMultiplier);
 
   /// The multiplier for the configured unit.
   final double _unitMultiplier;
