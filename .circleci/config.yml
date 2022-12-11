@@ -25,10 +25,6 @@ commands:
         default: "~/.pub-cache"
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1.4-dependencies-{{ arch }}-{{ checksum "pubspec.lock" }}
-            - v1.4-dependencies-{{ arch }}-
       - run:
           name: Download dependencies
           shell: << parameters.shell >>
@@ -41,11 +37,6 @@ commands:
           name: Get Pana
           shell: << parameters.shell >>
           command: dart pub global activate pana
-      - save_cache:
-          key: v1.4-dependencies-{{ arch }}-{{ checksum "pubspec.lock" }}
-          paths:
-            - .dart_tool
-            - << parameters.pub-cache >>
 
 ######################
 # Workflow definition

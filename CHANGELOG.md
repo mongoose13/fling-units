@@ -6,6 +6,9 @@ types you need to work with from the rest of your code.
 ### Added
 - Extensions on the num types to create any measurement
 
+### Removed
+- Caching all dependencies for each test run
+
 ## [2.0.2] - 2022-05-07
 ### Changed
 - Updated all project URLs
