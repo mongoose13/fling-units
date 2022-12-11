@@ -9,6 +9,9 @@ types you need to work with from the rest of your code.
 ### Removed
 - Caching all dependencies for each test run
 
+### Changed
+- Switched from pedantic to lints for static analysis
+
 ## [2.0.2] - 2022-05-07
 ### Changed
 - Updated all project URLs

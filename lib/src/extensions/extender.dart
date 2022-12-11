@@ -16,7 +16,7 @@ part of fling_units;
 /// Having the prefix extensions return instances of this class instead of [num]
 /// prevents all but the first usage demonstrated above.
 class NumExtender {
-  const NumExtender._(final this._value);
+  const NumExtender._(this._value);
 
   /// Creates an ampere measurement.
   Charge get amperes => _value.amperes;

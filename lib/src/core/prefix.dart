@@ -12,7 +12,7 @@ class MeasurementPrefix
         TimePrefix,
         VolumePrefix {
   /// Constructs an arbitrary [MeasurementPrefix].
-  const MeasurementPrefix(final this._multiplier);
+  const MeasurementPrefix(this._multiplier);
 
   /// The configured multiplier.
   @override
