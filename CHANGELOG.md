@@ -2,11 +2,15 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
-## 2.0.2 - 2022-05-07
+## [Unreleased] - 2022-12-11
+### Added
+- Extensions on the num types to create any measurement
+
+## [2.0.2] - 2022-05-07
 ### Changed
 - Updated all project URLs
 
-## 2.0.1 - 2022-05-07
+## [2.0.1] - 2022-05-07
 ### Added
 - CircleCI testing and validation
 
@@ -156,6 +160,9 @@ types you need to work with from the rest of your code.
 ### Added
 - Initial package setup
 
+[2.1.0]: https://bitbucket.org/mongoose13/fling-units/commits/
+[2.0.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.0.2/
+[2.0.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.0.1/
 [2.0.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.0.0/
 [1.4.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/1.4.1/
 [1.4.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/1.4.0/

@@ -101,5 +101,13 @@ void main() {
   print('${fuelConsumption.as(kilo.meters, liters)} kpl');
   print('${fuelConsumption.as(kilo.meters, usGallons)} kpg');
 
+  //------------------------------------------------//
+
+  // Want syntactic sugar? Any measurement can be created from a number using
+  // extensions. We recommend wrapping doubles in parenthesis for readability.
+  var yourBucketSize = 3.liters;
+  var myBucketSize = (1.5).deka.liters;
+  print('\nMy bucket is ${myBucketSize.compareMagnitude(yourBucketSize)} times bigger than yours!');
+
   // Have fun!
 }

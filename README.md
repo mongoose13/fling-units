@@ -152,12 +152,26 @@ void main() {
 ```
 
 Express the certainty in your measurements by setting a precision. Conversions
-will automatically provide appropriate significant digits:
+will automatically provide appropriate significant digits. Set the precision
+when you create the measurement, or later on:
 
 ```dart
 void main() {
   var myHeight = meters(1.5, precision: Precision(2));
   var myHeightInInches = myHeight.as(inches); // 59.0
+  
+  var myWeight = kilo.grams(61.234);
+  var myPreciseWeight = myWeight.withPrecision(Precision(3)); // 61.2
+}
+```
+
+Extensions allow you to define measurements from any number for a more natural
+syntax:
+
+```dart
+void main() {
+  var distanceToTheStore = 3.kilo.meters;
+  var distanceToYourHouse = 2.5.miles;
 }
 ```
 
@@ -177,6 +191,7 @@ support:
 - negate measurements (unary `-`)
 - measurement comparisons (`~/`, `compareMagnitude`)
 - visitor pattern compatible
+- extensions on *num* for more natural instantiation
 
 ### SI Prefixes
 

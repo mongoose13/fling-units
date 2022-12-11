@@ -101,3 +101,8 @@ part 'src/measurements/temperature.dart';
 part 'src/measurements/temperature_change.dart';
 
 part 'src/measurements/time.dart';
+
+// extensions
+part 'src/extensions/extender.dart';
+
+part 'src/extensions/extension.dart';
