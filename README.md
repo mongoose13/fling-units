@@ -130,12 +130,10 @@ expect) from existing units:
 
 ```dart
 void main() {
-  var fuelEconomy = DerivedMeasurement<Distance, Volume>.divide(
-      kilo.meters(100), liters(6));
+  var fuelEconomy = kilo.meters(100).per(liters(6));
   double milesPerGallon = fuelEconomy.as(miles, gallons);
 
-  var stateRequiredFuelEconomy = DerivedMeasurement<Distance, Volume>.divide(
-      inches(24), teaspoons(2));
+  var stateRequiredFuelEconomy = inches(24).per(teaspoons(2));
   bool switchCars = fuelEconomy < stateRequiredFuelEconomy;
 }
 ```
