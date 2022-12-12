@@ -11,6 +11,7 @@ types you need to work with from the rest of your code.
 
 ### Changed
 - Switched from pedantic to lints for static analysis
+- Updated to the latest test version
 
 ## [2.0.2] - 2022-05-07
 ### Changed
