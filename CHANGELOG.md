@@ -5,6 +5,7 @@ types you need to work with from the rest of your code.
 ## [Unreleased] - 2022-12-11
 ### Added
 - Extensions on the num types to create any measurement
+- Derived unit syntactic sugar with .by and .per
 
 ### Removed
 - Caching all dependencies for each test run

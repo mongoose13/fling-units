@@ -16,6 +16,27 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
                 0.0, (previousValue, element) => previousValue + element.si),
             precision);
 
+  /// Creates a derived measurement that is the division of this measurement with another.
+  ///
+  /// For example:
+  /// ```dart
+  /// var milesPerHour = miles(10).per(hours(2));
+  /// ```
+  DerivedMeasurement<Measurement<T>, Measurement<V>>
+      per<V extends Measurement<V>>(final Measurement<V> other) =>
+          DerivedMeasurement.divide(this, other);
+
+  /// Creates a derived unit that is the multiplication of this measurement with another.
+  ///
+  /// For example:
+  /// ```dart
+  /// var squareMeters = meters(2).by(meters(3));
+  /// var coulombs = seconds(4).by(amperes(10));
+  /// ```
+  DerivedMeasurement<Measurement<T>, Measurement<V>>
+      by<V extends Measurement<V>>(final Measurement<V> other) =>
+          DerivedMeasurement.multiply(this, other);
+
   /// A measurement of zero.
   const Measurement.zero()
       : si = 0.0,
@@ -104,9 +125,19 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   T operator /(final double divisor) => _construct(si / divisor, _precision);
 
   /// Returns the difference in magnitude between this and another measurement.
+  ///
+  /// For example:
+  /// ```dart
+  /// meters(3).compareMagnitude(deka.meters(3));  // 0.1
+  /// ```
   double compareMagnitude(final T other) => _preciseSI() / other._preciseSI();
 
   /// Returns the truncating division result of this and another measurement.
+  ///
+  /// For example:
+  /// ```dart
+  /// var fullHalfCups = cups(1.25) ~/ cups(0.5);  // 2
+  /// ```
   ///
   /// Attempting to divide by a measurement of magnitude zero, or attempting to
   /// divide an infinite measurement, will result in UnsupportedError (`int`
