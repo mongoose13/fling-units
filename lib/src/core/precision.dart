@@ -19,7 +19,7 @@ part of fling_units;
 /// ```
 class Precision {
   /// The highest precision allowed.
-  static const maximumPrecision = 21;
+  static const int maximumPrecision = 21;
 
   /// A single digit precision.
   static const Precision single = Precision._single();
