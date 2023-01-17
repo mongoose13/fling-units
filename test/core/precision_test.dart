@@ -345,5 +345,29 @@ void main() {
       // then
       expect(result.precision, 6);
     });
+    test('magnitude increase is capped at the limit', () {
+      // given
+      final measurement1 = meters(1.234, precision: Precision(21));
+      final measurement2 = meters(9.234, precision: Precision(21));
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 21);
+    });
+    test(
+        'magnitude increase does not breach cap for unspecified precision measurements',
+        () {
+      // given
+      final measurement1 = meters(100);
+      final measurement2 = meters(900);
+
+      // when
+      final result = Precision.addition(measurement1, measurement2);
+
+      // then
+      expect(result.precision, 21);
+    });
   });
 }

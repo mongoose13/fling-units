@@ -18,6 +18,9 @@ part of fling_units;
 ///   Distance.meters(3.14159, precision: Precision(5)); // evaluates to false
 /// ```
 class Precision {
+  /// The highest precision allowed.
+  static const maximumPrecision = 21;
+
   /// A single digit precision.
   static const Precision single = Precision._single();
 
@@ -34,7 +37,7 @@ class Precision {
   /// [ArgumentError]. Precision below 1 digit is meaningless and will also
   /// result in an [ArgumentError].
   Precision(this.precision) {
-    if (precision < 1 || precision > 21) {
+    if (precision < 1 || precision > maximumPrecision) {
       throw ArgumentError(
           'Precision must be a positive integer between 1 and 21');
     }
@@ -63,7 +66,9 @@ class Precision {
     final precisionA = digitsAfterDecimal(a);
     final precisionB = digitsAfterDecimal(b);
     final beforeDecimal = digitsBeforeDecimal(a._preciseSI() + b._preciseSI());
-    return Precision(beforeDecimal + math.min(precisionA, precisionB));
+    final int afterPrecision = math.min(
+        beforeDecimal + math.min(precisionA, precisionB), maximumPrecision);
+    return Precision(afterPrecision);
   }
 
   /// Calculates the number of significant digits after the decimal point.
