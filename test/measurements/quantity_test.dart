@@ -23,6 +23,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Quantity.zero(units);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 x');
+    });
   });
   group('infinity', () {
     test('has infinite quantity', () {
@@ -45,6 +55,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Quantity.infinite(units);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity x');
+    });
   });
   group('negativeInfinity', () {
     test('has infinite negative quantity', () {
@@ -66,6 +86,16 @@ void main() {
 
       // then
       expect(result, Precision.max.precision);
+    });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Quantity.negativeInfinite(units);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity x');
     });
   });
 
@@ -110,7 +140,28 @@ void main() {
       // then
       expect(result, 0.20491);
     });
+    test('applies base prefix', () {
+      // given
+      final quantity =
+          MeasurementPrefix.unit().units(1.234e23, precision: Precision(5));
+
+      // when
+      final result = quantity.as(moles);
+
+      // then
+      expect(result, 0.20491);
+    });
     test('applies prefixes', () {
+      // given
+      final quantity = milli.units(1234, precision: Precision(5));
+
+      // when
+      final result = quantity.as(units);
+
+      // then
+      expect(result, 1);
+    });
+    test('applies prefixes to conversions', () {
       // given
       final quantity = milli.units(1.234e27, precision: Precision(5));
 
@@ -171,6 +222,79 @@ void main() {
 
       // then
       expect(result, 1.234);
+    });
+  });
+
+  group('toString', () {
+    test('interpreter name', () {
+      // given
+      final interpreter = moles;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'mol');
+    });
+    test('interpreter name with prefix', () {
+      // given
+      final interpreter = milli.moles;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'mmol');
+    });
+    test('maintains units', () {
+      // given
+      final measurement = moles(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mol');
+    });
+    test('maintains prefix', () {
+      // given
+      final measurement = milli.moles(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mmol');
+    });
+    test('extension maintains prefix', () {
+      // given
+      final measurement = 3.4.milli.moles.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mmol');
+    });
+    test('modified precision', () {
+      // given
+      final measurement = deci.moles(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withPrecision(Precision(2)).toString();
+
+      // then
+      expect(result, '23.0 dmol');
+    });
+    test('modified units', () {
+      // given
+      final measurement = deci.moles(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withDefaultUnit(milli.units).toString();
+
+      // then
+      expect(result, '1.41e+27 mx');
     });
   });
 }

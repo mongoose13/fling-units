@@ -17,6 +17,16 @@ void main() {
       // then
       expect(result.precision, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Volume.zero(fluidOunces);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 fl oz');
+    });
   });
   group('infinity', () {
     test('has infinite distance', () {
@@ -33,6 +43,16 @@ void main() {
       // then
       expect(result.precision, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Volume.infinite(fluidOunces);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity fl oz');
+    });
   });
   group('negativeInfinity', () {
     test('has infinite negative distance', () {
@@ -48,6 +68,16 @@ void main() {
 
       // then
       expect(result.precision, Precision.max.precision);
+    });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Volume.negativeInfinite(fluidOunces);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity fl oz');
     });
   });
 
@@ -79,6 +109,20 @@ void main() {
 
       // then
       expect(result, 3);
+    });
+    test('automatically named', () {
+      // given
+      final volume = Volume.of(
+        meters(2, precision: Precision(5)),
+        inches(3, precision: Precision(3)),
+        feet(4, precision: Precision(4)),
+      );
+
+      // when
+      final result = volume.toString();
+
+      // then
+      expect(result, '24.0 m⋅in⋅ft');
     });
   });
 
@@ -476,6 +520,99 @@ void main() {
 
       // then
       expect(result, 0.29616);
+    });
+  });
+
+  group('toString', () {
+    test('interpreter name', () {
+      // given
+      final interpreter = cups;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'cup');
+    });
+    test('interpreter name with prefix', () {
+      // given
+      final interpreter = milli.cups;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'mcup');
+    });
+    test('maintains units', () {
+      // given
+      final measurement = cups(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 cup');
+    });
+    test('maintains prefix', () {
+      // given
+      final measurement = milli.cups(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mcup');
+    });
+    test('extension maintains prefix', () {
+      // given
+      final measurement = 3.4.milli.cups.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mcup');
+    });
+    test('modified precision', () {
+      // given
+      final measurement = deci.cups(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withPrecision(Precision(2)).toString();
+
+      // then
+      expect(result, '23.0 dcup');
+    });
+    test('modified units', () {
+      // given
+      final measurement = deci.cups(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withDefaultUnit(milli.liters).toString();
+
+      // then
+      expect(result, '666.0 mL');
+    });
+    test('cubic interpreter', () {
+      // given
+      final interpreter = Volume.cubic(feet);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'ft³');
+    });
+    test('cubic measurement', () {
+      // given
+      final measurement = Volume.cubic(feet)(2.3).withPrecision(Precision(2));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '2.3 ft³');
     });
   });
 }

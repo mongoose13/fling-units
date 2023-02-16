@@ -93,6 +93,26 @@ void main() {
   });
 
   group('standard prefixes', () {
+    test('quetta', () {
+      // given
+      final measurement = quetta.meters(1.234, precision: Precision(8));
+
+      // when
+      final result = measurement.as(meters);
+
+      // then
+      expect(result, 1.234e30);
+    });
+    test('ronna', () {
+      // given
+      final measurement = ronna.meters(1.234, precision: Precision(8));
+
+      // when
+      final result = measurement.as(meters);
+
+      // then
+      expect(result, 1.234e27);
+    });
     test('yotta', () {
       // given
       final measurement = yotta.meters(1.234, precision: Precision(8));
@@ -292,6 +312,26 @@ void main() {
 
       // then
       expect(result, 1.234e-24);
+    });
+    test('ronto', () {
+      // given
+      final measurement = ronto.meters(1.234, precision: Precision(8));
+
+      // when
+      final result = measurement.as(meters);
+
+      // then
+      expect(result, 1.234e-27);
+    });
+    test('quecto', () {
+      // given
+      final measurement = quecto.meters(1.234, precision: Precision(8));
+
+      // when
+      final result = measurement.as(meters);
+
+      // then
+      expect(result, 1.234e-30);
     });
   });
 }

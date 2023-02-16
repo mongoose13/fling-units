@@ -23,6 +23,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = TemperatureChange.zero(fahrenheit);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 °F');
+    });
   });
   group('infinity', () {
     test('has infinite temperature', () {
@@ -45,6 +55,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = TemperatureChange.infinite(fahrenheit);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity °F');
+    });
   });
   group('negativeInfinity', () {
     test('has infinite negative mass', () {
@@ -66,6 +86,16 @@ void main() {
 
       // then
       expect(result, Precision.max.precision);
+    });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = TemperatureChange.negativeInfinite(fahrenheit);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity °F');
     });
   });
 
@@ -163,6 +193,79 @@ void main() {
 
       // then
       expect(result, 0.68556);
+    });
+  });
+
+  group('toString', () {
+    test('interpreter name', () {
+      // given
+      final interpreter = fahrenheit;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '°F');
+    });
+    test('interpreter name with prefix', () {
+      // given
+      final interpreter = milli.fahrenheit;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'm°F');
+    });
+    test('maintains units', () {
+      // given
+      final measurement = fahrenheit(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 °F');
+    });
+    test('maintains prefix', () {
+      // given
+      final measurement = milli.fahrenheit(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 m°F');
+    });
+    test('extension maintains prefix', () {
+      // given
+      final measurement = 3.4.milli.fahrenheit.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 m°F');
+    });
+    test('modified precision', () {
+      // given
+      final measurement = deci.fahrenheit(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withPrecision(Precision(2)).toString();
+
+      // then
+      expect(result, '23.0 d°F');
+    });
+    test('modified units', () {
+      // given
+      final measurement = deci.fahrenheit(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withDefaultUnit(milli.celcius).toString();
+
+      // then
+      expect(result, '1300.0 m°C');
     });
   });
 }

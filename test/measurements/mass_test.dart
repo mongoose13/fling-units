@@ -23,6 +23,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Mass.zero(pounds);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 lb');
+    });
   });
   group('infinity', () {
     test('has infinite mass', () {
@@ -45,6 +55,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Mass.infinite(pounds);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity lb');
+    });
   });
   group('negativeInfinity', () {
     test('has infinite negative mass', () {
@@ -66,6 +86,16 @@ void main() {
 
       // then
       expect(result, Precision.max.precision);
+    });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Mass.negativeInfinite(pounds);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity lb');
     });
   });
 
@@ -296,6 +326,79 @@ void main() {
 
       // then
       expect(result, 34.983);
+    });
+  });
+
+  group('toString', () {
+    test('interpreter name', () {
+      // given
+      final interpreter = pounds;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'lb');
+    });
+    test('interpreter name with prefix', () {
+      // given
+      final interpreter = milli.pounds;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'mlb');
+    });
+    test('maintains units', () {
+      // given
+      final measurement = pounds(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 lb');
+    });
+    test('maintains prefix', () {
+      // given
+      final measurement = milli.pounds(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mlb');
+    });
+    test('extension maintains prefix', () {
+      // given
+      final measurement = 3.4.milli.pounds.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mlb');
+    });
+    test('modified precision', () {
+      // given
+      final measurement = deci.pounds(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withPrecision(Precision(2)).toString();
+
+      // then
+      expect(result, '23.0 dlb');
+    });
+    test('modified units', () {
+      // given
+      final measurement = deci.pounds(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withDefaultUnit(milli.tonnes).toString();
+
+      // then
+      expect(result, '1.06 mt');
     });
   });
 }

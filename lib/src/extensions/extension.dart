@@ -73,16 +73,14 @@ extension NumExtension on num {
   Quantity get moles => StandardQuantityInterpreter._moles(this);
 
   /// Creates a kelvin change measurement.
-  TemperatureChange get kelvin =>
-      TemperatureChangeInterpreter._kelvin(toDouble());
+  TemperatureChange get kelvin => TemperatureChangeInterpreter._kelvin(this);
 
   /// Creates a celcius change measurement.
-  TemperatureChange get celcius =>
-      TemperatureChangeInterpreter._celcius(toDouble());
+  TemperatureChange get celcius => TemperatureChangeInterpreter._celcius(this);
 
   /// Creates a fahrenheit change measurement.
   TemperatureChange get fahrenheit =>
-      TemperatureChangeInterpreter._fahrenheit(toDouble());
+      TemperatureChangeInterpreter._fahrenheit(this);
 
   /// Creates a kelvin measurement.
   Temperature get ofKelvin => Temperature.ofKelvin(this);
@@ -153,63 +151,75 @@ extension NumExtension on num {
   /// Creates a US legal cup measurement.
   Volume get usLegalCups => VolumeInterpreter._usLegalCups(this);
 
+  /// SI prefix "quecto".
+  NumExtender get quecto => NumExtender(MeasurementPrefix._quecto, this);
+
+  /// SI prefix "ronto".
+  NumExtender get ronto => NumExtender(MeasurementPrefix._ronto, this);
+
   /// SI prefix "yocto".
-  NumExtender get yocto => NumExtender._(this * 1e-24);
+  NumExtender get yocto => NumExtender(MeasurementPrefix._yocto, this);
 
   /// SI prefix "zepto".
-  NumExtender get zepto => NumExtender._(this * 1e-21);
+  NumExtender get zepto => NumExtender(MeasurementPrefix._zepto, this);
 
   /// SI prefix "atto".
-  NumExtender get atto => NumExtender._(this * 1e-18);
+  NumExtender get atto => NumExtender(MeasurementPrefix._atto, this);
 
   /// SI prefix "femto".
-  NumExtender get femto => NumExtender._(this * 1e-15);
+  NumExtender get femto => NumExtender(MeasurementPrefix._femto, this);
 
   /// SI prefix "pico".
-  NumExtender get pico => NumExtender._(this * 1e-12);
+  NumExtender get pico => NumExtender(MeasurementPrefix._pico, this);
 
   /// SI prefix "nano".
-  NumExtender get nano => NumExtender._(this * 1e-9);
+  NumExtender get nano => NumExtender(MeasurementPrefix._nano, this);
 
   /// SI prefix "micro".
-  NumExtender get micro => NumExtender._(this * 1e-6);
+  NumExtender get micro => NumExtender(MeasurementPrefix._micro, this);
 
   /// SI prefix "milli".
-  NumExtender get milli => NumExtender._(this * 1e-3);
+  NumExtender get milli => NumExtender(MeasurementPrefix._milli, this);
 
   /// SI prefix "centi".
-  NumExtender get centi => NumExtender._(this * 1e-2);
+  NumExtender get centi => NumExtender(MeasurementPrefix._centi, this);
 
   /// SI prefix "deci".
-  NumExtender get deci => NumExtender._(this * 1e-1);
+  NumExtender get deci => NumExtender(MeasurementPrefix._deci, this);
 
   /// SI prefix "deka".
-  NumExtender get deka => NumExtender._(this * 1e1);
+  NumExtender get deka => NumExtender(MeasurementPrefix._deka, this);
 
   /// SI prefix "hecto".
-  NumExtender get hecto => NumExtender._(this * 1e2);
+  NumExtender get hecto => NumExtender(MeasurementPrefix._hecto, this);
 
   /// SI prefix "kilo".
-  NumExtender get kilo => NumExtender._(this * 1e3);
+  NumExtender get kilo => NumExtender(MeasurementPrefix._kilo, this);
 
   /// SI prefix "mega".
-  NumExtender get mega => NumExtender._(this * 1e6);
+  NumExtender get mega => NumExtender(MeasurementPrefix._mega, this);
 
   /// SI prefix "giga".
-  NumExtender get giga => NumExtender._(this * 1e9);
+  NumExtender get giga => NumExtender(MeasurementPrefix._giga, this);
 
   /// SI prefix "tera".
-  NumExtender get tera => NumExtender._(this * 1e12);
+  NumExtender get tera => NumExtender(MeasurementPrefix._tera, this);
 
   /// SI prefix "peta".
-  NumExtender get peta => NumExtender._(this * 1e15);
+  NumExtender get peta => NumExtender(MeasurementPrefix._peta, this);
 
   /// SI prefix "exa".
-  NumExtender get exa => NumExtender._(this * 1e18);
+  NumExtender get exa => NumExtender(MeasurementPrefix._exa, this);
 
   /// SI prefix "zetta".
-  NumExtender get zetta => NumExtender._(this * 1e21);
+  NumExtender get zetta => NumExtender(MeasurementPrefix._zetta, this);
 
   /// SI prefix "yotta".
-  NumExtender get yotta => NumExtender._(this * 1e24);
+  NumExtender get yotta => NumExtender(MeasurementPrefix._yotta, this);
+
+  /// SI prefix "ronna".
+  NumExtender get ronna => NumExtender(MeasurementPrefix._ronna, this);
+
+  /// SI prefix "quetta".
+  NumExtender get quetta => NumExtender(MeasurementPrefix._quetta, this);
 }

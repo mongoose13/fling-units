@@ -4,72 +4,88 @@ part of fling_units;
 class VolumeInterpreter extends MeasurementInterpreter<Volume> {
   @override
   Volume call(final num value, {final Precision precision = Precision.max}) =>
-      Volume._(_from(value), precision);
+      Volume._(_from(value), precision, this);
 
   /// Constructs a [VolumeInterpreter] from any three [DistanceInterpreter]s.
-  VolumeInterpreter(final DistanceInterpreter a, final DistanceInterpreter b,
-      final DistanceInterpreter c)
-      : this._(a._unitMultiplier * b._unitMultiplier * c._unitMultiplier);
+  VolumeInterpreter(
+    final MeasurementInterpreter<Distance> a,
+    final MeasurementInterpreter<Distance> b,
+    final MeasurementInterpreter<Distance> c, {
+    final String? name,
+  }) : this._(
+            name ?? '${a._name}⋅${b._name}⋅${c._name}',
+            a._unitMultiplier *
+                b._unitMultiplier *
+                c._unitMultiplier /
+                a._prefix._multiplier /
+                b._prefix._multiplier /
+                c._prefix._multiplier);
 
   /// Constructs a [VolumeInterpreter] that will cube a basic
   /// [DistanceInterpreter].
-  VolumeInterpreter.cubed(final DistanceInterpreter a)
-      : this._(math.pow(a._unitMultiplier, 3).toDouble());
+  VolumeInterpreter.cubed(
+    final DistanceInterpreter a, {
+    final String? name,
+  }) : this(a, a, a, name: name ?? '${a._name}³');
 
   /// Constructs a [VolumeInterpreter].
-  const VolumeInterpreter._(final double cubicMeters) : super._(cubicMeters);
+  const VolumeInterpreter._(
+    final String name,
+    final double cubicMeters, [
+    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  ]) : super._(name, cubicMeters, prefix);
 
   /// Produces a [VolumeInterpreter] that is a multiple of this.
-  VolumeInterpreter _withPrefix(final double multiplier) =>
-      VolumeInterpreter._(_unitMultiplier / multiplier);
+  VolumeInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+      VolumeInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for liters.
-  static const _liters = VolumeInterpreter._(1e3);
+  static const _liters = VolumeInterpreter._('L', 1e3);
 
   /// The interpreter for teaspoons.
-  static const _teaspoons = VolumeInterpreter._(168936);
+  static const _teaspoons = VolumeInterpreter._('tsp', 168936);
 
   /// The interpreter for tablespoons.
-  static const _tablespoons = VolumeInterpreter._(56312);
+  static const _tablespoons = VolumeInterpreter._('tbsp', 56312);
 
   /// The interpreter for fluid ounces.
-  static const _fluidOunces = VolumeInterpreter._(35195.1);
+  static const _fluidOunces = VolumeInterpreter._('fl oz', 35195.1);
 
   /// The interpreter for cups.
-  static const _cups = VolumeInterpreter._(3519.51);
+  static const _cups = VolumeInterpreter._('cup', 3519.51);
 
   /// The interpreter for pints.
-  static const _pints = VolumeInterpreter._(1759.75);
+  static const _pints = VolumeInterpreter._('pt', 1759.75);
 
   /// The interpreter for quarts.
-  static const _quarts = VolumeInterpreter._(879.877);
+  static const _quarts = VolumeInterpreter._('qt', 879.877);
 
   /// The interpreter for gallons.
-  static const _gallons = VolumeInterpreter._(219.969);
+  static const _gallons = VolumeInterpreter._('gal', 219.969);
 
   /// The interpreter for US teaspoons.
-  static const _usTeaspoons = VolumeInterpreter._(202884);
+  static const _usTeaspoons = VolumeInterpreter._('us tsp', 202884);
 
   /// The interpreter for US tablespoons.
-  static const _usTablespoons = VolumeInterpreter._(67628);
+  static const _usTablespoons = VolumeInterpreter._('us tbsp', 67628);
 
   /// The interpreter for US fluid ounces.
-  static const _usFluidOunces = VolumeInterpreter._(33814);
+  static const _usFluidOunces = VolumeInterpreter._('us fl oz', 33814);
 
   /// The interpreter for US cups.
-  static const _usCups = VolumeInterpreter._(4226.76);
+  static const _usCups = VolumeInterpreter._('us cup', 4226.76);
 
   /// The interpreter for US pints.
-  static const _usPints = VolumeInterpreter._(2113.38);
+  static const _usPints = VolumeInterpreter._('us pt', 2113.38);
 
   /// The interpreter for US quarts.
-  static const _usQuarts = VolumeInterpreter._(1056.69);
+  static const _usQuarts = VolumeInterpreter._('us qt', 1056.69);
 
   /// The interpreter for US gallons.
-  static const _usGallons = VolumeInterpreter._(264.172);
+  static const _usGallons = VolumeInterpreter._('us gal', 264.172);
 
   /// The interpreter for US legal cups.
-  static const _usLegalCups = VolumeInterpreter._(4166.67);
+  static const _usLegalCups = VolumeInterpreter._('legal cup', 4166.67);
 }
 
 /// The interpreter for liters.
@@ -124,70 +140,68 @@ const usLegalCups = VolumeInterpreter._usLegalCups;
 abstract class VolumePrefix {
   /// Applies this to a liter amount.
   VolumeInterpreter get liters =>
-      VolumeInterpreter._liters._withPrefix(_multiplier);
+      VolumeInterpreter._liters._withPrefix(_prefix);
 
   /// Applies this to a teaspoon amount.
   VolumeInterpreter get teaspoons =>
-      VolumeInterpreter._teaspoons._withPrefix(_multiplier);
+      VolumeInterpreter._teaspoons._withPrefix(_prefix);
 
   /// Applies this to a tablespoon amount.
   VolumeInterpreter get tablespoons =>
-      VolumeInterpreter._tablespoons._withPrefix(_multiplier);
+      VolumeInterpreter._tablespoons._withPrefix(_prefix);
 
   /// Applies this to a fluid ounce amount.
   VolumeInterpreter get fluidOunces =>
-      VolumeInterpreter._fluidOunces._withPrefix(_multiplier);
+      VolumeInterpreter._fluidOunces._withPrefix(_prefix);
 
   /// Applies this to a cup amount.
-  VolumeInterpreter get cups =>
-      VolumeInterpreter._cups._withPrefix(_multiplier);
+  VolumeInterpreter get cups => VolumeInterpreter._cups._withPrefix(_prefix);
 
   /// Applies this to a pint amount.
-  VolumeInterpreter get pints =>
-      VolumeInterpreter._pints._withPrefix(_multiplier);
+  VolumeInterpreter get pints => VolumeInterpreter._pints._withPrefix(_prefix);
 
   /// Applies this to a quart amount.
   VolumeInterpreter get quarts =>
-      VolumeInterpreter._quarts._withPrefix(_multiplier);
+      VolumeInterpreter._quarts._withPrefix(_prefix);
 
   /// Applies this to a gallon amount.
   VolumeInterpreter get gallons =>
-      VolumeInterpreter._gallons._withPrefix(_multiplier);
+      VolumeInterpreter._gallons._withPrefix(_prefix);
 
   /// Applies this to a US teaspoon amount.
   VolumeInterpreter get usTeaspoons =>
-      VolumeInterpreter._usTeaspoons._withPrefix(_multiplier);
+      VolumeInterpreter._usTeaspoons._withPrefix(_prefix);
 
   /// Applies this to a US tablespoon amount.
   VolumeInterpreter get usTablespoons =>
-      VolumeInterpreter._usTablespoons._withPrefix(_multiplier);
+      VolumeInterpreter._usTablespoons._withPrefix(_prefix);
 
   /// Applies this to a US fluid ounce amount.
   VolumeInterpreter get usFluidOunces =>
-      VolumeInterpreter._usFluidOunces._withPrefix(_multiplier);
+      VolumeInterpreter._usFluidOunces._withPrefix(_prefix);
 
   /// Applies this to a US cup amount.
   VolumeInterpreter get usCups =>
-      VolumeInterpreter._usCups._withPrefix(_multiplier);
+      VolumeInterpreter._usCups._withPrefix(_prefix);
 
   /// Applies this to a US pint amount.
   VolumeInterpreter get usPints =>
-      VolumeInterpreter._usPints._withPrefix(_multiplier);
+      VolumeInterpreter._usPints._withPrefix(_prefix);
 
   /// Applies this to a US quart amount.
   VolumeInterpreter get usQuarts =>
-      VolumeInterpreter._usQuarts._withPrefix(_multiplier);
+      VolumeInterpreter._usQuarts._withPrefix(_prefix);
 
   /// Applies this to a US gallon amount.
   VolumeInterpreter get usGallons =>
-      VolumeInterpreter._usGallons._withPrefix(_multiplier);
+      VolumeInterpreter._usGallons._withPrefix(_prefix);
 
   /// Applies this to a US legal cup amount.
   VolumeInterpreter get usLegalCups =>
-      VolumeInterpreter._usLegalCups._withPrefix(_multiplier);
+      VolumeInterpreter._usLegalCups._withPrefix(_prefix);
 
   /// The prefix multiplier applied to this measurement.
-  double get _multiplier;
+  MeasurementPrefix get _prefix;
 }
 
 /// Represents a three-dimensional space.
@@ -198,13 +212,18 @@ class Volume extends Measurement<Volume> {
       VolumeInterpreter.cubed(distanceInterpreter);
 
   /// The volume of size zero.
-  const Volume.zero() : super.zero();
+  const Volume.zero([final MeasurementInterpreter<Volume> interpreter = liters])
+      : super.zero(interpreter);
 
   /// Infinite volume.
-  const Volume.infinite() : super.infinite();
+  const Volume.infinite(
+      [final MeasurementInterpreter<Volume> interpreter = liters])
+      : super.infinite(interpreter);
 
   /// Infinite negative volume.
-  const Volume.negativeInfinite() : super.negativeInfinite();
+  const Volume.negativeInfinite(
+      [final MeasurementInterpreter<Volume> interpreter = liters])
+      : super.negativeInfinite(interpreter);
 
   /// Constructs a [Volume] representing the sum of any number of other
   /// [Volume]s.
@@ -215,9 +234,11 @@ class Volume extends Measurement<Volume> {
   /// Constructs a [Volume] from three [Distance] measurements.
   Volume.of(final Distance a, final Distance b, final Distance c)
       : this._(
-            a.as(meters) * b.as(meters) * c.as(meters),
-            Precision.combine(
-                Precision.combine(a._precision, b._precision), c._precision));
+          a.as(meters) * b.as(meters) * c.as(meters),
+          Precision.combine(
+              Precision.combine(a._precision, b._precision), c._precision),
+          VolumeInterpreter(a._interpreter, b._interpreter, c._interpreter),
+        );
 
   /// Interprets this in the specified units.
   double as(final DistanceInterpreter a, final DistanceInterpreter b,
@@ -232,14 +253,18 @@ class Volume extends Measurement<Volume> {
   void acceptVisitor(final MeasurementVisitor visitor) =>
       visitor.visitVolume(this);
 
-  @override
-  String toString() => '${asVolume(VolumeInterpreter._liters).toString()} L';
-
   /// Constructs a [Volume].
-  const Volume._(final double cubicMeters, final Precision precision)
-      : super(cubicMeters, precision);
+  const Volume._(
+    final double cubicMeters,
+    final Precision precision,
+    final MeasurementInterpreter<Volume> interpreter,
+  ) : super(cubicMeters, precision, interpreter);
 
   @override
-  Volume _construct(final double cubicMeters, final Precision precision) =>
-      Volume._(cubicMeters, precision);
+  Volume _construct(
+    final double cubicMeters,
+    final Precision precision,
+    final MeasurementInterpreter<Volume> interpreter,
+  ) =>
+      Volume._(cubicMeters, precision, interpreter);
 }

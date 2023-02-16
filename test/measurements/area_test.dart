@@ -17,6 +17,16 @@ void main() {
       // then
       expect(result.precision, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Area.zero(AreaInterpreter.squared(feet));
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 ft²');
+    });
   });
   group('infinity', () {
     test('has infinite distance', () {
@@ -33,6 +43,16 @@ void main() {
       // then
       expect(result.precision, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Area.infinite(AreaInterpreter.squared(feet));
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity ft²');
+    });
   });
   group('negativeInfinity', () {
     test('has infinite negative distance', () {
@@ -48,6 +68,16 @@ void main() {
 
       // then
       expect(result.precision, Precision.max.precision);
+    });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Area.negativeInfinite(AreaInterpreter.squared(feet));
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity ft²');
     });
   });
 
@@ -131,6 +161,94 @@ void main() {
 
       // then
       expect(result, 4.030201);
+    });
+  });
+
+  group('squared', () {
+    test('converts to SI', () {
+      // given
+      final interpreter = AreaInterpreter.squared(feet);
+
+      // when
+      final result =
+          interpreter(5).withPrecision(Precision(6)).as(meters, meters);
+
+      // then
+      expect(result, 0.464515);
+    });
+    test('converts to SI with prefix', () {
+      // given
+      final interpreter = AreaInterpreter.squared(deci.feet);
+
+      // when
+      final result =
+          interpreter(5).withPrecision(Precision(6)).as(meters, meters);
+
+      // then
+      expect(result, 0.00464515);
+    });
+  });
+
+  group('toString', () {
+    test('named custom interpreter', () {
+      // given
+      final interpreter = AreaInterpreter(meters, feet, name: 'mf');
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'mf');
+    });
+    test('unnamed custom interpreter', () {
+      // given
+      final interpreter = AreaInterpreter(meters, feet);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'm⋅ft');
+    });
+    test('squared units', () {
+      // given
+      final area = AreaInterpreter.squared(feet);
+
+      // when
+      final result = area.toString();
+
+      // then
+      expect(result, 'ft²');
+    });
+    test('squared units with prefix', () {
+      // given
+      final area = AreaInterpreter.squared(deka.feet);
+
+      // when
+      final result = area.toString();
+
+      // then
+      expect(result, 'daft²');
+    });
+    test('squared measurement', () {
+      // given
+      final area = AreaInterpreter.squared(feet)(5);
+
+      // when
+      final result = area.toString();
+
+      // then
+      expect(result, '5.0 ft²');
+    });
+    test('squared measurement with prefix', () {
+      // given
+      final area = AreaInterpreter.squared(deka.feet)(5);
+
+      // when
+      final result = area.toString();
+
+      // then
+      expect(result, '5.0 daft²');
     });
   });
 }

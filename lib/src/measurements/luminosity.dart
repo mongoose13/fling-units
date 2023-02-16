@@ -3,25 +3,29 @@ part of fling_units;
 /// Interprets [Luminosity]s as a specific unit.
 class LuminosityInterpreter extends MeasurementInterpreter<Luminosity> {
   /// Constructs a [StandardQuantityInterpreter].
-  const LuminosityInterpreter._(final double multiplier) : super._(multiplier);
+  const LuminosityInterpreter._(
+    final String name,
+    final double multiplier, [
+    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  ]) : super._(name, multiplier, prefix);
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
-  LuminosityInterpreter _withPrefix(final double multiplier) =>
-      LuminosityInterpreter._(_unitMultiplier / multiplier);
+  LuminosityInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+      LuminosityInterpreter._(_name, _unitMultiplier, prefix);
 
   @override
   Luminosity call(final num value,
           {final Precision precision = Precision.max}) =>
-      Luminosity._(_from(value), precision);
+      Luminosity._(_from(value), precision, this);
 
   /// The interpreter for candela.
-  static const _candela = LuminosityInterpreter._(1e0);
+  static const _candela = LuminosityInterpreter._('cd', 1e0);
 
   /// The interpreter for candlepower.
-  static const _candlepower = LuminosityInterpreter._(1.0194);
+  static const _candlepower = LuminosityInterpreter._('cp', 1.0194);
 
   /// The interpreter for Hefnerkerze.
-  static const _hefnerkerze = LuminosityInterpreter._(1.0870);
+  static const _hefnerkerze = LuminosityInterpreter._('HK', 1.0870);
 }
 
 /// The interpreter for candela.
@@ -37,30 +41,34 @@ const hefnerkerze = LuminosityInterpreter._hefnerkerze;
 abstract class LuminosityPrefix {
   /// Applies this to a candela amount.
   LuminosityInterpreter get candela =>
-      LuminosityInterpreter._candela._withPrefix(_multiplier);
+      LuminosityInterpreter._candela._withPrefix(_prefix);
 
   /// Applies this to a candlepower amount.
   LuminosityInterpreter get candlepower =>
-      LuminosityInterpreter._candlepower._withPrefix(_multiplier);
+      LuminosityInterpreter._candlepower._withPrefix(_prefix);
 
   /// Applies this to a candlepower amount.
   LuminosityInterpreter get hefnerkerze =>
-      LuminosityInterpreter._hefnerkerze._withPrefix(_multiplier);
+      LuminosityInterpreter._hefnerkerze._withPrefix(_prefix);
 
   /// The prefix multiplier applied to this measurement.
-  double get _multiplier;
+  MeasurementPrefix get _prefix;
 }
 
 /// Measures [luminous intensity](https://en.wikipedia.org/wiki/Luminous_intensity).
 class Luminosity extends Measurement<Luminosity> {
   /// The electric charge of size zero.
-  const Luminosity.zero() : super.zero();
+  const Luminosity.zero([final LuminosityInterpreter interpreter = candela])
+      : super.zero(interpreter);
 
   /// Infinite electric charge.
-  const Luminosity.infinite() : super.infinite();
+  const Luminosity.infinite([final LuminosityInterpreter interpreter = candela])
+      : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
-  const Luminosity.negativeInfinite() : super.negativeInfinite();
+  const Luminosity.negativeInfinite(
+      [final LuminosityInterpreter interpreter = candela])
+      : super.negativeInfinite(interpreter);
 
   /// Constructs a [Luminosity] representing the sum of any number of other
   /// [Luminosity]s.
@@ -76,13 +84,17 @@ class Luminosity extends Measurement<Luminosity> {
       visitor.visitLuminosity(this);
 
   @override
-  String toString() => '${as(candela)}';
-
-  @override
-  Luminosity _construct(final double si, final Precision precision) =>
-      Luminosity._(si, precision);
+  Luminosity _construct(
+    final double si,
+    final Precision precision,
+    final MeasurementInterpreter<Luminosity> interpreter,
+  ) =>
+      Luminosity._(si, precision, interpreter);
 
   /// Constructs a [Distance].
-  const Luminosity._(final double units, final Precision precision)
-      : super(units, precision);
+  const Luminosity._(
+    final double units,
+    final Precision precision,
+    final MeasurementInterpreter<Luminosity> interpreter,
+  ) : super(units, precision, interpreter);
 }

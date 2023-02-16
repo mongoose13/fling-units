@@ -4,32 +4,36 @@ part of fling_units;
 class DistanceInterpreter extends MeasurementInterpreter<Distance> {
   @override
   Distance call(final num value, {final Precision precision = Precision.max}) =>
-      Distance._(_from(value), precision);
+      Distance._(_from(value), precision, this);
 
   /// Constructs a [DistanceInterpreter].
-  const DistanceInterpreter._(final double multiplier) : super._(multiplier);
+  const DistanceInterpreter._(
+    final String name,
+    final double multiplier, [
+    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  ]) : super._(name, multiplier, prefix);
 
-  /// Produces a [DistanceInterpreter] that is a fraction of this.
-  DistanceInterpreter _withPrefix(final double multiplier) =>
-      DistanceInterpreter._(_unitMultiplier / multiplier);
+  /// Produces an equivalent [DistanceInterpreter] but with an added multiplier prefix.
+  DistanceInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+      DistanceInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for meters.
-  static const _meters = DistanceInterpreter._(1e0);
+  static const _meters = DistanceInterpreter._('m', 1e0);
 
   /// The interpreter for miles.
-  static const _miles = DistanceInterpreter._(0.0006213712);
+  static const _miles = DistanceInterpreter._('mi', 0.0006213712);
 
   /// The interpreter for yards.
-  static const _yards = DistanceInterpreter._(1.093613);
+  static const _yards = DistanceInterpreter._('yd', 1.093613);
 
   /// The interpreter for feet.
-  static const _feet = DistanceInterpreter._(3.28084);
+  static const _feet = DistanceInterpreter._('ft', 3.28084);
 
   /// The interpreter for inches.
-  static const _inches = DistanceInterpreter._(39.37008);
+  static const _inches = DistanceInterpreter._('in', 39.37008);
 
   /// The interpreter for nautical miles.
-  static const _nauticalMiles = DistanceInterpreter._(0.000539956803456);
+  static const _nauticalMiles = DistanceInterpreter._('NM', 0.000539956803456);
 }
 
 /// The interpreter for meters.
@@ -52,44 +56,48 @@ const nauticalMiles = DistanceInterpreter._nauticalMiles;
 
 /// Applies a prefix to various distance units.
 abstract class DistancePrefix {
+  /// The prefix multiplier applied to this measurement.
+  MeasurementPrefix get _prefix;
+
   /// Applies this to a meter amount.
   DistanceInterpreter get meters =>
-      DistanceInterpreter._meters._withPrefix(_multiplier);
+      DistanceInterpreter._meters._withPrefix(_prefix);
 
   /// Applies this to a mile amount.
   DistanceInterpreter get miles =>
-      DistanceInterpreter._miles._withPrefix(_multiplier);
+      DistanceInterpreter._miles._withPrefix(_prefix);
 
   /// Applies this to a yard amount.
   DistanceInterpreter get yards =>
-      DistanceInterpreter._yards._withPrefix(_multiplier);
+      DistanceInterpreter._yards._withPrefix(_prefix);
 
   /// Applies this to a foot amount.
   DistanceInterpreter get feet =>
-      DistanceInterpreter._feet._withPrefix(_multiplier);
+      DistanceInterpreter._feet._withPrefix(_prefix);
 
   /// Applies this to an inch amount.
   DistanceInterpreter get inches =>
-      DistanceInterpreter._inches._withPrefix(_multiplier);
+      DistanceInterpreter._inches._withPrefix(_prefix);
 
   /// Applies this to a nautical mile amount.
   DistanceInterpreter get nauticalMiles =>
-      DistanceInterpreter._nauticalMiles._withPrefix(_multiplier);
-
-  /// The prefix multiplier applied to this measurement.
-  double get _multiplier;
+      DistanceInterpreter._nauticalMiles._withPrefix(_prefix);
 }
 
 /// Represents a single dimension of distance.
 class Distance extends Measurement<Distance> {
   /// The distance of size zero.
-  const Distance.zero() : super.zero();
+  const Distance.zero([final DistanceInterpreter interpreter = meters])
+      : super.zero(interpreter);
 
   /// Infinite distance.
-  const Distance.infinite() : super.infinite();
+  const Distance.infinite([final DistanceInterpreter interpreter = meters])
+      : super.infinite(interpreter);
 
   /// Infinite negative distance.
-  const Distance.negativeInfinite() : super.negativeInfinite();
+  const Distance.negativeInfinite(
+      [final DistanceInterpreter interpreter = meters])
+      : super.negativeInfinite(interpreter);
 
   /// Constructs a [Distance] representing the sum of any number of other
   /// [Distance]s.
@@ -105,13 +113,17 @@ class Distance extends Measurement<Distance> {
       visitor.visitDistance(this);
 
   @override
-  String toString() => '${as(DistanceInterpreter._meters)} m';
-
-  @override
-  Distance _construct(final double si, final Precision precision) =>
-      Distance._(si, precision);
+  Distance _construct(
+    final double si,
+    final Precision precision,
+    final MeasurementInterpreter<Distance> interpreter,
+  ) =>
+      Distance._(si, precision, interpreter);
 
   /// Constructs a [Distance].
-  const Distance._(final double meters, final Precision precision)
-      : super(meters, precision);
+  const Distance._(
+    final double meters,
+    final Precision precision,
+    final MeasurementInterpreter<Distance> interpreter,
+  ) : super(meters, precision, interpreter);
 }

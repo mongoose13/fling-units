@@ -99,7 +99,7 @@ void main() {
   print('${fuelConsumption.as(kilo.meters, usGallons)} kpg');
 
   var coulombs = seconds(4).by(amperes(8));
-  print('My invention generates $coulombs coulombs!');
+  print('My invention generates $coulombs!');
 
   //------------------------------------------------//
 
@@ -109,6 +109,28 @@ void main() {
   var myBucketSize = (1.5).deka.liters;
   print(
       '\nMy bucket is ${myBucketSize.compareMagnitude(yourBucketSize)} times bigger than yours!');
+
+  //------------------------------------------------//
+
+  // The unit interpreters themselves have a toString() method that will produce
+  // the "standard" short form of the unit. Measurements will make use of that
+  // in their own toString() methods using whichever unit was used to
+  // instantiate them. You can also change the default unit later.
+  final goldAmount = 1234.milli.grams.withPrecision(Precision(4));
+  print('I have $goldAmount of gold!');
+  print('I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!');
+  print('I have ${goldAmount.withDefaultUnit(ounces)} of gold!');
+
+  // This is also true for derived units. The library will produce a default
+  // unit name, but you can also supply your own.
+  final carSpeed = DerivedMeasurement<Distance, Time>.divide(
+    100.miles.withPrecision(Precision(3)),
+    1.hours.withPrecision(Precision(3)),
+  );
+  print('\nMy car is going $carSpeed!');
+  final carVelocity = carSpeed.withDefaultUnit(DerivedMeasurementInterpreter(
+      feet, minutes, true, MeasurementPrefix.unit(), 'gizmos per doodad'));
+  print('My car is going $carVelocity!');
 
   // Have fun!
 }

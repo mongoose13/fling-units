@@ -4,25 +4,29 @@ part of fling_units;
 class TemperatureChangeInterpreter
     extends MeasurementInterpreter<TemperatureChange> {
   @override
-  TemperatureChange call(final double value,
+  TemperatureChange call(final num value,
           {final Precision precision = Precision.max}) =>
-      TemperatureChange._(_from(value), precision);
+      TemperatureChange._(_from(value), precision, this);
 
   /// Constructs a [TemperatureChangeInterpreter].
-  const TemperatureChangeInterpreter._(final double kelvin) : super._(kelvin);
+  const TemperatureChangeInterpreter._(
+    final String name,
+    final double kelvin, [
+    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  ]) : super._(name, kelvin, prefix);
 
   /// Produces a [TemperatureChangeInterpreter] that is a multiple of this.
-  TemperatureChangeInterpreter _withPrefix(final double multiplier) =>
-      TemperatureChangeInterpreter._(_unitMultiplier / multiplier);
+  TemperatureChangeInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+      TemperatureChangeInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for Kelvin.
-  static const _kelvin = TemperatureChangeInterpreter._(1e0);
+  static const _kelvin = TemperatureChangeInterpreter._('K', 1e0);
 
   /// The interpreter for degrees Celcius.
-  static const _celcius = _kelvin;
+  static const _celcius = TemperatureChangeInterpreter._('°C', 1e0);
 
   /// The interpreter for degrees Fahrenheit.
-  static const _fahrenheit = TemperatureChangeInterpreter._(9.0 / 5.0);
+  static const _fahrenheit = TemperatureChangeInterpreter._('°F', 9.0 / 5.0);
 }
 
 /// The interpreter for Kelvin.
@@ -38,18 +42,18 @@ const fahrenheit = TemperatureChangeInterpreter._fahrenheit;
 abstract class TemperaturePrefix {
   /// The interpreter for Kelvin.
   TemperatureChangeInterpreter get kelvin =>
-      TemperatureChangeInterpreter._kelvin._withPrefix(_multiplier);
+      TemperatureChangeInterpreter._kelvin._withPrefix(_prefix);
 
   /// The interpreter for degrees Celcius.
   TemperatureChangeInterpreter get celcius =>
-      TemperatureChangeInterpreter._celcius._withPrefix(_multiplier);
+      TemperatureChangeInterpreter._celcius._withPrefix(_prefix);
 
   /// The interpreter for degrees Fahrenheit.
   TemperatureChangeInterpreter get fahrenheit =>
-      TemperatureChangeInterpreter._fahrenheit._withPrefix(_multiplier);
+      TemperatureChangeInterpreter._fahrenheit._withPrefix(_prefix);
 
   /// The prefix multiplier applied to this measurement.
-  double get _multiplier;
+  MeasurementPrefix get _prefix;
 }
 
 /// Represents a change in temperature.
@@ -75,13 +79,19 @@ abstract class TemperaturePrefix {
 /// in temperature is the "thermometer" temperature of 10 degrees.
 class TemperatureChange extends Measurement<TemperatureChange> {
   /// No change in temperature.
-  const TemperatureChange.zero() : super.zero();
+  const TemperatureChange.zero(
+      [final MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
+      : super.zero(interpreter);
 
   /// Infinite temperature change.
-  const TemperatureChange.infinite() : super.infinite();
+  const TemperatureChange.infinite(
+      [final MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
+      : super.infinite(interpreter);
 
   /// Negative infinite temperature change.
-  const TemperatureChange.negativeInfinite() : super.negativeInfinite();
+  const TemperatureChange.negativeInfinite(
+      [final MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
+      : super.negativeInfinite(interpreter);
 
   /// Constructs a [TemperatureChange] representing the sum of any number of
   /// other [TemperatureChange]s.
@@ -91,7 +101,8 @@ class TemperatureChange extends Measurement<TemperatureChange> {
 
   /// Returns a [TemperatureChange] that represents the positive magnitude of
   /// this.
-  TemperatureChange magnitude() => TemperatureChange._(si.abs(), _precision);
+  TemperatureChange magnitude() =>
+      TemperatureChange._(si.abs(), _precision, _interpreter);
 
   /// Interprets this using the specified units.
   double as(final TemperatureChangeInterpreter interpreter) =>
@@ -101,15 +112,18 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   void acceptVisitor(final MeasurementVisitor visitor) =>
       visitor.visitTemperatureChange(this);
 
-  @override
-  String toString() => '${as(TemperatureChangeInterpreter._kelvin)} K change';
-
   /// Constructs a [TemperatureChange].
-  const TemperatureChange._(final double kelvin, final Precision precision)
-      : super(kelvin, precision);
+  const TemperatureChange._(
+    final double kelvin,
+    final Precision precision,
+    final MeasurementInterpreter<TemperatureChange> interpreter,
+  ) : super(kelvin, precision, interpreter);
 
   @override
   TemperatureChange _construct(
-          final double kelvin, final Precision precision) =>
-      TemperatureChange._(kelvin, precision);
+    final double kelvin,
+    final Precision precision,
+    final MeasurementInterpreter<TemperatureChange> interpreter,
+  ) =>
+      TemperatureChange._(kelvin, precision, interpreter);
 }

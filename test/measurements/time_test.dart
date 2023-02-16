@@ -23,6 +23,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Time.zero(minutes);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 min');
+    });
   });
   group('infinity', () {
     test('has infinite distance', () {
@@ -45,6 +55,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Time.infinite(minutes);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity min');
+    });
   });
   group('negativeInfinity', () {
     test('has infinite negative distance', () {
@@ -66,6 +86,16 @@ void main() {
 
       // then
       expect(result, Precision.max.precision);
+    });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Time.negativeInfinite(minutes);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity min');
     });
   });
 
@@ -186,6 +216,79 @@ void main() {
 
       // then
       expect(result, 106620.0);
+    });
+  });
+
+  group('toString', () {
+    test('interpreter name', () {
+      // given
+      final interpreter = minutes;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'min');
+    });
+    test('interpreter name with prefix', () {
+      // given
+      final interpreter = milli.minutes;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'mmin');
+    });
+    test('maintains units', () {
+      // given
+      final measurement = minutes(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 min');
+    });
+    test('maintains prefix', () {
+      // given
+      final measurement = milli.minutes(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mmin');
+    });
+    test('extension maintains prefix', () {
+      // given
+      final measurement = 3.4.milli.minutes.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mmin');
+    });
+    test('modified precision', () {
+      // given
+      final measurement = deci.minutes(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withPrecision(Precision(2)).toString();
+
+      // then
+      expect(result, '23.0 dmin');
+    });
+    test('modified units', () {
+      // given
+      final measurement = deci.minutes(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withDefaultUnit(milli.days).toString();
+
+      // then
+      expect(result, '1.63 md');
     });
   });
 }

@@ -104,7 +104,7 @@ class Precision {
   }
 
   /// Interprets the specified number according to this Precision.
-  double withPrecision(final double value) =>
+  double withPrecision(final num value) =>
       double.parse(value.toStringAsPrecision(precision));
 
   @override

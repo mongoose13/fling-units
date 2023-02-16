@@ -4,19 +4,36 @@ part of fling_units;
 class AreaInterpreter extends MeasurementInterpreter<Area> {
   @override
   Area call(final double value, {final Precision precision = Precision.max}) =>
-      Area._(_from(value), precision);
+      Area._(_from(value), precision, this);
 
   /// Constructs an [AreaInterpreter] from any two [DistanceInterpreter]s.
-  AreaInterpreter(final DistanceInterpreter a, final DistanceInterpreter b)
-      : this._(a._unitMultiplier * b._unitMultiplier);
+  AreaInterpreter(
+    final DistanceInterpreter a,
+    final DistanceInterpreter b, {
+    final String? name,
+  }) : this._(name ?? '${a.toString()}⋅${b.toString()}', a, b);
 
   /// Constructs an [AreaInterpreter] that will square a basic
   /// [DistanceInterpreter].
-  AreaInterpreter.squared(final DistanceInterpreter a)
-      : this._(math.pow(a._unitMultiplier, 2).toDouble());
+  AreaInterpreter.squared(
+    final DistanceInterpreter a, {
+    final String? name,
+  }) : this._(name ?? '${a._name}²', a, a);
 
   /// Constructs an [AreaInterpreter].
-  const AreaInterpreter._(final double multiplier) : super._(multiplier);
+  AreaInterpreter._(
+    final String name,
+    final DistanceInterpreter a,
+    final DistanceInterpreter b,
+  ) : super._(
+          name,
+          a._unitMultiplier * b._unitMultiplier / b._prefix._multiplier,
+          a._prefix,
+        );
+
+  /// Constructs the SI derived area unit, square meters.
+  const AreaInterpreter._m2()
+      : super._('m²', 1.0, const MeasurementPrefix.unit());
 }
 
 /// Represents the two-dimensional derived unit of perpendicular distances.
@@ -27,17 +44,27 @@ class Area extends Measurement<Area> {
       AreaInterpreter.squared(distanceInterpreter);
 
   /// Represents an area of size zero.
-  const Area.zero() : super.zero();
+  const Area.zero(
+      [final AreaInterpreter interpreter = const AreaInterpreter._m2()])
+      : super.zero(interpreter);
 
   /// Infinite area.
-  const Area.infinite() : super.infinite();
+  const Area.infinite(
+      [final AreaInterpreter interpreter = const AreaInterpreter._m2()])
+      : super.infinite(interpreter);
 
   /// Infinite negative area.
-  const Area.negativeInfinite() : super.negativeInfinite();
+  const Area.negativeInfinite(
+      [final AreaInterpreter interpreter = const AreaInterpreter._m2()])
+      : super.negativeInfinite(interpreter);
 
   /// Constructs an [Area] from component parts.
   Area.of(final Distance a, final Distance b)
-      : this._(a.si * b.si, Precision.combine(a._precision, b._precision));
+      : this._(
+          a.si * b.si,
+          Precision.combine(a._precision, b._precision),
+          AreaInterpreter._m2(),
+        );
 
   /// Constructs an [Area] representing the sum of any number of other [Area]s.
   Area.sum(final Iterable<Area> parts,
@@ -56,13 +83,17 @@ class Area extends Measurement<Area> {
       visitor.visitArea(this);
 
   @override
-  String toString() => '${asArea(square(meters))} m²';
-
-  @override
-  Area _construct(final double squareMeters, final Precision precision) =>
-      Area._(squareMeters, precision);
+  Area _construct(
+    final double squareMeters,
+    final Precision precision,
+    final MeasurementInterpreter<Area> interpreter,
+  ) =>
+      Area._(squareMeters, precision, interpreter);
 
   /// Constructs an [Area].
-  Area._(final double squareMeters, final Precision precision)
-      : super(squareMeters, precision);
+  Area._(
+    final double squareMeters,
+    final Precision precision,
+    final MeasurementInterpreter<Area> interpreter,
+  ) : super(squareMeters, precision, interpreter);
 }

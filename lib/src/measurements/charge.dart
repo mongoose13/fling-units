@@ -3,18 +3,22 @@ part of fling_units;
 /// Interprets [Charge]s as a specific unit.
 class ChargeInterpreter extends MeasurementInterpreter<Charge> {
   /// Constructs a [StandardQuantityInterpreter].
-  const ChargeInterpreter._(final double multiplier) : super._(multiplier);
+  const ChargeInterpreter._(
+    final String name,
+    final double multiplier, [
+    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  ]) : super._(name, multiplier, prefix);
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
-  ChargeInterpreter _withPrefix(final double multiplier) =>
-      ChargeInterpreter._(_unitMultiplier / multiplier);
+  ChargeInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+      ChargeInterpreter._(_name, _unitMultiplier, prefix);
 
   @override
   Charge call(final num value, {final Precision precision = Precision.max}) =>
-      Charge._(_from(value), precision);
+      Charge._(_from(value), precision, this);
 
   /// The interpreter for amperes.
-  static const _amperes = ChargeInterpreter._(1e0);
+  static const _amperes = ChargeInterpreter._('A', 1e0);
 }
 
 /// The interpreter for amperes.
@@ -24,10 +28,10 @@ const amperes = ChargeInterpreter._amperes;
 abstract class ChargePrefix {
   /// Applies this to an ampere amount.
   ChargeInterpreter get amperes =>
-      ChargeInterpreter._amperes._withPrefix(_multiplier);
+      ChargeInterpreter._amperes._withPrefix(_prefix);
 
   /// The prefix multiplier applied to this measurement.
-  double get _multiplier;
+  MeasurementPrefix get _prefix;
 }
 
 /// Measures electric charge.
@@ -37,13 +41,16 @@ abstract class ChargePrefix {
 /// basic measurement features for electric charge.
 class Charge extends Measurement<Charge> {
   /// The electric charge of size zero.
-  const Charge.zero() : super.zero();
+  const Charge.zero([final ChargeInterpreter interpreter = amperes])
+      : super.zero(interpreter);
 
   /// Infinite electric charge.
-  const Charge.infinite() : super.infinite();
+  const Charge.infinite([final ChargeInterpreter interpreter = amperes])
+      : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
-  const Charge.negativeInfinite() : super.negativeInfinite();
+  const Charge.negativeInfinite([final ChargeInterpreter interpreter = amperes])
+      : super.negativeInfinite(interpreter);
 
   /// Constructs a [Charge] representing the sum of any number of other
   /// [Charge]s.
@@ -59,13 +66,17 @@ class Charge extends Measurement<Charge> {
       visitor.visitCharge(this);
 
   @override
-  String toString() => '${as(amperes)}';
-
-  @override
-  Charge _construct(final double si, final Precision precision) =>
-      Charge._(si, precision);
+  Charge _construct(
+    final double si,
+    final Precision precision,
+    final MeasurementInterpreter<Charge> interpreter,
+  ) =>
+      Charge._(si, precision, interpreter);
 
   /// Constructs a [Distance].
-  const Charge._(final double units, final Precision precision)
-      : super(units, precision);
+  const Charge._(
+    final double units,
+    final Precision precision,
+    final MeasurementInterpreter<Charge> interpreter,
+  ) : super(units, precision, interpreter);
 }

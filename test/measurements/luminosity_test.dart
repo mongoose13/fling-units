@@ -23,6 +23,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Luminosity.zero(hefnerkerze);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 HK');
+    });
   });
   group('infinity', () {
     test('has infinite charge', () {
@@ -45,6 +55,16 @@ void main() {
       // then
       expect(result, Precision.max.precision);
     });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Luminosity.infinite(hefnerkerze);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity HK');
+    });
   });
   group('negativeInfinity', () {
     test('has infinite negative charge', () {
@@ -66,6 +86,16 @@ void main() {
 
       // then
       expect(result, Precision.max.precision);
+    });
+    test('with custom default interpreter', () {
+      // given
+      final interpreter = Luminosity.negativeInfinite(hefnerkerze);
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity HK');
     });
   });
 
@@ -164,6 +194,79 @@ void main() {
 
       // then
       expect(result, 1.1352);
+    });
+  });
+
+  group('toString', () {
+    test('interpreter name', () {
+      // given
+      final interpreter = hefnerkerze;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'HK');
+    });
+    test('interpreter name with prefix', () {
+      // given
+      final interpreter = milli.hefnerkerze;
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'mHK');
+    });
+    test('maintains units', () {
+      // given
+      final measurement = candlepower(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 cp');
+    });
+    test('maintains prefix', () {
+      // given
+      final measurement = milli.candlepower(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mcp');
+    });
+    test('extension maintains prefix', () {
+      // given
+      final measurement = 3.4.milli.candlepower.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 mcp');
+    });
+    test('modified precision', () {
+      // given
+      final measurement = deci.candlepower(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withPrecision(Precision(2)).toString();
+
+      // then
+      expect(result, '23.0 dcp');
+    });
+    test('modified units', () {
+      // given
+      final measurement = deci.candlepower(23.45).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withDefaultUnit(milli.hefnerkerze).toString();
+
+      // then
+      expect(result, '2500.0 mHK');
     });
   });
 }

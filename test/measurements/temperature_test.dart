@@ -10,10 +10,31 @@ void main() {
 
         expect(result.asKelvin, 0.0);
       });
+      test('zero with custom default interpreter', () {
+        // given
+        final interpreter =
+            Temperature.absoluteZero(fahrenheit).withPrecision(Precision(5));
+
+        // when
+        final result = interpreter.toString();
+
+        // then
+        expect(result, '-459.67 °F');
+      });
       test('infinity', () {
         final result = Temperature.infinite();
 
         expect(result.asKelvin, double.infinity);
+      });
+      test('infinity with custom default interpreter', () {
+        // given
+        final interpreter = Temperature.infinite(fahrenheit);
+
+        // when
+        final result = interpreter.toString();
+
+        // then
+        expect(result, 'Infinity °F');
       });
       test('below absolute zero', () {
         expect(() => Temperature.ofKelvin(-1), throwsArgumentError);
@@ -348,6 +369,40 @@ void main() {
 
       // then
       expect(result, Temperature.infinite());
+    });
+  });
+
+  group('toString', () {
+    test('maintains units', () {
+      // given
+      final measurement =
+          Temperature.ofFahrenheit(3.4).withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 °F');
+    });
+    test('extension maintains units', () {
+      // given
+      final measurement = 3.4.ofFahrenheit.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.toString();
+
+      // then
+      expect(result, '3.4 °F');
+    });
+    test('modified units', () {
+      // given
+      final measurement = 3.4.ofFahrenheit.withPrecision(Precision(3));
+
+      // when
+      final result = measurement.withDefaultUnit(celcius).toString();
+
+      // then
+      expect(result, '-15.9 °C');
     });
   });
 }
