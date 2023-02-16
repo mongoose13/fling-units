@@ -246,7 +246,7 @@ class Volume extends Measurement<Volume> {
       _precise(a._of(b._of(c._of(si))));
 
   /// Interprets this in the specified volume unit.
-  double asVolume(final VolumeInterpreter interpreter) =>
+  double asVolume(final MeasurementInterpreter<Volume> interpreter) =>
       _preciseOf(interpreter);
 
   @override

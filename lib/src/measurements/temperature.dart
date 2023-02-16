@@ -21,7 +21,7 @@ part of fling_units;
 class Temperature implements Comparable<Temperature> {
   /// Absolute zero.
   const Temperature.absoluteZero(
-      [final TemperatureChangeInterpreter defaultInterpreter =
+      [final MeasurementInterpreter<TemperatureChange> defaultInterpreter =
           TemperatureChangeInterpreter._kelvin])
       : _kelvin = 0.0,
         _precision = Precision.max,
@@ -29,7 +29,7 @@ class Temperature implements Comparable<Temperature> {
 
   /// Infinite temperature.
   const Temperature.infinite(
-      [final TemperatureChangeInterpreter defaultInterpreter =
+      [final MeasurementInterpreter<TemperatureChange> defaultInterpreter =
           TemperatureChangeInterpreter._kelvin])
       : _kelvin = double.infinity,
         _precision = Precision.max,
@@ -71,7 +71,7 @@ class Temperature implements Comparable<Temperature> {
   Temperature._(
     final num kelvin,
     final Precision precision,
-    final TemperatureChangeInterpreter defaultInterpreter,
+    final MeasurementInterpreter<TemperatureChange> defaultInterpreter,
   )   : _kelvin = kelvin,
         _precision = precision,
         _defaultInterpreter = defaultInterpreter {
@@ -171,14 +171,15 @@ class Temperature implements Comparable<Temperature> {
 
   /// Constructs a new measurement equivalent to this one but with a different
   /// default measurement unit.
-  Temperature withDefaultUnit(final TemperatureChangeInterpreter interpreter) =>
+  Temperature withDefaultUnit(
+          final MeasurementInterpreter<TemperatureChange> interpreter) =>
       Temperature._(_kelvin, _precision, interpreter);
 
   @override
   String toString() => '${_as(_defaultInterpreter)} $_defaultInterpreter';
 
   /// Evaluates the measurement using a different unit.
-  double _as(final TemperatureChangeInterpreter interpreter) {
+  double _as(final MeasurementInterpreter<TemperatureChange> interpreter) {
     if (interpreter == TemperatureChangeInterpreter._celcius) {
       return asCelcius;
     } else if (interpreter == TemperatureChangeInterpreter._fahrenheit) {
@@ -201,5 +202,5 @@ class Temperature implements Comparable<Temperature> {
   final Precision _precision;
 
   /// The default interpreter.
-  final TemperatureChangeInterpreter _defaultInterpreter;
+  final MeasurementInterpreter<TemperatureChange> _defaultInterpreter;
 }

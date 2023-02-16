@@ -4,10 +4,15 @@ part of fling_units;
 ///
 /// [MeasurementInterpreter]s allow [Measurement]s to be interpreted as whatever
 /// unit the [MeasurementInterpreter] was configured for. Users of the library
-/// will generally only require the built-in converters for the [Measurement]
-/// types being used (e.g. [miles]), but if needed, some
+/// will generally only require the built-in interpreters for the [Measurement]
+/// types being used (e.g. [miles] or [kilo].[meters]), but if needed, some
 /// [MeasurementInterpreter] subtypes can be configured further (e.g.
 /// [AreaInterpreter]).
+///
+/// [MeasurementInterpreter]s allow the corresponding unit to be instantiated by
+/// "calling" it. For instance, one could create a [Distance] measurement in
+/// miles by using the [miles] interpreter: `miles(5)`. Interpreters are also
+/// offered as extensions on [num], so they could be used this way: `5.miles`.
 ///
 /// Users should not need to access the internal workings of
 /// [MeasurementInterpreter]s, but instead pass them to the appropriate

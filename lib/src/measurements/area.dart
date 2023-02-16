@@ -8,23 +8,23 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
 
   /// Constructs an [AreaInterpreter] from any two [DistanceInterpreter]s.
   AreaInterpreter(
-    final DistanceInterpreter a,
-    final DistanceInterpreter b, {
+    final MeasurementInterpreter<Distance> a,
+    final MeasurementInterpreter<Distance> b, {
     final String? name,
   }) : this._(name ?? '${a.toString()}⋅${b.toString()}', a, b);
 
   /// Constructs an [AreaInterpreter] that will square a basic
   /// [DistanceInterpreter].
   AreaInterpreter.squared(
-    final DistanceInterpreter a, {
+    final MeasurementInterpreter<Distance> a, {
     final String? name,
   }) : this._(name ?? '${a._name}²', a, a);
 
   /// Constructs an [AreaInterpreter].
   AreaInterpreter._(
     final String name,
-    final DistanceInterpreter a,
-    final DistanceInterpreter b,
+    final MeasurementInterpreter<Distance> a,
+    final MeasurementInterpreter<Distance> b,
   ) : super._(
           name,
           a._unitMultiplier * b._unitMultiplier / b._prefix._multiplier,
@@ -40,7 +40,7 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
 class Area extends Measurement<Area> {
   /// Produces an interpreter for the square of a provided distance interpreter.
   static AreaInterpreter square(
-          final DistanceInterpreter distanceInterpreter) =>
+          final MeasurementInterpreter<Distance> distanceInterpreter) =>
       AreaInterpreter.squared(distanceInterpreter);
 
   /// Represents an area of size zero.
@@ -71,12 +71,15 @@ class Area extends Measurement<Area> {
       {final Precision precision = Precision.max})
       : super.sum(parts, precision);
 
-  /// Interprets this in the specified units.
-  double as(final DistanceInterpreter a, final DistanceInterpreter b) =>
+  /// Interprets this [Measurement] in the specified units.
+  double as(
+    final MeasurementInterpreter<Distance> a,
+    final MeasurementInterpreter<Distance> b,
+  ) =>
       _precise(a._of(b._of(si)));
 
-  /// Interprets this in the specified area
-  double asArea(final AreaInterpreter a) => _precise(a._of(si));
+  /// Interprets this using the specified [MeasurementInterpreter].
+  double asArea(final MeasurementInterpreter<Area> a) => _precise(a._of(si));
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

@@ -41,15 +41,18 @@ abstract class ChargePrefix {
 /// basic measurement features for electric charge.
 class Charge extends Measurement<Charge> {
   /// The electric charge of size zero.
-  const Charge.zero([final ChargeInterpreter interpreter = amperes])
+  const Charge.zero(
+      [final MeasurementInterpreter<Charge> interpreter = amperes])
       : super.zero(interpreter);
 
   /// Infinite electric charge.
-  const Charge.infinite([final ChargeInterpreter interpreter = amperes])
+  const Charge.infinite(
+      [final MeasurementInterpreter<Charge> interpreter = amperes])
       : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
-  const Charge.negativeInfinite([final ChargeInterpreter interpreter = amperes])
+  const Charge.negativeInfinite(
+      [final MeasurementInterpreter<Charge> interpreter = amperes])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Charge] representing the sum of any number of other
@@ -59,7 +62,8 @@ class Charge extends Measurement<Charge> {
       : super.sum(parts, precision);
 
   /// Interprets this using the specified units.
-  double as(final ChargeInterpreter interpreter) => _preciseOf(interpreter);
+  double as(final MeasurementInterpreter<Charge> interpreter) =>
+      _preciseOf(interpreter);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

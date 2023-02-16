@@ -115,15 +115,16 @@ abstract class MassPrefix {
 /// Represents an amount of mass.
 class Mass extends Measurement<Mass> {
   /// Zero mass.
-  const Mass.zero([final MassInterpreter interpreter = grams])
+  const Mass.zero([final MeasurementInterpreter<Mass> interpreter = grams])
       : super.zero(interpreter);
 
   /// Infinite mass.
-  const Mass.infinite([final MassInterpreter interpreter = grams])
+  const Mass.infinite([final MeasurementInterpreter<Mass> interpreter = grams])
       : super.infinite(interpreter);
 
   /// Infinite negative mass.
-  const Mass.negativeInfinite([final MassInterpreter interpreter = grams])
+  const Mass.negativeInfinite(
+      [final MeasurementInterpreter<Mass> interpreter = grams])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Mass] representing the sum of any number of other [Mass]es.
@@ -132,7 +133,8 @@ class Mass extends Measurement<Mass> {
       : super.sum(parts, precision);
 
   /// Interprets this using the specified units.
-  double as(final MassInterpreter interpreter) => _preciseOf(interpreter);
+  double as(final MeasurementInterpreter<Mass> interpreter) =>
+      _preciseOf(interpreter);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

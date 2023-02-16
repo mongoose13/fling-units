@@ -3,7 +3,11 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
 ## [Unreleased]
-### Update documentation for new SI prefixes
+### Added
+- Update documentation to include new SI prefixes
+
+### Changed
+- Reduce type constraints on inputs to measurements to allow new interpreter type support
 
 ## [2.2.0] - 2023-02-16
 ### Added

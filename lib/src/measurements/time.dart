@@ -105,7 +105,8 @@ class Time extends Measurement<Time> {
   Duration get asDuration => Duration(microseconds: as(micro.seconds).toInt());
 
   /// Interprets this using the specified units.
-  double as(final TimeInterpreter interpreter) => _preciseOf(interpreter);
+  double as(final MeasurementInterpreter<Time> interpreter) =>
+      _preciseOf(interpreter);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

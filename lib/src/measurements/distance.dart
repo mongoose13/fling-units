@@ -87,16 +87,18 @@ abstract class DistancePrefix {
 /// Represents a single dimension of distance.
 class Distance extends Measurement<Distance> {
   /// The distance of size zero.
-  const Distance.zero([final DistanceInterpreter interpreter = meters])
+  const Distance.zero(
+      [final MeasurementInterpreter<Distance> interpreter = meters])
       : super.zero(interpreter);
 
   /// Infinite distance.
-  const Distance.infinite([final DistanceInterpreter interpreter = meters])
+  const Distance.infinite(
+      [final MeasurementInterpreter<Distance> interpreter = meters])
       : super.infinite(interpreter);
 
   /// Infinite negative distance.
   const Distance.negativeInfinite(
-      [final DistanceInterpreter interpreter = meters])
+      [final MeasurementInterpreter<Distance> interpreter = meters])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Distance] representing the sum of any number of other
@@ -106,7 +108,8 @@ class Distance extends Measurement<Distance> {
       : super.sum(parts, precision);
 
   /// Interprets this using the specified units.
-  double as(final DistanceInterpreter interpreter) => _preciseOf(interpreter);
+  double as(final MeasurementInterpreter<Distance> interpreter) =>
+      _preciseOf(interpreter);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

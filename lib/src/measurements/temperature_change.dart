@@ -105,7 +105,7 @@ class TemperatureChange extends Measurement<TemperatureChange> {
       TemperatureChange._(si.abs(), _precision, _interpreter);
 
   /// Interprets this using the specified units.
-  double as(final TemperatureChangeInterpreter interpreter) =>
+  double as(final MeasurementInterpreter<TemperatureChange> interpreter) =>
       _preciseOf(interpreter);
 
   @override

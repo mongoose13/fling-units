@@ -86,13 +86,27 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
   final bool _reciprocal;
 }
 
+/// An interpreter for derived measurements (from two basic measurements).
 class DerivedMeasurementInterpreter<A extends Measurement<A>,
         B extends Measurement<B>>
     extends MeasurementInterpreter<DerivedMeasurement<A, B>> {
+  /// Whether the unit is a division.
+  ///
+  /// For example, "miles / hour" is a division, while "miles * miles" (square
+  /// miles) would be a multiplication.
   final bool _reciprocal;
+
+  /// The numerator's interpreter.
   final MeasurementInterpreter<A> _interpreterA;
+
+  /// The denominator's interpreter.
   final MeasurementInterpreter<B> _interpreterB;
 
+  /// Constructs an interpreter from two basic interpreters.
+  ///
+  /// The prefix, if supplied, will apply to the entire interpreter.
+  ///
+  /// If a name is not supplied, a standard name will be provided.
   DerivedMeasurementInterpreter(
     final MeasurementInterpreter<A> a,
     final MeasurementInterpreter<B> b, [

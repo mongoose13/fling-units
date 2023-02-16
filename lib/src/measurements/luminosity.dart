@@ -58,16 +58,18 @@ abstract class LuminosityPrefix {
 /// Measures [luminous intensity](https://en.wikipedia.org/wiki/Luminous_intensity).
 class Luminosity extends Measurement<Luminosity> {
   /// The electric charge of size zero.
-  const Luminosity.zero([final LuminosityInterpreter interpreter = candela])
+  const Luminosity.zero(
+      [final MeasurementInterpreter<Luminosity> interpreter = candela])
       : super.zero(interpreter);
 
   /// Infinite electric charge.
-  const Luminosity.infinite([final LuminosityInterpreter interpreter = candela])
+  const Luminosity.infinite(
+      [final MeasurementInterpreter<Luminosity> interpreter = candela])
       : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
   const Luminosity.negativeInfinite(
-      [final LuminosityInterpreter interpreter = candela])
+      [final MeasurementInterpreter<Luminosity> interpreter = candela])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Luminosity] representing the sum of any number of other
@@ -77,7 +79,8 @@ class Luminosity extends Measurement<Luminosity> {
       : super.sum(parts, precision);
 
   /// Interprets this using the specified units.
-  double as(final LuminosityInterpreter interpreter) => _preciseOf(interpreter);
+  double as(final MeasurementInterpreter<Luminosity> interpreter) =>
+      _preciseOf(interpreter);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>

@@ -109,7 +109,8 @@ class Quantity extends Measurement<Quantity> {
       : super.sum(parts, precision);
 
   /// Interprets this using the specified units.
-  double as(final QuantityInterpreter interpreter) => _preciseOf(interpreter);
+  double as(final MeasurementInterpreter<Quantity> interpreter) =>
+      _preciseOf(interpreter);
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>
