@@ -173,6 +173,16 @@ void main() {
 }
 ```
 
+Measurements and units alike produce sensible `toString()` output to facilitate debugging:
+
+```dart
+void main() {
+  print(3.miles); // "3.0 mi"
+  print(kilo.meters); // "km"
+  print(4.miles.per(2.hours)); // "2.0 mi/h"
+}
+```
+
 ## Supported Features
 
 ### Operations

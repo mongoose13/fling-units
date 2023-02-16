@@ -4,7 +4,7 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 ### Added
-- Update documentation to include new SI prefixes
+- Update documentation to include new SI prefixes and toString() support
 
 ### Changed
 - Reduce type constraints on inputs to measurements to allow new interpreter type support
