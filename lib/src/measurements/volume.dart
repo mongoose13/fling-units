@@ -262,9 +262,9 @@ class Volume extends Measurement<Volume> {
 
   @override
   Volume _construct(
-    final double cubicMeters,
+    final double si,
     final Precision precision,
     final MeasurementInterpreter<Volume> interpreter,
   ) =>
-      Volume._(cubicMeters, precision, interpreter);
+      Volume._(si, precision, interpreter);
 }

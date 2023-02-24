@@ -121,9 +121,9 @@ class TemperatureChange extends Measurement<TemperatureChange> {
 
   @override
   TemperatureChange _construct(
-    final double kelvin,
+    final double si,
     final Precision precision,
     final MeasurementInterpreter<TemperatureChange> interpreter,
   ) =>
-      TemperatureChange._(kelvin, precision, interpreter);
+      TemperatureChange._(si, precision, interpreter);
 }

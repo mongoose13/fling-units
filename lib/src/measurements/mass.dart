@@ -149,9 +149,9 @@ class Mass extends Measurement<Mass> {
 
   @override
   Mass _construct(
-    final double grams,
+    final double si,
     final Precision precision,
     final MeasurementInterpreter<Mass> interpreter,
   ) =>
-      Mass._(grams, precision, interpreter);
+      Mass._(si, precision, interpreter);
 }

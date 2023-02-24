@@ -2,6 +2,13 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [Unreleased]
+### Added
+- Perform dart analyze step during build
+
+### Changed
+- Renamed variables in measurement classes to avoid analyzer warnings
+
 ## [2.2.1]
 ### Added
 - Update documentation to include new SI prefixes and toString() support
@@ -186,6 +193,7 @@ types you need to work with from the rest of your code.
 ### Added
 - Initial package setup
 
+[Unreleased]: https://bitbucket.org/mongoose13/fling-units/commits/
 [2.2.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.1/
 [2.2.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.0/
 [2.1.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.1.1/

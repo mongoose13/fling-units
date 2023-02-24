@@ -87,11 +87,11 @@ class Area extends Measurement<Area> {
 
   @override
   Area _construct(
-    final double squareMeters,
+    final double si,
     final Precision precision,
     final MeasurementInterpreter<Area> interpreter,
   ) =>
-      Area._(squareMeters, precision, interpreter);
+      Area._(si, precision, interpreter);
 
   /// Constructs an [Area].
   Area._(

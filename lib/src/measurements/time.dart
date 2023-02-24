@@ -121,9 +121,9 @@ class Time extends Measurement<Time> {
 
   @override
   Time _construct(
-    final double seconds,
+    final double si,
     final Precision precision,
     final MeasurementInterpreter<Time> interpreter,
   ) =>
-      Time._(seconds, precision, interpreter);
+      Time._(si, precision, interpreter);
 }
