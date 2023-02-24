@@ -71,6 +71,9 @@ jobs:
           name: Run Dart formatter
           command: dart format --set-exit-if-changed lib
       - run:
+          name: Run Dart Analyze
+          command: dart analyze
+      - run:
           name: Run the example script
           command: dart example/lib/example.dart
       - run:
