@@ -2,7 +2,7 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
-## [Unreleased]
+## [2.2.1]
 ### Added
 - Update documentation to include new SI prefixes and toString() support
 - Allow DerivedMeasurementInterpreters to be used in DerivedMeasurements
@@ -186,7 +186,7 @@ types you need to work with from the rest of your code.
 ### Added
 - Initial package setup
 
-[Unreleased] https://bitbucket.org/mongoose13/fling-units/commits
+[2.2.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.1/
 [2.2.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.0/
 [2.1.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.1.1/
 [2.1.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.1.0/
