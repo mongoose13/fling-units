@@ -57,10 +57,15 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
           true,
         );
 
-  /// Interprets this using specific units.
+  /// Interprets this using two specific units.
   double as(final MeasurementInterpreter<A> a,
           final MeasurementInterpreter<B> b) =>
       _precise(a._of(si) * (_reciprocal ? b._from(1) : b._of(1)));
+
+  /// Interprets this using a [DerivedMeasurementInterpreter].
+  double asInterpretedBy(
+          final DerivedMeasurementInterpreter<A, B> interpreter) =>
+      _precise(interpreter._of(si));
 
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>
