@@ -151,6 +151,35 @@ extension NumExtension on num {
   /// Creates a US legal cup measurement.
   Volume get usLegalCups => VolumeInterpreter._usLegalCups(this);
 
+  /// Creates a Pascal measurement.
+  Pressure get pascals => PressureInterpreter._pascals(this);
+
+  /// Creates a bars of pressure measurement.
+  Pressure get bars => PressureInterpreter._bars(this);
+
+  /// Creates a Baryes measurement.
+  Pressure get baryes => PressureInterpreter._baryes(this);
+
+  /// Creates a standard atmospheres measurement.
+  Pressure get standardAtmospheres =>
+      PressureInterpreter._standardAtmospheres(this);
+
+  /// Creates a technical atmospheres measurement.
+  Pressure get technicalAtmospheres =>
+      PressureInterpreter._technicalAtmospheres(this);
+
+  /// Creates a millimeters of mercury measurement.
+  Pressure get mmHg => PressureInterpreter._mmHg(this);
+
+  /// Creates an inches of mercury measurement.
+  Pressure get inHg => PressureInterpreter._inHg(this);
+
+  /// Creates a Torr measurement.
+  Pressure get torr => PressureInterpreter._torr(this);
+
+  /// Creates a PSI measurement.
+  Pressure get psi => PressureInterpreter._psi(this);
+
   /// SI prefix "quecto".
   NumExtender get quecto => NumExtender(MeasurementPrefix._quecto, this);
 

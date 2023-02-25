@@ -290,3 +290,14 @@ Work with any unit:
 - candela
 - candlepower
 - Hefnerkerze
+
+### Pressure units
+
+- Pascals
+- bars
+- Baryes
+- standard atmospheres
+- technical atmospheres
+- mmHg
+- inHg
+- PSI

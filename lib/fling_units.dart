@@ -67,42 +67,26 @@ library fling_units;
 // imports
 import 'dart:math' as math;
 
-// framework
-part 'src/measurements/measurement.dart';
-
-part 'src/measurements/derived.dart';
-
 part 'src/core/interpreter.dart';
-
 part 'src/core/precision.dart';
-
 part 'src/core/prefix.dart';
-
 part 'src/core/visitor.dart';
-
-// derived units
-part 'src/measurements/area.dart';
-
-part 'src/measurements/volume.dart';
-
-// primary units
-part 'src/measurements/charge.dart';
-
-part 'src/measurements/distance.dart';
-
-part 'src/measurements/luminosity.dart';
-
-part 'src/measurements/mass.dart';
-
-part 'src/measurements/quantity.dart';
-
-part 'src/measurements/temperature.dart';
-
-part 'src/measurements/temperature_change.dart';
-
-part 'src/measurements/time.dart';
-
 // extensions
 part 'src/extensions/extender.dart';
-
 part 'src/extensions/extension.dart';
+// derived units
+part 'src/measurements/area.dart';
+// primary units
+part 'src/measurements/charge.dart';
+part 'src/measurements/derived.dart';
+part 'src/measurements/distance.dart';
+part 'src/measurements/luminosity.dart';
+part 'src/measurements/mass.dart';
+// framework
+part 'src/measurements/measurement.dart';
+part 'src/measurements/pressure.dart';
+part 'src/measurements/quantity.dart';
+part 'src/measurements/temperature.dart';
+part 'src/measurements/temperature_change.dart';
+part 'src/measurements/time.dart';
+part 'src/measurements/volume.dart';

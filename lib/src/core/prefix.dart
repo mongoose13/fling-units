@@ -7,6 +7,7 @@ class MeasurementPrefix
         DistancePrefix,
         LuminosityPrefix,
         MassPrefix,
+        PressurePrefix,
         QuantityPrefix,
         TemperaturePrefix,
         TimePrefix,

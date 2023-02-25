@@ -100,7 +100,7 @@ void main() {
   });
 
   group('sum', () {
-    test('', () {
+    test('adds up component parts', () {
       // given
       final mass = Mass.sum([
         grams(1),

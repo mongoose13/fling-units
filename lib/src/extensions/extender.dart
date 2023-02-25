@@ -187,4 +187,21 @@ class NumExtender {
   /// Creates a US legal cup measurement.
   Volume get usLegalCups =>
       VolumeInterpreter._usLegalCups._withPrefix(_prefix)(_value);
+
+  /// Creates a Pascal measurement.
+  Pressure get pascals =>
+      PressureInterpreter._pascals._withPrefix(_prefix)(_value);
+
+  /// Creates a bars of pressure measurement.
+  Pressure get bars => PressureInterpreter._bars._withPrefix(_prefix)(_value);
+
+  /// Creates a Baryes measurement.
+  Pressure get baryes =>
+      PressureInterpreter._baryes._withPrefix(_prefix)(_value);
+
+  /// Creates a Torr measurement.
+  Pressure get torr => PressureInterpreter._torr._withPrefix(_prefix)(_value);
+
+  /// Creates a PSI measurement.
+  Pressure get psi => PressureInterpreter._psi._withPrefix(_prefix)(_value);
 }

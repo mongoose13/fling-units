@@ -17,7 +17,7 @@ part of fling_units;
 /// Users should not need to access the internal workings of
 /// [MeasurementInterpreter]s, but instead pass them to the appropriate
 /// [Measurement] instances for interpretation (typically via an `as()` method,
-/// such as [Area.as]).
+/// such as [Area.asPair]).
 abstract class MeasurementInterpreter<T> {
   /// The prefix to apply to the measurement.
   final MeasurementPrefix _prefix;

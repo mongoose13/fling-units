@@ -60,6 +60,11 @@ class TestVisitor implements MeasurementVisitor {
   void visitVolume(final Volume volume) {
     _visits[Volume] = true;
   }
+
+  @override
+  void visitPressure(final Pressure pressure) {
+    _visits[Pressure] = true;
+  }
 }
 
 void main() {
@@ -184,6 +189,17 @@ void main() {
 
       // then
       expect(visitor.wasVisited(Volume), true);
+    });
+    test('pressure', () {
+      // given
+      final visitor = TestVisitor();
+      final measurement = pascals(1);
+
+      // when
+      measurement.acceptVisitor(visitor);
+
+      // then
+      expect(visitor.wasVisited(Pressure), true);
     });
   });
 }

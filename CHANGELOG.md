@@ -4,6 +4,7 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 ### Added
+- Pressure measurement type and units
 - Perform dart analyze step during build
 
 ### Changed
