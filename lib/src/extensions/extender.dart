@@ -199,6 +199,20 @@ class NumExtender {
   Pressure get baryes =>
       PressureInterpreter._baryes._withPrefix(_prefix)(_value);
 
+  /// Creates a standard atmospheres measurement.
+  Pressure get standardAtmospheres =>
+      PressureInterpreter._standardAtmospheres._withPrefix(_prefix)(_value);
+
+  /// Creates a technical atmospheres measurement.
+  Pressure get technicalAtmospheres =>
+      PressureInterpreter._technicalAtmospheres._withPrefix(_prefix)(_value);
+
+  /// Creates a mmHg measurement.
+  Pressure get mmHg => PressureInterpreter._mmHg._withPrefix(_prefix)(_value);
+
+  /// Creates a inHg measurement.
+  Pressure get inHg => PressureInterpreter._inHg._withPrefix(_prefix)(_value);
+
   /// Creates a Torr measurement.
   Pressure get torr => PressureInterpreter._torr._withPrefix(_prefix)(_value);
 

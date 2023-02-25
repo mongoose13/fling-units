@@ -24,6 +24,40 @@ void main() {
       expect(result, 3.1);
     });
   });
+
+  group('mmHg', () {
+    test('creates the appropriate measurement with an int', () {
+      // given
+      final measurement = 3.mmHg;
+
+      // when
+      final result = measurement.as(mmHg);
+
+      // then
+      expect(result, 3.0);
+    });
+    test('creates the appropriate measurement with a double', () {
+      // given
+      final measurement = 3.1.mmHg;
+
+      // when
+      final result = measurement.as(mmHg);
+
+      // then
+      expect(result, 3.1);
+    });
+    test('creates the appropriate measurement with a prefix', () {
+      // given
+      final measurement = 3.1.milli.mmHg;
+
+      // when
+      final result = measurement.withPrecision(Precision(3)).as(mmHg);
+
+      // then
+      expect(result, 3.1e-3);
+    });
+  });
+
   group('prefixes', () {
     test('yocto', () {
       // given
