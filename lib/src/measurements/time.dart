@@ -43,7 +43,7 @@ const hours = TimeInterpreter._hours;
 const days = TimeInterpreter._days;
 
 /// Applies a prefix to various time units.
-abstract class TimePrefix {
+mixin TimePrefix {
   /// The interpreter for seconds.
   TimeInterpreter get seconds => TimeInterpreter._seconds._withPrefix(_prefix);
 

@@ -60,7 +60,7 @@ const units = RoundingQuantityInterpreter._units;
 const moles = StandardQuantityInterpreter._moles;
 
 /// Applies a prefix to various quantity units.
-abstract class QuantityPrefix {
+mixin QuantityPrefix {
   /// Applies this to a unit amount.
   QuantityInterpreter get units =>
       RoundingQuantityInterpreter._units._withPrefix(_prefix);

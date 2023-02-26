@@ -49,7 +49,7 @@ class PressureInterpreter extends MeasurementInterpreter<Pressure> {
   static const _psi = PressureInterpreter._('psi', 6894.76);
 }
 
-abstract class PressurePrefix {
+mixin PressurePrefix {
   /// Applies this to a Pascals amount.
   PressureInterpreter get pascals =>
       PressureInterpreter._pascals._withPrefix(_prefix);

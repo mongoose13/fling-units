@@ -38,7 +38,7 @@ const candlepower = LuminosityInterpreter._candlepower;
 const hefnerkerze = LuminosityInterpreter._hefnerkerze;
 
 /// Applies a prefix to various quantity units.
-abstract class LuminosityPrefix {
+mixin LuminosityPrefix {
   /// Applies this to a candela amount.
   LuminosityInterpreter get candela =>
       LuminosityInterpreter._candela._withPrefix(_prefix);

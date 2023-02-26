@@ -137,7 +137,7 @@ const usGallons = VolumeInterpreter._usGallons;
 const usLegalCups = VolumeInterpreter._usLegalCups;
 
 /// Applies a prefix to various volume units.
-abstract class VolumePrefix {
+mixin VolumePrefix {
   /// Applies this to a liter amount.
   VolumeInterpreter get liters =>
       VolumeInterpreter._liters._withPrefix(_prefix);

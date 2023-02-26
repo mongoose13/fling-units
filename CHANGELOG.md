@@ -2,6 +2,10 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [Unreleased]
+### Changed
+- Use 'mixin' keyword for the *Prefix mixin classes
+
 ## [2.2.2]
 ### Added
 - Pressure measurement type and units

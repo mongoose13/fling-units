@@ -55,7 +55,7 @@ const inches = DistanceInterpreter._inches;
 const nauticalMiles = DistanceInterpreter._nauticalMiles;
 
 /// Applies a prefix to various distance units.
-abstract class DistancePrefix {
+mixin DistancePrefix {
   /// The prefix multiplier applied to this measurement.
   MeasurementPrefix get _prefix;
 

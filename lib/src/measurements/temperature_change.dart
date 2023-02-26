@@ -39,7 +39,7 @@ const celcius = TemperatureChangeInterpreter._celcius;
 const fahrenheit = TemperatureChangeInterpreter._fahrenheit;
 
 /// Applies a prefix to various time units.
-abstract class TemperaturePrefix {
+mixin TemperaturePrefix {
   /// The interpreter for Kelvin.
   TemperatureChangeInterpreter get kelvin =>
       TemperatureChangeInterpreter._kelvin._withPrefix(_prefix);

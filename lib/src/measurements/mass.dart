@@ -76,7 +76,7 @@ const pounds = MassInterpreter._pounds;
 /// The interpreter for ounces.
 const ounces = MassInterpreter._ounces;
 
-abstract class MassPrefix {
+mixin MassPrefix {
   /// Applies this to a gram amount.
   MassInterpreter get grams => MassInterpreter._grams._withPrefix(_prefix);
 

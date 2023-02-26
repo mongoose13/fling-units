@@ -25,7 +25,7 @@ class ChargeInterpreter extends MeasurementInterpreter<Charge> {
 const amperes = ChargeInterpreter._amperes;
 
 /// Applies a prefix to various quantity units.
-abstract class ChargePrefix {
+mixin ChargePrefix {
   /// Applies this to an ampere amount.
   ChargeInterpreter get amperes =>
       ChargeInterpreter._amperes._withPrefix(_prefix);
