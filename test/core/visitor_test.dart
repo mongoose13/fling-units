@@ -7,6 +7,11 @@ class TestVisitor implements MeasurementVisitor {
   bool wasVisited(final Type type) => _visits.containsKey(type);
 
   @override
+  void visitAngle(final Angle angle) {
+    _visits[Angle] = true;
+  }
+
+  @override
   void visitArea(final Area area) {
     _visits[Area] = true;
   }
@@ -37,6 +42,11 @@ class TestVisitor implements MeasurementVisitor {
   }
 
   @override
+  void visitPressure(final Pressure pressure) {
+    _visits[Pressure] = true;
+  }
+
+  @override
   void visitQuantity(final Quantity quantity) {
     _visits[Quantity] = true;
   }
@@ -60,15 +70,21 @@ class TestVisitor implements MeasurementVisitor {
   void visitVolume(final Volume volume) {
     _visits[Volume] = true;
   }
-
-  @override
-  void visitPressure(final Pressure pressure) {
-    _visits[Pressure] = true;
-  }
 }
 
 void main() {
   group('acceptVisitor', () {
+    test('angle', () {
+      // given
+      final visitor = TestVisitor();
+      final measurement = radians(1);
+
+      // when
+      measurement.acceptVisitor(visitor);
+
+      // then
+      expect(visitor.wasVisited(Angle), true);
+    });
     test('area', () {
       // given
       final visitor = TestVisitor();
@@ -135,6 +151,17 @@ void main() {
       // then
       expect(visitor.wasVisited(Mass), true);
     });
+    test('pressure', () {
+      // given
+      final visitor = TestVisitor();
+      final measurement = pascals(1);
+
+      // when
+      measurement.acceptVisitor(visitor);
+
+      // then
+      expect(visitor.wasVisited(Pressure), true);
+    });
     test('quantity', () {
       // given
       final visitor = TestVisitor();
@@ -189,17 +216,6 @@ void main() {
 
       // then
       expect(visitor.wasVisited(Volume), true);
-    });
-    test('pressure', () {
-      // given
-      final visitor = TestVisitor();
-      final measurement = pascals(1);
-
-      // when
-      measurement.acceptVisitor(visitor);
-
-      // then
-      expect(visitor.wasVisited(Pressure), true);
     });
   });
 }

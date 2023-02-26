@@ -301,3 +301,12 @@ Work with any unit:
 - mmHg
 - inHg
 - PSI
+
+### Angle units
+
+- turns (rotations)
+- radians
+- gradians
+- degrees
+- arc minutes
+- arc seconds

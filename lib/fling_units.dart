@@ -67,22 +67,20 @@ library fling_units;
 // imports
 import 'dart:math' as math;
 
+// parts
 part 'src/core/interpreter.dart';
 part 'src/core/precision.dart';
 part 'src/core/prefix.dart';
 part 'src/core/visitor.dart';
-// extensions
 part 'src/extensions/extender.dart';
 part 'src/extensions/extension.dart';
-// derived units
+part 'src/measurements/angle.dart';
 part 'src/measurements/area.dart';
-// primary units
 part 'src/measurements/charge.dart';
 part 'src/measurements/derived.dart';
 part 'src/measurements/distance.dart';
 part 'src/measurements/luminosity.dart';
 part 'src/measurements/mass.dart';
-// framework
 part 'src/measurements/measurement.dart';
 part 'src/measurements/pressure.dart';
 part 'src/measurements/quantity.dart';

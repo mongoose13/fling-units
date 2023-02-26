@@ -180,6 +180,24 @@ extension NumExtension on num {
   /// Creates a PSI measurement.
   Pressure get psi => PressureInterpreter._psi(this);
 
+  /// Creates a turn measurement.
+  Angle get turns => AngleInterpreter._turns(this);
+
+  /// Creates a radian measurement.
+  Angle get radians => AngleInterpreter._radians(this);
+
+  /// Creates a gradian measurement.
+  Angle get gradians => AngleInterpreter._gradians(this);
+
+  /// Creates a degree measurement.
+  Angle get degrees => AngleInterpreter._degrees(this);
+
+  /// Creates an arc minute measurement.
+  Angle get arcMinutes => AngleInterpreter._arcMinutes(this);
+
+  /// Creates an arc second measurement.
+  Angle get arcSeconds => AngleInterpreter._arcSeconds(this);
+
   /// SI prefix "quecto".
   NumExtender get quecto => NumExtender(MeasurementPrefix._quecto, this);
 

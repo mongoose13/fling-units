@@ -42,4 +42,7 @@ abstract class MeasurementVisitor {
 
   /// Visit a [Pressure].
   void visitPressure(final Pressure pressure) {}
+
+  /// Visit an [Angle].
+  void visitAngle(final Angle angle) {}
 }

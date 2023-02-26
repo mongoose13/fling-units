@@ -218,4 +218,24 @@ class NumExtender {
 
   /// Creates a PSI measurement.
   Pressure get psi => PressureInterpreter._psi._withPrefix(_prefix)(_value);
+
+  /// Creates a turn measurement.
+  Angle get turns => AngleInterpreter._turns._withPrefix(_prefix)(_value);
+
+  /// Creates a radian measurement.
+  Angle get radians => AngleInterpreter._radians._withPrefix(_prefix)(_value);
+
+  /// Creates a gradian measurement.
+  Angle get gradians => AngleInterpreter._gradians._withPrefix(_prefix)(_value);
+
+  /// Creates a degree measurement.
+  Angle get degrees => AngleInterpreter._degrees._withPrefix(_prefix)(_value);
+
+  /// Creates an arc minute measurement.
+  Angle get arcMinutes =>
+      AngleInterpreter._arcMinutes._withPrefix(_prefix)(_value);
+
+  /// Creates an arc second measurement.
+  Angle get arcSeconds =>
+      AngleInterpreter._arcSeconds._withPrefix(_prefix)(_value);
 }

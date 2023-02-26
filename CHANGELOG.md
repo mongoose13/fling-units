@@ -3,6 +3,9 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
 ## [Unreleased]
+### Added
+- Angle measurement type and units
+
 ### Changed
 - Use 'mixin' keyword for the *Prefix mixin classes
 

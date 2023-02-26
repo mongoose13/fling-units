@@ -3,6 +3,7 @@ part of fling_units;
 /// Multiplies a [Measurement] by a prefix.
 class MeasurementPrefix
     with
+        AnglePrefix,
         ChargePrefix,
         DistancePrefix,
         LuminosityPrefix,
