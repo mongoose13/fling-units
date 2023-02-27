@@ -103,6 +103,22 @@ class Angle extends Measurement<Angle> {
   const Angle.negativeInfinite([final AngleInterpreter interpreter = radians])
       : super.negativeInfinite(interpreter);
 
+  /// A right angle.
+  const Angle.right([final AngleInterpreter interpreter = radians])
+      : super(
+          0.25,
+          Precision.max,
+          interpreter,
+        );
+
+  /// A straight angle.
+  const Angle.straight([final AngleInterpreter interpreter = radians])
+      : super(
+          0.5,
+          Precision.max,
+          interpreter,
+        );
+
   /// Constructs an [Angle] representing the sum of any number of other [Angle]s.
   Angle.sum(final Iterable<Angle> parts,
       {final Precision precision = Precision.max})
@@ -115,6 +131,18 @@ class Angle extends Measurement<Angle> {
   @override
   void acceptVisitor(final MeasurementVisitor visitor) =>
       visitor.visitAngle(this);
+
+  /// Whether this is an acute angle.
+  bool get isAcute => si.abs() < 0.25;
+
+  /// Whether this is an obtuse angle.
+  bool get isObtuse => si.abs() > 0.25 && si.abs() < 0.5;
+
+  /// Whether this is a right angle.
+  bool get isRight => si.abs() == 0.25;
+
+  /// Whether this is a straight angle.
+  bool get isStraight => si.abs() == 0.5;
 
   @override
   Angle _construct(

@@ -2,6 +2,11 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [Unreleased]
+### Added
+- Angle boolean checks: isAcute, isRight, isObtuse, isStraight
+- Angle const constructors: right, straight
+
 ## [2.2.3]
 ### Added
 - Angle measurement type and units
