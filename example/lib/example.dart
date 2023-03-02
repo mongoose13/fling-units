@@ -131,6 +131,8 @@ void main() {
   final carVelocity = carSpeed.withDefaultUnit(DerivedMeasurementInterpreter(
       feet, minutes, true, MeasurementPrefix.unit(), 'gizmos per doodad'));
   print('My car is going $carVelocity!');
+  print(
+      'My car is going ${carVelocity.defaultValue} in ${carVelocity.defaultInterpreter}!');
 
   // Have fun!
 }

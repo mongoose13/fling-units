@@ -12,14 +12,20 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   ///
   /// By default, this is set as the unit used to create the measurement. It can
   /// be changed using [withDefaultUnit].
-  final MeasurementInterpreter<T> _interpreter;
+  final MeasurementInterpreter<T> defaultInterpreter;
+
+  /// Returns the default measurement value (i.e. the measurement as interpreted
+  /// by the default [MeasurementInterpreter].
+  ///
+  /// This is equivalent to `as(defaultInterpreter)`.
+  double get defaultValue => _preciseOf(defaultInterpreter);
 
   /// Constructs a basic measurement.
   const Measurement(
     this.si,
     final Precision precision,
     final MeasurementInterpreter<T> interpreter,
-  )   : _interpreter = interpreter,
+  )   : defaultInterpreter = interpreter,
         _precision = precision;
 
   /// Constructs a measurement representing the sum of other measurements.
@@ -28,7 +34,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
           parts.fold(
               0.0, (previousValue, element) => previousValue + element.si),
           precision,
-          parts.first._interpreter,
+          parts.first.defaultInterpreter,
         );
 
   /// Creates a derived measurement that is the division of this measurement with another.
@@ -55,20 +61,20 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// A measurement of zero.
   const Measurement.zero(final MeasurementInterpreter<T> interpreter)
       : si = 0.0,
-        _interpreter = interpreter,
+        defaultInterpreter = interpreter,
         _precision = Precision.max;
 
   /// An infinite measurement.
   const Measurement.infinite(final MeasurementInterpreter<T> interpreter)
       : si = double.infinity,
-        _interpreter = interpreter,
+        defaultInterpreter = interpreter,
         _precision = Precision.max;
 
   /// A negative infinite measurement.
   const Measurement.negativeInfinite(
       final MeasurementInterpreter<T> interpreter)
       : si = double.negativeInfinity,
-        _interpreter = interpreter,
+        defaultInterpreter = interpreter,
         _precision = Precision.max;
 
   /// Returns `true` if this measurement is negative.
@@ -126,23 +132,23 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   int compareTo(final T other) => si.compareTo(other.si);
 
   /// Returns a measurement representing the opposite of this.
-  T operator -() => _construct(-si, _precision, _interpreter);
+  T operator -() => _construct(-si, _precision, defaultInterpreter);
 
   /// Returns a measurement equivalent to the sum of two others.
-  T operator +(final T other) =>
-      _construct(si + other.si, Precision.addition(this, other), _interpreter);
+  T operator +(final T other) => _construct(
+      si + other.si, Precision.addition(this, other), defaultInterpreter);
 
   /// Returns a measurement equivalent to the difference between two others.
-  T operator -(final T other) =>
-      _construct(si - other.si, Precision.addition(this, -other), _interpreter);
+  T operator -(final T other) => _construct(
+      si - other.si, Precision.addition(this, -other), defaultInterpreter);
 
   /// Returns a measurement equivalent to a multiple of this.
   T operator *(final double multiplier) =>
-      _construct(si * multiplier, _precision, _interpreter);
+      _construct(si * multiplier, _precision, defaultInterpreter);
 
   /// Returns a measurement equivalent to a fraction of this.
   T operator /(final double divisor) =>
-      _construct(si / divisor, _precision, _interpreter);
+      _construct(si / divisor, _precision, defaultInterpreter);
 
   /// Returns the difference in magnitude between this and another measurement.
   ///
@@ -168,14 +174,14 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   int get hashCode => si.hashCode * _precision.hashCode;
 
   @override
-  String toString() => '${_preciseOf(_interpreter)} $_interpreter';
+  String toString() => '$defaultValue $defaultInterpreter';
 
   /// Returns the number of digits of precision this measurement has.
   int get precision => _precision.precision;
 
   /// Creates an equivalent measurement with the specified precision.
   T withPrecision(final Precision precision) =>
-      _construct(si, precision, _interpreter);
+      _construct(si, precision, defaultInterpreter);
 
   /// Accept a visitor object for double-dispatch.
   void acceptVisitor(final MeasurementVisitor visitor);

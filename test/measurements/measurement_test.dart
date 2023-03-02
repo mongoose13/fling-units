@@ -2,6 +2,29 @@ import 'package:fling_units/fling_units.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('default interpreter', () {
+    test('getter', () {
+      // given
+      final measurement = 3.feet;
+
+      // when
+      final result = measurement.defaultInterpreter;
+
+      // then
+      expect(result, feet);
+    });
+    test('value', () {
+      // given
+      final measurement = 3.feet;
+
+      // when
+      final result = measurement.defaultValue;
+
+      // then
+      expect(result, 3.0);
+    });
+  });
+
   group('isNegative', () {
     test('on a zero value', () {
       // given

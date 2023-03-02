@@ -32,8 +32,8 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
           a.si * b.si,
           Precision.combine(a._precision, b._precision),
           DerivedMeasurementInterpreter(
-            a._interpreter,
-            b._interpreter,
+            a.defaultInterpreter,
+            b.defaultInterpreter,
             false,
             const MeasurementPrefix.unit(),
             name,
@@ -48,8 +48,8 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
           a.si / b.si,
           Precision.combine(a._precision, b._precision),
           DerivedMeasurementInterpreter(
-            a._interpreter,
-            b._interpreter,
+            a.defaultInterpreter,
+            b.defaultInterpreter,
             true,
             const MeasurementPrefix.unit(),
             name,

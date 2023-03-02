@@ -6,6 +6,7 @@ types you need to work with from the rest of your code.
 ### Added
 - Angle boolean checks: isAcute, isRight, isObtuse, isStraight
 - Angle const constructors: right, straight
+- Accessors for default interpreters and values
 
 ## [2.2.3]
 ### Added
@@ -207,7 +208,7 @@ types you need to work with from the rest of your code.
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/mongoose13/fling-units/commits/
-[2.2.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.3/
+[2.2.3]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.3/
 [2.2.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.2/
 [2.2.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.1/
 [2.2.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.0/

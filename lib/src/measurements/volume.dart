@@ -237,7 +237,8 @@ class Volume extends Measurement<Volume> {
           a.as(meters) * b.as(meters) * c.as(meters),
           Precision.combine(
               Precision.combine(a._precision, b._precision), c._precision),
-          VolumeInterpreter(a._interpreter, b._interpreter, c._interpreter),
+          VolumeInterpreter(
+              a.defaultInterpreter, b.defaultInterpreter, c.defaultInterpreter),
         );
 
   /// Interprets this in the specified units.

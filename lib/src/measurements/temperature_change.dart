@@ -102,7 +102,7 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   /// Returns a [TemperatureChange] that represents the positive magnitude of
   /// this.
   TemperatureChange magnitude() =>
-      TemperatureChange._(si.abs(), _precision, _interpreter);
+      TemperatureChange._(si.abs(), _precision, defaultInterpreter);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<TemperatureChange> interpreter) =>
