@@ -2,7 +2,7 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
-## [Unreleased]
+## [2.2.4]
 ### Added
 - Angle boolean checks: isAcute, isRight, isObtuse, isStraight
 - Angle const constructors: right, straight
@@ -208,6 +208,7 @@ types you need to work with from the rest of your code.
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/mongoose13/fling-units/commits/
+[2.2.4]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.4/
 [2.2.3]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.3/
 [2.2.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.2/
 [2.2.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.1/
