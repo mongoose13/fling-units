@@ -12,14 +12,22 @@ class VolumeInterpreter extends MeasurementInterpreter<Volume> {
     final MeasurementInterpreter<Distance> b,
     final MeasurementInterpreter<Distance> c, {
     final String? name,
+  }) : this._unitless(a, b, c, name: name);
+
+  /// Constructs a [VolumeInterpreter] with potentially null interpreters.
+  VolumeInterpreter._unitless(
+    final MeasurementInterpreter<Distance>? a,
+    final MeasurementInterpreter<Distance>? b,
+    final MeasurementInterpreter<Distance>? c, {
+    final String? name,
   }) : this._(
-            name ?? '${a._name}⋅${b._name}⋅${c._name}',
-            a._unitMultiplier *
-                b._unitMultiplier *
-                c._unitMultiplier /
-                a._prefix._multiplier /
-                b._prefix._multiplier /
-                c._prefix._multiplier);
+            name ?? '${a?._name ?? 'X'}⋅${b?._name ?? 'X'}⋅${c?._name ?? 'X'}',
+            (a?._unitMultiplier ?? 1.0) *
+                (b?._unitMultiplier ?? 1.0) *
+                (c?._unitMultiplier ?? 1.0) /
+                (a?._prefix._multiplier ?? 1.0) /
+                (b?._prefix._multiplier ?? 1.0) /
+                (c?._prefix._multiplier ?? 1.0));
 
   /// Constructs a [VolumeInterpreter] that will cube a basic
   /// [DistanceInterpreter].
@@ -237,7 +245,7 @@ class Volume extends Measurement<Volume> {
           a.as(meters) * b.as(meters) * c.as(meters),
           Precision.combine(
               Precision.combine(a._precision, b._precision), c._precision),
-          VolumeInterpreter(
+          VolumeInterpreter._unitless(
               a.defaultInterpreter, b.defaultInterpreter, c.defaultInterpreter),
         );
 
@@ -258,14 +266,14 @@ class Volume extends Measurement<Volume> {
   const Volume._(
     final double cubicMeters,
     final Precision precision,
-    final MeasurementInterpreter<Volume> interpreter,
+    final MeasurementInterpreter<Volume>? interpreter,
   ) : super(cubicMeters, precision, interpreter);
 
   @override
   Volume _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Volume> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Volume>? interpreter,
+  ]) =>
       Volume._(si, precision, interpreter);
 }

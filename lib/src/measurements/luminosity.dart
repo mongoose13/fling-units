@@ -89,15 +89,15 @@ class Luminosity extends Measurement<Luminosity> {
   @override
   Luminosity _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Luminosity> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Luminosity>? interpreter,
+  ]) =>
       Luminosity._(si, precision, interpreter);
 
   /// Constructs a [Distance].
   const Luminosity._(
     final double units,
     final Precision precision,
-    final MeasurementInterpreter<Luminosity> interpreter,
+    final MeasurementInterpreter<Luminosity>? interpreter,
   ) : super(units, precision, interpreter);
 }

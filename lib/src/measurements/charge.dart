@@ -72,15 +72,15 @@ class Charge extends Measurement<Charge> {
   @override
   Charge _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Charge> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Charge>? interpreter,
+  ]) =>
       Charge._(si, precision, interpreter);
 
   /// Constructs a [Distance].
   const Charge._(
     final double units,
     final Precision precision,
-    final MeasurementInterpreter<Charge> interpreter,
+    final MeasurementInterpreter<Charge>? interpreter,
   ) : super(units, precision, interpreter);
 }

@@ -129,7 +129,7 @@ class Pressure extends Measurement<Pressure> {
   const Pressure._(
     final double grams,
     final Precision precision,
-    final MeasurementInterpreter<Pressure> interpreter,
+    final MeasurementInterpreter<Pressure>? interpreter,
   ) : super(grams, precision, interpreter);
 
   /// Constructs a [Pressure] representing the sum of any number of other [Pressure]s.
@@ -140,9 +140,9 @@ class Pressure extends Measurement<Pressure> {
   @override
   Pressure _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Pressure> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Pressure>? interpreter,
+  ]) =>
       Pressure._(si, precision, interpreter);
 
   const Pressure.zero(

@@ -3,6 +3,16 @@ import 'package:test/test.dart';
 
 void main() {
   group('zero', () {
+    test('with default interpreter', () {
+      // given
+      final interpreter = DerivedMeasurement<Distance, Time>.zero();
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '0.0 X');
+    });
     test('with custom default interpreter', () {
       // given
       final interpreter = DerivedMeasurement<Distance, Time>.zero(
@@ -16,6 +26,16 @@ void main() {
     });
   });
   group('infinity', () {
+    test('with default interpreter', () {
+      // given
+      final interpreter = DerivedMeasurement<Distance, Time>.infinite();
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, 'Infinity X');
+    });
     test('with custom default interpreter', () {
       // given
       final interpreter = DerivedMeasurement<Distance, Time>.infinite(
@@ -29,6 +49,16 @@ void main() {
     });
   });
   group('negativeInfinity', () {
+    test('with default interpreter', () {
+      // given
+      final interpreter = DerivedMeasurement<Distance, Time>.negativeInfinite();
+
+      // when
+      final result = interpreter.toString();
+
+      // then
+      expect(result, '-Infinity X');
+    });
     test('with custom default interpreter', () {
       // given
       final interpreter = DerivedMeasurement<Distance, Time>.negativeInfinite(

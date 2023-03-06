@@ -144,14 +144,14 @@ class Mass extends Measurement<Mass> {
   const Mass._(
     final double grams,
     final Precision precision,
-    final MeasurementInterpreter<Mass> interpreter,
+    final MeasurementInterpreter<Mass>? interpreter,
   ) : super(grams, precision, interpreter);
 
   @override
   Mass _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Mass> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Mass>? interpreter,
+  ]) =>
       Mass._(si, precision, interpreter);
 }

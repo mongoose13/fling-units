@@ -116,14 +116,14 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   const TemperatureChange._(
     final double kelvin,
     final Precision precision,
-    final MeasurementInterpreter<TemperatureChange> interpreter,
+    final MeasurementInterpreter<TemperatureChange>? interpreter,
   ) : super(kelvin, precision, interpreter);
 
   @override
   TemperatureChange _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<TemperatureChange> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<TemperatureChange>? interpreter,
+  ]) =>
       TemperatureChange._(si, precision, interpreter);
 }

@@ -87,8 +87,8 @@ mixin AnglePrefix {
 
 /// Represents an angle.
 class Angle extends Measurement<Angle> {
-  const Angle._(
-      double si, Precision precision, MeasurementInterpreter<Angle> interpreter)
+  const Angle._(double si, Precision precision,
+      MeasurementInterpreter<Angle>? interpreter)
       : super(si, precision, interpreter);
 
   /// Zero angle.
@@ -147,8 +147,8 @@ class Angle extends Measurement<Angle> {
   @override
   Angle _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Angle> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Angle>? interpreter,
+  ]) =>
       Angle._(si, precision, interpreter);
 }

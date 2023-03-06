@@ -119,15 +119,15 @@ class Quantity extends Measurement<Quantity> {
   @override
   Quantity _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Quantity> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Quantity>? interpreter,
+  ]) =>
       Quantity._(si, precision, interpreter);
 
   /// Constructs a [Distance].
   const Quantity._(
     final double units,
     final Precision precision,
-    final MeasurementInterpreter<Quantity> interpreter,
+    final MeasurementInterpreter<Quantity>? interpreter,
   ) : super(units, precision, interpreter);
 }

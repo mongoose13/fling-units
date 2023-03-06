@@ -116,14 +116,14 @@ class Time extends Measurement<Time> {
   const Time._(
     final double seconds,
     final Precision precision,
-    final MeasurementInterpreter<Time> interpreter,
+    final MeasurementInterpreter<Time>? interpreter,
   ) : super(seconds, precision, interpreter);
 
   @override
   Time _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Time> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Time>? interpreter,
+  ]) =>
       Time._(si, precision, interpreter);
 }

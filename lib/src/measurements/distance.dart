@@ -118,15 +118,15 @@ class Distance extends Measurement<Distance> {
   @override
   Distance _construct(
     final double si,
-    final Precision precision,
-    final MeasurementInterpreter<Distance> interpreter,
-  ) =>
+    final Precision precision, [
+    final MeasurementInterpreter<Distance>? interpreter,
+  ]) =>
       Distance._(si, precision, interpreter);
 
   /// Constructs a [Distance].
   const Distance._(
     final double meters,
     final Precision precision,
-    final MeasurementInterpreter<Distance> interpreter,
+    final MeasurementInterpreter<Distance>? interpreter,
   ) : super(meters, precision, interpreter);
 }
