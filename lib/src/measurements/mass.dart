@@ -4,7 +4,7 @@ part of '../../fling_units.dart';
 class MassInterpreter extends MeasurementInterpreter<Mass> {
   @override
   Mass call(final num value, {final Precision precision = Precision.max}) =>
-      Mass._(_from(value), precision, this);
+      Mass(value, this, precision);
 
   /// Constructs a [MassInterpreter].
   const MassInterpreter._(
@@ -114,23 +114,26 @@ mixin MassPrefix {
 
 /// Represents an amount of mass.
 class Mass extends Measurement<Mass> {
+  /// The SI unit associated with this measurement.
+  static const siUnit = grams;
+
   /// Zero mass.
-  const Mass.zero([final MeasurementInterpreter<Mass> interpreter = grams])
+  const Mass.zero([final MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite mass.
-  const Mass.infinite([final MeasurementInterpreter<Mass> interpreter = grams])
+  const Mass.infinite([final MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative mass.
   const Mass.negativeInfinite(
-      [final MeasurementInterpreter<Mass> interpreter = grams])
+      [final MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Mass] representing the sum of any number of other [Mass]es.
   Mass.sum(final Iterable<Mass> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<Mass> interpreter) =>
@@ -141,17 +144,25 @@ class Mass extends Measurement<Mass> {
       visitor.visitMass(this);
 
   /// Constructs a [Mass].
-  const Mass._(
-    final double grams,
-    final Precision precision,
-    final MeasurementInterpreter<Mass>? interpreter,
-  ) : super(grams, precision, interpreter);
+  const Mass(
+    num amount,
+    MeasurementInterpreter<Mass> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(
+          amount: amount,
+          interpreter: interpreter,
+          precision: precision,
+        );
 
   @override
   Mass _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Mass>? interpreter,
-  ]) =>
-      Mass._(si, precision, interpreter);
+    num amount,
+    MeasurementInterpreter<Mass>? interpreter,
+    Precision precision,
+  ) =>
+      Mass(
+        amount,
+        interpreter ?? siUnit,
+        precision,
+      );
 }

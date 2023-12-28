@@ -2,6 +2,10 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [Unreleased]
+### Changed
+- Support for const constructors on all units
+
 ## [2.2.6]
 ### Changed
 - Update dependency versions

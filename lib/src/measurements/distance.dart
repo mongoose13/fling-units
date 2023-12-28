@@ -4,7 +4,7 @@ part of '../../fling_units.dart';
 class DistanceInterpreter extends MeasurementInterpreter<Distance> {
   @override
   Distance call(final num value, {final Precision precision = Precision.max}) =>
-      Distance._(_from(value), precision, this);
+      Distance(value, this, precision);
 
   /// Constructs a [DistanceInterpreter].
   const DistanceInterpreter._(
@@ -86,26 +86,29 @@ mixin DistancePrefix {
 
 /// Represents a single dimension of distance.
 class Distance extends Measurement<Distance> {
+  /// The SI unit associated with this measurement.
+  static const siUnit = meters;
+
   /// The distance of size zero.
   const Distance.zero(
-      [final MeasurementInterpreter<Distance> interpreter = meters])
+      [final MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite distance.
   const Distance.infinite(
-      [final MeasurementInterpreter<Distance> interpreter = meters])
+      [final MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative distance.
   const Distance.negativeInfinite(
-      [final MeasurementInterpreter<Distance> interpreter = meters])
+      [final MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Distance] representing the sum of any number of other
   /// [Distance]s.
   Distance.sum(final Iterable<Distance> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<Distance> interpreter) =>
@@ -117,16 +120,16 @@ class Distance extends Measurement<Distance> {
 
   @override
   Distance _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Distance>? interpreter,
-  ]) =>
-      Distance._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Distance>? interpreter,
+    Precision precision,
+  ) =>
+      Distance(amount, interpreter ?? siUnit, precision);
 
   /// Constructs a [Distance].
-  const Distance._(
-    final double meters,
-    final Precision precision,
-    final MeasurementInterpreter<Distance>? interpreter,
-  ) : super(meters, precision, interpreter);
+  const Distance(
+    num meters,
+    MeasurementInterpreter<Distance> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(amount: meters, precision: precision, interpreter: interpreter);
 }

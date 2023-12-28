@@ -22,26 +22,21 @@ class Precision {
   static const int maximumPrecision = 21;
 
   /// A single digit precision.
-  static const Precision single = Precision._single();
+  static const Precision single = Precision(1);
 
   /// Maximum precision.
-  static const Precision max = Precision._max();
+  static const Precision max = Precision(maximumPrecision);
 
   /// This precision, in number of digits.
-  final int precision;
+  int get precision => math.min(21, math.max(1, _precision));
 
   /// Constructs a [Precision] of the specified number of digits.
   ///
   /// Due to Dart language limitations on doubles, the maximum precision is 21
-  /// digits. Any attempt to use a higher number will fail with an
-  /// [ArgumentError]. Precision below 1 digit is meaningless and will also
-  /// result in an [ArgumentError].
-  Precision(this.precision) {
-    if (precision < 1 || precision > maximumPrecision) {
-      throw ArgumentError(
-          'Precision must be a positive integer between 1 and 21');
-    }
-  }
+  /// digits. Any attempt to use a higher number will fall back silently to 21.
+  /// 
+  /// Precision below 1 digit is meaningless and will fall back to 1.
+  const Precision(this._precision);
 
   /// Combines two [Precision]s per the "multiplication rule".
   ///
@@ -49,8 +44,10 @@ class Precision {
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
-  Precision.combine(final Precision a, final Precision b)
-      : this(math.min(a.precision, b.precision));
+  Precision.combine(Iterable<Precision> precisions)
+      : this(precisions
+            .map((item) => item.precision)
+            .reduce((current, element) => math.min(current, element)));
 
   /// Combines two [Precision]s per the "addition rule".
   ///
@@ -61,7 +58,7 @@ class Precision {
   static Precision addition<T extends Measurement<T>>(
       final Measurement<T> a, final Measurement<T> b) {
     if (a.isInfinite || b.isInfinite) {
-      return Precision._max();
+      return Precision.max;
     }
     final precisionA = digitsAfterDecimal(a);
     final precisionB = digitsAfterDecimal(b);
@@ -114,9 +111,6 @@ class Precision {
   @override
   int get hashCode => precision.hashCode;
 
-  /// Single digit precision.
-  const Precision._single() : precision = 1;
-
-  /// Maximum precision.
-  const Precision._max() : precision = 21;
+  /// This precision (uncorrected), in number of digits.
+  final int _precision;
 }

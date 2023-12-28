@@ -3,7 +3,7 @@ part of '../../fling_units.dart';
 class AngleInterpreter extends MeasurementInterpreter<Angle> {
   @override
   Angle call(final num value, {final Precision precision = Precision.max}) =>
-      Angle._(_from(value), precision, this);
+      Angle(value, this, precision);
 
   /// Constructs an [AngleInterpreter].
   const AngleInterpreter._(
@@ -87,9 +87,16 @@ mixin AnglePrefix {
 
 /// Represents an angle.
 class Angle extends Measurement<Angle> {
-  const Angle._(double si, Precision precision,
-      MeasurementInterpreter<Angle>? interpreter)
-      : super(si, precision, interpreter);
+  /// Constructs an [Angle] measurement.
+  const Angle(
+    num amount,
+    MeasurementInterpreter<Angle> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(
+          amount: amount,
+          precision: precision,
+          interpreter: interpreter,
+        );
 
   /// Zero angle.
   const Angle.zero([final AngleInterpreter interpreter = radians])
@@ -104,25 +111,15 @@ class Angle extends Measurement<Angle> {
       : super.negativeInfinite(interpreter);
 
   /// A right angle.
-  const Angle.right([final AngleInterpreter interpreter = radians])
-      : super(
-          0.25,
-          Precision.max,
-          interpreter,
-        );
+  const Angle.right() : this(0.25, turns);
 
   /// A straight angle.
-  const Angle.straight([final AngleInterpreter interpreter = radians])
-      : super(
-          0.5,
-          Precision.max,
-          interpreter,
-        );
+  const Angle.straight() : this(0.5, turns);
 
   /// Constructs an [Angle] representing the sum of any number of other [Angle]s.
   Angle.sum(final Iterable<Angle> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<Angle> interpreter) =>
@@ -146,9 +143,9 @@ class Angle extends Measurement<Angle> {
 
   @override
   Angle _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Angle>? interpreter,
-  ]) =>
-      Angle._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Angle>? interpreter,
+    Precision precision,
+  ) =>
+      Angle(amount, interpreter ?? radians, precision);
 }

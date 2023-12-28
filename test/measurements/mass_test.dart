@@ -2,403 +2,405 @@ import 'package:fling_units/fling_units.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('zero', () {
-    test('has 0.0 mass', () {
-      // given
-      final mass = Mass.zero();
+  group('Mass', () {
+    group('zero', () {
+      test('has 0.0 mass', () {
+        // given
+        final mass = Mass.zero();
 
-      // when
-      final result = mass.as(grams);
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, 0.0);
+        // then
+        expect(result, 0.0);
+      });
+      test('has max precision', () {
+        // given
+        final mass = Mass.zero();
+
+        // when
+        final result = mass.precision;
+
+        // then
+        expect(result, Precision.max.precision);
+      });
+      test('with custom default interpreter', () {
+        // given
+        final interpreter = Mass.zero(pounds);
+
+        // when
+        final result = interpreter.toString();
+
+        // then
+        expect(result, '0.0 lb');
+      });
     });
-    test('has max precision', () {
-      // given
-      final mass = Mass.zero();
+    group('infinity', () {
+      test('has infinite mass', () {
+        // given
+        final mass = Mass.infinite();
 
-      // when
-      final result = mass.precision;
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, Precision.max.precision);
+        // then
+        expect(result, double.infinity);
+      });
+      test('has max precision', () {
+        // given
+        final mass = Mass.infinite();
+
+        // when
+        final result = mass.precision;
+
+        // then
+        expect(result, Precision.max.precision);
+      });
+      test('with custom default interpreter', () {
+        // given
+        final interpreter = Mass.infinite(pounds);
+
+        // when
+        final result = interpreter.toString();
+
+        // then
+        expect(result, 'Infinity lb');
+      });
     });
-    test('with custom default interpreter', () {
-      // given
-      final interpreter = Mass.zero(pounds);
+    group('negativeInfinity', () {
+      test('has infinite negative mass', () {
+        // given
+        final mass = Mass.negativeInfinite();
 
-      // when
-      final result = interpreter.toString();
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, '0.0 lb');
+        // then
+        expect(result, double.negativeInfinity);
+      });
+      test('has max precision', () {
+        // given
+        final mass = Mass.negativeInfinite();
+
+        // when
+        final result = mass.precision;
+
+        // then
+        expect(result, Precision.max.precision);
+      });
+      test('with custom default interpreter', () {
+        // given
+        final interpreter = Mass.negativeInfinite(pounds);
+
+        // when
+        final result = interpreter.toString();
+
+        // then
+        expect(result, '-Infinity lb');
+      });
     });
-  });
-  group('infinity', () {
-    test('has infinite mass', () {
-      // given
-      final mass = Mass.infinite();
 
-      // when
-      final result = mass.as(grams);
+    group('sum', () {
+      test('adds up component parts', () {
+        // given
+        final mass = Mass.sum([
+          grams(1),
+          kilo.grams(2),
+          centi.grams(3),
+          deci.grams(4),
+        ], precision: Precision(8));
 
-      // then
-      expect(result, double.infinity);
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 2001.43);
+      });
     });
-    test('has max precision', () {
-      // given
-      final mass = Mass.infinite();
 
-      // when
-      final result = mass.precision;
+    group('as', () {
+      test('converts to unit', () {
+        // given
+        final mass = grams(123.456, precision: Precision(8));
 
-      // then
-      expect(result, Precision.max.precision);
+        // when
+        final result = mass.as(pounds);
+
+        // then
+        expect(result, 0.27217389);
+      });
     });
-    test('with custom default interpreter', () {
-      // given
-      final interpreter = Mass.infinite(pounds);
 
-      // when
-      final result = interpreter.toString();
+    group('grams', () {
+      test('converts to base', () {
+        // given
+        final mass = grams(1234.0, precision: Precision(5));
 
-      // then
-      expect(result, 'Infinity lb');
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 1234.0);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.grams(1234.0, precision: Precision(5));
+
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 1.234);
+      });
     });
-  });
-  group('negativeInfinity', () {
-    test('has infinite negative mass', () {
-      // given
-      final mass = Mass.negativeInfinite();
+    group('atomicMassUnits', () {
+      test('converts to base', () {
+        // given
+        final mass = atomicMassUnits(1.234e24, precision: Precision(5));
 
-      // when
-      final result = mass.as(grams);
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, double.negativeInfinity);
+        // then
+        expect(result, 2.0491);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.atomicMassUnits(1.234e27, precision: Precision(5));
+
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 2.0491);
+      });
     });
-    test('has max precision', () {
-      // given
-      final mass = Mass.negativeInfinite();
+    group('daltons', () {
+      test('converts to base', () {
+        // given
+        final mass = daltons(1.0, precision: Precision(5));
 
-      // when
-      final result = mass.precision;
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, Precision.max.precision);
+        // then
+        expect(result, 1.6605e-24);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.daltons(1.0, precision: Precision(5));
+
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 1.6605e-27);
+      });
     });
-    test('with custom default interpreter', () {
-      // given
-      final interpreter = Mass.negativeInfinite(pounds);
+    group('electronRestMass', () {
+      test('converts to base', () {
+        // given
+        final mass = electronRestMass(1.0, precision: Precision(5));
 
-      // when
-      final result = interpreter.toString();
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, '-Infinity lb');
+        // then
+        expect(result, 9.1094e-28);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.electronRestMass(1.0, precision: Precision(5));
+
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 9.1094e-31);
+      });
     });
-  });
+    group('tonnes', () {
+      test('converts to base', () {
+        // given
+        final mass = tonnes(1.234e-6, precision: Precision(5));
 
-  group('sum', () {
-    test('adds up component parts', () {
-      // given
-      final mass = Mass.sum([
-        grams(1),
-        kilo.grams(2),
-        centi.grams(3),
-        deci.grams(4),
-      ], precision: Precision(8));
+        // when
+        final result = mass.as(grams);
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, 1.234);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.tonnes(1.234e-3, precision: Precision(5));
 
-      // then
-      expect(result, 2001.43);
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 1.234);
+      });
     });
-  });
+    group('short tons', () {
+      test('converts to base', () {
+        // given
+        final mass = shortTons(1.234e-6, precision: Precision(5));
 
-  group('as', () {
-    test('converts to unit', () {
-      // given
-      final mass = grams(123.456, precision: Precision(8));
+        // when
+        final result = mass.as(grams);
 
-      // when
-      final result = mass.as(pounds);
+        // then
+        expect(result, 1.1195);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.shortTons(1.234e-3, precision: Precision(5));
 
-      // then
-      expect(result, 0.27217389);
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 1.1195);
+      });
     });
-  });
+    group('long tons', () {
+      test('converts to base', () {
+        // given
+        final mass = longTons(1.234e-6, precision: Precision(5));
 
-  group('grams', () {
-    test('converts to base', () {
-      // given
-      final mass = grams(1234.0, precision: Precision(5));
+        // when
+        final result = mass.as(grams);
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, 1.2538);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.longTons(1.234e-3, precision: Precision(5));
 
-      // then
-      expect(result, 1234.0);
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 1.2538);
+      });
     });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.grams(1234.0, precision: Precision(5));
+    group('pounds', () {
+      test('converts to base', () {
+        // given
+        final mass = pounds(1.234, precision: Precision(5));
 
-      // when
-      final result = mass.as(grams);
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, 1.234);
+        // then
+        expect(result, 559.73);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.pounds(1.234e3, precision: Precision(5));
+
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 559.73);
+      });
     });
-  });
-  group('atomicMassUnits', () {
-    test('converts to base', () {
-      // given
-      final mass = atomicMassUnits(1.234e24, precision: Precision(5));
+    group('ounces', () {
+      test('converts to base', () {
+        // given
+        final mass = ounces(1.234, precision: Precision(5));
 
-      // when
-      final result = mass.as(grams);
+        // when
+        final result = mass.as(grams);
 
-      // then
-      expect(result, 2.0491);
+        // then
+        expect(result, 34.983);
+      });
+      test('applies prefixes', () {
+        // given
+        final mass = milli.ounces(1.234e3, precision: Precision(5));
+
+        // when
+        final result = mass.as(grams);
+
+        // then
+        expect(result, 34.983);
+      });
     });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.atomicMassUnits(1.234e27, precision: Precision(5));
 
-      // when
-      final result = mass.as(grams);
+    group('toString', () {
+      test('interpreter name', () {
+        // given
+        final interpreter = pounds;
 
-      // then
-      expect(result, 2.0491);
-    });
-  });
-  group('daltons', () {
-    test('converts to base', () {
-      // given
-      final mass = daltons(1.0, precision: Precision(5));
+        // when
+        final result = interpreter.toString();
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, 'lb');
+      });
+      test('interpreter name with prefix', () {
+        // given
+        final interpreter = milli.pounds;
 
-      // then
-      expect(result, 1.6605e-24);
-    });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.daltons(1.0, precision: Precision(5));
+        // when
+        final result = interpreter.toString();
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, 'mlb');
+      });
+      test('maintains units', () {
+        // given
+        final measurement = pounds(3.4).withPrecision(Precision(3));
 
-      // then
-      expect(result, 1.6605e-27);
-    });
-  });
-  group('electronRestMass', () {
-    test('converts to base', () {
-      // given
-      final mass = electronRestMass(1.0, precision: Precision(5));
+        // when
+        final result = measurement.toString();
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, '3.4 lb');
+      });
+      test('maintains prefix', () {
+        // given
+        final measurement = milli.pounds(3.4).withPrecision(Precision(3));
 
-      // then
-      expect(result, 9.1094e-28);
-    });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.electronRestMass(1.0, precision: Precision(5));
+        // when
+        final result = measurement.toString();
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, '3.4 mlb');
+      });
+      test('extension maintains prefix', () {
+        // given
+        final measurement = 3.4.milli.pounds.withPrecision(Precision(3));
 
-      // then
-      expect(result, 9.1094e-31);
-    });
-  });
-  group('tonnes', () {
-    test('converts to base', () {
-      // given
-      final mass = tonnes(1.234e-6, precision: Precision(5));
+        // when
+        final result = measurement.toString();
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, '3.4 mlb');
+      });
+      test('modified precision', () {
+        // given
+        final measurement = deci.pounds(23.45).withPrecision(Precision(3));
 
-      // then
-      expect(result, 1.234);
-    });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.tonnes(1.234e-3, precision: Precision(5));
+        // when
+        final result = measurement.withPrecision(Precision(2)).toString();
 
-      // when
-      final result = mass.as(grams);
+        // then
+        expect(result, '23.0 dlb');
+      });
+      test('modified units', () {
+        // given
+        final measurement = deci.pounds(23.45).withPrecision(Precision(3));
 
-      // then
-      expect(result, 1.234);
-    });
-  });
-  group('short tons', () {
-    test('converts to base', () {
-      // given
-      final mass = shortTons(1.234e-6, precision: Precision(5));
+        // when
+        final result = measurement.withDefaultUnit(milli.tonnes).toString();
 
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 1.1195);
-    });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.shortTons(1.234e-3, precision: Precision(5));
-
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 1.1195);
-    });
-  });
-  group('long tons', () {
-    test('converts to base', () {
-      // given
-      final mass = longTons(1.234e-6, precision: Precision(5));
-
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 1.2538);
-    });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.longTons(1.234e-3, precision: Precision(5));
-
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 1.2538);
-    });
-  });
-  group('pounds', () {
-    test('converts to base', () {
-      // given
-      final mass = pounds(1.234, precision: Precision(5));
-
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 559.73);
-    });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.pounds(1.234e3, precision: Precision(5));
-
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 559.73);
-    });
-  });
-  group('ounces', () {
-    test('converts to base', () {
-      // given
-      final mass = ounces(1.234, precision: Precision(5));
-
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 34.983);
-    });
-    test('applies prefixes', () {
-      // given
-      final mass = milli.ounces(1.234e3, precision: Precision(5));
-
-      // when
-      final result = mass.as(grams);
-
-      // then
-      expect(result, 34.983);
-    });
-  });
-
-  group('toString', () {
-    test('interpreter name', () {
-      // given
-      final interpreter = pounds;
-
-      // when
-      final result = interpreter.toString();
-
-      // then
-      expect(result, 'lb');
-    });
-    test('interpreter name with prefix', () {
-      // given
-      final interpreter = milli.pounds;
-
-      // when
-      final result = interpreter.toString();
-
-      // then
-      expect(result, 'mlb');
-    });
-    test('maintains units', () {
-      // given
-      final measurement = pounds(3.4).withPrecision(Precision(3));
-
-      // when
-      final result = measurement.toString();
-
-      // then
-      expect(result, '3.4 lb');
-    });
-    test('maintains prefix', () {
-      // given
-      final measurement = milli.pounds(3.4).withPrecision(Precision(3));
-
-      // when
-      final result = measurement.toString();
-
-      // then
-      expect(result, '3.4 mlb');
-    });
-    test('extension maintains prefix', () {
-      // given
-      final measurement = 3.4.milli.pounds.withPrecision(Precision(3));
-
-      // when
-      final result = measurement.toString();
-
-      // then
-      expect(result, '3.4 mlb');
-    });
-    test('modified precision', () {
-      // given
-      final measurement = deci.pounds(23.45).withPrecision(Precision(3));
-
-      // when
-      final result = measurement.withPrecision(Precision(2)).toString();
-
-      // then
-      expect(result, '23.0 dlb');
-    });
-    test('modified units', () {
-      // given
-      final measurement = deci.pounds(23.45).withPrecision(Precision(3));
-
-      // when
-      final result = measurement.withDefaultUnit(milli.tonnes).toString();
-
-      // then
-      expect(result, '1.06 mt');
+        // then
+        expect(result, '1.06 mt');
+      });
     });
   });
 }

@@ -4,7 +4,7 @@ part of '../../fling_units.dart';
 class AreaInterpreter extends MeasurementInterpreter<Area> {
   @override
   Area call(final double value, {final Precision precision = Precision.max}) =>
-      Area._(_from(value), precision, this);
+      Area(value, this, precision);
 
   /// Constructs an [AreaInterpreter] from any two [DistanceInterpreter]s.
   AreaInterpreter(
@@ -60,16 +60,16 @@ class Area extends Measurement<Area> {
 
   /// Constructs an [Area] from component parts.
   Area.of(final Distance a, final Distance b)
-      : this._(
-          a.si * b.si,
-          Precision.combine(a._precision, b._precision),
+      : this(
+          a.defaultValue * b.defaultValue,
           AreaInterpreter._m2(),
+          Precision.combine([a._precision, b._precision]),
         );
 
   /// Constructs an [Area] representing the sum of any number of other [Area]s.
   Area.sum(final Iterable<Area> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Interprets this [Measurement] in the specified units.
   double as(
@@ -87,16 +87,20 @@ class Area extends Measurement<Area> {
 
   @override
   Area _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Area>? interpreter,
-  ]) =>
-      Area._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Area>? interpreter,
+    Precision precision,
+  ) =>
+      Area(amount, interpreter ?? AreaInterpreter._m2(), precision);
 
   /// Constructs an [Area].
-  Area._(
-    final double squareMeters,
-    final Precision precision,
-    final MeasurementInterpreter<Area>? interpreter,
-  ) : super(squareMeters, precision, interpreter);
+  Area(
+    num squareMeters,
+    MeasurementInterpreter<Area> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(
+          amount: squareMeters,
+          precision: precision,
+          interpreter: interpreter,
+        );
 }

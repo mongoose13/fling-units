@@ -24,7 +24,7 @@ class StandardQuantityInterpreter extends MeasurementInterpreter<Quantity>
 
   @override
   Quantity call(final num value, {final Precision precision = Precision.max}) =>
-      Quantity._(_from(value), precision, this);
+      Quantity(value, this, precision);
 
   /// The interpreter for moles.
   static const _moles = StandardQuantityInterpreter._('mol', 1e0);
@@ -47,7 +47,7 @@ class RoundingQuantityInterpreter
 
   @override
   Quantity call(final num value, {final Precision precision = Precision.max}) =>
-      Quantity._(_from(value), precision, this);
+      Quantity(value, this, precision);
 
   /// The interpreter for units (discrete items).
   static const _units = RoundingQuantityInterpreter._('x', 6.02214076e23);
@@ -106,7 +106,7 @@ class Quantity extends Measurement<Quantity> {
   /// [Quantity]s.
   Quantity.sum(final Iterable<Quantity> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<Quantity> interpreter) =>
@@ -118,16 +118,20 @@ class Quantity extends Measurement<Quantity> {
 
   @override
   Quantity _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Quantity>? interpreter,
-  ]) =>
-      Quantity._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Quantity>? interpreter,
+    Precision precision,
+  ) =>
+      Quantity(
+        amount,
+        interpreter ?? units,
+        precision,
+      );
 
   /// Constructs a [Distance].
-  const Quantity._(
-    final double units,
-    final Precision precision,
-    final MeasurementInterpreter<Quantity>? interpreter,
-  ) : super(units, precision, interpreter);
+  const Quantity(
+    num units,
+    MeasurementInterpreter<Quantity> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(amount: units, precision: precision, interpreter: interpreter);
 }

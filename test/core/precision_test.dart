@@ -2,22 +2,43 @@ import 'package:fling_units/fling_units.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Constructors', () {
+  group('out of range', () {
     test('zero precision', () {
-      expect(() => Precision(0), throwsArgumentError);
+      // given
+      const precision = Precision(0);
+
+      // when
+      final result = precision.withPrecision(1.234);
+
+      // then
+      expect(result, 1.0);
     });
     test('negative precision', () {
-      expect(() => Precision(-2), throwsArgumentError);
+      // given
+      const precision = Precision(-2);
+
+      // when
+      final result = precision.withPrecision(1.234);
+
+      // then
+      expect(result, 1.0);
     });
     test('high precision', () {
-      expect(() => Precision(22), throwsArgumentError);
+      // given
+      const precision = Precision(22);
+
+      // when
+      final result = precision.withPrecision(1.23456789012345678901234567890);
+
+      // then
+      expect(result, 1.23456789012345678901);
     });
   });
 
   group('withPrecision', () {
     test('partial whole number precision', () {
       //given
-      final precision = Precision(2);
+      const precision = Precision(2);
 
       // when
       final result = precision.withPrecision(123.4321);
@@ -27,7 +48,7 @@ void main() {
     });
     test('whole number precision', () {
       //given
-      final precision = Precision(3);
+      const precision = Precision(3);
 
       // when
       final result = precision.withPrecision(123.4321);
@@ -37,7 +58,7 @@ void main() {
     });
     test('whole and decimal number precision', () {
       //given
-      final precision = Precision(4);
+      const precision = Precision(4);
 
       // when
       final result = precision.withPrecision(123.4321);
@@ -47,7 +68,7 @@ void main() {
     });
     test('rounding at .5', () {
       //given
-      final precision = Precision(4);
+      const precision = Precision(4);
 
       // when
       final result = precision.withPrecision(123.45);
@@ -57,7 +78,7 @@ void main() {
     });
     test('additional precision', () {
       //given
-      final precision = Precision(5);
+      const precision = Precision(5);
 
       // when
       final result = precision.withPrecision(1.23);
@@ -68,16 +89,69 @@ void main() {
   });
 
   group('combine', () {
-    test('chooses smaller value', () {
+    test('with no items', () {
+      // then
+      expect(() => Precision.combine([]), throwsStateError);
+    });
+    test('with single item', () {
       // given
-      final precision1 = Precision(3);
-      final precision2 = Precision(2);
+      const precision1 = Precision(3);
 
       // when
-      final result = Precision.combine(precision1, precision2);
+      final result = Precision.combine([precision1]);
+
+      // then
+      expect(result.precision, 3);
+    });
+    test('chooses smaller value of two', () {
+      // given
+      const precision1 = Precision(3);
+      const precision2 = Precision(2);
+
+      // when
+      final result = Precision.combine([precision1, precision2]);
 
       // then
       expect(result.precision, 2);
+    });
+    test('chooses smaller value of many', () {
+      // when
+      final result = Precision.combine([
+        Precision(3),
+        Precision(5),
+        Precision(20),
+        Precision(2),
+        Precision(10),
+      ]);
+
+      // then
+      expect(result.precision, 2);
+    });
+    test('chooses smaller value of many when answer is first', () {
+      // when
+      final result = Precision.combine([
+        Precision(3),
+        Precision(5),
+        Precision(20),
+        Precision(4),
+        Precision(10),
+      ]);
+
+      // then
+      expect(result.precision, 3);
+    });
+    test('chooses smaller value of many when answer is last', () {
+      // when
+      final result = Precision.combine([
+        Precision(10),
+        Precision(5),
+        Precision(20),
+        Precision(4),
+        Precision(3),
+      ]);
+
+      // then
+      expect(result.precision, 3);
     });
   });
 

@@ -6,7 +6,7 @@ class TemperatureChangeInterpreter
   @override
   TemperatureChange call(final num value,
           {final Precision precision = Precision.max}) =>
-      TemperatureChange._(_from(value), precision, this);
+      TemperatureChange(value, this, precision);
 
   /// Constructs a [TemperatureChangeInterpreter].
   const TemperatureChangeInterpreter._(
@@ -78,31 +78,34 @@ mixin TemperaturePrefix {
 /// the two [Temperature]s. It would not make sense to say that the difference
 /// in temperature is the "thermometer" temperature of 10 degrees.
 class TemperatureChange extends Measurement<TemperatureChange> {
+  /// The SI unit associated with this measurement.
+  static const siUnit = kelvin;
+
   /// No change in temperature.
   const TemperatureChange.zero(
-      [final MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
+      [final MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite temperature change.
   const TemperatureChange.infinite(
-      [final MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
+      [final MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Negative infinite temperature change.
   const TemperatureChange.negativeInfinite(
-      [final MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
+      [final MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [TemperatureChange] representing the sum of any number of
   /// other [TemperatureChange]s.
   TemperatureChange.sum(final Iterable<TemperatureChange> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Returns a [TemperatureChange] that represents the positive magnitude of
   /// this.
   TemperatureChange magnitude() =>
-      TemperatureChange._(si.abs(), _precision, defaultInterpreter);
+      TemperatureChange(si.abs(), defaultInterpreter, _precision);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<TemperatureChange> interpreter) =>
@@ -113,17 +116,21 @@ class TemperatureChange extends Measurement<TemperatureChange> {
       visitor.visitTemperatureChange(this);
 
   /// Constructs a [TemperatureChange].
-  const TemperatureChange._(
-    final double kelvin,
-    final Precision precision,
-    final MeasurementInterpreter<TemperatureChange>? interpreter,
-  ) : super(kelvin, precision, interpreter);
+  const TemperatureChange(
+    num kelvin,
+    MeasurementInterpreter<TemperatureChange> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(amount: kelvin, precision: precision, interpreter: interpreter);
 
   @override
   TemperatureChange _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<TemperatureChange>? interpreter,
-  ]) =>
-      TemperatureChange._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<TemperatureChange>? interpreter,
+    Precision precision,
+  ) =>
+      TemperatureChange(
+        amount,
+        interpreter ?? siUnit,
+        precision,
+      );
 }

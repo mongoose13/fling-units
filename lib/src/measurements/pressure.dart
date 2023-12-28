@@ -3,7 +3,7 @@ part of '../../fling_units.dart';
 class PressureInterpreter extends MeasurementInterpreter<Pressure> {
   @override
   Pressure call(final num value, {final Precision precision = Precision.max}) =>
-      Pressure._(_from(value), precision, this);
+      Pressure(value, this, precision);
 
   /// Constructs a [MassInterpreter].
   const PressureInterpreter._(
@@ -117,6 +117,9 @@ const torr = PressureInterpreter._torr;
 const psi = PressureInterpreter._psi;
 
 class Pressure extends Measurement<Pressure> {
+  /// The SI unit associated with this measurement.
+  static const siUnit = pascals;
+
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<Pressure> interpreter) =>
       _preciseOf(interpreter);
@@ -126,34 +129,38 @@ class Pressure extends Measurement<Pressure> {
       visitor.visitPressure(this);
 
   /// Constructs a [Pressure].
-  const Pressure._(
-    final double grams,
-    final Precision precision,
-    final MeasurementInterpreter<Pressure>? interpreter,
-  ) : super(grams, precision, interpreter);
+  const Pressure(
+    num pascals,
+    MeasurementInterpreter<Pressure> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(amount: pascals, precision: precision, interpreter: interpreter);
 
   /// Constructs a [Pressure] representing the sum of any number of other [Pressure]s.
   Pressure.sum(final Iterable<Pressure> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   @override
   Pressure _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Pressure>? interpreter,
-  ]) =>
-      Pressure._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Pressure>? interpreter,
+    Precision precision,
+  ) =>
+      Pressure(
+        amount,
+        interpreter ?? siUnit,
+        precision,
+      );
 
   const Pressure.zero(
-      [final MeasurementInterpreter<Pressure> interpreter = pascals])
+      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.zero(interpreter);
 
   const Pressure.infinite(
-      [final MeasurementInterpreter<Pressure> interpreter = pascals])
+      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.infinite(interpreter);
 
   const Pressure.negativeInfinite(
-      [final MeasurementInterpreter<Pressure> interpreter = pascals])
+      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 }

@@ -36,170 +36,146 @@ class MeasurementPrefix
   String toString() => _name;
 
   /// SI prefix "quecto".
-  static final MeasurementPrefix _quecto =
-      const MeasurementPrefix(1e-30, name: 'q');
+  static const MeasurementPrefix _quecto = MeasurementPrefix(1e-30, name: 'q');
 
   /// SI prefix "ronto".
-  static final MeasurementPrefix _ronto =
-      const MeasurementPrefix(1e-27, name: 'r');
+  static const MeasurementPrefix _ronto = MeasurementPrefix(1e-27, name: 'r');
 
   /// SI prefix "yocto".
-  static final MeasurementPrefix _yocto =
-      const MeasurementPrefix(1e-24, name: 'y');
+  static const MeasurementPrefix _yocto = MeasurementPrefix(1e-24, name: 'y');
 
   /// SI prefix "zepto".
-  static final MeasurementPrefix _zepto =
-      const MeasurementPrefix(1e-21, name: 'z');
+  static const MeasurementPrefix _zepto = MeasurementPrefix(1e-21, name: 'z');
 
   /// SI prefix "atto".
-  static final MeasurementPrefix _atto =
-      const MeasurementPrefix(1e-18, name: 'a');
+  static const MeasurementPrefix _atto = MeasurementPrefix(1e-18, name: 'a');
 
   /// SI prefix "femto".
-  static final MeasurementPrefix _femto =
-      const MeasurementPrefix(1e-15, name: 'f');
+  static const MeasurementPrefix _femto = MeasurementPrefix(1e-15, name: 'f');
 
   /// SI prefix "pico".
-  static final MeasurementPrefix _pico =
-      const MeasurementPrefix(1e-12, name: 'p');
+  static const MeasurementPrefix _pico = MeasurementPrefix(1e-12, name: 'p');
 
   /// SI prefix "nano".
-  static final MeasurementPrefix _nano =
-      const MeasurementPrefix(1e-9, name: 'n');
+  static const MeasurementPrefix _nano = MeasurementPrefix(1e-9, name: 'n');
 
   /// SI prefix "micro".
-  static final MeasurementPrefix _micro =
-      const MeasurementPrefix(1e-6, name: 'μ');
+  static const MeasurementPrefix _micro = MeasurementPrefix(1e-6, name: 'μ');
 
   /// SI prefix "milli".
-  static final MeasurementPrefix _milli =
-      const MeasurementPrefix(1e-3, name: 'm');
+  static const MeasurementPrefix _milli = MeasurementPrefix(1e-3, name: 'm');
 
   /// SI prefix "centi".
-  static final MeasurementPrefix _centi =
-      const MeasurementPrefix(1e-2, name: 'c');
+  static const MeasurementPrefix _centi = MeasurementPrefix(1e-2, name: 'c');
 
   /// SI prefix "deci".
-  static final MeasurementPrefix _deci =
-      const MeasurementPrefix(1e-1, name: 'd');
+  static const MeasurementPrefix _deci = MeasurementPrefix(1e-1, name: 'd');
 
   /// SI prefix "deka".
-  static final MeasurementPrefix _deka =
-      const MeasurementPrefix(1e1, name: 'da');
+  static const MeasurementPrefix _deka = MeasurementPrefix(1e1, name: 'da');
 
   /// SI prefix "hecto".
-  static final MeasurementPrefix _hecto =
-      const MeasurementPrefix(1e2, name: 'h');
+  static const MeasurementPrefix _hecto = MeasurementPrefix(1e2, name: 'h');
 
   /// SI prefix "kilo".
-  static final MeasurementPrefix _kilo =
-      const MeasurementPrefix(1e3, name: 'k');
+  static const MeasurementPrefix _kilo = MeasurementPrefix(1e3, name: 'k');
 
   /// SI prefix "mega".
-  static final MeasurementPrefix _mega =
-      const MeasurementPrefix(1e6, name: 'M');
+  static const MeasurementPrefix _mega = MeasurementPrefix(1e6, name: 'M');
 
   /// SI prefix "giga".
-  static final MeasurementPrefix _giga =
-      const MeasurementPrefix(1e9, name: 'G');
+  static const MeasurementPrefix _giga = MeasurementPrefix(1e9, name: 'G');
 
   /// SI prefix "tera".
-  static final MeasurementPrefix _tera =
-      const MeasurementPrefix(1e12, name: 'T');
+  static const MeasurementPrefix _tera = MeasurementPrefix(1e12, name: 'T');
 
   /// SI prefix "peta".
-  static final MeasurementPrefix _peta =
-      const MeasurementPrefix(1e15, name: 'P');
+  static const MeasurementPrefix _peta = MeasurementPrefix(1e15, name: 'P');
 
   /// SI prefix "exa".
-  static final MeasurementPrefix _exa =
-      const MeasurementPrefix(1e18, name: 'E');
+  static const MeasurementPrefix _exa = MeasurementPrefix(1e18, name: 'E');
 
   /// SI prefix "zetta".
-  static final MeasurementPrefix _zetta =
-      const MeasurementPrefix(1e21, name: 'Z');
+  static const MeasurementPrefix _zetta = MeasurementPrefix(1e21, name: 'Z');
 
   /// SI prefix "yotta".
-  static final MeasurementPrefix _yotta =
-      const MeasurementPrefix(1e24, name: 'Y');
+  static const MeasurementPrefix _yotta = MeasurementPrefix(1e24, name: 'Y');
 
   /// SI prefix "ronna".
-  static final MeasurementPrefix _ronna =
-      const MeasurementPrefix(1e27, name: 'R');
+  static const MeasurementPrefix _ronna = MeasurementPrefix(1e27, name: 'R');
 
   /// SI prefix "quetta".
-  static final MeasurementPrefix _quetta =
-      const MeasurementPrefix(1e30, name: 'Q');
+  static const MeasurementPrefix _quetta = MeasurementPrefix(1e30, name: 'Q');
 }
 
 /// SI prefix "quecto".
-final MeasurementPrefix quecto = MeasurementPrefix._quecto;
+const MeasurementPrefix quecto = MeasurementPrefix._quecto;
 
 /// SI prefix "ronto".
-final MeasurementPrefix ronto = MeasurementPrefix._ronto;
+const MeasurementPrefix ronto = MeasurementPrefix._ronto;
 
 /// SI prefix "yocto".
-final MeasurementPrefix yocto = MeasurementPrefix._yocto;
+const MeasurementPrefix yocto = MeasurementPrefix._yocto;
 
 /// SI prefix "zepto".
-final MeasurementPrefix zepto = MeasurementPrefix._zepto;
+const MeasurementPrefix zepto = MeasurementPrefix._zepto;
 
 /// SI prefix "atto".
-final MeasurementPrefix atto = MeasurementPrefix._atto;
+const MeasurementPrefix atto = MeasurementPrefix._atto;
 
 /// SI prefix "femto".
-final MeasurementPrefix femto = MeasurementPrefix._femto;
+const MeasurementPrefix femto = MeasurementPrefix._femto;
 
 /// SI prefix "pico".
-final MeasurementPrefix pico = MeasurementPrefix._pico;
+const MeasurementPrefix pico = MeasurementPrefix._pico;
 
 /// SI prefix "nano".
-final MeasurementPrefix nano = MeasurementPrefix._nano;
+const MeasurementPrefix nano = MeasurementPrefix._nano;
 
 /// SI prefix "micro".
-final MeasurementPrefix micro = MeasurementPrefix._micro;
+const MeasurementPrefix micro = MeasurementPrefix._micro;
 
 /// SI prefix "milli".
-final MeasurementPrefix milli = MeasurementPrefix._milli;
+const MeasurementPrefix milli = MeasurementPrefix._milli;
 
 /// SI prefix "centi".
-final MeasurementPrefix centi = MeasurementPrefix._centi;
+const MeasurementPrefix centi = MeasurementPrefix._centi;
 
 /// SI prefix "deci".
-final MeasurementPrefix deci = MeasurementPrefix._deci;
+const MeasurementPrefix deci = MeasurementPrefix._deci;
 
 /// SI prefix "deka".
-final MeasurementPrefix deka = MeasurementPrefix._deka;
+const MeasurementPrefix deka = MeasurementPrefix._deka;
 
 /// SI prefix "hecto".
-final MeasurementPrefix hecto = MeasurementPrefix._hecto;
+const MeasurementPrefix hecto = MeasurementPrefix._hecto;
 
 /// SI prefix "kilo".
-final MeasurementPrefix kilo = MeasurementPrefix._kilo;
+const MeasurementPrefix kilo = MeasurementPrefix._kilo;
 
 /// SI prefix "mega".
-final MeasurementPrefix mega = MeasurementPrefix._mega;
+const MeasurementPrefix mega = MeasurementPrefix._mega;
 
 /// SI prefix "giga".
-final MeasurementPrefix giga = MeasurementPrefix._giga;
+const MeasurementPrefix giga = MeasurementPrefix._giga;
 
 /// SI prefix "tera".
-final MeasurementPrefix tera = MeasurementPrefix._tera;
+const MeasurementPrefix tera = MeasurementPrefix._tera;
 
 /// SI prefix "peta".
-final MeasurementPrefix peta = MeasurementPrefix._peta;
+const MeasurementPrefix peta = MeasurementPrefix._peta;
 
 /// SI prefix "exa".
-final MeasurementPrefix exa = MeasurementPrefix._exa;
+const MeasurementPrefix exa = MeasurementPrefix._exa;
 
 /// SI prefix "zetta".
-final MeasurementPrefix zetta = MeasurementPrefix._zetta;
+const MeasurementPrefix zetta = MeasurementPrefix._zetta;
 
 /// SI prefix "yotta".
-final MeasurementPrefix yotta = MeasurementPrefix._yotta;
+const MeasurementPrefix yotta = MeasurementPrefix._yotta;
 
 /// SI prefix "ronna".
-final MeasurementPrefix ronna = MeasurementPrefix._ronna;
+const MeasurementPrefix ronna = MeasurementPrefix._ronna;
 
 /// SI prefix "quetta".
-final MeasurementPrefix quetta = MeasurementPrefix._quetta;
+const MeasurementPrefix quetta = MeasurementPrefix._quetta;

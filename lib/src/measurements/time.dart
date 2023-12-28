@@ -4,7 +4,7 @@ part of '../../fling_units.dart';
 class TimeInterpreter extends MeasurementInterpreter<Time> {
   @override
   Time call(final num value, {final Precision precision = Precision.max}) =>
-      Time._(_from(value), precision, this);
+      Time(value, this, precision);
 
   /// Constructs a [TimeInterpreter].
   const TimeInterpreter._(
@@ -72,32 +72,33 @@ mixin TimePrefix {
 /// conversions are acceptable, via the [Time.ofDuration] and [Time.asDuration]
 /// methods.
 class Time extends Measurement<Time> {
+  /// The SI unit associated with this measurement.
+  static const siUnit = seconds;
+
   /// The time of duration zero.
-  const Time.zero([final MeasurementInterpreter<Time> interpreter = seconds])
+  const Time.zero([final MeasurementInterpreter<Time> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite time.
-  const Time.infinite(
-      [final MeasurementInterpreter<Time> interpreter = seconds])
+  const Time.infinite([final MeasurementInterpreter<Time> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative time.
   const Time.negativeInfinite(
-      [final MeasurementInterpreter<Time> interpreter = seconds])
+      [final MeasurementInterpreter<Time> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Time] representing the sum of any number of other [Time]s.
   Time.sum(final Iterable<Time> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Constructs a [Time] from a [Duration].
   Time.ofDuration(
-    final Duration duration, {
-    final Precision precision = Precision.max,
-    final MeasurementInterpreter<Time> interpreter = TimeInterpreter._seconds,
-  }) : this._(micro.seconds._from(duration.inMicroseconds), precision,
-            interpreter);
+    Duration duration, {
+    Precision precision = Precision.max,
+    MeasurementInterpreter<Time> interpreter = TimeInterpreter._seconds,
+  }) : this(duration.inMicroseconds, interpreter, precision);
 
   /// Constructs a [Duration] based on this.
   ///
@@ -113,17 +114,25 @@ class Time extends Measurement<Time> {
       visitor.visitTime(this);
 
   /// Constructs a [Time].
-  const Time._(
-    final double seconds,
-    final Precision precision,
-    final MeasurementInterpreter<Time>? interpreter,
-  ) : super(seconds, precision, interpreter);
+  const Time(
+    num seconds,
+    MeasurementInterpreter<Time> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(
+          amount: seconds,
+          precision: precision,
+          interpreter: interpreter,
+        );
 
   @override
   Time _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Time>? interpreter,
-  ]) =>
-      Time._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Time>? interpreter,
+    Precision precision,
+  ) =>
+      Time(
+        amount,
+        interpreter ?? siUnit,
+        precision,
+      );
 }

@@ -1,10 +1,10 @@
-import 'package:fling_units/fling_units.dart';
+import "package:fling_units/fling_units.dart";
 
 void main() {
   // Create an instance of the measurement you care about.
   // You may use any of several construction methods.
   // Include the precision of your measurement for best results!
-  var bodyTemperature = Temperature.ofFahrenheit(93.4);
+  var distanceToTheMoon = kilo.meters(382500, precision: Precision(4));
   var distanceToSeattle = Distance.sum(
     [
       miles(123),
@@ -14,8 +14,9 @@ void main() {
     ],
     precision: Precision(3),
   );
-  var distanceToTheMoon = kilo.meters(382500, precision: Precision(4));
+  var bodyTemperature = Temperature.ofFahrenheit(93.4);
   var depthsOfMyMind = Volume.infinite();
+  var depthsOfMyPetRocksMind = Volume.zero();
 
   //------------------------------------------------//
 
@@ -29,24 +30,24 @@ void main() {
 
   // Compare measurements of the same type (e.g. Distance or Temperature).
   if (distanceToTheMoon > distanceToSeattle) {
-    print('Whew, we are still in Kansas.');
+    print("Whew, we are still in Kansas.");
   } else {
     print("I don't think we're in Kansas any more.");
   }
 
-  print('\nIt is cold...');
+  print("\nIt is cold...");
   while (bodyTemperature < Temperature.ofFahrenheit(98.6)) {
-    print('I need another blanket...');
+    print("I need another blanket...");
     bodyTemperature += fahrenheit(2);
   }
-  print('Ahh, much better!');
+  print("Ahh, much better!");
   // Attempting to compare incompatible types is a compile-time error.
   // if (bodyTemperature <= depthsOfMyMind) { // compile error!  }
 
   //------------------------------------------------//
 
   // Inherent ordering of items allows sorting lists with the built-in methods.
-  var distances = [
+  var distances = <Distance>[
     inches(1, precision: Precision(3)),
     centi.meters(1, precision: Precision(3)),
     Distance.zero(),
@@ -54,52 +55,54 @@ void main() {
     feet(-1, precision: Precision(3)),
     Distance.negativeInfinite(),
   ];
-  print('\nThese are all out of whack: $distances');
+  print("\nThese are all out of whack: $distances");
   distances.sort();
-  print('Much better: $distances');
+  print("Much better: $distances");
 
   //------------------------------------------------//
 
-  // When you're ready, interpret the measurement using whatever unit you like.
+  // When you"re ready, interpret the measurement using whatever unit you like.
   print(
-      '\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.as(yards)} yards because I left my driving glasses at home.');
+      "\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.as(yards)} yards because I left my driving glasses at home.");
   print(
-      'I can fit ${depthsOfMyMind.asVolume(Volume.cubic(meters))} boxes of bananas in my mind.');
+      "I can fit ${depthsOfMyMind.asVolume(Volume.cubic(meters))} boxes of bananas in my mind.");
+  print(
+      "I can fit ${depthsOfMyPetRocksMind.asVolume(Volume.cubic(meters))} boxes of bananas in my pet rock's mind.");
 
   //------------------------------------------------//
 
   // Some of the more common derived units (e.g. Area) have full syntactic support.
   var monitorSurfaceArea = Area.square(inches)(800, precision: Precision(4));
-  print('\nMy monitor dimensions:');
-  print('${monitorSurfaceArea.asArea(Area.square(meters))} m²');
-  print('${monitorSurfaceArea.asArea(Area.square(centi.meters))} cm²');
-  print('${monitorSurfaceArea.asArea(Area.square(inches))} in²');
-  print('${monitorSurfaceArea.as(inches, inches)} in² (alternate form)');
+  print("\nMy monitor dimensions:");
+  print("${monitorSurfaceArea.asArea(Area.square(meters))} m²");
+  print("${monitorSurfaceArea.asArea(Area.square(centi.meters))} cm²");
+  print("${monitorSurfaceArea.asArea(Area.square(inches))} in²");
+  print("${monitorSurfaceArea.as(inches, inches)} in² (alternate form)");
   print(
-      '${monitorSurfaceArea.as(inches, centi.meters)} in x cm (in case you ever needed that...)');
+      "${monitorSurfaceArea.as(inches, centi.meters)} in x cm (in case you ever needed that...)");
 
   // You can also build them from their component parts.
   var oneSquareInch = Area.of(
     inches(1, precision: Precision(3)),
     inches(1, precision: Precision(3)),
   );
-  print('\nOne square inch is '
-      '${oneSquareInch.asArea(Area.square(feet))} square feet.');
+  print("\nOne square inch is "
+      "${oneSquareInch.asArea(Area.square(feet))} square feet.");
 
   //------------------------------------------------//
 
-  // Need a derived unit that isn't specifically implemented? Build it yourself!
+  // Need a derived unit that isn"t specifically implemented? Build it yourself!
   // You can also use the common derived units to create your masterpiece.
   var fuelConsumption = distanceToSeattle.per(usGallons(2.4));
-  print('\nDriving to Seattle made me realize how great my fuel economy is!');
-  print('${fuelConsumption.as(miles, usGallons)} mpg');
+  print("\nDriving to Seattle made me realize how great my fuel economy is!");
+  print("${fuelConsumption.as(miles, usGallons)} mpg");
   // Interpret the derived unit in any combination of component units.
-  print('${fuelConsumption.as(miles, liters)} mpl');
-  print('${fuelConsumption.as(kilo.meters, liters)} kpl');
-  print('${fuelConsumption.as(kilo.meters, usGallons)} kpg');
+  print("${fuelConsumption.as(miles, liters)} mpl");
+  print("${fuelConsumption.as(kilo.meters, liters)} kpl");
+  print("${fuelConsumption.as(kilo.meters, usGallons)} kpg");
 
   var coulombs = seconds(4).by(amperes(8));
-  print('My invention generates $coulombs!');
+  print("My invention generates $coulombs!");
 
   //------------------------------------------------//
 
@@ -108,7 +111,7 @@ void main() {
   var yourBucketSize = 3.liters;
   var myBucketSize = (1.5).deka.liters;
   print(
-      '\nMy bucket is ${myBucketSize.compareMagnitude(yourBucketSize)} times bigger than yours!');
+      "\nMy bucket is ${myBucketSize.compareMagnitude(yourBucketSize)} times bigger than yours!");
 
   //------------------------------------------------//
 
@@ -117,9 +120,9 @@ void main() {
   // in their own toString() methods using whichever unit was used to
   // instantiate them. You can also change the default unit later.
   final goldAmount = 1234.milli.grams.withPrecision(Precision(4));
-  print('I have $goldAmount of gold!');
-  print('I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!');
-  print('I have ${goldAmount.withDefaultUnit(ounces)} of gold!');
+  print("I have $goldAmount of gold!");
+  print("I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!");
+  print("I have ${goldAmount.withDefaultUnit(ounces)} of gold!");
 
   // This is also true for derived units. The library will produce a default
   // unit name, but you can also supply your own.
@@ -127,12 +130,29 @@ void main() {
     100.miles.withPrecision(Precision(3)),
     1.hours.withPrecision(Precision(3)),
   );
-  print('\nMy car is going $carSpeed!');
+  print("\nMy car is going $carSpeed!");
   final carVelocity = carSpeed.withDefaultUnit(DerivedMeasurementInterpreter(
-      feet, minutes, true, MeasurementPrefix.unit(), 'gizmos per doodad'));
-  print('My car is going $carVelocity!');
+    feet,
+    minutes,
+    true,
+    MeasurementPrefix.unit(),
+    "feet per minute",
+  ));
+  print("My car is going $carVelocity!");
   print(
-      'My car is going ${carVelocity.defaultValue} in ${carVelocity.defaultInterpreter}!');
+      "My car is going ${carVelocity.defaultValue} in ${carVelocity.defaultInterpreter}!");
+
+  //------------------------------------------------//
+
+  // All basic measurements support const-ness in their default constructors.
+  // Unfortunately, it is not possible to set up const constructors using the
+  // extensions or prefixes at this time, nor is it possible to create const
+  // derived units at this time.
+
+  const sizeOfMyHand = Distance(5.0, inches);
+  const massOfMyHand = Mass(1.2, pounds);
+  print(
+      "\nMy hand will always have a linear density of ${DerivedMeasurement.divide(massOfMyHand, sizeOfMyHand)}.");
 
   // Have fun!
 }

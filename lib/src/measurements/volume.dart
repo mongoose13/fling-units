@@ -4,7 +4,7 @@ part of '../../fling_units.dart';
 class VolumeInterpreter extends MeasurementInterpreter<Volume> {
   @override
   Volume call(final num value, {final Precision precision = Precision.max}) =>
-      Volume._(_from(value), precision, this);
+      Volume(value, this, precision);
 
   /// Constructs a [VolumeInterpreter] from any three [DistanceInterpreter]s.
   VolumeInterpreter(
@@ -214,39 +214,41 @@ mixin VolumePrefix {
 
 /// Represents a three-dimensional space.
 class Volume extends Measurement<Volume> {
+  /// The SI unit associated with this measurement.
+  static const siUnit = liters;
+
   /// Produces an interpreter for the cube of a provided unit.
   static VolumeInterpreter cubic(
           final DistanceInterpreter distanceInterpreter) =>
       VolumeInterpreter.cubed(distanceInterpreter);
 
   /// The volume of size zero.
-  const Volume.zero([final MeasurementInterpreter<Volume> interpreter = liters])
+  const Volume.zero([final MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite volume.
   const Volume.infinite(
-      [final MeasurementInterpreter<Volume> interpreter = liters])
+      [final MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative volume.
   const Volume.negativeInfinite(
-      [final MeasurementInterpreter<Volume> interpreter = liters])
+      [final MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Volume] representing the sum of any number of other
   /// [Volume]s.
   Volume.sum(final Iterable<Volume> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Constructs a [Volume] from three [Distance] measurements.
   Volume.of(final Distance a, final Distance b, final Distance c)
-      : this._(
-          a.as(meters) * b.as(meters) * c.as(meters),
-          Precision.combine(
-              Precision.combine(a._precision, b._precision), c._precision),
+      : this(
+          a.defaultValue * b.defaultValue * c.defaultValue,
           VolumeInterpreter._unitless(
               a.defaultInterpreter, b.defaultInterpreter, c.defaultInterpreter),
+          Precision.combine([a._precision, b._precision, c._precision]),
         );
 
   /// Interprets this in the specified units.
@@ -263,17 +265,25 @@ class Volume extends Measurement<Volume> {
       visitor.visitVolume(this);
 
   /// Constructs a [Volume].
-  const Volume._(
-    final double cubicMeters,
-    final Precision precision,
-    final MeasurementInterpreter<Volume>? interpreter,
-  ) : super(cubicMeters, precision, interpreter);
+  const Volume(
+    num amount,
+    MeasurementInterpreter<Volume> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(
+          amount: amount,
+          precision: precision,
+          interpreter: interpreter,
+        );
 
   @override
   Volume _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Volume>? interpreter,
-  ]) =>
-      Volume._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Volume>? interpreter,
+    Precision precision,
+  ) =>
+      Volume(
+        amount,
+        interpreter ?? siUnit,
+        precision,
+      );
 }

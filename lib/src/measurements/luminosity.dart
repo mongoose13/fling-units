@@ -16,7 +16,7 @@ class LuminosityInterpreter extends MeasurementInterpreter<Luminosity> {
   @override
   Luminosity call(final num value,
           {final Precision precision = Precision.max}) =>
-      Luminosity._(_from(value), precision, this);
+      Luminosity(value, this, precision);
 
   /// The interpreter for candela.
   static const _candela = LuminosityInterpreter._('cd', 1e0);
@@ -57,26 +57,29 @@ mixin LuminosityPrefix {
 
 /// Measures [luminous intensity](https://en.wikipedia.org/wiki/Luminous_intensity).
 class Luminosity extends Measurement<Luminosity> {
+  /// The SI unit associated with this measurement.
+  static const siUnit = candela;
+
   /// The electric charge of size zero.
   const Luminosity.zero(
-      [final MeasurementInterpreter<Luminosity> interpreter = candela])
+      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite electric charge.
   const Luminosity.infinite(
-      [final MeasurementInterpreter<Luminosity> interpreter = candela])
+      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
   const Luminosity.negativeInfinite(
-      [final MeasurementInterpreter<Luminosity> interpreter = candela])
+      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Luminosity] representing the sum of any number of other
   /// [Luminosity]s.
   Luminosity.sum(final Iterable<Luminosity> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<Luminosity> interpreter) =>
@@ -88,16 +91,20 @@ class Luminosity extends Measurement<Luminosity> {
 
   @override
   Luminosity _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Luminosity>? interpreter,
-  ]) =>
-      Luminosity._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Luminosity>? interpreter,
+    Precision precision,
+  ) =>
+      Luminosity(
+        amount,
+        interpreter ?? siUnit,
+        precision,
+      );
 
   /// Constructs a [Distance].
-  const Luminosity._(
-    final double units,
-    final Precision precision,
-    final MeasurementInterpreter<Luminosity>? interpreter,
-  ) : super(units, precision, interpreter);
+  const Luminosity(
+    num units,
+    MeasurementInterpreter<Luminosity> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(amount: units, precision: precision, interpreter: interpreter);
 }

@@ -19,8 +19,18 @@ part of '../../fling_units.dart';
 /// [Measurement] instances for interpretation (typically via an `as()` method,
 /// such as [Area.asPair]).
 abstract class MeasurementInterpreter<T> {
-  /// The prefix to apply to the measurement.
-  final MeasurementPrefix _prefix;
+  /// Constructs a [MeasurementInterpreter].
+  const MeasurementInterpreter._(
+    this._name,
+    this._unitMultiplier,
+    this._prefix,
+  );
+
+  /// Creates a measurement based on the value and the configured multiplier.
+  T call(final double value, {final Precision precision = Precision.max});
+
+  @override
+  String toString() => '$_prefix$_name';
 
   /// Interprets the base value according to the configured unit.
   double _of(final num value) =>
@@ -34,21 +44,11 @@ abstract class MeasurementInterpreter<T> {
   /// The standardized short form name of the unit (e.g. "m" for meters).
   final String _name;
 
-  /// Creates a measurement based on the value and the configured multiplier.
-  T call(final double value, {final Precision precision = Precision.max});
-
-  /// Constructs a [MeasurementInterpreter].
-  const MeasurementInterpreter._(
-    this._name,
-    this._unitMultiplier,
-    this._prefix,
-  );
-
   /// The multiplier for the configured unit.
   final double _unitMultiplier;
 
-  @override
-  String toString() => '$_prefix$_name';
+  /// The prefix to apply to the measurement.
+  final MeasurementPrefix _prefix;
 }
 
 /// A [MeasurementInterpreter] that rounds its results to `int`s.
@@ -57,6 +57,13 @@ abstract class MeasurementInterpreter<T> {
 /// e.g. the number of items in a collection.
 abstract class RoundingMeasurementInterpreter<T>
     extends MeasurementInterpreter<T> {
+  /// Constructs a [RoundingMeasurementInterpreter].
+  const RoundingMeasurementInterpreter._(
+    final String name,
+    final double unitMultiplier, [
+    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  ]) : super._(name, unitMultiplier, prefix);
+
   @override
   double _of(final num value) =>
       (value.toDouble() * _unitMultiplier / _prefix._multiplier)
@@ -65,11 +72,4 @@ abstract class RoundingMeasurementInterpreter<T>
   @override
   double _from(final num value) =>
       value.toDouble() / _unitMultiplier * _prefix._multiplier;
-
-  /// Constructs a [RoundingMeasurementInterpreter].
-  const RoundingMeasurementInterpreter._(
-    final String name,
-    final double unitMultiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, unitMultiplier, prefix);
 }

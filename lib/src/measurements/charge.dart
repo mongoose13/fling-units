@@ -15,7 +15,7 @@ class ChargeInterpreter extends MeasurementInterpreter<Charge> {
 
   @override
   Charge call(final num value, {final Precision precision = Precision.max}) =>
-      Charge._(_from(value), precision, this);
+      Charge(value, this, precision);
 
   /// The interpreter for amperes.
   static const _amperes = ChargeInterpreter._('A', 1e0);
@@ -40,26 +40,28 @@ mixin ChargePrefix {
 /// [Ampere](https://en.wikipedia.org/wiki/Ampere). This class supports all the
 /// basic measurement features for electric charge.
 class Charge extends Measurement<Charge> {
+  /// The SI unit for this measurement type.
+  static const siUnit = amperes;
+
   /// The electric charge of size zero.
-  const Charge.zero(
-      [final MeasurementInterpreter<Charge> interpreter = amperes])
+  const Charge.zero([final MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite electric charge.
   const Charge.infinite(
-      [final MeasurementInterpreter<Charge> interpreter = amperes])
+      [final MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
   const Charge.negativeInfinite(
-      [final MeasurementInterpreter<Charge> interpreter = amperes])
+      [final MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [Charge] representing the sum of any number of other
   /// [Charge]s.
   Charge.sum(final Iterable<Charge> parts,
       {final Precision precision = Precision.max})
-      : super.sum(parts, precision);
+      : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
   double as(final MeasurementInterpreter<Charge> interpreter) =>
@@ -71,16 +73,16 @@ class Charge extends Measurement<Charge> {
 
   @override
   Charge _construct(
-    final double si,
-    final Precision precision, [
-    final MeasurementInterpreter<Charge>? interpreter,
-  ]) =>
-      Charge._(si, precision, interpreter);
+    double amount,
+    MeasurementInterpreter<Charge>? interpreter,
+    Precision precision,
+  ) =>
+      Charge(amount, interpreter ?? siUnit, precision);
 
   /// Constructs a [Distance].
-  const Charge._(
-    final double units,
-    final Precision precision,
-    final MeasurementInterpreter<Charge>? interpreter,
-  ) : super(units, precision, interpreter);
+  const Charge(
+    final num units,
+    final MeasurementInterpreter<Charge> interpreter, [
+    Precision precision = Precision.max,
+  ]) : super(amount: units, precision: precision, interpreter: interpreter);
 }
