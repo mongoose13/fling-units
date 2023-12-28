@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets [Area]s as a specific unit.
 class AreaInterpreter extends MeasurementInterpreter<Area> {

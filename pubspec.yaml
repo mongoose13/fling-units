@@ -6,8 +6,8 @@ repository: https://bitbucket.org/mongoose13/fling-units/src
 issue_tracker: https://bitbucket.org/mongoose13/fling-units/issues
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <4.0.0'
 
 dev_dependencies:
-  lints: ^2.0.1
+  lints: ^3.0.0
   test: ^1.22.1

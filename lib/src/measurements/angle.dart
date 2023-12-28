@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 class AngleInterpreter extends MeasurementInterpreter<Angle> {
   @override

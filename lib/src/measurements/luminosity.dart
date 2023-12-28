@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets [Luminosity]s as a specific unit.
 class LuminosityInterpreter extends MeasurementInterpreter<Luminosity> {

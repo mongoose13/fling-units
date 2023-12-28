@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets [Volume]s as specific units.
 class VolumeInterpreter extends MeasurementInterpreter<Volume> {

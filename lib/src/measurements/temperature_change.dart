@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// The [MeasurementInterpreter] for [TemperatureChange]s.
 class TemperatureChangeInterpreter

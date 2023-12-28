@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets a measurement as a specific unit.
 ///

@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Represents the amount of precision for a measurement.
 ///

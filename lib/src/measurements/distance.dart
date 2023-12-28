@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets [Distance]s as a specific unit.
 class DistanceInterpreter extends MeasurementInterpreter<Distance> {

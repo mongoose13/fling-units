@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets [Charge]s as a specific unit.
 class ChargeInterpreter extends MeasurementInterpreter<Charge> {

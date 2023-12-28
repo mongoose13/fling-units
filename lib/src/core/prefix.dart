@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Multiplies a [Measurement] by a prefix.
 class MeasurementPrefix

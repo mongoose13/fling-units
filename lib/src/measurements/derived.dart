@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// A measurement representing two simpler measurements tied together by either
 /// multiplication or division.

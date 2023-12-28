@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets [Mass]es as a specific unit.
 class MassInterpreter extends MeasurementInterpreter<Mass> {

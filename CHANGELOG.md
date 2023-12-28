@@ -2,6 +2,11 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## Edge
+### Changed
+- Update dependency versions
+- Dart suggested style fixes
+
 ## [2.2.5]
 ### Changed
 - Make default interpreters optional for all units

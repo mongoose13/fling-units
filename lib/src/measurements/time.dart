@@ -1,4 +1,4 @@
-part of fling_units;
+part of '../../fling_units.dart';
 
 /// Interprets [Time] as a specific unit.
 class TimeInterpreter extends MeasurementInterpreter<Time> {
