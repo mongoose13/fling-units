@@ -27,18 +27,18 @@ abstract class MeasurementInterpreter<T> {
   );
 
   /// Creates a measurement based on the value and the configured multiplier.
-  T call(final double value, {final Precision precision = Precision.max});
+  T call(double value, {Precision precision = Precision.max});
 
   @override
   String toString() => '$_prefix$_name';
 
   /// Interprets the base value according to the configured unit.
-  double _of(final num value) =>
+  double _of(num value) =>
       value.toDouble() * _unitMultiplier / _prefix._multiplier;
 
   /// Interprets the provided value as if it were of the configured unit,
   /// returning the base value.
-  double _from(final num value) =>
+  double _from(num value) =>
       value.toDouble() / _unitMultiplier * _prefix._multiplier;
 
   /// The standardized short form name of the unit (e.g. "m" for meters).
@@ -59,17 +59,17 @@ abstract class RoundingMeasurementInterpreter<T>
     extends MeasurementInterpreter<T> {
   /// Constructs a [RoundingMeasurementInterpreter].
   const RoundingMeasurementInterpreter._(
-    final String name,
-    final double unitMultiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double unitMultiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, unitMultiplier, prefix);
 
   @override
-  double _of(final num value) =>
+  double _of(num value) =>
       (value.toDouble() * _unitMultiplier / _prefix._multiplier)
           .roundToDouble();
 
   @override
-  double _from(final num value) =>
+  double _from(num value) =>
       value.toDouble() / _unitMultiplier * _prefix._multiplier;
 }

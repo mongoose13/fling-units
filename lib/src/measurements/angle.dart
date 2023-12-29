@@ -2,14 +2,14 @@ part of '../../fling_units.dart';
 
 class AngleInterpreter extends MeasurementInterpreter<Angle> {
   @override
-  Angle call(final num value, {final Precision precision = Precision.max}) =>
+  Angle call(num value, {Precision precision = Precision.max}) =>
       Angle(value, this, precision);
 
   /// Constructs an [AngleInterpreter].
   const AngleInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(
           name,
           multiplier,
@@ -17,7 +17,7 @@ class AngleInterpreter extends MeasurementInterpreter<Angle> {
         );
 
   /// Produces a [MassInterpreter] that is a multiple of this.
-  AngleInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  AngleInterpreter _withPrefix(MeasurementPrefix prefix) =>
       AngleInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for turns.
@@ -99,19 +99,19 @@ class Angle extends Measurement<Angle> {
         );
 
   /// Zero angle.
-  const Angle.zero([final AngleInterpreter interpreter = radians])
+  const Angle.zero([AngleInterpreter interpreter = radians])
       : super.zero(interpreter);
 
   /// Infinite angle.
-  const Angle.infinite([final AngleInterpreter interpreter = radians])
+  const Angle.infinite([AngleInterpreter interpreter = radians])
       : super.infinite(interpreter);
 
   /// Infinite negative angle.
-  const Angle.negativeInfinite([final AngleInterpreter interpreter = radians])
+  const Angle.negativeInfinite([AngleInterpreter interpreter = radians])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) angle.
-  const Angle.nan([final MeasurementInterpreter<Angle> interpreter = radians])
+  const Angle.nan([MeasurementInterpreter<Angle> interpreter = radians])
       : super.nan(interpreter);
 
   /// A right angle.
@@ -121,17 +121,15 @@ class Angle extends Measurement<Angle> {
   const Angle.straight() : this(0.5, turns);
 
   /// Constructs an [Angle] representing the sum of any number of other [Angle]s.
-  Angle.sum(final Iterable<Angle> parts,
-      {final Precision precision = Precision.max})
+  Angle.sum(Iterable<Angle> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Angle> interpreter) =>
+  double as(MeasurementInterpreter<Angle> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitAngle(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitAngle(this);
 
   /// Whether this is an acute angle.
   bool get isAcute => si.abs() < 0.25;

@@ -16,7 +16,7 @@ class MeasurementPrefix
   /// Constructs an arbitrary [MeasurementPrefix].
   const MeasurementPrefix(
     this._multiplier, {
-    final String name = '',
+    String name = '',
   }) : _name = name;
 
   /// The default prefix (equivalent to no prefix).

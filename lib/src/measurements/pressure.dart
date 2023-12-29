@@ -2,14 +2,14 @@ part of '../../fling_units.dart';
 
 class PressureInterpreter extends MeasurementInterpreter<Pressure> {
   @override
-  Pressure call(final num value, {final Precision precision = Precision.max}) =>
+  Pressure call(num value, {Precision precision = Precision.max}) =>
       Pressure(value, this, precision);
 
   /// Constructs a [MassInterpreter].
   const PressureInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(
           name,
           multiplier,
@@ -17,7 +17,7 @@ class PressureInterpreter extends MeasurementInterpreter<Pressure> {
         );
 
   /// Produces a [PressureInterpreter] that is a multiple of this.
-  PressureInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  PressureInterpreter _withPrefix(MeasurementPrefix prefix) =>
       PressureInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for Pascals.
@@ -121,12 +121,11 @@ class Pressure extends Measurement<Pressure> {
   static const siUnit = pascals;
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Pressure> interpreter) =>
+  double as(MeasurementInterpreter<Pressure> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitPressure(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitPressure(this);
 
   /// Constructs a [Pressure].
   const Pressure(
@@ -136,8 +135,7 @@ class Pressure extends Measurement<Pressure> {
   ]) : super(amount: pascals, precision: precision, interpreter: interpreter);
 
   /// Constructs a [Pressure] representing the sum of any number of other [Pressure]s.
-  Pressure.sum(final Iterable<Pressure> parts,
-      {final Precision precision = Precision.max})
+  Pressure.sum(Iterable<Pressure> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   @override
@@ -153,22 +151,20 @@ class Pressure extends Measurement<Pressure> {
       );
 
   /// Zero pressure.
-  const Pressure.zero(
-      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
+  const Pressure.zero([MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite pressure.
   const Pressure.infinite(
-      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
+      [MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Negative infinite pressure.
   const Pressure.negativeInfinite(
-      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
+      [MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) pressure.
-  const Pressure.nan(
-      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
+  const Pressure.nan([MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.nan(interpreter);
 }

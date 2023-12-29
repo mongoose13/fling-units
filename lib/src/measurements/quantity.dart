@@ -3,8 +3,8 @@ part of '../../fling_units.dart';
 /// Base class for [Quantity] interpreters.
 abstract class QuantityInterpreter extends MeasurementInterpreter<Quantity> {
   QuantityInterpreter._(
-    final String name, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, 0.0, prefix);
 }
 
@@ -13,17 +13,17 @@ class StandardQuantityInterpreter extends MeasurementInterpreter<Quantity>
     implements QuantityInterpreter {
   /// Constructs a [StandardQuantityInterpreter].
   const StandardQuantityInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, multiplier, prefix);
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
-  StandardQuantityInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  StandardQuantityInterpreter _withPrefix(MeasurementPrefix prefix) =>
       StandardQuantityInterpreter._(_name, _unitMultiplier, prefix);
 
   @override
-  Quantity call(final num value, {final Precision precision = Precision.max}) =>
+  Quantity call(num value, {Precision precision = Precision.max}) =>
       Quantity(value, this, precision);
 
   /// The interpreter for moles.
@@ -36,17 +36,17 @@ class RoundingQuantityInterpreter
     implements QuantityInterpreter {
   /// Constructs a [RoundingQuantityInterpreter].
   const RoundingQuantityInterpreter._(
-    final String name,
-    final double unitMultiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double unitMultiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, unitMultiplier, prefix);
 
   /// Produces a [RoundingQuantityInterpreter] that is a fraction of this.
-  RoundingQuantityInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  RoundingQuantityInterpreter _withPrefix(MeasurementPrefix prefix) =>
       RoundingQuantityInterpreter._(_name, _unitMultiplier, prefix);
 
   @override
-  Quantity call(final num value, {final Precision precision = Precision.max}) =>
+  Quantity call(num value, {Precision precision = Precision.max}) =>
       Quantity(value, this, precision);
 
   /// The interpreter for units (discrete items).
@@ -88,38 +88,34 @@ mixin QuantityPrefix {
 /// ```
 class Quantity extends Measurement<Quantity> {
   /// The quantity of size zero.
-  const Quantity.zero(
-      [final MeasurementInterpreter<Quantity> interpreter = units])
+  const Quantity.zero([MeasurementInterpreter<Quantity> interpreter = units])
       : super.zero(interpreter);
 
   /// Infinite quantity.
   const Quantity.infinite(
-      [final MeasurementInterpreter<Quantity> interpreter = units])
+      [MeasurementInterpreter<Quantity> interpreter = units])
       : super.infinite(interpreter);
 
   /// Infinite negative quantity.
   const Quantity.negativeInfinite(
-      [final MeasurementInterpreter<Quantity> interpreter = units])
+      [MeasurementInterpreter<Quantity> interpreter = units])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) quantity.
-  const Quantity.nan(
-      [final MeasurementInterpreter<Quantity> interpreter = units])
+  const Quantity.nan([MeasurementInterpreter<Quantity> interpreter = units])
       : super.nan(interpreter);
 
   /// Constructs a [Quantity] representing the sum of any number of other
   /// [Quantity]s.
-  Quantity.sum(final Iterable<Quantity> parts,
-      {final Precision precision = Precision.max})
+  Quantity.sum(Iterable<Quantity> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Quantity> interpreter) =>
+  double as(MeasurementInterpreter<Quantity> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitQuantity(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitQuantity(this);
 
   @override
   Quantity _construct(

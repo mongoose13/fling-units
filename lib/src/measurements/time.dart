@@ -3,18 +3,18 @@ part of '../../fling_units.dart';
 /// Interprets [Time] as a specific unit.
 class TimeInterpreter extends MeasurementInterpreter<Time> {
   @override
-  Time call(final num value, {final Precision precision = Precision.max}) =>
+  Time call(num value, {Precision precision = Precision.max}) =>
       Time(value, this, precision);
 
   /// Constructs a [TimeInterpreter].
   const TimeInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, multiplier, prefix);
 
   /// Produces a [TimeInterpreter] that is a multiple of this.
-  TimeInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  TimeInterpreter _withPrefix(MeasurementPrefix prefix) =>
       TimeInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for seconds.
@@ -76,25 +76,24 @@ class Time extends Measurement<Time> {
   static const siUnit = seconds;
 
   /// The time of duration zero.
-  const Time.zero([final MeasurementInterpreter<Time> interpreter = siUnit])
+  const Time.zero([MeasurementInterpreter<Time> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite time.
-  const Time.infinite([final MeasurementInterpreter<Time> interpreter = siUnit])
+  const Time.infinite([MeasurementInterpreter<Time> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative time.
   const Time.negativeInfinite(
-      [final MeasurementInterpreter<Time> interpreter = siUnit])
+      [MeasurementInterpreter<Time> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) time.
-  const Time.nan([final MeasurementInterpreter<Time> interpreter = siUnit])
+  const Time.nan([MeasurementInterpreter<Time> interpreter = siUnit])
       : super.nan(interpreter);
 
   /// Constructs a [Time] representing the sum of any number of other [Time]s.
-  Time.sum(final Iterable<Time> parts,
-      {final Precision precision = Precision.max})
+  Time.sum(Iterable<Time> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Constructs a [Time] from a [Duration].
@@ -110,12 +109,11 @@ class Time extends Measurement<Time> {
   Duration get asDuration => Duration(microseconds: as(micro.seconds).toInt());
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Time> interpreter) =>
+  double as(MeasurementInterpreter<Time> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitTime(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitTime(this);
 
   /// Constructs a [Time].
   const Time(

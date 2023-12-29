@@ -3,18 +3,18 @@ part of '../../fling_units.dart';
 /// Interprets [Distance]s as a specific unit.
 class DistanceInterpreter extends MeasurementInterpreter<Distance> {
   @override
-  Distance call(final num value, {final Precision precision = Precision.max}) =>
+  Distance call(num value, {Precision precision = Precision.max}) =>
       Distance(value, this, precision);
 
   /// Constructs a [DistanceInterpreter].
   const DistanceInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, multiplier, prefix);
 
   /// Produces an equivalent [DistanceInterpreter] but with an added multiplier prefix.
-  DistanceInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  DistanceInterpreter _withPrefix(MeasurementPrefix prefix) =>
       DistanceInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for meters.
@@ -90,38 +90,34 @@ class Distance extends Measurement<Distance> {
   static const siUnit = meters;
 
   /// The distance of size zero.
-  const Distance.zero(
-      [final MeasurementInterpreter<Distance> interpreter = siUnit])
+  const Distance.zero([MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite distance.
   const Distance.infinite(
-      [final MeasurementInterpreter<Distance> interpreter = siUnit])
+      [MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative distance.
   const Distance.negativeInfinite(
-      [final MeasurementInterpreter<Distance> interpreter = siUnit])
+      [MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) distance.
-  const Distance.nan(
-      [final MeasurementInterpreter<Distance> interpreter = siUnit])
+  const Distance.nan([MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.nan(interpreter);
 
   /// Constructs a [Distance] representing the sum of any number of other
   /// [Distance]s.
-  Distance.sum(final Iterable<Distance> parts,
-      {final Precision precision = Precision.max})
+  Distance.sum(Iterable<Distance> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Distance> interpreter) =>
+  double as(MeasurementInterpreter<Distance> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitDistance(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitDistance(this);
 
   @override
   Distance _construct(

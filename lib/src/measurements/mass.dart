@@ -3,14 +3,14 @@ part of '../../fling_units.dart';
 /// Interprets [Mass]es as a specific unit.
 class MassInterpreter extends MeasurementInterpreter<Mass> {
   @override
-  Mass call(final num value, {final Precision precision = Precision.max}) =>
+  Mass call(num value, {Precision precision = Precision.max}) =>
       Mass(value, this, precision);
 
   /// Constructs a [MassInterpreter].
   const MassInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(
           name,
           multiplier,
@@ -18,7 +18,7 @@ class MassInterpreter extends MeasurementInterpreter<Mass> {
         );
 
   /// Produces a [MassInterpreter] that is a multiple of this.
-  MassInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  MassInterpreter _withPrefix(MeasurementPrefix prefix) =>
       MassInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for grams.
@@ -118,34 +118,32 @@ class Mass extends Measurement<Mass> {
   static const siUnit = grams;
 
   /// Zero mass.
-  const Mass.zero([final MeasurementInterpreter<Mass> interpreter = siUnit])
+  const Mass.zero([MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite mass.
-  const Mass.infinite([final MeasurementInterpreter<Mass> interpreter = siUnit])
+  const Mass.infinite([MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative mass.
   const Mass.negativeInfinite(
-      [final MeasurementInterpreter<Mass> interpreter = siUnit])
+      [MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) mass.
-  const Mass.nan([final MeasurementInterpreter<Mass> interpreter = siUnit])
+  const Mass.nan([MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.nan(interpreter);
 
   /// Constructs a [Mass] representing the sum of any number of other [Mass]es.
-  Mass.sum(final Iterable<Mass> parts,
-      {final Precision precision = Precision.max})
+  Mass.sum(Iterable<Mass> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Mass> interpreter) =>
+  double as(MeasurementInterpreter<Mass> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitMass(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitMass(this);
 
   /// Constructs a [Mass].
   const Mass(

@@ -56,14 +56,14 @@ class Precision {
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
   static Precision addition<T extends Measurement<T>>(
-      final Measurement<T> a, final Measurement<T> b) {
+      Measurement<T> a, Measurement<T> b) {
     if (a.isInfinite || b.isInfinite) {
       return Precision.max;
     }
     final precisionA = digitsAfterDecimal(a);
     final precisionB = digitsAfterDecimal(b);
     final beforeDecimal = digitsBeforeDecimal(a._preciseSI() + b._preciseSI());
-    final int afterPrecision = math.min(
+    int afterPrecision = math.min(
         beforeDecimal + math.min(precisionA, precisionB), maximumPrecision);
     return Precision(afterPrecision);
   }
@@ -77,7 +77,7 @@ class Precision {
   /// digitsAfterDecimal(meters(1.2345));                           // 4
   /// digitsAfterDecimal(meters(1.2345, precision: Precision(3)));  // 2
   /// ```
-  static int digitsAfterDecimal(final Measurement measurement) {
+  static int digitsAfterDecimal(Measurement measurement) {
     if (measurement.isInfinite || measurement.isNaN) {
       return 0;
     }
@@ -91,7 +91,7 @@ class Precision {
   }
 
   /// Calculates the number of digits (significant or not) before the decimal.
-  static int digitsBeforeDecimal(final double number) {
+  static int digitsBeforeDecimal(double number) {
     if (number.isInfinite || number.isNaN) {
       return Precision.max.precision;
     }
@@ -101,14 +101,13 @@ class Precision {
   }
 
   /// Interprets the specified number according to this Precision.
-  double apply(final num value) =>
-      double.parse(value.toStringAsPrecision(precision));
+  double apply(num value) => double.parse(value.toStringAsPrecision(precision));
 
   /// Alias for [apply].
-  double withPrecision(final num value) => apply(value);
+  double withPrecision(num value) => apply(value);
 
   @override
-  bool operator ==(final dynamic other) =>
+  bool operator ==(dynamic other) =>
       other is Precision && other.precision == precision;
 
   @override

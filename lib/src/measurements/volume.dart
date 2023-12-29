@@ -3,23 +3,23 @@ part of '../../fling_units.dart';
 /// Interprets [Volume]s as specific units.
 class VolumeInterpreter extends MeasurementInterpreter<Volume> {
   @override
-  Volume call(final num value, {final Precision precision = Precision.max}) =>
+  Volume call(num value, {Precision precision = Precision.max}) =>
       Volume(value, this, precision);
 
   /// Constructs a [VolumeInterpreter] from any three [DistanceInterpreter]s.
   VolumeInterpreter(
-    final MeasurementInterpreter<Distance> a,
-    final MeasurementInterpreter<Distance> b,
-    final MeasurementInterpreter<Distance> c, {
-    final String? name,
+    MeasurementInterpreter<Distance> a,
+    MeasurementInterpreter<Distance> b,
+    MeasurementInterpreter<Distance> c, {
+    String? name,
   }) : this._unitless(a, b, c, name: name);
 
   /// Constructs a [VolumeInterpreter] with potentially null interpreters.
   VolumeInterpreter._unitless(
-    final MeasurementInterpreter<Distance>? a,
-    final MeasurementInterpreter<Distance>? b,
-    final MeasurementInterpreter<Distance>? c, {
-    final String? name,
+    MeasurementInterpreter<Distance>? a,
+    MeasurementInterpreter<Distance>? b,
+    MeasurementInterpreter<Distance>? c, {
+    String? name,
   }) : this._(
             name ?? '${a?._name ?? 'X'}⋅${b?._name ?? 'X'}⋅${c?._name ?? 'X'}',
             (a?._unitMultiplier ?? 1.0) *
@@ -32,19 +32,19 @@ class VolumeInterpreter extends MeasurementInterpreter<Volume> {
   /// Constructs a [VolumeInterpreter] that will cube a basic
   /// [DistanceInterpreter].
   VolumeInterpreter.cubed(
-    final DistanceInterpreter a, {
-    final String? name,
+    DistanceInterpreter a, {
+    String? name,
   }) : this(a, a, a, name: name ?? '${a._name}³');
 
   /// Constructs a [VolumeInterpreter].
   const VolumeInterpreter._(
-    final String name,
-    final double cubicMeters, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double cubicMeters, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, cubicMeters, prefix);
 
   /// Produces a [VolumeInterpreter] that is a multiple of this.
-  VolumeInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  VolumeInterpreter _withPrefix(MeasurementPrefix prefix) =>
       VolumeInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for liters.
@@ -218,36 +218,33 @@ class Volume extends Measurement<Volume> {
   static const siUnit = liters;
 
   /// Produces an interpreter for the cube of a provided unit.
-  static VolumeInterpreter cubic(
-          final DistanceInterpreter distanceInterpreter) =>
+  static VolumeInterpreter cubic(DistanceInterpreter distanceInterpreter) =>
       VolumeInterpreter.cubed(distanceInterpreter);
 
   /// The volume of size zero.
-  const Volume.zero([final MeasurementInterpreter<Volume> interpreter = siUnit])
+  const Volume.zero([MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite volume.
-  const Volume.infinite(
-      [final MeasurementInterpreter<Volume> interpreter = siUnit])
+  const Volume.infinite([MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative volume.
   const Volume.negativeInfinite(
-      [final MeasurementInterpreter<Volume> interpreter = siUnit])
+      [MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) volume.
-  const Volume.nan([final MeasurementInterpreter<Volume> interpreter = siUnit])
+  const Volume.nan([MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.nan(interpreter);
 
   /// Constructs a [Volume] representing the sum of any number of other
   /// [Volume]s.
-  Volume.sum(final Iterable<Volume> parts,
-      {final Precision precision = Precision.max})
+  Volume.sum(Iterable<Volume> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Constructs a [Volume] from three [Distance] measurements.
-  Volume.of(final Distance a, final Distance b, final Distance c)
+  Volume.of(Distance a, Distance b, Distance c)
       : this(
           a.defaultValue * b.defaultValue * c.defaultValue,
           VolumeInterpreter._unitless(
@@ -256,17 +253,16 @@ class Volume extends Measurement<Volume> {
         );
 
   /// Interprets this in the specified units.
-  double as(final DistanceInterpreter a, final DistanceInterpreter b,
-          final DistanceInterpreter c) =>
+  double as(DistanceInterpreter a, DistanceInterpreter b,
+          DistanceInterpreter c) =>
       _precise(a._of(b._of(c._of(si))));
 
   /// Interprets this in the specified volume unit.
-  double asVolume(final MeasurementInterpreter<Volume> interpreter) =>
+  double asVolume(MeasurementInterpreter<Volume> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitVolume(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitVolume(this);
 
   /// Constructs a [Volume].
   const Volume(

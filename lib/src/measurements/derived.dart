@@ -9,35 +9,35 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
     extends Measurement<DerivedMeasurement<A, B>> {
   /// The derived measurement of zero magnitude.
   const DerivedMeasurement.zero(
-      [final DerivedMeasurementInterpreter<A, B> interpreter =
+      [DerivedMeasurementInterpreter<A, B> interpreter =
           const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
         super.zero(interpreter);
 
   /// The derived measurement of infinite magnitude.
   const DerivedMeasurement.infinite(
-      [final DerivedMeasurementInterpreter<A, B> interpreter =
+      [DerivedMeasurementInterpreter<A, B> interpreter =
           const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
         super.infinite(interpreter);
 
   /// The derived measurement of negative infinite magnitude.
   const DerivedMeasurement.negativeInfinite(
-      [final DerivedMeasurementInterpreter<A, B> interpreter =
+      [DerivedMeasurementInterpreter<A, B> interpreter =
           const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
         super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) derived measurement.
   const DerivedMeasurement.nan(
-      [final MeasurementInterpreter<DerivedMeasurement<A, B>> interpreter =
+      [MeasurementInterpreter<DerivedMeasurement<A, B>> interpreter =
           const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
         super.nan(interpreter);
 
   /// Constructs a derived measurement representing the multiplication of a pair
   /// of simpler measurements.
-  DerivedMeasurement.multiply(final A a, final B b, [final String? name])
+  DerivedMeasurement.multiply(A a, B b, [String? name])
       : this._combine(
             a.defaultValue * b.defaultValue,
             Precision.combine([a._precision, b._precision]),
@@ -48,7 +48,7 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
 
   /// Constructs a derived measurement representing the division of a pair of
   /// simpler measurements.
-  DerivedMeasurement.divide(final A a, final B b, [final String? name])
+  DerivedMeasurement.divide(A a, B b, [String? name])
       : this._combine(
             a.defaultValue / b.defaultValue,
             Precision.combine([a._precision, b._precision]),
@@ -59,10 +59,10 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
 
   /// Creates a derived measurement representing a pair of simpler units.
   DerivedMeasurement._combine(double value, Precision precision,
-      [final MeasurementInterpreter<A>? a,
-      final MeasurementInterpreter<B>? b,
-      final bool reciprocal = false,
-      final String? name])
+      [MeasurementInterpreter<A>? a,
+      MeasurementInterpreter<B>? b,
+      bool reciprocal = false,
+      String? name])
       : this(
             value,
             precision,
@@ -76,18 +76,15 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
             reciprocal);
 
   /// Interprets this using two specific units.
-  double as(final MeasurementInterpreter<A> a,
-          final MeasurementInterpreter<B> b) =>
+  double as(MeasurementInterpreter<A> a, MeasurementInterpreter<B> b) =>
       _precise(a._of(si) * (_reciprocal ? b._from(1) : b._of(1)));
 
   /// Interprets this using a [DerivedMeasurementInterpreter].
-  double asInterpretedBy(
-          final DerivedMeasurementInterpreter<A, B> interpreter) =>
+  double asInterpretedBy(DerivedMeasurementInterpreter<A, B> interpreter) =>
       _precise(interpreter._of(si));
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitDerived(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitDerived(this);
 
   @override
   DerivedMeasurement<A, B> _construct(
@@ -133,11 +130,11 @@ class DerivedMeasurementInterpreter<A extends Measurement<A>,
   ///
   /// If a name is not supplied, a standard name will be provided.
   DerivedMeasurementInterpreter(
-    final MeasurementInterpreter<A> a,
-    final MeasurementInterpreter<B> b, [
-    final bool reciprocal = false,
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-    final String? name,
+    MeasurementInterpreter<A> a,
+    MeasurementInterpreter<B> b, [
+    bool reciprocal = false,
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String? name,
   ]) : this._unitless(a, b, reciprocal, prefix, name);
 
   /// Constructs a [DerivedMeasurementInterpreter] with a potentially null
@@ -145,11 +142,11 @@ class DerivedMeasurementInterpreter<A extends Measurement<A>,
   ///
   /// If a name is not supplied, a standard name will be provided.
   DerivedMeasurementInterpreter._unitless([
-    final MeasurementInterpreter<A>? a,
-    final MeasurementInterpreter<B>? b,
-    final bool reciprocal = false,
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-    final String? name,
+    MeasurementInterpreter<A>? a,
+    MeasurementInterpreter<B>? b,
+    bool reciprocal = false,
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String? name,
   ])  : _reciprocal = reciprocal,
         _interpreterA = a,
         _interpreterB = b,
@@ -162,8 +159,8 @@ class DerivedMeasurementInterpreter<A extends Measurement<A>,
         );
 
   @override
-  DerivedMeasurement<A, B> call(final double value,
-          {final Precision precision = Precision.max}) =>
+  DerivedMeasurement<A, B> call(double value,
+          {Precision precision = Precision.max}) =>
       DerivedMeasurement._combine(
         value,
         precision,

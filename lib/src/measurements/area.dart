@@ -3,28 +3,28 @@ part of '../../fling_units.dart';
 /// Interprets [Area]s as a specific unit.
 class AreaInterpreter extends MeasurementInterpreter<Area> {
   @override
-  Area call(final double value, {final Precision precision = Precision.max}) =>
+  Area call(double value, {Precision precision = Precision.max}) =>
       Area(value, this, precision);
 
   /// Constructs an [AreaInterpreter] from any two [DistanceInterpreter]s.
   AreaInterpreter(
-    final MeasurementInterpreter<Distance> a,
-    final MeasurementInterpreter<Distance> b, {
-    final String? name,
+    MeasurementInterpreter<Distance> a,
+    MeasurementInterpreter<Distance> b, {
+    String? name,
   }) : this._(name ?? '${a.toString()}⋅${b.toString()}', a, b);
 
   /// Constructs an [AreaInterpreter] that will square a basic
   /// [DistanceInterpreter].
   AreaInterpreter.squared(
-    final MeasurementInterpreter<Distance> a, {
-    final String? name,
+    MeasurementInterpreter<Distance> a, {
+    String? name,
   }) : this._(name ?? '${a._name}²', a, a);
 
   /// Constructs an [AreaInterpreter].
   AreaInterpreter._(
-    final String name,
-    final MeasurementInterpreter<Distance> a,
-    final MeasurementInterpreter<Distance> b,
+    String name,
+    MeasurementInterpreter<Distance> a,
+    MeasurementInterpreter<Distance> b,
   ) : super._(
           name,
           a._unitMultiplier * b._unitMultiplier / b._prefix._multiplier,
@@ -40,32 +40,30 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
 class Area extends Measurement<Area> {
   /// Produces an interpreter for the square of a provided distance interpreter.
   static AreaInterpreter square(
-          final MeasurementInterpreter<Distance> distanceInterpreter) =>
+          MeasurementInterpreter<Distance> distanceInterpreter) =>
       AreaInterpreter.squared(distanceInterpreter);
 
   /// Represents an area of size zero.
-  const Area.zero(
-      [final AreaInterpreter interpreter = const AreaInterpreter._m2()])
+  const Area.zero([AreaInterpreter interpreter = const AreaInterpreter._m2()])
       : super.zero(interpreter);
 
   /// Infinite area.
   const Area.infinite(
-      [final AreaInterpreter interpreter = const AreaInterpreter._m2()])
+      [AreaInterpreter interpreter = const AreaInterpreter._m2()])
       : super.infinite(interpreter);
 
   /// Infinite negative area.
   const Area.negativeInfinite(
-      [final AreaInterpreter interpreter = const AreaInterpreter._m2()])
+      [AreaInterpreter interpreter = const AreaInterpreter._m2()])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) area.
   const Area.nan(
-      [final MeasurementInterpreter<Area> interpreter =
-          const AreaInterpreter._m2()])
+      [MeasurementInterpreter<Area> interpreter = const AreaInterpreter._m2()])
       : super.nan(interpreter);
 
   /// Constructs an [Area] from component parts.
-  Area.of(final Distance a, final Distance b)
+  Area.of(Distance a, Distance b)
       : this(
           a.defaultValue * b.defaultValue,
           AreaInterpreter._m2(),
@@ -73,23 +71,21 @@ class Area extends Measurement<Area> {
         );
 
   /// Constructs an [Area] representing the sum of any number of other [Area]s.
-  Area.sum(final Iterable<Area> parts,
-      {final Precision precision = Precision.max})
+  Area.sum(Iterable<Area> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Interprets this [Measurement] in the specified units.
   double as(
-    final MeasurementInterpreter<Distance> a,
-    final MeasurementInterpreter<Distance> b,
+    MeasurementInterpreter<Distance> a,
+    MeasurementInterpreter<Distance> b,
   ) =>
       _precise(a._of(b._of(si)));
 
   /// Interprets this using the specified [MeasurementInterpreter].
-  double asArea(final MeasurementInterpreter<Area> a) => _precise(a._of(si));
+  double asArea(MeasurementInterpreter<Area> a) => _precise(a._of(si));
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitArea(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitArea(this);
 
   @override
   Area _construct(

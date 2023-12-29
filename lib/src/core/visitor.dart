@@ -8,41 +8,41 @@ part of '../../fling_units.dart';
 /// needing control statements or type checks (e.g. `if`, `switch`, or `is`).
 abstract class MeasurementVisitor {
   /// Visit an [Area].
-  void visitArea(final Area area) {}
+  void visitArea(Area area) {}
 
   /// Visit a [Charge].
-  void visitCharge(final Charge charge) {}
+  void visitCharge(Charge charge) {}
 
   /// Visit a derived measurement.
-  void visitDerived(final DerivedMeasurement measurement) {}
+  void visitDerived(DerivedMeasurement measurement) {}
 
   /// Visit a [Distance].
-  void visitDistance(final Distance distance) {}
+  void visitDistance(Distance distance) {}
 
   /// Visit a [Luminosity].
-  void visitLuminosity(final Luminosity luminosity) {}
+  void visitLuminosity(Luminosity luminosity) {}
 
   /// Visit a [Mass].
-  void visitMass(final Mass mass) {}
+  void visitMass(Mass mass) {}
 
   /// Visit a [Quantity].
-  void visitQuantity(final Quantity quantity) {}
+  void visitQuantity(Quantity quantity) {}
 
   /// Visit a [Temperature].
-  void visitTemperature(final Temperature temperature) {}
+  void visitTemperature(Temperature temperature) {}
 
   /// Visit a [TemperatureChange].
-  void visitTemperatureChange(final TemperatureChange temperatureChange) {}
+  void visitTemperatureChange(TemperatureChange temperatureChange) {}
 
   /// Visit a [Time].
-  void visitTime(final Time time) {}
+  void visitTime(Time time) {}
 
   /// Visit a [Volume].
-  void visitVolume(final Volume volume) {}
+  void visitVolume(Volume volume) {}
 
   /// Visit a [Pressure].
-  void visitPressure(final Pressure pressure) {}
+  void visitPressure(Pressure pressure) {}
 
   /// Visit an [Angle].
-  void visitAngle(final Angle angle) {}
+  void visitAngle(Angle angle) {}
 }

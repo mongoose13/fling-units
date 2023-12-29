@@ -4,17 +4,17 @@ part of '../../fling_units.dart';
 class ChargeInterpreter extends MeasurementInterpreter<Charge> {
   /// Constructs a [StandardQuantityInterpreter].
   const ChargeInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, multiplier, prefix);
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
-  ChargeInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  ChargeInterpreter _withPrefix(MeasurementPrefix prefix) =>
       ChargeInterpreter._(_name, _unitMultiplier, prefix);
 
   @override
-  Charge call(final num value, {final Precision precision = Precision.max}) =>
+  Charge call(num value, {Precision precision = Precision.max}) =>
       Charge(value, this, precision);
 
   /// The interpreter for amperes.
@@ -44,36 +44,33 @@ class Charge extends Measurement<Charge> {
   static const siUnit = amperes;
 
   /// The electric charge of size zero.
-  const Charge.zero([final MeasurementInterpreter<Charge> interpreter = siUnit])
+  const Charge.zero([MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite electric charge.
-  const Charge.infinite(
-      [final MeasurementInterpreter<Charge> interpreter = siUnit])
+  const Charge.infinite([MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
   const Charge.negativeInfinite(
-      [final MeasurementInterpreter<Charge> interpreter = siUnit])
+      [MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) charge.
-  const Charge.nan([final MeasurementInterpreter<Charge> interpreter = siUnit])
+  const Charge.nan([MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.nan(interpreter);
 
   /// Constructs a [Charge] representing the sum of any number of other
   /// [Charge]s.
-  Charge.sum(final Iterable<Charge> parts,
-      {final Precision precision = Precision.max})
+  Charge.sum(Iterable<Charge> parts, {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Charge> interpreter) =>
+  double as(MeasurementInterpreter<Charge> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
-      visitor.visitCharge(this);
+  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitCharge(this);
 
   @override
   Charge _construct(
@@ -85,8 +82,8 @@ class Charge extends Measurement<Charge> {
 
   /// Constructs a [Distance].
   const Charge(
-    final num units,
-    final MeasurementInterpreter<Charge> interpreter, [
+    num units,
+    MeasurementInterpreter<Charge> interpreter, [
     Precision precision = Precision.max,
   ]) : super(amount: units, precision: precision, interpreter: interpreter);
 }

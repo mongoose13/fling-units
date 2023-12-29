@@ -4,19 +4,18 @@ part of '../../fling_units.dart';
 class TemperatureChangeInterpreter
     extends MeasurementInterpreter<TemperatureChange> {
   @override
-  TemperatureChange call(final num value,
-          {final Precision precision = Precision.max}) =>
+  TemperatureChange call(num value, {Precision precision = Precision.max}) =>
       TemperatureChange(value, this, precision);
 
   /// Constructs a [TemperatureChangeInterpreter].
   const TemperatureChangeInterpreter._(
-    final String name,
-    final double kelvin, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double kelvin, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, kelvin, prefix);
 
   /// Produces a [TemperatureChangeInterpreter] that is a multiple of this.
-  TemperatureChangeInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  TemperatureChangeInterpreter _withPrefix(MeasurementPrefix prefix) =>
       TemperatureChangeInterpreter._(_name, _unitMultiplier, prefix);
 
   /// The interpreter for Kelvin.
@@ -83,23 +82,23 @@ class TemperatureChange extends Measurement<TemperatureChange> {
 
   /// No change in temperature.
   const TemperatureChange.zero(
-      [final MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
+      [MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite temperature change.
   const TemperatureChange.infinite(
-      [final MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
+      [MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Negative infinite temperature change.
   const TemperatureChange.negativeInfinite(
-      [final MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
+      [MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// Constructs a [TemperatureChange] representing the sum of any number of
   /// other [TemperatureChange]s.
-  TemperatureChange.sum(final Iterable<TemperatureChange> parts,
-      {final Precision precision = Precision.max})
+  TemperatureChange.sum(Iterable<TemperatureChange> parts,
+      {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Returns a [TemperatureChange] that represents the positive magnitude of
@@ -108,11 +107,11 @@ class TemperatureChange extends Measurement<TemperatureChange> {
       TemperatureChange(si.abs(), defaultInterpreter, _precision);
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<TemperatureChange> interpreter) =>
+  double as(MeasurementInterpreter<TemperatureChange> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
+  void acceptVisitor(MeasurementVisitor visitor) =>
       visitor.visitTemperatureChange(this);
 
   /// Constructs a [TemperatureChange].

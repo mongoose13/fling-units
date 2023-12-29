@@ -4,18 +4,17 @@ part of '../../fling_units.dart';
 class LuminosityInterpreter extends MeasurementInterpreter<Luminosity> {
   /// Constructs a [StandardQuantityInterpreter].
   const LuminosityInterpreter._(
-    final String name,
-    final double multiplier, [
-    final MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+    String name,
+    double multiplier, [
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   ]) : super._(name, multiplier, prefix);
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
-  LuminosityInterpreter _withPrefix(final MeasurementPrefix prefix) =>
+  LuminosityInterpreter _withPrefix(MeasurementPrefix prefix) =>
       LuminosityInterpreter._(_name, _unitMultiplier, prefix);
 
   @override
-  Luminosity call(final num value,
-          {final Precision precision = Precision.max}) =>
+  Luminosity call(num value, {Precision precision = Precision.max}) =>
       Luminosity(value, this, precision);
 
   /// The interpreter for candela.
@@ -62,36 +61,36 @@ class Luminosity extends Measurement<Luminosity> {
 
   /// The electric charge of size zero.
   const Luminosity.zero(
-      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
+      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.zero(interpreter);
 
   /// Infinite electric charge.
   const Luminosity.infinite(
-      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
+      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.infinite(interpreter);
 
   /// Infinite negative electric charge.
   const Luminosity.negativeInfinite(
-      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
+      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
   /// NaN (Not a Number) luminosity.
   const Luminosity.nan(
-      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
+      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.nan(interpreter);
 
   /// Constructs a [Luminosity] representing the sum of any number of other
   /// [Luminosity]s.
-  Luminosity.sum(final Iterable<Luminosity> parts,
-      {final Precision precision = Precision.max})
+  Luminosity.sum(Iterable<Luminosity> parts,
+      {Precision precision = Precision.max})
       : super.sum(parts, precision: precision);
 
   /// Interprets this using the specified units.
-  double as(final MeasurementInterpreter<Luminosity> interpreter) =>
+  double as(MeasurementInterpreter<Luminosity> interpreter) =>
       _preciseOf(interpreter);
 
   @override
-  void acceptVisitor(final MeasurementVisitor visitor) =>
+  void acceptVisitor(MeasurementVisitor visitor) =>
       visitor.visitLuminosity(this);
 
   @override
