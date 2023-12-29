@@ -34,7 +34,7 @@ class Precision {
   ///
   /// Due to Dart language limitations on doubles, the maximum precision is 21
   /// digits. Any attempt to use a higher number will fall back silently to 21.
-  /// 
+  ///
   /// Precision below 1 digit is meaningless and will fall back to 1.
   const Precision(this._precision);
 
@@ -101,8 +101,11 @@ class Precision {
   }
 
   /// Interprets the specified number according to this Precision.
-  double withPrecision(final num value) =>
+  double apply(final num value) =>
       double.parse(value.toStringAsPrecision(precision));
+
+  /// Alias for [apply].
+  double withPrecision(final num value) => apply(value);
 
   @override
   bool operator ==(final dynamic other) =>

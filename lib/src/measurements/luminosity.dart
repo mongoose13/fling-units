@@ -75,6 +75,11 @@ class Luminosity extends Measurement<Luminosity> {
       [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) luminosity.
+  const Luminosity.nan(
+      [final MeasurementInterpreter<Luminosity> interpreter = siUnit])
+      : super.nan(interpreter);
+
   /// Constructs a [Luminosity] representing the sum of any number of other
   /// [Luminosity]s.
   Luminosity.sum(final Iterable<Luminosity> parts,

@@ -130,6 +130,10 @@ class Mass extends Measurement<Mass> {
       [final MeasurementInterpreter<Mass> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) mass.
+  const Mass.nan([final MeasurementInterpreter<Mass> interpreter = siUnit])
+      : super.nan(interpreter);
+
   /// Constructs a [Mass] representing the sum of any number of other [Mass]es.
   Mass.sum(final Iterable<Mass> parts,
       {final Precision precision = Precision.max})

@@ -88,6 +88,10 @@ class Time extends Measurement<Time> {
       [final MeasurementInterpreter<Time> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) time.
+  const Time.nan([final MeasurementInterpreter<Time> interpreter = siUnit])
+      : super.nan(interpreter);
+
   /// Constructs a [Time] representing the sum of any number of other [Time]s.
   Time.sum(final Iterable<Time> parts,
       {final Precision precision = Precision.max})

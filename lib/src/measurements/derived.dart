@@ -28,6 +28,13 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
       : _reciprocal = false,
         super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) derived measurement.
+  const DerivedMeasurement.nan(
+      [final MeasurementInterpreter<DerivedMeasurement<A, B>> interpreter =
+          const _UnknownDerivedMeasurementInterpreter._()])
+      : _reciprocal = false,
+        super.nan(interpreter);
+
   /// Constructs a derived measurement representing the multiplication of a pair
   /// of simpler measurements.
   DerivedMeasurement.multiply(final A a, final B b, [final String? name])

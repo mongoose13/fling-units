@@ -29,6 +29,12 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
           interpreter: interpreter,
         );
 
+  const Measurement.nan(MeasurementInterpreter<T> interpreter)
+      : this(
+          amount: double.nan,
+          interpreter: interpreter,
+        );
+
   Measurement.sum(
     final Iterable<T> parts, {
     final Precision precision = Precision.max,
@@ -92,45 +98,40 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Accept a visitor object for double-dispatch.
   void acceptVisitor(final MeasurementVisitor visitor);
 
+  bool equals(Measurement<T> other) {
+    return identical(this, other) ||
+        isNaN && other.isNaN ||
+        other._precise(_preciseSI()) == _precise(other._preciseSI());
+  }
+
   @override
   bool operator ==(final dynamic other) =>
+      identical(this, other) ||
       other is Measurement<T> &&
-      si == other.si &&
-      _precision == other._precision;
+          si == other.si &&
+          _precision == other._precision;
 
   @override
   int get hashCode => si.hashCode * _precision.hashCode;
 
   /// Returns `true` if this is greater than the other measurement.
   ///
-  /// Precision may play a role here, e.g. the following evaluates to `true`:
-  /// ```dart
-  /// Distance(3.14159, precision: Precision(5)) > Distance(3.142, precision: Precision(3));
-  /// ```
+  /// This uses the first measurement's precision for all calculations.
   bool operator >(final T other) => _precise(si) > _precise(other.si);
 
   /// Returns `true` if this is greater than or equal to the other measurement.
   ///
-  /// Precision may play a role here, e.g. the following evaluates to `true`:
-  /// ```dart
-  /// Distance(3.14159, precision: Precision(5)) >= Distance(3.142, precision: Precision(3));
-  /// ```
+  /// This uses the first measurement's precision for all calculations.
   bool operator >=(final T other) => _precise(si) >= _precise(other.si);
 
   /// Returns `true` if this is less than the other measurement.
   ///
-  /// Precision may play a role here, e.g. the following evaluates to `false`:
-  /// ```dart
-  /// Distance(3.14159, precision: Precision(5)) < Distance(3.142, precision: Precision(3));
-  /// ```
+  /// This uses the first measurement's precision for all calculations.
   bool operator <(final T other) => _precise(si) < _precise(other.si);
 
   /// Returns `true` if this is less than or equal to the other measurement.
   ///
-  /// Precision may play a role here, e.g. the following evaluates to `false`:
-  /// ```dart
-  /// Distance(3.14159, precision: Precision(5)) <= Distance(3.142, precision: Precision(3));
-  /// ```
+  /// This uses the first measurement's precision for all calculations.
   bool operator <=(final T other) => _precise(si) <= _precise(other.si);
 
   @override
@@ -154,18 +155,44 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
       );
 
   /// Returns a measurement equivalent to a multiple of this.
-  T operator *(final double multiplier) =>
+  T operator *(final num multiplier) =>
       _construct(si * multiplier, defaultInterpreter, _precision);
 
   /// Returns a measurement equivalent to a fraction of this.
-  T operator /(final double divisor) =>
+  T operator /(final num divisor) =>
       _construct(si / divisor, defaultInterpreter, _precision);
+
+  /// Returns the Euclidean remainder of the division between two measurements.
+  ///
+  /// For example:
+  /// ```dart
+  /// feet(2) % inches(7); // 3 inches
+  /// inches(7) % feet(2); // 7 inches
+  /// ```
+  ///
+  /// For the purposes of this function, a negative divisor is treated identically
+  /// to its positive counterpart, and thus the operation always produces a positive
+  /// result. This is consistent with the way Dart handles the modulo operator.
+  /// For example:
+  /// ```dart
+  /// feet(2) % inches(-7); // 3 inches
+  /// feet(-2) % inches(7); // 4 inches
+  /// feet(-2) % inches(-7); // 4 inches
+  /// ```
+  ///
+  /// If the divisor is zero or the dividend is infinite, the result is always NaN.
+  T operator %(final T other) => _construct(
+        defaultInterpreter._of(_preciseSI() % other._preciseSI()),
+        defaultInterpreter,
+        Precision.combine([_precision, other._precision]),
+      );
 
   /// Returns the truncating division result of this and another measurement.
   ///
   /// For example:
   /// ```dart
-  /// var fullHalfCups = cups(1.25) ~/ cups(0.5);  // 2
+  /// // the number of times 1/2 cup fits into 1 1/4 cups
+  /// int fullHalfCups = cups(1.25) ~/ cups(0.5);  // 2
   /// ```
   ///
   /// Attempting to divide by a measurement of magnitude zero, or attempting to
@@ -206,11 +233,11 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   String toString() => '$defaultValue $defaultInterpreter';
 
   /// Apply the measurement appropriate precision to a value.
-  double _precise(final num value) => _precision.withPrecision(value);
+  double _precise(final num value) => _precision.apply(value);
 
   /// Apply the measurement appropriate precision to a converted value.
   double _preciseOf([final MeasurementInterpreter<T>? converter]) =>
-      _precision.withPrecision(converter?._of(si) ?? si);
+      _precision.apply(converter?._of(si) ?? si);
 
   /// Apply the measurement appropriate precision to the base value.
   double _preciseSI() => _precise(si);

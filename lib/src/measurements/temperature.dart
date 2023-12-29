@@ -35,6 +35,14 @@ class Temperature implements Comparable<Temperature> {
         _precision = Precision.max,
         _defaultInterpreter = defaultInterpreter;
 
+  /// NaN (Not a Number) temperature.
+  const Temperature.nan(
+      [final MeasurementInterpreter<TemperatureChange> interpreter =
+          TemperatureChangeInterpreter._kelvin])
+      : _kelvin = double.nan,
+        _precision = Precision.max,
+        _defaultInterpreter = interpreter;
+
   /// Constructs a [Temperature] from a Kelvin amount.
   Temperature.ofKelvin(
     final num kelvin, {
@@ -81,14 +89,14 @@ class Temperature implements Comparable<Temperature> {
   }
 
   /// Interprets this as Kelvin.
-  double get asKelvin => _precision.withPrecision(_kelvin);
+  double get asKelvin => _precision.apply(_kelvin);
 
   /// Interprets this as degrees Celcius.
-  double get asCelcius => _precision.withPrecision(
+  double get asCelcius => _precision.apply(
       TemperatureChangeInterpreter._celcius._of(_kelvin) + _celciusOffset);
 
   /// Interprets this as degrees Fahrenheit.
-  double get asFahrenheit => _precision.withPrecision(
+  double get asFahrenheit => _precision.apply(
       TemperatureChangeInterpreter._fahrenheit._of(_kelvin + _celciusOffset) +
           _fahrenheitOffset);
 

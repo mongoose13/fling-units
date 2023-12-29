@@ -58,6 +58,12 @@ class Area extends Measurement<Area> {
       [final AreaInterpreter interpreter = const AreaInterpreter._m2()])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) area.
+  const Area.nan(
+      [final MeasurementInterpreter<Area> interpreter =
+          const AreaInterpreter._m2()])
+      : super.nan(interpreter);
+
   /// Constructs an [Area] from component parts.
   Area.of(final Distance a, final Distance b)
       : this(

@@ -9,7 +9,7 @@ measurements to keep your code simple!
 [![Code Quality](https://img.shields.io/codacy/grade/749ee1e8ee2e4d26ab57b3256f422e9a?style=plastic)](https://www.codacy.com/bb/gelbermungo/fling-units/dashboard)
 [![Pub Version](https://img.shields.io/pub/v/fling_units?style=plastic)](https://pub.dev/packages/fling_units)
 
-<a href="https://www.buymeacoffee.com/mongoose" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/mongoose" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px;width: 217px;" ></a>
 
 ## Overview
 
@@ -58,10 +58,9 @@ Create an instance of the dimension type you want to measure:
 
 ```dart
 void main() {
-  Distance distanceToSeattle = kilo.meters(
-      246); // you can use metric prefixes with any unit
-  Distance distanceToTheMoon = Distance.sum(
-      [miles(238900), feet(42), inches(6.3)]);
+  // you can use metric prefixes with any unit
+  Distance distanceToSeattle = kilo.meters(246);
+  Distance distanceToTheMoon = Distance.sum([miles(238900), feet(42), inches(6.3)]);
   Mass massOfTheMoon = yocto.grams(73.5);
 }
 ```
@@ -84,8 +83,7 @@ void main() {
   Distance distanceToSeattleAndBack = distanceToSeattle * 2;
 
   // addition
-  Distance distanceToTheMoon = distanceToUpperAtmosphere +
-      distanceFromAtmosphereToMoon;
+  Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
 
   // support for infinite measurements
   Distance distanceToTheEndsOfTheUniverse = Distance.infinite();
@@ -165,6 +163,19 @@ void main() {
 }
 ```
 
+Use the `equals` method for less restrictive equality checks that read more naturally,
+even if their precisions differ:
+
+```dart
+void main() {
+  var massOfMyPetRock = 500.grams.withPrecision(Precision(3));
+  var anotherWayToWriteIt = (0.5).kilo.grams.withPrecision(Precision(1));
+
+  massOfMyPetRock == anotherWayToWriteIt; // false
+  massOfMyPetRock.equals(anotherWayToWriteIt); // true
+}
+```
+
 Extensions allow you to define measurements from any number for a more natural
 syntax:
 
@@ -199,7 +210,7 @@ support:
 - add or subtract two similar measurements (`+`, `-`)
 - multiply or divide measurements by a scalar (`*`, `/`)
 - negate measurements (unary `-`)
-- measurement comparisons (`~/`, `compareMagnitude`)
+- measurement comparisons (`~/`, `%`, `compareMagnitude`)
 - visitor pattern compatible
 - extensions on *num* for more natural instantiation
 

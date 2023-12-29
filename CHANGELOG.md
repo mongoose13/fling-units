@@ -6,6 +6,10 @@ types you need to work with from the rest of your code.
 ### Changed
 - Support for const constructors on all units
 
+### Added
+- Support the modulo operator for all measurements
+- Support equals() method for all measurements
+
 ## [2.2.6]
 ### Changed
 - Update dependency versions

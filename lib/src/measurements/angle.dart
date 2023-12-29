@@ -110,6 +110,10 @@ class Angle extends Measurement<Angle> {
   const Angle.negativeInfinite([final AngleInterpreter interpreter = radians])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) angle.
+  const Angle.nan([final MeasurementInterpreter<Angle> interpreter = radians])
+      : super.nan(interpreter);
+
   /// A right angle.
   const Angle.right() : this(0.25, turns);
 

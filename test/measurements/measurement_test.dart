@@ -279,12 +279,42 @@ void main() {
     });
 
     group('hashCode', () {
-      test('same constant', () {
+      test('zero', () {
         // given
         final unit = Distance.zero();
 
         // when
-        final result = unit.hashCode == unit.hashCode;
+        final result = unit.hashCode == Distance.zero().hashCode;
+
+        // then
+        expect(result, true);
+      });
+      test('infinite', () {
+        // given
+        final unit = Distance.infinite();
+
+        // when
+        final result = unit.hashCode == Distance.infinite().hashCode;
+
+        // then
+        expect(result, true);
+      });
+      test('negative infinite', () {
+        // given
+        final unit = Distance.negativeInfinite();
+
+        // when
+        final result = unit.hashCode == Distance.negativeInfinite().hashCode;
+
+        // then
+        expect(result, true);
+      });
+      test('not a number', () {
+        // given
+        final unit = Distance.nan();
+
+        // when
+        final result = unit.hashCode == Distance.nan().hashCode;
 
         // then
         expect(result, true);
@@ -303,6 +333,17 @@ void main() {
         // given
         final unit1 = meters(3, precision: Precision(5));
         final unit2 = meters(3, precision: Precision(5));
+
+        // when
+        final result = unit1.hashCode == unit2.hashCode;
+
+        // then
+        expect(result, true);
+      });
+      test('equivalent object', () {
+        // given
+        final unit1 = meters(3000, precision: Precision(5));
+        final unit2 = kilo.meters(3, precision: Precision(5));
 
         // when
         final result = unit1.hashCode == unit2.hashCode;
@@ -344,6 +385,17 @@ void main() {
         // then
         expect(result, true);
       });
+      test('equivalent object', () {
+        // given
+        final unit1 = meters(3000, precision: Precision(5));
+        final unit2 = kilo.meters(3, precision: Precision(5));
+
+        // when
+        final result = unit1 == unit2;
+
+        // then
+        expect(result, true);
+      });
       test('different value', () {
         // given
         final unit1 = meters(4, precision: Precision(5));
@@ -357,11 +409,122 @@ void main() {
       });
       test('different precision', () {
         // given
-        final unit1 = meters(3, precision: Precision(4));
-        final unit2 = meters(3, precision: Precision(5));
+        final unit1 = meters(3.14159, precision: Precision(4));
+        final unit2 = meters(3.14159, precision: Precision(6));
 
         // when
         final result = unit1 == unit2;
+
+        // then
+        expect(result, false);
+      });
+      test('different precision and value', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(4));
+        final unit2 = meters(3.1416, precision: Precision(6));
+
+        // when
+        final result = unit1 == unit2;
+
+        // then
+        expect(result, false);
+      });
+      test('different value', () {
+        // given
+        final unit1 = meters(3.1416, precision: Precision(6));
+        final unit2 = meters(3.14159, precision: Precision(6));
+
+        // when
+        final result = unit1 == unit2;
+
+        // then
+        expect(result, false);
+      });
+    });
+
+    group('equals', () {
+      test('same constant', () {
+        // given
+        final unit = Distance.zero();
+
+        // when
+        final result = unit.equals(unit);
+
+        // then
+        expect(result, true);
+      });
+      test('same object', () {
+        // given
+        final unit = meters(3, precision: Precision(5));
+
+        // when
+        final result = unit.equals(unit);
+
+        // then
+        expect(result, true);
+      });
+      test('identical object', () {
+        // given
+        final unit1 = meters(3, precision: Precision(5));
+        final unit2 = meters(3, precision: Precision(5));
+
+        // when
+        final result = unit1.equals(unit2);
+
+        // then
+        expect(result, true);
+      });
+      test('different value', () {
+        // given
+        final unit1 = meters(4, precision: Precision(5));
+        final unit2 = meters(3, precision: Precision(5));
+
+        // when
+        final result = unit1.equals(unit2);
+
+        // then
+        expect(result, false);
+      });
+      test('different precision, equal', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(4));
+        final unit2 = meters(3.14159, precision: Precision(6));
+
+        // when
+        final result = unit1.equals(unit2);
+
+        // then
+        expect(result, true);
+      });
+      test('different precision and value, equal', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(4));
+        final unit2 = meters(3.1416, precision: Precision(6));
+
+        // when
+        final result = unit1.equals(unit2);
+
+        // then
+        expect(result, true);
+      });
+      test('different precision and value, unequal', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(4));
+        final unit2 = meters(3.14149, precision: Precision(6));
+
+        // when
+        final result = unit1.equals(unit2);
+
+        // then
+        expect(result, false);
+      });
+      test('same precision, unequal', () {
+        // given
+        final unit1 = meters(3.1416, precision: Precision(6));
+        final unit2 = meters(3.14159, precision: Precision(6));
+
+        // when
+        final result = unit1.equals(unit2);
 
         // then
         expect(result, false);
@@ -401,6 +564,28 @@ void main() {
 
         // then
         expect(result, true);
+      });
+      test('precision smaller', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(2));
+        final unit2 = meters(3.14159, precision: Precision(5));
+
+        // when
+        final result = unit1 > unit2;
+
+        // then
+        expect(result, false);
+      });
+      test('precision bigger', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(5));
+        final unit2 = meters(3.14159, precision: Precision(2));
+
+        // when
+        final result = unit1 > unit2;
+
+        // then
+        expect(result, false);
       });
       test('from infinite', () {
         // given
@@ -475,6 +660,28 @@ void main() {
         // given
         final unit1 = meters(4, precision: Precision(5));
         final unit2 = meters(3, precision: Precision(5));
+
+        // when
+        final result = unit1 >= unit2;
+
+        // then
+        expect(result, true);
+      });
+      test('precision smaller', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(2));
+        final unit2 = meters(3.14159, precision: Precision(5));
+
+        // when
+        final result = unit1 >= unit2;
+
+        // then
+        expect(result, true);
+      });
+      test('precision bigger', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(5));
+        final unit2 = meters(3.14159, precision: Precision(2));
 
         // when
         final result = unit1 >= unit2;
@@ -562,6 +769,28 @@ void main() {
         // then
         expect(result, false);
       });
+      test('precision smaller', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(2));
+        final unit2 = meters(3.14159, precision: Precision(5));
+
+        // when
+        final result = unit1 < unit2;
+
+        // then
+        expect(result, false);
+      });
+      test('precision bigger', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(5));
+        final unit2 = meters(3.14159, precision: Precision(2));
+
+        // when
+        final result = unit1 < unit2;
+
+        // then
+        expect(result, false);
+      });
       test('from infinite', () {
         // given
         final unit1 = Distance.infinite();
@@ -641,6 +870,28 @@ void main() {
 
         // then
         expect(result, false);
+      });
+      test('precision smaller', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(2));
+        final unit2 = meters(3.14159, precision: Precision(5));
+
+        // when
+        final result = unit1 <= unit2;
+
+        // then
+        expect(result, true);
+      });
+      test('precision bigger', () {
+        // given
+        final unit1 = meters(3.14159, precision: Precision(5));
+        final unit2 = meters(3.14159, precision: Precision(2));
+
+        // when
+        final result = unit1 <= unit2;
+
+        // then
+        expect(result, true);
       });
       test('from infinite', () {
         // given
@@ -1206,6 +1457,174 @@ void main() {
 
         // then
         expect(() => unit1 ~/ unit2, throwsUnsupportedError);
+      });
+    });
+
+    group('%', () {
+      test('larger over smaller', () {
+        // given
+        final unit1 = meters(8);
+        final unit2 = meters(3);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(meters(2)), true);
+      });
+      test('smaller over larger', () {
+        // given
+        final unit1 = meters(3);
+        final unit2 = meters(8);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(meters(3)), true);
+      });
+      test('different base units', () {
+        // given
+        final unit1 = meters(5);
+        final unit2 = feet(5);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.withPrecision(Precision(3)).as(meters), 0.428);
+      });
+      test('different base units with decimals', () {
+        // given
+        final unit1 = meters(5.5);
+        final unit2 = feet(4.3);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.withPrecision(Precision(3)).as(meters), 0.257);
+      });
+      test('negative dividend', () {
+        // given
+        final unit1 = meters(-8);
+        final unit2 = meters(3);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(meters(1)), true);
+      });
+      test('negative divisor', () {
+        // given
+        final unit1 = meters(8);
+        final unit2 = meters(-3);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(meters(2)), true);
+      });
+      test('both negative', () {
+        // given
+        final unit1 = meters(-8);
+        final unit2 = meters(-3);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(meters(1)), true);
+      });
+      test('infinite dividend', () {
+        // given
+        final unit1 = Distance.infinite();
+        final unit2 = meters(2);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(Distance.nan()), true);
+      });
+      test('infinite divisor', () {
+        // given
+        final unit1 = meters(5);
+        final unit2 = Distance.infinite();
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(meters(5)), true);
+      });
+      test('both infinite', () {
+        // given
+        final unit1 = Distance.infinite();
+        final unit2 = Distance.infinite();
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(Distance.nan()), true);
+      });
+      test('zero dividend', () {
+        // given
+        final unit1 = Distance.zero();
+        final unit2 = meters(2);
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(Distance.zero()), true);
+      });
+      test('zero divisor', () {
+        // given
+        final unit1 = meters(5);
+        final unit2 = Distance.zero();
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(Distance.nan()), true);
+      });
+      test('both zero', () {
+        // given
+        final unit1 = Distance.zero();
+        final unit2 = Distance.zero();
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(Distance.nan()), true);
+      });
+      test('zero divisor, infinite dividend', () {
+        // given
+        final unit1 = Distance.infinite();
+        final unit2 = Distance.zero();
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(Distance.nan()), true);
+      });
+      test('infinite divisor, zero dividend', () {
+        // given
+        final unit1 = Distance.zero();
+        final unit2 = Distance.infinite();
+
+        // when
+        final result = unit1 % unit2;
+
+        // then
+        expect(result.equals(Distance.zero()), true);
       });
     });
 

@@ -236,6 +236,10 @@ class Volume extends Measurement<Volume> {
       [final MeasurementInterpreter<Volume> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) volume.
+  const Volume.nan([final MeasurementInterpreter<Volume> interpreter = siUnit])
+      : super.nan(interpreter);
+
   /// Constructs a [Volume] representing the sum of any number of other
   /// [Volume]s.
   Volume.sum(final Iterable<Volume> parts,

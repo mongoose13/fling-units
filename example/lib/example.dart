@@ -18,13 +18,27 @@ void main() {
   var depthsOfMyMind = Volume.infinite();
   var depthsOfMyPetRocksMind = Volume.zero();
 
+  // Want syntactic sugar? Any measurement can be created from a number using
+  // extensions. We recommend wrapping doubles in parenthesis for readability.
+  var yourBucketSize = 3.liters;
+  var myBucketSize = (1.3).deka.liters;
+
   //------------------------------------------------//
 
-  // Perform basic arithmetic on compatible units.
-  var distanceToSeattleAndBack = distanceToSeattle * 2;
-  var distanceToSeattleIfYouForgotSomethingAtHome =
+  // Perform basic arithmetic on compatible units. You can add, subtract, multiply,
+  // divide, truncating divide, or modulo divide.
+  final distanceToSeattleAndBack = distanceToSeattle * 2;
+  final distanceToSeattleIfYouForgotSomethingAtHome =
       (distanceToSeattleAndBack + distanceToSeattle)
           .withPrecision(Precision(6));
+
+  // You can also make use of the Precision class to ensure proper significant digits.
+  final bucketMagnitudeDifference =
+      Precision(3).apply(myBucketSize.compareMagnitude(yourBucketSize));
+  final timesYourBucketFitsInMine = myBucketSize ~/ yourBucketSize;
+  final leftOverBucketVolume = (myBucketSize % yourBucketSize)
+      .withPrecision(Precision(3))
+      .withDefaultUnit(liters);
 
   //------------------------------------------------//
 
@@ -34,6 +48,10 @@ void main() {
   } else {
     print("I don't think we're in Kansas any more.");
   }
+
+  print("\nMy bucket is $bucketMagnitudeDifference times bigger than yours!");
+  print(
+      "Or, if you prefer, yours fits $timesYourBucketFitsInMine times into mine, with $leftOverBucketVolume left over.");
 
   print("\nIt is cold...");
   while (bodyTemperature < Temperature.ofFahrenheit(98.6)) {
@@ -103,15 +121,6 @@ void main() {
 
   var coulombs = seconds(4).by(amperes(8));
   print("My invention generates $coulombs!");
-
-  //------------------------------------------------//
-
-  // Want syntactic sugar? Any measurement can be created from a number using
-  // extensions. We recommend wrapping doubles in parenthesis for readability.
-  var yourBucketSize = 3.liters;
-  var myBucketSize = (1.5).deka.liters;
-  print(
-      "\nMy bucket is ${myBucketSize.compareMagnitude(yourBucketSize)} times bigger than yours!");
 
   //------------------------------------------------//
 

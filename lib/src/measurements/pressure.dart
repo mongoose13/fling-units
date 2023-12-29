@@ -152,15 +152,23 @@ class Pressure extends Measurement<Pressure> {
         precision,
       );
 
+  /// Zero pressure.
   const Pressure.zero(
       [final MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.zero(interpreter);
 
+  /// Infinite pressure.
   const Pressure.infinite(
       [final MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.infinite(interpreter);
 
+  /// Negative infinite pressure.
   const Pressure.negativeInfinite(
       [final MeasurementInterpreter<Pressure> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
+
+  /// NaN (Not a Number) pressure.
+  const Pressure.nan(
+      [final MeasurementInterpreter<Pressure> interpreter = siUnit])
+      : super.nan(interpreter);
 }

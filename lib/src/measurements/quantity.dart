@@ -102,6 +102,11 @@ class Quantity extends Measurement<Quantity> {
       [final MeasurementInterpreter<Quantity> interpreter = units])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) quantity.
+  const Quantity.nan(
+      [final MeasurementInterpreter<Quantity> interpreter = units])
+      : super.nan(interpreter);
+
   /// Constructs a [Quantity] representing the sum of any number of other
   /// [Quantity]s.
   Quantity.sum(final Iterable<Quantity> parts,

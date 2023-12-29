@@ -57,6 +57,10 @@ class Charge extends Measurement<Charge> {
       [final MeasurementInterpreter<Charge> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) charge.
+  const Charge.nan([final MeasurementInterpreter<Charge> interpreter = siUnit])
+      : super.nan(interpreter);
+
   /// Constructs a [Charge] representing the sum of any number of other
   /// [Charge]s.
   Charge.sum(final Iterable<Charge> parts,

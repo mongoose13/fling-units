@@ -104,6 +104,11 @@ class Distance extends Measurement<Distance> {
       [final MeasurementInterpreter<Distance> interpreter = siUnit])
       : super.negativeInfinite(interpreter);
 
+  /// NaN (Not a Number) distance.
+  const Distance.nan(
+      [final MeasurementInterpreter<Distance> interpreter = siUnit])
+      : super.nan(interpreter);
+
   /// Constructs a [Distance] representing the sum of any number of other
   /// [Distance]s.
   Distance.sum(final Iterable<Distance> parts,

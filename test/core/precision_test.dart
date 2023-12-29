@@ -8,7 +8,7 @@ void main() {
       const precision = Precision(0);
 
       // when
-      final result = precision.withPrecision(1.234);
+      final result = precision.apply(1.234);
 
       // then
       expect(result, 1.0);
@@ -18,7 +18,7 @@ void main() {
       const precision = Precision(-2);
 
       // when
-      final result = precision.withPrecision(1.234);
+      final result = precision.apply(1.234);
 
       // then
       expect(result, 1.0);
@@ -28,7 +28,7 @@ void main() {
       const precision = Precision(22);
 
       // when
-      final result = precision.withPrecision(1.23456789012345678901234567890);
+      final result = precision.apply(1.23456789012345678901234567890);
 
       // then
       expect(result, 1.23456789012345678901);
@@ -41,7 +41,7 @@ void main() {
       const precision = Precision(2);
 
       // when
-      final result = precision.withPrecision(123.4321);
+      final result = precision.apply(123.4321);
 
       // then
       expect(result, 120.0);
@@ -51,7 +51,7 @@ void main() {
       const precision = Precision(3);
 
       // when
-      final result = precision.withPrecision(123.4321);
+      final result = precision.apply(123.4321);
 
       // then
       expect(result, 123.0);
@@ -61,7 +61,7 @@ void main() {
       const precision = Precision(4);
 
       // when
-      final result = precision.withPrecision(123.4321);
+      final result = precision.apply(123.4321);
 
       // then
       expect(result, 123.4);
@@ -71,7 +71,7 @@ void main() {
       const precision = Precision(4);
 
       // when
-      final result = precision.withPrecision(123.45);
+      final result = precision.apply(123.45);
 
       // then
       expect(result, 123.5);
@@ -81,7 +81,7 @@ void main() {
       const precision = Precision(5);
 
       // when
-      final result = precision.withPrecision(1.23);
+      final result = precision.apply(1.23);
 
       // then
       expect(result, 1.23);
