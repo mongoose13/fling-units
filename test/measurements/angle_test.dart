@@ -355,7 +355,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = degrees(3.4).withPrecision(Precision(3));
+        final measurement = degrees(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -365,7 +365,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.degrees(3.4).withPrecision(Precision(3));
+        final measurement = milli.degrees(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -375,7 +375,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.degrees.withPrecision(Precision(3));
+        final measurement = 3.4.milli.degrees.withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -385,10 +385,10 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.degrees(23.45).withPrecision(Precision(3));
+        final measurement = deci.degrees(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withPrecision(Precision(2)).toString();
+        final result = measurement.withPrecisionOf(2).toString();
 
         // then
         expect(result, '23.0 d°');

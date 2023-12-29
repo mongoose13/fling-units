@@ -173,9 +173,14 @@ class Temperature implements Comparable<Temperature> {
       visitor.visitTemperature(this);
 
   /// Constructs a new measurement equivalent to this one but with a different
-  /// precision.
+  /// [Precision].
   Temperature withPrecision(Precision precision) =>
       Temperature._(_kelvin, precision, _defaultInterpreter);
+
+  /// Constructs a new measurement equivalent to this one but with a different
+  /// precision (significant digits).
+  Temperature withPrecisionOf(int precision) =>
+      withPrecision(Precision(precision));
 
   /// Constructs a new measurement equivalent to this one but with a different
   /// default measurement unit.

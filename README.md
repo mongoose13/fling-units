@@ -159,7 +159,7 @@ void main() {
   var myHeightInInches = myHeight.as(inches); // 59.0
   
   var myWeight = kilo.grams(61.234);
-  var myPreciseWeight = myWeight.withPrecision(Precision(3)); // 61.2
+  var myPreciseWeight = myWeight.withPrecisionOf(3); // 61.2
 }
 ```
 
@@ -168,8 +168,8 @@ even if their precisions differ:
 
 ```dart
 void main() {
-  var massOfMyPetRock = 500.grams.withPrecision(Precision(3));
-  var anotherWayToWriteIt = (0.5).kilo.grams.withPrecision(Precision(1));
+  var massOfMyPetRock = 500.grams.withPrecisionOf(3);
+  var anotherWayToWriteIt = (0.5).kilo.grams.withPrecisionOf(1);
 
   massOfMyPetRock == anotherWayToWriteIt; // false
   massOfMyPetRock.equals(anotherWayToWriteIt); // true

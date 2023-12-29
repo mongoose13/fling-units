@@ -14,7 +14,7 @@ void main() {
         test('zero with custom default interpreter', () {
           // given
           final interpreter =
-              Temperature.absoluteZero(fahrenheit).withPrecision(Precision(5));
+              Temperature.absoluteZero(fahrenheit).withPrecisionOf(5);
 
           // when
           final result = interpreter.toString();
@@ -390,8 +390,7 @@ void main() {
     group('toString', () {
       test('maintains units', () {
         // given
-        final measurement =
-            Temperature.ofFahrenheit(3.4).withPrecision(Precision(3));
+        final measurement = Temperature.ofFahrenheit(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -401,7 +400,7 @@ void main() {
       });
       test('extension maintains units', () {
         // given
-        final measurement = 3.4.ofFahrenheit.withPrecision(Precision(3));
+        final measurement = 3.4.ofFahrenheit.withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -411,7 +410,7 @@ void main() {
       });
       test('modified units', () {
         // given
-        final measurement = 3.4.ofFahrenheit.withPrecision(Precision(3));
+        final measurement = 3.4.ofFahrenheit.withPrecisionOf(3);
 
         // when
         final result = measurement.withDefaultUnit(celcius).toString();

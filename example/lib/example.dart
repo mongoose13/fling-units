@@ -30,14 +30,14 @@ void main() {
   final distanceToSeattleAndBack = distanceToSeattle * 2;
   final distanceToSeattleIfYouForgotSomethingAtHome =
       (distanceToSeattleAndBack + distanceToSeattle)
-          .withPrecision(Precision(6));
+          .withPrecisionOf(6);
 
   // You can also make use of the Precision class to ensure proper significant digits.
   final bucketMagnitudeDifference =
       Precision(3).apply(myBucketSize.compareMagnitude(yourBucketSize));
   final timesYourBucketFitsInMine = myBucketSize ~/ yourBucketSize;
   final leftOverBucketVolume = (myBucketSize % yourBucketSize)
-      .withPrecision(Precision(3))
+      .withPrecisionOf(3)
       .withDefaultUnit(liters);
 
   //------------------------------------------------//
@@ -128,7 +128,7 @@ void main() {
   // the "standard" short form of the unit. Measurements will make use of that
   // in their own toString() methods using whichever unit was used to
   // instantiate them. You can also change the default unit later.
-  final goldAmount = 1234.milli.grams.withPrecision(Precision(4));
+  final goldAmount = 1234.milli.grams.withPrecisionOf(4);
   print("I have $goldAmount of gold!");
   print("I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!");
   print("I have ${goldAmount.withDefaultUnit(ounces)} of gold!");
@@ -136,8 +136,8 @@ void main() {
   // This is also true for derived units. The library will produce a default
   // unit name, but you can also supply your own.
   final carSpeed = DerivedMeasurement<Distance, Time>.divide(
-    100.miles.withPrecision(Precision(3)),
-    1.hours.withPrecision(Precision(3)),
+    100.miles.withPrecisionOf(3),
+    1.hours.withPrecisionOf(3),
   );
   print("\nMy car is going $carSpeed!");
   final carVelocity = carSpeed.withDefaultUnit(DerivedMeasurementInterpreter(

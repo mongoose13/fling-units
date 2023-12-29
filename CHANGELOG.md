@@ -9,6 +9,7 @@ types you need to work with from the rest of your code.
 ### Added
 - Support the modulo operator for all measurements
 - Support equals() method for all measurements
+- Accept Precision as an int
 
 ## [2.2.6]
 ### Changed

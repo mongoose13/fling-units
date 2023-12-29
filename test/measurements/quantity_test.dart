@@ -249,7 +249,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = moles(3.4).withPrecision(Precision(3));
+        final measurement = moles(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -259,7 +259,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.moles(3.4).withPrecision(Precision(3));
+        final measurement = milli.moles(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -269,7 +269,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.moles.withPrecision(Precision(3));
+        final measurement = 3.4.milli.moles.withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -279,17 +279,17 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.moles(23.45).withPrecision(Precision(3));
+        final measurement = deci.moles(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withPrecision(Precision(2)).toString();
+        final result = measurement.withPrecisionOf(2).toString();
 
         // then
         expect(result, '23.0 dmol');
       });
       test('modified units', () {
         // given
-        final measurement = deci.moles(23.45).withPrecision(Precision(3));
+        final measurement = deci.moles(23.45).withPrecisionOf(3);
 
         // when
         final result = measurement.withDefaultUnit(milli.units).toString();

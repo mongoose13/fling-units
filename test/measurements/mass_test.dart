@@ -353,7 +353,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = pounds(3.4).withPrecision(Precision(3));
+        final measurement = pounds(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -363,7 +363,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.pounds(3.4).withPrecision(Precision(3));
+        final measurement = milli.pounds(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -373,7 +373,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.pounds.withPrecision(Precision(3));
+        final measurement = 3.4.milli.pounds.withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -383,17 +383,17 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.pounds(23.45).withPrecision(Precision(3));
+        final measurement = deci.pounds(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withPrecision(Precision(2)).toString();
+        final result = measurement.withPrecisionOf(2).toString();
 
         // then
         expect(result, '23.0 dlb');
       });
       test('modified units', () {
         // given
-        final measurement = deci.pounds(23.45).withPrecision(Precision(3));
+        final measurement = deci.pounds(23.45).withPrecisionOf(3);
 
         // when
         final result = measurement.withDefaultUnit(milli.tonnes).toString();

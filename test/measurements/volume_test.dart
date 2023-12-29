@@ -561,7 +561,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = cups(3.4).withPrecision(Precision(3));
+        final measurement = cups(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -571,7 +571,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.cups(3.4).withPrecision(Precision(3));
+        final measurement = milli.cups(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -581,7 +581,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.cups.withPrecision(Precision(3));
+        final measurement = 3.4.milli.cups.withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -591,17 +591,17 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.cups(23.45).withPrecision(Precision(3));
+        final measurement = deci.cups(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withPrecision(Precision(2)).toString();
+        final result = measurement.withPrecisionOf(2).toString();
 
         // then
         expect(result, '23.0 dcup');
       });
       test('modified units', () {
         // given
-        final measurement = deci.cups(23.45).withPrecision(Precision(3));
+        final measurement = deci.cups(23.45).withPrecisionOf(3);
 
         // when
         final result = measurement.withDefaultUnit(milli.liters).toString();
@@ -621,7 +621,7 @@ void main() {
       });
       test('cubic measurement', () {
         // given
-        final measurement = Volume.cubic(feet)(2.3).withPrecision(Precision(2));
+        final measurement = Volume.cubic(feet)(2.3).withPrecisionOf(2);
 
         // when
         final result = measurement.toString();

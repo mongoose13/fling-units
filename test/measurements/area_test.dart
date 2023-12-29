@@ -172,8 +172,7 @@ void main() {
         final interpreter = AreaInterpreter.squared(feet);
 
         // when
-        final result =
-            interpreter(5).withPrecision(Precision(6)).as(meters, meters);
+        final result = interpreter(5).withPrecisionOf(6).as(meters, meters);
 
         // then
         expect(result, 0.464515);
@@ -183,8 +182,7 @@ void main() {
         final interpreter = AreaInterpreter.squared(deci.feet);
 
         // when
-        final result =
-            interpreter(5).withPrecision(Precision(6)).as(meters, meters);
+        final result = interpreter(5).withPrecisionOf(6).as(meters, meters);
 
         // then
         expect(result, 0.00464515);

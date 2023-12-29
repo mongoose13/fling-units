@@ -1492,7 +1492,7 @@ void main() {
         final result = unit1 % unit2;
 
         // then
-        expect(result.withPrecision(Precision(3)).as(meters), 0.428);
+        expect(result.withPrecisionOf(3).as(meters), 0.428);
       });
       test('different base units with decimals', () {
         // given
@@ -1503,7 +1503,7 @@ void main() {
         final result = unit1 % unit2;
 
         // then
-        expect(result.withPrecision(Precision(3)).as(meters), 0.257);
+        expect(result.withPrecisionOf(3).as(meters), 0.257);
       });
       test('negative dividend', () {
         // given
@@ -1725,7 +1725,7 @@ void main() {
         final unit = meters(3.14159, precision: Precision(6));
 
         // when
-        final result = unit.withPrecision(Precision(4));
+        final result = unit.withPrecisionOf(4);
 
         // then
         expect(result.as(meters), 3.142);
@@ -1735,7 +1735,7 @@ void main() {
         final unit = meters(3.14159, precision: Precision(2));
 
         // when
-        final result = unit.withPrecision(Precision(6));
+        final result = unit.withPrecisionOf(6);
 
         // then
         expect(result.as(meters), 3.14159);

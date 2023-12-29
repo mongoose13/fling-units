@@ -243,7 +243,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = minutes(3.4).withPrecision(Precision(3));
+        final measurement = minutes(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -253,7 +253,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.minutes(3.4).withPrecision(Precision(3));
+        final measurement = milli.minutes(3.4).withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -263,7 +263,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.minutes.withPrecision(Precision(3));
+        final measurement = 3.4.milli.minutes.withPrecisionOf(3);
 
         // when
         final result = measurement.toString();
@@ -273,17 +273,17 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.minutes(23.45).withPrecision(Precision(3));
+        final measurement = deci.minutes(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withPrecision(Precision(2)).toString();
+        final result = measurement.withPrecisionOf(2).toString();
 
         // then
         expect(result, '23.0 dmin');
       });
       test('modified units', () {
         // given
-        final measurement = deci.minutes(23.45).withPrecision(Precision(3));
+        final measurement = deci.minutes(23.45).withPrecisionOf(3);
 
         // when
         final result = measurement.withDefaultUnit(milli.days).toString();
