@@ -7,14 +7,10 @@ class PressureInterpreter extends MeasurementInterpreter<Pressure> {
 
   /// Constructs a [MassInterpreter].
   const PressureInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(
-          name,
-          multiplier,
-          prefix,
-        );
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [PressureInterpreter] that is a multiple of this.
   PressureInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -135,8 +131,7 @@ class Pressure extends Measurement<Pressure> {
   ]) : super(amount: pascals, precision: precision, interpreter: interpreter);
 
   /// Constructs a [Pressure] representing the sum of any number of other [Pressure]s.
-  Pressure.sum(Iterable<Pressure> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Pressure.sum(super.parts, {super.precision}) : super.sum();
 
   @override
   Pressure _construct(
@@ -151,20 +146,15 @@ class Pressure extends Measurement<Pressure> {
       );
 
   /// Zero pressure.
-  const Pressure.zero([MeasurementInterpreter<Pressure> interpreter = siUnit])
-      : super.zero(interpreter);
+  const Pressure.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite pressure.
-  const Pressure.infinite(
-      [MeasurementInterpreter<Pressure> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const Pressure.infinite([super.interpreter = siUnit]) : super.infinite();
 
   /// Negative infinite pressure.
-  const Pressure.negativeInfinite(
-      [MeasurementInterpreter<Pressure> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const Pressure.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) pressure.
-  const Pressure.nan([MeasurementInterpreter<Pressure> interpreter = siUnit])
-      : super.nan(interpreter);
+  const Pressure.nan([super.interpreter = siUnit]) : super.nan();
 }

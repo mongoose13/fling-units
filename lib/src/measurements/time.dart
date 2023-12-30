@@ -8,10 +8,10 @@ class TimeInterpreter extends MeasurementInterpreter<Time> {
 
   /// Constructs a [TimeInterpreter].
   const TimeInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, multiplier, prefix);
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [TimeInterpreter] that is a multiple of this.
   TimeInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -76,25 +76,20 @@ class Time extends Measurement<Time> {
   static const siUnit = seconds;
 
   /// The time of duration zero.
-  const Time.zero([MeasurementInterpreter<Time> interpreter = siUnit])
-      : super.zero(interpreter);
+  const Time.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite time.
-  const Time.infinite([MeasurementInterpreter<Time> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const Time.infinite([super.interpreter = siUnit]) : super.infinite();
 
   /// Infinite negative time.
-  const Time.negativeInfinite(
-      [MeasurementInterpreter<Time> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const Time.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) time.
-  const Time.nan([MeasurementInterpreter<Time> interpreter = siUnit])
-      : super.nan(interpreter);
+  const Time.nan([super.interpreter = siUnit]) : super.nan();
 
   /// Constructs a [Time] representing the sum of any number of other [Time]s.
-  Time.sum(Iterable<Time> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Time.sum(super.parts, {super.precision}) : super.sum();
 
   /// Constructs a [Time] from a [Duration].
   Time.ofDuration(

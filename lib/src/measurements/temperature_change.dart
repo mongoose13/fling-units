@@ -9,10 +9,10 @@ class TemperatureChangeInterpreter
 
   /// Constructs a [TemperatureChangeInterpreter].
   const TemperatureChangeInterpreter._(
-    String name,
-    double kelvin, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, kelvin, prefix);
+    super.name,
+    super.kelvin, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [TemperatureChangeInterpreter] that is a multiple of this.
   TemperatureChangeInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -81,25 +81,19 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   static const siUnit = kelvin;
 
   /// No change in temperature.
-  const TemperatureChange.zero(
-      [MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
-      : super.zero(interpreter);
+  const TemperatureChange.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite temperature change.
-  const TemperatureChange.infinite(
-      [MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const TemperatureChange.infinite([super.interpreter = siUnit])
+      : super.infinite();
 
   /// Negative infinite temperature change.
-  const TemperatureChange.negativeInfinite(
-      [MeasurementInterpreter<TemperatureChange> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const TemperatureChange.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// Constructs a [TemperatureChange] representing the sum of any number of
   /// other [TemperatureChange]s.
-  TemperatureChange.sum(Iterable<TemperatureChange> parts,
-      {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  TemperatureChange.sum(super.parts, {super.precision}) : super.sum();
 
   /// Returns a [TemperatureChange] that represents the positive magnitude of
   /// this.

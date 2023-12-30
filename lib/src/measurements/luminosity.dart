@@ -4,10 +4,10 @@ part of '../../fling_units.dart';
 class LuminosityInterpreter extends MeasurementInterpreter<Luminosity> {
   /// Constructs a [StandardQuantityInterpreter].
   const LuminosityInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, multiplier, prefix);
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
   LuminosityInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -60,30 +60,21 @@ class Luminosity extends Measurement<Luminosity> {
   static const siUnit = candela;
 
   /// The electric charge of size zero.
-  const Luminosity.zero(
-      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
-      : super.zero(interpreter);
+  const Luminosity.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite electric charge.
-  const Luminosity.infinite(
-      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const Luminosity.infinite([super.interpreter = siUnit]) : super.infinite();
 
   /// Infinite negative electric charge.
-  const Luminosity.negativeInfinite(
-      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const Luminosity.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) luminosity.
-  const Luminosity.nan(
-      [MeasurementInterpreter<Luminosity> interpreter = siUnit])
-      : super.nan(interpreter);
+  const Luminosity.nan([super.interpreter = siUnit]) : super.nan();
 
   /// Constructs a [Luminosity] representing the sum of any number of other
   /// [Luminosity]s.
-  Luminosity.sum(Iterable<Luminosity> parts,
-      {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Luminosity.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this using the specified units.
   double as(MeasurementInterpreter<Luminosity> interpreter) =>

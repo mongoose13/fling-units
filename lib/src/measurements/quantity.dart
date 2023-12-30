@@ -13,10 +13,10 @@ class StandardQuantityInterpreter extends MeasurementInterpreter<Quantity>
     implements QuantityInterpreter {
   /// Constructs a [StandardQuantityInterpreter].
   const StandardQuantityInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, multiplier, prefix);
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
   StandardQuantityInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -36,10 +36,10 @@ class RoundingQuantityInterpreter
     implements QuantityInterpreter {
   /// Constructs a [RoundingQuantityInterpreter].
   const RoundingQuantityInterpreter._(
-    String name,
-    double unitMultiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, unitMultiplier, prefix);
+    super.name,
+    super.unitMultiplier, [
+    super.prefix,
+  ]) : super._();
 
   /// Produces a [RoundingQuantityInterpreter] that is a fraction of this.
   RoundingQuantityInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -88,22 +88,17 @@ mixin QuantityPrefix {
 /// ```
 class Quantity extends Measurement<Quantity> {
   /// The quantity of size zero.
-  const Quantity.zero([MeasurementInterpreter<Quantity> interpreter = units])
-      : super.zero(interpreter);
+  const Quantity.zero([super.interpreter = units]) : super.zero();
 
   /// Infinite quantity.
-  const Quantity.infinite(
-      [MeasurementInterpreter<Quantity> interpreter = units])
-      : super.infinite(interpreter);
+  const Quantity.infinite([super.interpreter = units]) : super.infinite();
 
   /// Infinite negative quantity.
-  const Quantity.negativeInfinite(
-      [MeasurementInterpreter<Quantity> interpreter = units])
-      : super.negativeInfinite(interpreter);
+  const Quantity.negativeInfinite([super.interpreter = units])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) quantity.
-  const Quantity.nan([MeasurementInterpreter<Quantity> interpreter = units])
-      : super.nan(interpreter);
+  const Quantity.nan([super.interpreter = units]) : super.nan();
 
   /// Constructs a [Quantity] representing the sum of any number of other
   /// [Quantity]s.

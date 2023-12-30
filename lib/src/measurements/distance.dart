@@ -8,10 +8,10 @@ class DistanceInterpreter extends MeasurementInterpreter<Distance> {
 
   /// Constructs a [DistanceInterpreter].
   const DistanceInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, multiplier, prefix);
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces an equivalent [DistanceInterpreter] but with an added multiplier prefix.
   DistanceInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -90,27 +90,21 @@ class Distance extends Measurement<Distance> {
   static const siUnit = meters;
 
   /// The distance of size zero.
-  const Distance.zero([MeasurementInterpreter<Distance> interpreter = siUnit])
-      : super.zero(interpreter);
+  const Distance.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite distance.
-  const Distance.infinite(
-      [MeasurementInterpreter<Distance> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const Distance.infinite([super.interpreter = siUnit]) : super.infinite();
 
   /// Infinite negative distance.
-  const Distance.negativeInfinite(
-      [MeasurementInterpreter<Distance> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const Distance.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) distance.
-  const Distance.nan([MeasurementInterpreter<Distance> interpreter = siUnit])
-      : super.nan(interpreter);
+  const Distance.nan([super.interpreter = siUnit]) : super.nan();
 
   /// Constructs a [Distance] representing the sum of any number of other
   /// [Distance]s.
-  Distance.sum(Iterable<Distance> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Distance.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this using the specified units.
   double as(MeasurementInterpreter<Distance> interpreter) =>

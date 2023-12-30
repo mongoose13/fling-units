@@ -4,10 +4,10 @@ part of '../../fling_units.dart';
 class ChargeInterpreter extends MeasurementInterpreter<Charge> {
   /// Constructs a [StandardQuantityInterpreter].
   const ChargeInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, multiplier, prefix);
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
   ChargeInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -44,26 +44,21 @@ class Charge extends Measurement<Charge> {
   static const siUnit = amperes;
 
   /// The electric charge of size zero.
-  const Charge.zero([MeasurementInterpreter<Charge> interpreter = siUnit])
-      : super.zero(interpreter);
+  const Charge.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite electric charge.
-  const Charge.infinite([MeasurementInterpreter<Charge> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const Charge.infinite([super.interpreter = siUnit]) : super.infinite();
 
   /// Infinite negative electric charge.
-  const Charge.negativeInfinite(
-      [MeasurementInterpreter<Charge> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const Charge.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) charge.
-  const Charge.nan([MeasurementInterpreter<Charge> interpreter = siUnit])
-      : super.nan(interpreter);
+  const Charge.nan([super.interpreter = siUnit]) : super.nan();
 
   /// Constructs a [Charge] representing the sum of any number of other
   /// [Charge]s.
-  Charge.sum(Iterable<Charge> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Charge.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this using the specified units.
   double as(MeasurementInterpreter<Charge> interpreter) =>

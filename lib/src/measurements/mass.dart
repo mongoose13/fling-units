@@ -8,14 +8,10 @@ class MassInterpreter extends MeasurementInterpreter<Mass> {
 
   /// Constructs a [MassInterpreter].
   const MassInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(
-          name,
-          multiplier,
-          prefix,
-        );
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [MassInterpreter] that is a multiple of this.
   MassInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -118,25 +114,20 @@ class Mass extends Measurement<Mass> {
   static const siUnit = grams;
 
   /// Zero mass.
-  const Mass.zero([MeasurementInterpreter<Mass> interpreter = siUnit])
-      : super.zero(interpreter);
+  const Mass.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite mass.
-  const Mass.infinite([MeasurementInterpreter<Mass> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const Mass.infinite([super.interpreter = siUnit]) : super.infinite();
 
   /// Infinite negative mass.
-  const Mass.negativeInfinite(
-      [MeasurementInterpreter<Mass> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const Mass.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) mass.
-  const Mass.nan([MeasurementInterpreter<Mass> interpreter = siUnit])
-      : super.nan(interpreter);
+  const Mass.nan([super.interpreter = siUnit]) : super.nan();
 
   /// Constructs a [Mass] representing the sum of any number of other [Mass]es.
-  Mass.sum(Iterable<Mass> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Mass.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this using the specified units.
   double as(MeasurementInterpreter<Mass> interpreter) =>

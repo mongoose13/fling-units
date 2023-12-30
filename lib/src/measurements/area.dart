@@ -44,23 +44,23 @@ class Area extends Measurement<Area> {
       AreaInterpreter.squared(distanceInterpreter);
 
   /// Represents an area of size zero.
-  const Area.zero([AreaInterpreter interpreter = const AreaInterpreter._m2()])
-      : super.zero(interpreter);
+  const Area.zero(
+      [AreaInterpreter super.interpreter = const AreaInterpreter._m2()])
+      : super.zero();
 
   /// Infinite area.
   const Area.infinite(
-      [AreaInterpreter interpreter = const AreaInterpreter._m2()])
-      : super.infinite(interpreter);
+      [AreaInterpreter super.interpreter = const AreaInterpreter._m2()])
+      : super.infinite();
 
   /// Infinite negative area.
   const Area.negativeInfinite(
-      [AreaInterpreter interpreter = const AreaInterpreter._m2()])
-      : super.negativeInfinite(interpreter);
+      [AreaInterpreter super.interpreter = const AreaInterpreter._m2()])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) area.
-  const Area.nan(
-      [MeasurementInterpreter<Area> interpreter = const AreaInterpreter._m2()])
-      : super.nan(interpreter);
+  const Area.nan([super.interpreter = const AreaInterpreter._m2()])
+      : super.nan();
 
   /// Constructs an [Area] from component parts.
   Area.of(Distance a, Distance b)
@@ -71,8 +71,7 @@ class Area extends Measurement<Area> {
         );
 
   /// Constructs an [Area] representing the sum of any number of other [Area]s.
-  Area.sum(Iterable<Area> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Area.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this [Measurement] in the specified units.
   double as(

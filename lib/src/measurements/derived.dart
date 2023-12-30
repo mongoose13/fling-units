@@ -9,31 +9,30 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
     extends Measurement<DerivedMeasurement<A, B>> {
   /// The derived measurement of zero magnitude.
   const DerivedMeasurement.zero(
-      [DerivedMeasurementInterpreter<A, B> interpreter =
+      [DerivedMeasurementInterpreter<A, B> super.interpreter =
           const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
-        super.zero(interpreter);
+        super.zero();
 
   /// The derived measurement of infinite magnitude.
   const DerivedMeasurement.infinite(
-      [DerivedMeasurementInterpreter<A, B> interpreter =
+      [DerivedMeasurementInterpreter<A, B> super.interpreter =
           const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
-        super.infinite(interpreter);
+        super.infinite();
 
   /// The derived measurement of negative infinite magnitude.
   const DerivedMeasurement.negativeInfinite(
-      [DerivedMeasurementInterpreter<A, B> interpreter =
+      [DerivedMeasurementInterpreter<A, B> super.interpreter =
           const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
-        super.negativeInfinite(interpreter);
+        super.negativeInfinite();
 
   /// NaN (Not a Number) derived measurement.
   const DerivedMeasurement.nan(
-      [MeasurementInterpreter<DerivedMeasurement<A, B>> interpreter =
-          const _UnknownDerivedMeasurementInterpreter._()])
+      [super.interpreter = const _UnknownDerivedMeasurementInterpreter._()])
       : _reciprocal = false,
-        super.nan(interpreter);
+        super.nan();
 
   /// Constructs a derived measurement representing the multiplication of a pair
   /// of simpler measurements.

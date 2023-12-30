@@ -7,14 +7,10 @@ class AngleInterpreter extends MeasurementInterpreter<Angle> {
 
   /// Constructs an [AngleInterpreter].
   const AngleInterpreter._(
-    String name,
-    double multiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(
-          name,
-          multiplier,
-          prefix,
-        );
+    super.name,
+    super.multiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [MassInterpreter] that is a multiple of this.
   AngleInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -99,20 +95,19 @@ class Angle extends Measurement<Angle> {
         );
 
   /// Zero angle.
-  const Angle.zero([AngleInterpreter interpreter = radians])
-      : super.zero(interpreter);
+  const Angle.zero([AngleInterpreter super.interpreter = radians])
+      : super.zero();
 
   /// Infinite angle.
-  const Angle.infinite([AngleInterpreter interpreter = radians])
-      : super.infinite(interpreter);
+  const Angle.infinite([AngleInterpreter super.interpreter = radians])
+      : super.infinite();
 
   /// Infinite negative angle.
-  const Angle.negativeInfinite([AngleInterpreter interpreter = radians])
-      : super.negativeInfinite(interpreter);
+  const Angle.negativeInfinite([AngleInterpreter super.interpreter = radians])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) angle.
-  const Angle.nan([MeasurementInterpreter<Angle> interpreter = radians])
-      : super.nan(interpreter);
+  const Angle.nan([super.interpreter = radians]) : super.nan();
 
   /// A right angle.
   const Angle.right() : this(0.25, turns);
@@ -121,8 +116,7 @@ class Angle extends Measurement<Angle> {
   const Angle.straight() : this(0.5, turns);
 
   /// Constructs an [Angle] representing the sum of any number of other [Angle]s.
-  Angle.sum(Iterable<Angle> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Angle.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this using the specified units.
   double as(MeasurementInterpreter<Angle> interpreter) =>

@@ -38,10 +38,10 @@ class VolumeInterpreter extends MeasurementInterpreter<Volume> {
 
   /// Constructs a [VolumeInterpreter].
   const VolumeInterpreter._(
-    String name,
-    double cubicMeters, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, cubicMeters, prefix);
+    super.name,
+    super.cubicMeters, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   /// Produces a [VolumeInterpreter] that is a multiple of this.
   VolumeInterpreter _withPrefix(MeasurementPrefix prefix) =>
@@ -222,26 +222,21 @@ class Volume extends Measurement<Volume> {
       VolumeInterpreter.cubed(distanceInterpreter);
 
   /// The volume of size zero.
-  const Volume.zero([MeasurementInterpreter<Volume> interpreter = siUnit])
-      : super.zero(interpreter);
+  const Volume.zero([super.interpreter = siUnit]) : super.zero();
 
   /// Infinite volume.
-  const Volume.infinite([MeasurementInterpreter<Volume> interpreter = siUnit])
-      : super.infinite(interpreter);
+  const Volume.infinite([super.interpreter = siUnit]) : super.infinite();
 
   /// Infinite negative volume.
-  const Volume.negativeInfinite(
-      [MeasurementInterpreter<Volume> interpreter = siUnit])
-      : super.negativeInfinite(interpreter);
+  const Volume.negativeInfinite([super.interpreter = siUnit])
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) volume.
-  const Volume.nan([MeasurementInterpreter<Volume> interpreter = siUnit])
-      : super.nan(interpreter);
+  const Volume.nan([super.interpreter = siUnit]) : super.nan();
 
   /// Constructs a [Volume] representing the sum of any number of other
   /// [Volume]s.
-  Volume.sum(Iterable<Volume> parts, {Precision precision = Precision.max})
-      : super.sum(parts, precision: precision);
+  Volume.sum(super.parts, {super.precision}) : super.sum();
 
   /// Constructs a [Volume] from three [Distance] measurements.
   Volume.of(Distance a, Distance b, Distance c)
