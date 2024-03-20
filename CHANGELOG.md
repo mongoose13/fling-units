@@ -10,6 +10,7 @@ types you need to work with from the rest of your code.
 - Support the modulo operator for all measurements
 - Support equals() method for all measurements
 - Accept Precision as an int
+- Frequency measurements
 
 ## [2.2.6]
 ### Changed

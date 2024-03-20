@@ -49,6 +49,10 @@ class NumExtender {
   Distance get nauticalMiles =>
       DistanceInterpreter._nauticalMiles._withPrefix(_prefix)(_value);
 
+  /// Creates a frequency measurement.
+  Frequency get hertz =>
+      FrequencyInterpreter._hertz._withPrefix(_prefix)(_value);
+
   /// Creates a candela measurement.
   Luminosity get candela =>
       LuminosityInterpreter._candela._withPrefix(_prefix)(_value);

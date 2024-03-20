@@ -59,10 +59,10 @@ abstract class RoundingMeasurementInterpreter<T>
     extends MeasurementInterpreter<T> {
   /// Constructs a [RoundingMeasurementInterpreter].
   const RoundingMeasurementInterpreter._(
-    String name,
-    double unitMultiplier, [
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-  ]) : super._(name, unitMultiplier, prefix);
+    super.name,
+    super.unitMultiplier, [
+    super.prefix = const MeasurementPrefix.unit(),
+  ]) : super._();
 
   @override
   double _of(num value) =>

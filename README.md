@@ -323,3 +323,7 @@ Work with any unit:
 - degrees
 - arc minutes
 - arc seconds
+
+### Frequency units
+
+- hertz

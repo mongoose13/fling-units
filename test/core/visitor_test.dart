@@ -32,6 +32,11 @@ class TestVisitor implements MeasurementVisitor {
   }
 
   @override
+  void visitFrequency(final Frequency frequency) {
+    _visits[Frequency] = true;
+  }
+
+  @override
   void visitLuminosity(final Luminosity luminosity) {
     _visits[Luminosity] = true;
   }

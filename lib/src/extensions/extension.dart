@@ -30,6 +30,9 @@ extension NumExtension on num {
   /// Creates a nautical mile measurement.
   Distance get nauticalMiles => DistanceInterpreter._nauticalMiles(this);
 
+  /// Creates a hertz measurement.
+  Frequency get hertz => FrequencyInterpreter._hertz(this);
+
   /// Creates a candela measurement.
   Luminosity get candela => LuminosityInterpreter._candela(this);
 

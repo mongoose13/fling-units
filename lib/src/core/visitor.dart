@@ -19,6 +19,9 @@ abstract class MeasurementVisitor {
   /// Visit a [Distance].
   void visitDistance(Distance distance) {}
 
+  /// Visit a [Frequency].
+  void visitFrequency(Frequency distance) {}
+
   /// Visit a [Luminosity].
   void visitLuminosity(Luminosity luminosity) {}
 

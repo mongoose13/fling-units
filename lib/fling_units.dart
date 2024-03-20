@@ -79,6 +79,7 @@ part 'src/measurements/area.dart';
 part 'src/measurements/charge.dart';
 part 'src/measurements/derived.dart';
 part 'src/measurements/distance.dart';
+part 'src/measurements/frequency.dart';
 part 'src/measurements/luminosity.dart';
 part 'src/measurements/mass.dart';
 part 'src/measurements/measurement.dart';

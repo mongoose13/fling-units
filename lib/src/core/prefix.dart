@@ -6,6 +6,7 @@ class MeasurementPrefix
         AnglePrefix,
         ChargePrefix,
         DistancePrefix,
+        FrequencyPrefix,
         LuminosityPrefix,
         MassPrefix,
         PressurePrefix,
