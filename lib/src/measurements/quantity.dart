@@ -102,8 +102,7 @@ class Quantity extends Measurement<Quantity> {
 
   /// Constructs a [Quantity] representing the sum of any number of other
   /// [Quantity]s.
-  Quantity.sum(super.parts, {super.precision})
-      : super.sum();
+  Quantity.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this using the specified units.
   double as(MeasurementInterpreter<Quantity> interpreter) =>
