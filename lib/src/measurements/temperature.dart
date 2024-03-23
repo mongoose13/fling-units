@@ -58,7 +58,7 @@ class Temperature implements Comparable<Temperature> {
     num celcius, {
     Precision precision = Precision.max,
   }) : this._(
-            TemperatureChangeInterpreter._celcius._from(celcius) -
+            TemperatureChangeInterpreter._celcius.from(celcius) -
                 _celciusOffset,
             precision,
             TemperatureChangeInterpreter._celcius);
@@ -69,7 +69,7 @@ class Temperature implements Comparable<Temperature> {
     Precision precision = Precision.max,
   }) : this._(
           TemperatureChangeInterpreter._fahrenheit
-                  ._from(fahrenheit - _fahrenheitOffset) -
+                  .from(fahrenheit - _fahrenheitOffset) -
               _celciusOffset,
           precision,
           TemperatureChangeInterpreter._fahrenheit,
@@ -93,11 +93,11 @@ class Temperature implements Comparable<Temperature> {
 
   /// Interprets this as degrees Celcius.
   double get asCelcius => _precision.apply(
-      TemperatureChangeInterpreter._celcius._of(_kelvin) + _celciusOffset);
+      TemperatureChangeInterpreter._celcius.of(_kelvin) + _celciusOffset);
 
   /// Interprets this as degrees Fahrenheit.
   double get asFahrenheit => _precision.apply(
-      TemperatureChangeInterpreter._fahrenheit._of(_kelvin + _celciusOffset) +
+      TemperatureChangeInterpreter._fahrenheit.of(_kelvin + _celciusOffset) +
           _fahrenheitOffset);
 
   /// Returns `true` if this is finite.

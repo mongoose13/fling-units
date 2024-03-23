@@ -20,7 +20,7 @@ class StandardQuantityInterpreter extends MeasurementInterpreter<Quantity>
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
   StandardQuantityInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      StandardQuantityInterpreter._(_name, _unitMultiplier, prefix);
+      StandardQuantityInterpreter._(name, unitMultiplier, prefix);
 
   @override
   Quantity call(num value, {Precision precision = Precision.max}) =>
@@ -43,7 +43,7 @@ class RoundingQuantityInterpreter
 
   /// Produces a [RoundingQuantityInterpreter] that is a fraction of this.
   RoundingQuantityInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      RoundingQuantityInterpreter._(_name, _unitMultiplier, prefix);
+      RoundingQuantityInterpreter._(name, unitMultiplier, prefix);
 
   @override
   Quantity call(num value, {Precision precision = Precision.max}) =>
@@ -112,7 +112,7 @@ class Quantity extends Measurement<Quantity> {
   void acceptVisitor(MeasurementVisitor visitor) => visitor.visitQuantity(this);
 
   @override
-  Quantity _construct(
+  Quantity construct(
     double amount,
     MeasurementInterpreter<Quantity>? interpreter,
     Precision precision,

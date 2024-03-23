@@ -14,7 +14,7 @@ class AngleInterpreter extends MeasurementInterpreter<Angle> {
 
   /// Produces a [MassInterpreter] that is a multiple of this.
   AngleInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      AngleInterpreter._(_name, _unitMultiplier, prefix);
+      AngleInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for turns.
   static const _turns = AngleInterpreter._('turn', 1e0);
@@ -138,7 +138,7 @@ class Angle extends Measurement<Angle> {
   bool get isStraight => si.abs() == 0.5;
 
   @override
-  Angle _construct(
+  Angle construct(
     double amount,
     MeasurementInterpreter<Angle>? interpreter,
     Precision precision,

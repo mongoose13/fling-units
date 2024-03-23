@@ -1,0 +1,72 @@
+builders:
+  measurement:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["measurementBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: source
+  interpreter:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["interpreterBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: source
+  prefix:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["prefixBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: source
+  unit:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["unitBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: source
+  measurement_prefix:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["measurementPrefixBuilder"]
+    build_extensions: {".measurement": ["lib/src/generated/prefix.dart"]}
+    build_to: source
+    required_inputs: [".measurement"]
+  measurement_id:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["measurementIdentifierBuilder"]
+    build_extensions: {".dart": [".measurement"]}
+    build_to: source
+  library:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["libraryBuilder"]
+    build_extensions: {".measurement": ["lib/src/generated/fling_units.dart"]}
+    build_to: source
+
+targets:
+  $default:
+    builders:
+      fling_units|measurement:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|interpreter:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|prefix:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|unit:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      source_gen|combining_builder:
+        options:
+          build_extensions: {"^lib/src/measurements/{{}}.dart": ["lib/src/generated/{{}}.dart"]}
+      fling_units|measurement_id:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|measurement_prefix:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|library:
+        options:
+          generate_for:
+            - lib/templates/*.dart

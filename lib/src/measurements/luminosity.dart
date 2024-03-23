@@ -11,7 +11,7 @@ class LuminosityInterpreter extends MeasurementInterpreter<Luminosity> {
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
   LuminosityInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      LuminosityInterpreter._(_name, _unitMultiplier, prefix);
+      LuminosityInterpreter._(name, unitMultiplier, prefix);
 
   @override
   Luminosity call(num value, {Precision precision = Precision.max}) =>
@@ -85,7 +85,7 @@ class Luminosity extends Measurement<Luminosity> {
       visitor.visitLuminosity(this);
 
   @override
-  Luminosity _construct(
+  Luminosity construct(
     double amount,
     MeasurementInterpreter<Luminosity>? interpreter,
     Precision precision,

@@ -15,7 +15,7 @@ class DistanceInterpreter extends MeasurementInterpreter<Distance> {
 
   /// Produces an equivalent [DistanceInterpreter] but with an added multiplier prefix.
   DistanceInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      DistanceInterpreter._(_name, _unitMultiplier, prefix);
+      DistanceInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for meters.
   static const _meters = DistanceInterpreter._('m', 1e0);
@@ -114,7 +114,7 @@ class Distance extends Measurement<Distance> {
   void acceptVisitor(MeasurementVisitor visitor) => visitor.visitDistance(this);
 
   @override
-  Distance _construct(
+  Distance construct(
     double amount,
     MeasurementInterpreter<Distance>? interpreter,
     Precision precision,

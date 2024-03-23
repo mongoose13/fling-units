@@ -20,35 +20,35 @@ part of '../../fling_units.dart';
 /// such as [Area.asPair]).
 abstract class MeasurementInterpreter<T> {
   /// Constructs a [MeasurementInterpreter].
-  const MeasurementInterpreter._(
-    this._name,
-    this._unitMultiplier,
-    this._prefix,
+  const MeasurementInterpreter(
+    this.name,
+    this.unitMultiplier,
+    this.prefix,
   );
 
   /// Creates a measurement based on the value and the configured multiplier.
   T call(double value, {Precision precision = Precision.max});
 
   @override
-  String toString() => '$_prefix$_name';
+  String toString() => '$prefix$name';
 
   /// Interprets the base value according to the configured unit.
-  double _of(num value) =>
-      value.toDouble() * _unitMultiplier / _prefix._multiplier;
+  double of(num value) =>
+      value.toDouble() * unitMultiplier / prefix._multiplier;
 
   /// Interprets the provided value as if it were of the configured unit,
   /// returning the base value.
-  double _from(num value) =>
-      value.toDouble() / _unitMultiplier * _prefix._multiplier;
+  double from(num value) =>
+      value.toDouble() / unitMultiplier * prefix._multiplier;
 
   /// The standardized short form name of the unit (e.g. "m" for meters).
-  final String _name;
+  final String name;
 
   /// The multiplier for the configured unit.
-  final double _unitMultiplier;
+  final double unitMultiplier;
 
   /// The prefix to apply to the measurement.
-  final MeasurementPrefix _prefix;
+  final MeasurementPrefix prefix;
 }
 
 /// A [MeasurementInterpreter] that rounds its results to `int`s.
@@ -62,14 +62,13 @@ abstract class RoundingMeasurementInterpreter<T>
     super.name,
     super.unitMultiplier, [
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super._();
+  ]) : super();
 
   @override
-  double _of(num value) =>
-      (value.toDouble() * _unitMultiplier / _prefix._multiplier)
-          .roundToDouble();
+  double of(num value) =>
+      (value.toDouble() * unitMultiplier / prefix._multiplier).roundToDouble();
 
   @override
-  double _from(num value) =>
-      value.toDouble() / _unitMultiplier * _prefix._multiplier;
+  double from(num value) =>
+      value.toDouble() / unitMultiplier * prefix._multiplier;
 }

@@ -67,6 +67,9 @@ library fling_units;
 // imports
 import 'dart:math' as math;
 
+// exports
+export 'src/measurements/ponies.dart';
+
 // parts
 part 'src/core/interpreter.dart';
 part 'src/core/precision.dart';

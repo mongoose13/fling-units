@@ -15,7 +15,7 @@ class MassInterpreter extends MeasurementInterpreter<Mass> {
 
   /// Produces a [MassInterpreter] that is a multiple of this.
   MassInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      MassInterpreter._(_name, _unitMultiplier, prefix);
+      MassInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for grams.
   static const _grams = MassInterpreter._('g', 1e0);
@@ -148,7 +148,7 @@ class Mass extends Measurement<Mass> {
         );
 
   @override
-  Mass _construct(
+  Mass construct(
     num amount,
     MeasurementInterpreter<Mass>? interpreter,
     Precision precision,

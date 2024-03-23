@@ -76,17 +76,17 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
 
   /// Interprets this using two specific units.
   double as(MeasurementInterpreter<A> a, MeasurementInterpreter<B> b) =>
-      _precise(a._of(si) * (_reciprocal ? b._from(1) : b._of(1)));
+      _precise(a.of(si) * (_reciprocal ? b.from(1) : b.of(1)));
 
   /// Interprets this using a [DerivedMeasurementInterpreter].
   double asInterpretedBy(DerivedMeasurementInterpreter<A, B> interpreter) =>
-      _precise(interpreter._of(si));
+      _precise(interpreter.of(si));
 
   @override
   void acceptVisitor(MeasurementVisitor visitor) => visitor.visitDerived(this);
 
   @override
-  DerivedMeasurement<A, B> _construct(
+  DerivedMeasurement<A, B> construct(
     double amount,
     MeasurementInterpreter<DerivedMeasurement<A, B>>? interpreter,
     Precision precision,
@@ -152,8 +152,8 @@ class DerivedMeasurementInterpreter<A extends Measurement<A>,
         super._(
           name ?? '${a ?? 'X'}${reciprocal ? '/' : '⋅'}${b ?? 'X'}',
           reciprocal
-              ? (a?._unitMultiplier ?? 1.0) / (b?._unitMultiplier ?? 1.0)
-              : (a?._unitMultiplier ?? 1.0) * (b?._unitMultiplier ?? 1.0),
+              ? (a?.unitMultiplier ?? 1.0) / (b?.unitMultiplier ?? 1.0)
+              : (a?.unitMultiplier ?? 1.0) * (b?.unitMultiplier ?? 1.0),
           prefix,
         );
 
@@ -166,7 +166,7 @@ class DerivedMeasurementInterpreter<A extends Measurement<A>,
         _interpreterA,
         _interpreterB,
         _reciprocal,
-        _name,
+        name,
       );
 }
 
@@ -175,7 +175,7 @@ class _UnknownDerivedMeasurementInterpreter<A extends Measurement<A>,
   const _UnknownDerivedMeasurementInterpreter._();
 
   @override
-  String get _name => "unknown";
+  String get name => "unknown";
 
   @override
   double get _unitMultiplier => 1.0;
@@ -190,10 +190,10 @@ class _UnknownDerivedMeasurementInterpreter<A extends Measurement<A>,
   bool get _reciprocal => throw UnimplementedError();
 
   @override
-  double _of(num value) => value.toDouble();
+  double of(num value) => value.toDouble();
 
   @override
-  double _from(num value) => value.toDouble();
+  double from(num value) => value.toDouble();
 
   @override
   MeasurementPrefix get _prefix => throw UnimplementedError();

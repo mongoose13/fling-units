@@ -14,7 +14,7 @@ class PressureInterpreter extends MeasurementInterpreter<Pressure> {
 
   /// Produces a [PressureInterpreter] that is a multiple of this.
   PressureInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      PressureInterpreter._(_name, _unitMultiplier, prefix);
+      PressureInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for Pascals.
   static const _pascals = PressureInterpreter._('Pa', 1e0);
@@ -134,7 +134,7 @@ class Pressure extends Measurement<Pressure> {
   Pressure.sum(super.parts, {super.precision}) : super.sum();
 
   @override
-  Pressure _construct(
+  Pressure construct(
     double amount,
     MeasurementInterpreter<Pressure>? interpreter,
     Precision precision,

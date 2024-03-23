@@ -18,7 +18,7 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
   AreaInterpreter.squared(
     MeasurementInterpreter<Distance> a, {
     String? name,
-  }) : this._(name ?? '${a._name}²', a, a);
+  }) : this._(name ?? '${a.name}²', a, a);
 
   /// Constructs an [AreaInterpreter].
   AreaInterpreter._(
@@ -27,8 +27,8 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
     MeasurementInterpreter<Distance> b,
   ) : super._(
           name,
-          a._unitMultiplier * b._unitMultiplier / b._prefix._multiplier,
-          a._prefix,
+          a.unitMultiplier * b.unitMultiplier / b.prefix._multiplier,
+          a.prefix,
         );
 
   /// Constructs the SI derived area unit, square meters.
@@ -78,16 +78,16 @@ class Area extends Measurement<Area> {
     MeasurementInterpreter<Distance> a,
     MeasurementInterpreter<Distance> b,
   ) =>
-      _precise(a._of(b._of(si)));
+      _precise(a.of(b.of(si)));
 
   /// Interprets this using the specified [MeasurementInterpreter].
-  double asArea(MeasurementInterpreter<Area> a) => _precise(a._of(si));
+  double asArea(MeasurementInterpreter<Area> a) => _precise(a.of(si));
 
   @override
   void acceptVisitor(MeasurementVisitor visitor) => visitor.visitArea(this);
 
   @override
-  Area _construct(
+  Area construct(
     double amount,
     MeasurementInterpreter<Area>? interpreter,
     Precision precision,

@@ -20,3 +20,7 @@ doc/api/
 
 # Wiki
 wiki/
+
+# Code generation
+*.part
+*.measurements

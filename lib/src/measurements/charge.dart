@@ -7,11 +7,11 @@ class ChargeInterpreter extends MeasurementInterpreter<Charge> {
     super.name,
     super.multiplier, [
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super._();
+  ]) : super();
 
   /// Produces a [StandardQuantityInterpreter] that is a fraction of this.
   ChargeInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      ChargeInterpreter._(_name, _unitMultiplier, prefix);
+      ChargeInterpreter._(name, unitMultiplier, prefix);
 
   @override
   Charge call(num value, {Precision precision = Precision.max}) =>
@@ -28,10 +28,10 @@ const amperes = ChargeInterpreter._amperes;
 mixin ChargePrefix {
   /// Applies this to an ampere amount.
   ChargeInterpreter get amperes =>
-      ChargeInterpreter._amperes._withPrefix(_prefix);
+      ChargeInterpreter._amperes._withPrefix(prefix);
 
   /// The prefix multiplier applied to this measurement.
-  MeasurementPrefix get _prefix;
+  MeasurementPrefix get prefix;
 }
 
 /// Measures electric charge.
@@ -68,7 +68,7 @@ class Charge extends Measurement<Charge> {
   void acceptVisitor(MeasurementVisitor visitor) => visitor.visitCharge(this);
 
   @override
-  Charge _construct(
+  Charge construct(
     double amount,
     MeasurementInterpreter<Charge>? interpreter,
     Precision precision,

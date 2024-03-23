@@ -21,20 +21,20 @@ class VolumeInterpreter extends MeasurementInterpreter<Volume> {
     MeasurementInterpreter<Distance>? c, {
     String? name,
   }) : this._(
-            name ?? '${a?._name ?? 'X'}⋅${b?._name ?? 'X'}⋅${c?._name ?? 'X'}',
-            (a?._unitMultiplier ?? 1.0) *
-                (b?._unitMultiplier ?? 1.0) *
-                (c?._unitMultiplier ?? 1.0) /
-                (a?._prefix._multiplier ?? 1.0) /
-                (b?._prefix._multiplier ?? 1.0) /
-                (c?._prefix._multiplier ?? 1.0));
+            name ?? '${a?.name ?? 'X'}⋅${b?.name ?? 'X'}⋅${c?.name ?? 'X'}',
+            (a?.unitMultiplier ?? 1.0) *
+                (b?.unitMultiplier ?? 1.0) *
+                (c?.unitMultiplier ?? 1.0) /
+                (a?.prefix._multiplier ?? 1.0) /
+                (b?.prefix._multiplier ?? 1.0) /
+                (c?.prefix._multiplier ?? 1.0));
 
   /// Constructs a [VolumeInterpreter] that will cube a basic
   /// [DistanceInterpreter].
   VolumeInterpreter.cubed(
     DistanceInterpreter a, {
     String? name,
-  }) : this(a, a, a, name: name ?? '${a._name}³');
+  }) : this(a, a, a, name: name ?? '${a.name}³');
 
   /// Constructs a [VolumeInterpreter].
   const VolumeInterpreter._(
@@ -45,7 +45,7 @@ class VolumeInterpreter extends MeasurementInterpreter<Volume> {
 
   /// Produces a [VolumeInterpreter] that is a multiple of this.
   VolumeInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      VolumeInterpreter._(_name, _unitMultiplier, prefix);
+      VolumeInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for liters.
   static const _liters = VolumeInterpreter._('L', 1e3);
@@ -250,7 +250,7 @@ class Volume extends Measurement<Volume> {
   /// Interprets this in the specified units.
   double as(DistanceInterpreter a, DistanceInterpreter b,
           DistanceInterpreter c) =>
-      _precise(a._of(b._of(c._of(si))));
+      _precise(a.of(b.of(c.of(si))));
 
   /// Interprets this in the specified volume unit.
   double asVolume(MeasurementInterpreter<Volume> interpreter) =>
@@ -271,7 +271,7 @@ class Volume extends Measurement<Volume> {
         );
 
   @override
-  Volume _construct(
+  Volume construct(
     double amount,
     MeasurementInterpreter<Volume>? interpreter,
     Precision precision,

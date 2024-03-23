@@ -1,0 +1,1 @@
+class MeasurementPrefix with PonyPrefix { }

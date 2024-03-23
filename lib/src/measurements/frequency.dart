@@ -15,7 +15,7 @@ class FrequencyInterpreter extends MeasurementInterpreter<Frequency> {
 
   /// Produces an equivalent [FrequencyInterpreter] but with an added multiplier prefix.
   FrequencyInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      FrequencyInterpreter._(_name, _unitMultiplier, prefix);
+      FrequencyInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for hertz.
   static const _hertz = FrequencyInterpreter._('Hz', 1e0);
@@ -65,7 +65,7 @@ class Frequency extends Measurement<Frequency> {
       visitor.visitFrequency(this);
 
   @override
-  Frequency _construct(
+  Frequency construct(
     double amount,
     MeasurementInterpreter<Frequency>? interpreter,
     Precision precision,

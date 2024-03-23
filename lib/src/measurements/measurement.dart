@@ -39,14 +39,14 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
     Iterable<T> parts, {
     Precision precision = Precision.max,
   }) : this(
-          amount: parts.first.defaultInterpreter._of(parts.fold(
+          amount: parts.first.defaultInterpreter.of(parts.fold(
               0.0, (previousValue, element) => previousValue + element.si)),
           precision: precision,
           interpreter: parts.first.defaultInterpreter,
         );
 
   /// Constructs a new measurement.
-  T _construct(
+  T construct(
     double amount,
     MeasurementInterpreter<T>? interpreter,
     Precision precision,
@@ -68,7 +68,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   double get defaultValue => _precise(_amount);
 
   /// The measurement's value in the SI unit.
-  double get si => defaultInterpreter._from(_amount);
+  double get si => defaultInterpreter.from(_amount);
 
   /// Returns `true` if this measurement is negative.
   bool get isNegative => _amount.isNegative;
@@ -88,12 +88,12 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
 
   /// Creates an equivalent measurement with the specified precision (significant digits).
   T withPrecisionOf(int precision) =>
-      _construct(_amount.toDouble(), defaultInterpreter, Precision(precision));
+      construct(_amount.toDouble(), defaultInterpreter, Precision(precision));
 
   /// Creates a new measurement equivalent to this one but with a different
   /// default unit.
   T withDefaultUnit(MeasurementInterpreter<T> interpreter) =>
-      _construct(interpreter._of(si), interpreter, _precision);
+      construct(interpreter.of(si), interpreter, _precision);
 
   /// Accept a visitor object for double-dispatch.
   void acceptVisitor(MeasurementVisitor visitor);
@@ -105,7 +105,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   }
 
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is Measurement<T> &&
           si == other.si &&
@@ -138,17 +138,17 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   int compareTo(T other) => si.compareTo(other.si);
 
   /// Returns a measurement representing the opposite of this.
-  T operator -() => _construct(-si, defaultInterpreter, _precision);
+  T operator -() => construct(-si, defaultInterpreter, _precision);
 
   /// Returns a measurement equivalent to the sum of two others.
-  T operator +(T other) => _construct(
+  T operator +(T other) => construct(
         si + other.si,
         defaultInterpreter,
         Precision.addition(this, other),
       );
 
   /// Returns a measurement equivalent to the difference between two others.
-  T operator -(T other) => _construct(
+  T operator -(T other) => construct(
         si - other.si,
         defaultInterpreter,
         Precision.addition(this, -other),
@@ -156,11 +156,11 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
 
   /// Returns a measurement equivalent to a multiple of this.
   T operator *(num multiplier) =>
-      _construct(si * multiplier, defaultInterpreter, _precision);
+      construct(si * multiplier, defaultInterpreter, _precision);
 
   /// Returns a measurement equivalent to a fraction of this.
   T operator /(num divisor) =>
-      _construct(si / divisor, defaultInterpreter, _precision);
+      construct(si / divisor, defaultInterpreter, _precision);
 
   /// Returns the Euclidean remainder of the division between two measurements.
   ///
@@ -181,8 +181,8 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// ```
   ///
   /// If the divisor is zero or the dividend is infinite, the result is always NaN.
-  T operator %(T other) => _construct(
-        defaultInterpreter._of(_preciseSI() % other._preciseSI()),
+  T operator %(T other) => construct(
+        defaultInterpreter.of(_preciseSI() % other._preciseSI()),
         defaultInterpreter,
         Precision.combine([_precision, other._precision]),
       );
@@ -237,10 +237,13 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
 
   /// Apply the measurement appropriate precision to a converted value.
   double _preciseOf([MeasurementInterpreter<T>? converter]) =>
-      _precision.apply(converter?._of(si) ?? si);
+      _precision.apply(converter?.of(si) ?? si);
 
   /// Apply the measurement appropriate precision to the base value.
   double _preciseSI() => _precise(si);
+
+  /// Interprets this using the specified units.
+  double as(MeasurementInterpreter<T> interpreter) => _preciseOf(interpreter);
 
   /// The value of this measurement, in the interpreter's units.
   final num _amount;

@@ -16,7 +16,7 @@ class TemperatureChangeInterpreter
 
   /// Produces a [TemperatureChangeInterpreter] that is a multiple of this.
   TemperatureChangeInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      TemperatureChangeInterpreter._(_name, _unitMultiplier, prefix);
+      TemperatureChangeInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for Kelvin.
   static const _kelvin = TemperatureChangeInterpreter._('K', 1e0);
@@ -116,7 +116,7 @@ class TemperatureChange extends Measurement<TemperatureChange> {
   ]) : super(amount: kelvin, precision: precision, interpreter: interpreter);
 
   @override
-  TemperatureChange _construct(
+  TemperatureChange construct(
     double amount,
     MeasurementInterpreter<TemperatureChange>? interpreter,
     Precision precision,

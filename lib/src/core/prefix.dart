@@ -31,7 +31,7 @@ class MeasurementPrefix
   final String _name;
 
   @override
-  MeasurementPrefix get _prefix => this;
+  MeasurementPrefix get prefix => this;
 
   @override
   String toString() => _name;

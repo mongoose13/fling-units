@@ -15,7 +15,7 @@ class TimeInterpreter extends MeasurementInterpreter<Time> {
 
   /// Produces a [TimeInterpreter] that is a multiple of this.
   TimeInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      TimeInterpreter._(_name, _unitMultiplier, prefix);
+      TimeInterpreter._(name, unitMultiplier, prefix);
 
   /// The interpreter for seconds.
   static const _seconds = TimeInterpreter._('s', 1e0);
@@ -122,7 +122,7 @@ class Time extends Measurement<Time> {
         );
 
   @override
-  Time _construct(
+  Time construct(
     double amount,
     MeasurementInterpreter<Time>? interpreter,
     Precision precision,
