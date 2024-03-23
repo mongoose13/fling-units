@@ -48,7 +48,7 @@ b = (2.3).kilo.meters;
                   ..name = unit.name
                   ..returns = Reference(builder.measurementClassName)
                   ..body = Code(
-                      "${builder.interpreterClassName}._${unit.name}(this)"),
+                      "${builder.interpreterClassName}.${unit.name}(this)"),
               ),
             ),
           ),

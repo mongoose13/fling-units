@@ -58,7 +58,7 @@ class InterpreterGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
               Method(
                 (withPrefix) => withPrefix
                   ..lambda = true
-                  ..name = "_withPrefix"
+                  ..name = "withPrefix"
                   ..returns = Reference(builder.interpreterClassName)
                   ..requiredParameters.add(
                     Parameter(
@@ -118,7 +118,7 @@ class InterpreterGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
                 (field) => field
                   ..static = true
                   ..modifier = FieldModifier.constant
-                  ..name = "_${unit.displayName}"
+                  ..name = unit.displayName
                   ..assignment = Code(
                       "${builder.interpreterClassName}._('${builder.shortNameOf(unit)}', ${builder.multiplierOf(unit)})"),
               ),

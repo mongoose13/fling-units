@@ -15,9 +15,9 @@ part of '../measurements/ponies.dart';
 /// b = (2.3).kilo.meters;
 /// ```
 extension NumExtensionPony on num {
-  Pony get fat => PonyInterpreter._fat(this);
-  Pony get ugly => PonyInterpreter._ugly(this);
-  Pony get lazy => PonyInterpreter._lazy(this);
+  Pony get fat => PonyInterpreter.fat(this);
+  Pony get ugly => PonyInterpreter.ugly(this);
+  Pony get lazy => PonyInterpreter.lazy(this);
 }
 
 // **************************************************************************
@@ -31,11 +31,11 @@ class PonyInterpreter extends MeasurementInterpreter<Pony> {
     super.prefix = const MeasurementPrefix.unit(),
   ]) : super();
 
-  static const _fat = PonyInterpreter._('F', 2.0);
+  static const fat = PonyInterpreter._('F', 2.0);
 
-  static const _ugly = PonyInterpreter._('U', 1.0);
+  static const ugly = PonyInterpreter._('U', 1.0);
 
-  static const _lazy = PonyInterpreter._('L', 0.05);
+  static const lazy = PonyInterpreter._('L', 0.05);
 
   @override
   Pony call(
@@ -44,7 +44,7 @@ class PonyInterpreter extends MeasurementInterpreter<Pony> {
   }) =>
       Pony(value, this, precision);
 
-  PonyInterpreter _withPrefix(
+  PonyInterpreter withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
@@ -95,20 +95,20 @@ class Pony extends Measurement<Pony> {
 // **************************************************************************
 
 mixin PonyPrefix {
-  static PonyInterpreter siUnit = PonyInterpreter._ugly;
+  static PonyInterpreter siUnit = PonyInterpreter.ugly;
 
   MeasurementPrefix get prefix;
-  PonyInterpreter get fat => PonyInterpreter._fat._withPrefix(prefix);
-  PonyInterpreter get ugly => PonyInterpreter._ugly._withPrefix(prefix);
-  PonyInterpreter get lazy => PonyInterpreter._lazy._withPrefix(prefix);
+  PonyInterpreter get fat => PonyInterpreter.fat.withPrefix(prefix);
+  PonyInterpreter get ugly => PonyInterpreter.ugly.withPrefix(prefix);
+  PonyInterpreter get lazy => PonyInterpreter.lazy.withPrefix(prefix);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-const fat = PonyInterpreter._fat;
+const fat = PonyInterpreter.fat;
 
-const ugly = PonyInterpreter._ugly;
+const ugly = PonyInterpreter.ugly;
 
-const lazy = PonyInterpreter._lazy;
+const lazy = PonyInterpreter.lazy;

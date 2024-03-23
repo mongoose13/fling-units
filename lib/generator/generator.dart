@@ -4,6 +4,7 @@ export "util/annotations.dart";
 export "util/builder.dart";
 
 export "generators/extension.dart";
+export "generators/extension_global.dart";
 export "generators/interpreter.dart";
 export "generators/library.dart";
 export "generators/measurement.dart";

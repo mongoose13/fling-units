@@ -43,7 +43,7 @@ class PrefixGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
                   ..static = true
                   ..type = Reference(builder.interpreterClassName)
                   ..assignment = Code(
-                      "${builder.interpreterClassName}._${builder.siUnit.displayName}"),
+                      "${builder.interpreterClassName}.${builder.siUnit.displayName}"),
               ),
             );
           final units = element.children
@@ -58,7 +58,7 @@ class PrefixGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
                   ..type = MethodType.getter
                   ..returns = Reference(builder.interpreterClassName)
                   ..body = Code(
-                      "${builder.interpreterClassName}._$name._withPrefix(prefix)"),
+                      "${builder.interpreterClassName}.$name.withPrefix(prefix)"),
               ),
             );
           }

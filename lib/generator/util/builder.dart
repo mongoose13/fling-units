@@ -23,10 +23,12 @@ abstract class FlingBuilder {
 class MeasurementConfig {
   final String name;
   final AssetId asset;
+  final Iterable<String> units;
 
   MeasurementConfig({
     required this.name,
     required this.asset,
+    required this.units,
   });
 }
 
@@ -38,13 +40,18 @@ class FlingLibraryBuilder extends FlingBuilder {
   }
 
   Future<Iterable<MeasurementConfig>> _init(BuildStep buildStep) async {
-    return [
-      await for (var asset in buildStep.findAssets(Glob('**/*.measurements')))
-        MeasurementConfig(
-          name: await buildStep.readAsString(asset),
-          asset: asset,
-        )
-    ];
+    final assets =
+        await buildStep.findAssets(Glob('**/*.measurements')).toList();
+    final pairs = await Future.wait(assets.map((asset) => buildStep
+        .readAsString(asset)
+        .then((line) => (asset: asset, line: line.split(",")))));
+    return pairs.map(
+      (pair) => MeasurementConfig(
+        name: pair.line.first,
+        asset: pair.asset,
+        units: pair.line.skip(1),
+      ),
+    );
   }
 }
 

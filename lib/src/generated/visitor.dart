@@ -6,4 +6,6 @@ part of 'package:fling_units/src/core/visitor_base.dart';
 /// for double-dispatch on an object structure so that a Visitor can operate on
 /// any subset of [Measurement] types and treat each type differently without
 /// needing control statements or type checks (e.g. `if`, `switch`, or `is`).
-abstract class MeasurementVisitor {}
+abstract class MeasurementVisitor {
+  visitPony(Pony measurement);
+}

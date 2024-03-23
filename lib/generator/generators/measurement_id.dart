@@ -17,13 +17,14 @@ class MeasurementIdentifierBuilder extends Builder {
     if (!await resolver.isLibrary(buildStep.inputId)) return;
     final library = LibraryReader(await buildStep.inputLibrary);
     final measurements = library
-        .annotatedWithExact(TypeChecker.fromRuntime(MeasurementTemplate))
-        .map((measurement) => measurement.annotation);
+        .annotatedWithExact(TypeChecker.fromRuntime(MeasurementTemplate));
     if (measurements.isNotEmpty) {
+      final unitChecker = TypeChecker.fromRuntime(MeasurementUnit);
       buildStep.writeAsString(
           buildStep.inputId.changeExtension(".measurements"),
           measurements
-              .map((measurement) => measurement.read("name").stringValue)
+              .map((measurement) =>
+                  "${measurement.annotation.read("name").stringValue},${measurement.element.children.where((child) => unitChecker.hasAnnotationOfExact(child)).map((element) => element.name).join(",")}")
               .join("\n"));
     }
   }

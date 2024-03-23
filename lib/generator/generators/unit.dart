@@ -30,7 +30,7 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
             ..modifier = FieldModifier.constant
             ..name = unit.displayName
             ..assignment =
-                Code("${builder.interpreterClassName}._${unit.displayName}"),
+                Code("${builder.interpreterClassName}.${unit.displayName}"),
         ),
       );
     }

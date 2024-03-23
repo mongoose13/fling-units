@@ -45,6 +45,13 @@ builders:
     builder_factories: ["visitorBuilder"]
     build_extensions: {".measurement": ["lib/src/generated/visitor.dart"]}
     build_to: source
+    required_inputs: [".measurement"]
+  num_extension:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["numExtensionBuilder"]
+    build_extensions: {".measurement": ["lib/src/generated/extension.dart"]}
+    build_to: source
+    required_inputs: [".measurement"]
 
 targets:
   $default:
@@ -85,6 +92,10 @@ targets:
           generate_for:
             - lib/templates/*.dart
       fling_units|visitor:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|num_extension:
         options:
           generate_for:
             - lib/templates/*.dart
