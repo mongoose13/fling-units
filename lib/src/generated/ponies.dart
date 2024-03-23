@@ -3,6 +3,24 @@
 part of '../measurements/ponies.dart';
 
 // **************************************************************************
+// ExtensionGenerator
+// **************************************************************************
+
+/// Measurement constructor extension for the [num] types.
+///
+/// This is syntactic sugar for creating measurements given a number, for
+/// example:
+/// ```dart
+/// a = 5.miles;
+/// b = (2.3).kilo.meters;
+/// ```
+extension NumExtensionPony on num {
+  Pony get fat => PonyInterpreter._fat(this);
+  Pony get ugly => PonyInterpreter._ugly(this);
+  Pony get lazy => PonyInterpreter._lazy(this);
+}
+
+// **************************************************************************
 // InterpreterGenerator
 // **************************************************************************
 

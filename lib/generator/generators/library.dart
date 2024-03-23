@@ -17,23 +17,18 @@ class LibraryBuilder extends Builder {
     final builder = FlingLibraryBuilder(buildStep);
     final measurements = await builder.measurements;
 
-    builder.add(
-      Library(
-        (library) => library.name = "fling_units",
-      ),
-    );
     for (var measurement in measurements) {
       builder.add(Directive.export(measurement.asset
           .changeExtension(".dart")
           .path
-          .replaceFirst("lib/src", "..")));
+          .replaceFirst("lib/src/", "")));
     }
 
     buildStep.writeAsString(buildStep.allowedOutputs.first, builder.flush());
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => {
-        r'$lib$': ['src/generated/fling_units.dart']
+  Map<String, List<String>> get buildExtensions => const {
+        r'$lib$': ['src/library.dart']
       };
 }

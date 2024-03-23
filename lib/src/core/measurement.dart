@@ -1,4 +1,4 @@
-part of '../../fling_units.dart';
+import "library.dart";
 
 /// Base class for any type of measurement.
 abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {

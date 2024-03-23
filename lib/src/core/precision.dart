@@ -1,4 +1,6 @@
-part of '../../fling_units.dart';
+import "dart:math" as math;
+
+import "library.dart";
 
 /// Represents the amount of precision for a measurement.
 ///
@@ -107,7 +109,7 @@ class Precision {
   double withPrecision(num value) => apply(value);
 
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       other is Precision && other.precision == precision;
 
   @override

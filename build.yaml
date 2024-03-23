@@ -14,6 +14,11 @@ builders:
     builder_factories: ["prefixBuilder"]
     build_extensions: {".dart": [".g.part"]}
     build_to: source
+  extension:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["extensionBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: source
   unit:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["unitBuilder"]
@@ -35,6 +40,11 @@ builders:
     builder_factories: ["libraryBuilder"]
     build_extensions: {".measurement": ["lib/src/generated/fling_units.dart"]}
     build_to: source
+  visitor:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["visitorBuilder"]
+    build_extensions: {".measurement": ["lib/src/generated/visitor.dart"]}
+    build_to: source
 
 targets:
   $default:
@@ -48,6 +58,10 @@ targets:
           generate_for:
             - lib/templates/*.dart
       fling_units|prefix:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|extension:
         options:
           generate_for:
             - lib/templates/*.dart
@@ -67,6 +81,10 @@ targets:
           generate_for:
             - lib/templates/*.dart
       fling_units|library:
+        options:
+          generate_for:
+            - lib/templates/*.dart
+      fling_units|visitor:
         options:
           generate_for:
             - lib/templates/*.dart

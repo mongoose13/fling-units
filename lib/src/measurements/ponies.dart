@@ -1,4 +1,5 @@
 import 'package:fling_units/generator/util/annotations.dart';
+
 import 'package:fling_units/fling_units.dart';
 
 part "../generated/ponies.dart";

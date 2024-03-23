@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -10,13 +11,13 @@ abstract class FlingBuilder {
   final emitter = DartEmitter(useNullSafetySyntax: true);
   final checker = const TypeChecker.fromRuntime(MeasurementUnit);
 
-  final _lines = <String>[];
+  final _buffer = StringBuffer();
 
-  void add(Spec spec) => _lines.add(spec.accept(emitter).toString());
+  void add(Spec spec) => _buffer.writeln(spec.accept(emitter).toString());
 
-  void write(String line) => _lines.add(line);
+  void write(String line) => _buffer.writeln(line);
 
-  String flush() => _lines.join("\n");
+  String flush() => DartFormatter().format(_buffer.toString());
 }
 
 class MeasurementConfig {
