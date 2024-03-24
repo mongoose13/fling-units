@@ -39,7 +39,7 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
   DerivedMeasurement.multiply(A a, B b, [String? name])
       : this._combine(
             a.defaultValue * b.defaultValue,
-            Precision.combine([a._precision, b._precision]),
+            Precision.combine([a.precisionData, b.precisionData]),
             a.defaultInterpreter,
             b.defaultInterpreter,
             false,
@@ -50,7 +50,7 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
   DerivedMeasurement.divide(A a, B b, [String? name])
       : this._combine(
             a.defaultValue / b.defaultValue,
-            Precision.combine([a._precision, b._precision]),
+            Precision.combine([a.precisionData, b.precisionData]),
             a.defaultInterpreter,
             b.defaultInterpreter,
             true,

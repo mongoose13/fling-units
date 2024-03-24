@@ -7,18 +7,21 @@ class MeasurementPrefix
         MassPrefix,
         DistancePrefix,
         ChargePrefix,
+        TemperatureChangePrefix,
+        PressurePrefix,
         FrequencyPrefix,
+        VolumePrefix,
         LuminosityPrefix {
   const MeasurementPrefix(
-    this._multiplier, {
+    this.unitMultiplier, {
     this.name = "",
   });
 
   const MeasurementPrefix.unit()
-      : _multiplier = 1.0,
+      : unitMultiplier = 1.0,
         name = "";
 
-  final double _multiplier;
+  final double unitMultiplier;
 
   final String name;
 

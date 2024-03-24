@@ -34,12 +34,12 @@ abstract class MeasurementInterpreter<T> {
 
   /// Interprets the base value according to the configured unit.
   double of(num value) =>
-      value.toDouble() * unitMultiplier / prefix._multiplier;
+      value.toDouble() * unitMultiplier / prefix.unitMultiplier;
 
   /// Interprets the provided value as if it were of the configured unit,
   /// returning the base value.
   double from(num value) =>
-      value.toDouble() / unitMultiplier * prefix._multiplier;
+      value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 
   /// The standardized short form name of the unit (e.g. "m" for meters).
   final String name;
@@ -66,9 +66,10 @@ abstract class RoundingMeasurementInterpreter<T>
 
   @override
   double of(num value) =>
-      (value.toDouble() * unitMultiplier / prefix._multiplier).roundToDouble();
+      (value.toDouble() * unitMultiplier / prefix.unitMultiplier)
+          .roundToDouble();
 
   @override
   double from(num value) =>
-      value.toDouble() / unitMultiplier * prefix._multiplier;
+      value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 }

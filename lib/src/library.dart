@@ -3,5 +3,8 @@ export 'measurements/time.dart';
 export 'measurements/mass.dart';
 export 'measurements/distance.dart';
 export 'measurements/charge.dart';
+export 'measurements/temperature_change.dart';
+export 'measurements/pressure.dart';
 export 'measurements/frequency.dart';
+export 'measurements/volume.dart';
 export 'measurements/luminosity.dart';

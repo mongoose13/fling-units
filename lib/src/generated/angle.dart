@@ -28,7 +28,7 @@ class AngleInterpreter extends MeasurementInterpreter<Angle> {
 
   static const turns = AngleInterpreter._('turn', 1.0);
 
-  static const radians = AngleInterpreter._('rad', 1.0);
+  static const radians = AngleInterpreter._('rad', 6.283185307179586);
 
   static const gradians = AngleInterpreter._('ᵍ', 400.0);
 

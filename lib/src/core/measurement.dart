@@ -9,7 +9,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
     Precision precision = Precision.max,
   })  : _amount = amount,
         defaultInterpreter = interpreter,
-        _precision = precision;
+        precisionData = precision;
 
   const Measurement.zero(MeasurementInterpreter<T> interpreter)
       : this(
@@ -84,7 +84,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   bool get isNaN => _amount.isNaN;
 
   /// Returns the number of digits of precision this measurement has.
-  int get precision => _precision.precision;
+  int get precision => precisionData.precision;
 
   /// Creates an equivalent measurement with the specified precision (significant digits).
   T withPrecisionOf(int precision) =>
@@ -93,7 +93,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Creates a new measurement equivalent to this one but with a different
   /// default unit.
   T withDefaultUnit(MeasurementInterpreter<T> interpreter) =>
-      construct(interpreter.of(si), interpreter, _precision);
+      construct(interpreter.of(si), interpreter, precisionData);
 
   /// Accept a visitor object for double-dispatch.
   void acceptVisitor(MeasurementVisitor visitor);
@@ -109,10 +109,10 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
       identical(this, other) ||
       other is Measurement<T> &&
           si == other.si &&
-          _precision == other._precision;
+          precisionData == other.precisionData;
 
   @override
-  int get hashCode => si.hashCode * _precision.hashCode;
+  int get hashCode => si.hashCode * precisionData.hashCode;
 
   /// Returns `true` if this is greater than the other measurement.
   ///
@@ -138,7 +138,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   int compareTo(T other) => si.compareTo(other.si);
 
   /// Returns a measurement representing the opposite of this.
-  T operator -() => construct(-si, defaultInterpreter, _precision);
+  T operator -() => construct(-si, defaultInterpreter, precisionData);
 
   /// Returns a measurement equivalent to the sum of two others.
   T operator +(T other) => construct(
@@ -156,11 +156,11 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
 
   /// Returns a measurement equivalent to a multiple of this.
   T operator *(num multiplier) =>
-      construct(si * multiplier, defaultInterpreter, _precision);
+      construct(si * multiplier, defaultInterpreter, precisionData);
 
   /// Returns a measurement equivalent to a fraction of this.
   T operator /(num divisor) =>
-      construct(si / divisor, defaultInterpreter, _precision);
+      construct(si / divisor, defaultInterpreter, precisionData);
 
   /// Returns the Euclidean remainder of the division between two measurements.
   ///
@@ -184,7 +184,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   T operator %(T other) => construct(
         defaultInterpreter.of(_preciseSI() % other._preciseSI()),
         defaultInterpreter,
-        Precision.combine([_precision, other._precision]),
+        Precision.combine([precisionData, other.precisionData]),
       );
 
   /// Returns the truncating division result of this and another measurement.
@@ -233,11 +233,11 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   String toString() => '$defaultValue $defaultInterpreter';
 
   /// Apply the measurement appropriate precision to a value.
-  double _precise(num value) => _precision.apply(value);
+  double _precise(num value) => precisionData.apply(value);
 
   /// Apply the measurement appropriate precision to a converted value.
   double _preciseOf([MeasurementInterpreter<T>? converter]) =>
-      _precision.apply(converter?.of(si) ?? si);
+      precisionData.apply(converter?.of(si) ?? si);
 
   /// Apply the measurement appropriate precision to the base value.
   double _preciseSI() => _precise(si);
@@ -249,5 +249,5 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   final num _amount;
 
   /// The precision of this measurement.
-  final Precision _precision;
+  final Precision precisionData;
 }

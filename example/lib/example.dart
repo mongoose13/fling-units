@@ -82,9 +82,9 @@ void main() {
   print(
       "\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.as(yards)} yards because I left my driving glasses at home.");
   print(
-      "I can fit ${depthsOfMyMind.asVolume(Volume.cubic(meters))} boxes of bananas in my mind.");
+      "I can fit ${depthsOfMyMind.asVolume(VolumeExtension.cubic(meters))} boxes of bananas in my mind.");
   print(
-      "I can fit ${depthsOfMyPetRocksMind.asVolume(Volume.cubic(meters))} boxes of bananas in my pet rock's mind.");
+      "I can fit ${depthsOfMyPetRocksMind.asVolume(VolumeExtension.cubic(meters))} boxes of bananas in my pet rock's mind.");
 
   //------------------------------------------------//
 

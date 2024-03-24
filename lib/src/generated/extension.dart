@@ -110,8 +110,106 @@ class NumExtension {
   /// Creates a(n) amperes measurement.
   Charge get amperes => ChargeInterpreter.amperes.withPrefix(_prefix)(_value);
 
+  /// Creates a(n) kelvin measurement.
+  TemperatureChange get kelvin =>
+      TemperatureChangeInterpreter.kelvin.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) celcius measurement.
+  TemperatureChange get celcius =>
+      TemperatureChangeInterpreter.celcius.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) fahrenheit measurement.
+  TemperatureChange get fahrenheit =>
+      TemperatureChangeInterpreter.fahrenheit.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) pascals measurement.
+  Pressure get pascals =>
+      PressureInterpreter.pascals.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) bars measurement.
+  Pressure get bars => PressureInterpreter.bars.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) baryes measurement.
+  Pressure get baryes => PressureInterpreter.baryes.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) standardAtmospheres measurement.
+  Pressure get standardAtmospheres =>
+      PressureInterpreter.standardAtmospheres.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) technicalAtmospheres measurement.
+  Pressure get technicalAtmospheres =>
+      PressureInterpreter.technicalAtmospheres.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) mmHg measurement.
+  Pressure get mmHg => PressureInterpreter.mmHg.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) inHg measurement.
+  Pressure get inHg => PressureInterpreter.inHg.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) torr measurement.
+  Pressure get torr => PressureInterpreter.torr.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) psi measurement.
+  Pressure get psi => PressureInterpreter.psi.withPrefix(_prefix)(_value);
+
   /// Creates a(n) hertz measurement.
   Frequency get hertz => FrequencyInterpreter.hertz.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) liters measurement.
+  Volume get liters => VolumeInterpreter.liters.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) teaspoons measurement.
+  Volume get teaspoons =>
+      VolumeInterpreter.teaspoons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) tablespoons measurement.
+  Volume get tablespoons =>
+      VolumeInterpreter.tablespoons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) fluidOunces measurement.
+  Volume get fluidOunces =>
+      VolumeInterpreter.fluidOunces.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) cups measurement.
+  Volume get cups => VolumeInterpreter.cups.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) pints measurement.
+  Volume get pints => VolumeInterpreter.pints.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) quarts measurement.
+  Volume get quarts => VolumeInterpreter.quarts.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) gallons measurement.
+  Volume get gallons => VolumeInterpreter.gallons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usTeaspoons measurement.
+  Volume get usTeaspoons =>
+      VolumeInterpreter.usTeaspoons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usTablespoons measurement.
+  Volume get usTablespoons =>
+      VolumeInterpreter.usTablespoons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usFluidOunces measurement.
+  Volume get usFluidOunces =>
+      VolumeInterpreter.usFluidOunces.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usCups measurement.
+  Volume get usCups => VolumeInterpreter.usCups.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usPints measurement.
+  Volume get usPints => VolumeInterpreter.usPints.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usQuarts measurement.
+  Volume get usQuarts => VolumeInterpreter.usQuarts.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usGallons measurement.
+  Volume get usGallons =>
+      VolumeInterpreter.usGallons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) usLegalCups measurement.
+  Volume get usLegalCups =>
+      VolumeInterpreter.usLegalCups.withPrefix(_prefix)(_value);
 
   /// Creates a(n) candela measurement.
   Luminosity get candela =>

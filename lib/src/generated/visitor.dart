@@ -13,6 +13,9 @@ abstract class MeasurementVisitor {
   visitMass(Mass measurement) {}
   visitDistance(Distance measurement) {}
   visitCharge(Charge measurement) {}
+  visitTemperatureChange(TemperatureChange measurement) {}
+  visitPressure(Pressure measurement) {}
   visitFrequency(Frequency measurement) {}
+  visitVolume(Volume measurement) {}
   visitLuminosity(Luminosity measurement) {}
 }
