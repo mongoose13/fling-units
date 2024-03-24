@@ -112,11 +112,11 @@ void main() {
   // You can also use the common derived units to create your masterpiece.
   var fuelConsumption = distanceToSeattle.per(usGallons(2.4));
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
-  print("${fuelConsumption.as(miles, usGallons)} mpg");
+  print("${fuelConsumption.asPair(miles, usGallons)} mpg");
   // Interpret the derived unit in any combination of component units.
-  print("${fuelConsumption.as(miles, liters)} mpl");
-  print("${fuelConsumption.as(kilo.meters, liters)} kpl");
-  print("${fuelConsumption.as(kilo.meters, usGallons)} kpg");
+  print("${fuelConsumption.asPair(miles, liters)} mpl");
+  print("${fuelConsumption.asPair(kilo.meters, liters)} kpl");
+  print("${fuelConsumption.asPair(kilo.meters, usGallons)} kpg");
 
   var coulombs = seconds(4).by(amperes(8));
   print("My invention generates $coulombs!");

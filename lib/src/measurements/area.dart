@@ -1,4 +1,4 @@
-part of '../../fling_units.dart';
+import "package:fling_units/fling_units.dart";
 
 /// Interprets [Area]s as a specific unit.
 class AreaInterpreter extends MeasurementInterpreter<Area> {
@@ -25,15 +25,15 @@ class AreaInterpreter extends MeasurementInterpreter<Area> {
     String name,
     MeasurementInterpreter<Distance> a,
     MeasurementInterpreter<Distance> b,
-  ) : super._(
+  ) : super(
           name,
-          a.unitMultiplier * b.unitMultiplier / b.prefix._multiplier,
+          a.unitMultiplier * b.unitMultiplier / b.prefix.unitMultiplier,
           a.prefix,
         );
 
   /// Constructs the SI derived area unit, square meters.
   const AreaInterpreter._m2()
-      : super._('m²', 1.0, const MeasurementPrefix.unit());
+      : super('m²', 1.0, const MeasurementPrefix.unit());
 }
 
 /// Represents the two-dimensional derived unit of perpendicular distances.
@@ -67,21 +67,21 @@ class Area extends Measurement<Area> {
       : this(
           a.defaultValue * b.defaultValue,
           AreaInterpreter._m2(),
-          Precision.combine([a._precision, b._precision]),
+          Precision.combine([a.precisionData, b.precisionData]),
         );
 
   /// Constructs an [Area] representing the sum of any number of other [Area]s.
   Area.sum(super.parts, {super.precision}) : super.sum();
 
   /// Interprets this [Measurement] in the specified units.
-  double as(
+  double asPair(
     MeasurementInterpreter<Distance> a,
     MeasurementInterpreter<Distance> b,
-  ) =>
-      _precise(a.of(b.of(si)));
+  ) => precisionData.apply
+      (a.of(b.of(si)));
 
   /// Interprets this using the specified [MeasurementInterpreter].
-  double asArea(MeasurementInterpreter<Area> a) => _precise(a.of(si));
+  double asArea(MeasurementInterpreter<Area> a) => precisionData.apply(a.of(si));
 
   @override
   void acceptVisitor(MeasurementVisitor visitor) => visitor.visitArea(this);
@@ -104,4 +104,9 @@ class Area extends Measurement<Area> {
           precision: precision,
           interpreter: interpreter,
         );
+}
+
+// TODO: this doesn't work as desired
+extension AreaVisitorExtension on MeasurementVisitor {
+  void visitArea(Area area) {}
 }

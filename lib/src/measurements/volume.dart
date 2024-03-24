@@ -144,8 +144,15 @@ extension VolumeExtension on Volume {
   static Volume of(Distance a, Distance b, Distance c) => Volume(
         a.defaultValue * b.defaultValue * c.defaultValue,
         VolumeInterpreterExtension._unitless(
-            a.defaultInterpreter, b.defaultInterpreter, c.defaultInterpreter),
-        Precision.combine([a.precisionData, b.precisionData, c.precisionData]),
+          a.defaultInterpreter,
+          b.defaultInterpreter,
+          c.defaultInterpreter,
+        ),
+        Precision.combine([
+          a.precisionData,
+          b.precisionData,
+          c.precisionData,
+        ]),
       );
 
   /// Produces an interpreter for the cube of a provided unit.
@@ -153,8 +160,11 @@ extension VolumeExtension on Volume {
       VolumeInterpreterExtension.cubed(distanceInterpreter);
 
   /// Interprets this in the specified units.
-  double as(DistanceInterpreter a, DistanceInterpreter b,
-          DistanceInterpreter c) =>
+  double asTriple(
+    DistanceInterpreter a,
+    DistanceInterpreter b,
+    DistanceInterpreter c,
+  ) =>
       precisionData.apply(a.of(b.of(c.of(si))));
 
   /// Interprets this in the specified volume unit.
