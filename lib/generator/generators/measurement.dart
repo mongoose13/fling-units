@@ -38,33 +38,36 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..assignment = Code(builder.siUnit.displayName),
             ),
           )
-          ..constructors.add(Constructor(
-            (constructor) => constructor
-              ..requiredParameters.add(
-                Parameter(
-                  (units) => units
-                    ..name = "units"
-                    ..type = Reference("num"),
-                ),
-              )
-              ..requiredParameters.add(
-                Parameter(
-                  (interpreter) => interpreter
-                    ..name = "interpreter"
-                    ..type = Reference(builder.interpreterType),
-                ),
-              )
-              ..optionalParameters.add(
-                Parameter(
-                  (precision) => precision
-                    ..name = "precision"
-                    ..type = Reference("Precision")
-                    ..defaultTo = Code("Precision.max"),
-                ),
-              )
-              ..initializers.add(Code(
-                  "super(amount: units, precision: precision, interpreter: interpreter)")),
-          ))
+          ..constructors.add(
+            Constructor(
+              (constructor) => constructor
+                ..constant = true
+                ..requiredParameters.add(
+                  Parameter(
+                    (units) => units
+                      ..name = "units"
+                      ..type = Reference("num"),
+                  ),
+                )
+                ..requiredParameters.add(
+                  Parameter(
+                    (interpreter) => interpreter
+                      ..name = "interpreter"
+                      ..type = Reference(builder.interpreterType),
+                  ),
+                )
+                ..optionalParameters.add(
+                  Parameter(
+                    (precision) => precision
+                      ..name = "precision"
+                      ..type = Reference("Precision")
+                      ..defaultTo = Code("Precision.max"),
+                  ),
+                )
+                ..initializers.add(Code(
+                    "super(amount: units, precision: precision, interpreter: interpreter)")),
+            ),
+          )
           ..constructors.add(
             Constructor(
               (zero) => zero

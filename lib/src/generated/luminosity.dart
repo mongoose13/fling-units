@@ -48,7 +48,7 @@ class LuminosityInterpreter extends MeasurementInterpreter<Luminosity> {
 // **************************************************************************
 
 class Luminosity extends Measurement<Luminosity> {
-  Luminosity(
+  const Luminosity(
     num units,
     MeasurementInterpreter<Luminosity> interpreter, [
     Precision precision = Precision.max,

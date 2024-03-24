@@ -42,7 +42,7 @@ class ChargeInterpreter extends MeasurementInterpreter<Charge> {
 // **************************************************************************
 
 class Charge extends Measurement<Charge> {
-  Charge(
+  const Charge(
     num units,
     MeasurementInterpreter<Charge> interpreter, [
     Precision precision = Precision.max,

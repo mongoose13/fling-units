@@ -42,7 +42,7 @@ class FrequencyInterpreter extends MeasurementInterpreter<Frequency> {
 // **************************************************************************
 
 class Frequency extends Measurement<Frequency> {
-  Frequency(
+  const Frequency(
     num units,
     MeasurementInterpreter<Frequency> interpreter, [
     Precision precision = Precision.max,

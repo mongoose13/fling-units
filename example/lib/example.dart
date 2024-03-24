@@ -29,8 +29,7 @@ void main() {
   // divide, truncating divide, or modulo divide.
   final distanceToSeattleAndBack = distanceToSeattle * 2;
   final distanceToSeattleIfYouForgotSomethingAtHome =
-      (distanceToSeattleAndBack + distanceToSeattle)
-          .withPrecisionOf(6);
+      (distanceToSeattleAndBack + distanceToSeattle).withPrecisionOf(6);
 
   // You can also make use of the Precision class to ensure proper significant digits.
   final bucketMagnitudeDifference =

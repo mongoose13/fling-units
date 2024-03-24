@@ -27,6 +27,66 @@ class NumExtension {
   /// The number being extended.
   final num _value;
 
+  /// Creates a(n) seconds measurement.
+  Time get seconds => TimeInterpreter.seconds.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) minutes measurement.
+  Time get minutes => TimeInterpreter.minutes.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) hours measurement.
+  Time get hours => TimeInterpreter.hours.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) days measurement.
+  Time get days => TimeInterpreter.days.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) grams measurement.
+  Mass get grams => MassInterpreter.grams.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) tonnes measurement.
+  Mass get tonnes => MassInterpreter.tonnes.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) atomicMassUnits measurement.
+  Mass get atomicMassUnits =>
+      MassInterpreter.atomicMassUnits.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) daltons measurement.
+  Mass get daltons => MassInterpreter.daltons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) electronRestMass measurement.
+  Mass get electronRestMass =>
+      MassInterpreter.electronRestMass.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) longTons measurement.
+  Mass get longTons => MassInterpreter.longTons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) shortTons measurement.
+  Mass get shortTons => MassInterpreter.shortTons.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) pounds measurement.
+  Mass get pounds => MassInterpreter.pounds.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) ounces measurement.
+  Mass get ounces => MassInterpreter.ounces.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) meters measurement.
+  Distance get meters => DistanceInterpreter.meters.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) miles measurement.
+  Distance get miles => DistanceInterpreter.miles.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) yards measurement.
+  Distance get yards => DistanceInterpreter.yards.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) feet measurement.
+  Distance get feet => DistanceInterpreter.feet.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) inches measurement.
+  Distance get inches => DistanceInterpreter.inches.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) nauticalMiles measurement.
+  Distance get nauticalMiles =>
+      DistanceInterpreter.nauticalMiles.withPrefix(_prefix)(_value);
+
   /// Creates a(n) amperes measurement.
   Charge get amperes => ChargeInterpreter.amperes.withPrefix(_prefix)(_value);
 

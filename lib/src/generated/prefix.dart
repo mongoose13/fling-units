@@ -1,6 +1,13 @@
 part of 'package:fling_units/src/core/library.dart';
 
-class MeasurementPrefix with ChargePrefix, FrequencyPrefix, LuminosityPrefix {
+class MeasurementPrefix
+    with
+        TimePrefix,
+        MassPrefix,
+        DistancePrefix,
+        ChargePrefix,
+        FrequencyPrefix,
+        LuminosityPrefix {
   const MeasurementPrefix(
     this._multiplier, {
     this.name = "",
