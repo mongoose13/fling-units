@@ -2,6 +2,7 @@ part of 'package:fling_units/src/core/library.dart';
 
 class MeasurementPrefix
     with
+        AnglePrefix,
         TimePrefix,
         MassPrefix,
         DistancePrefix,

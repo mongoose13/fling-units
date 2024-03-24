@@ -35,16 +35,18 @@ enum TimeConfig {
 /*
   This first method seems incorrect
   - we are creating a Time in seconds from input in microseconds?
-
+  */
+extension TimeExtension on Time {
   /// Constructs a [Time] from a [Duration].
-  Time.ofDuration(
+  Time ofDuration(
     Duration duration, {
     Precision precision = Precision.max,
-    MeasurementInterpreter<Time> interpreter = TimeInterpreter._seconds,
-  }) : this(duration.inMicroseconds, interpreter, precision);
+    MeasurementInterpreter<Time> interpreter = seconds,
+  }) =>
+      Time(duration.inMicroseconds, interpreter, precision);
 
   /// Constructs a [Duration] based on this.
   ///
   /// Note that any granularity below microseconds will be lost.
   Duration get asDuration => Duration(microseconds: as(micro.seconds).toInt());
-  */
+}

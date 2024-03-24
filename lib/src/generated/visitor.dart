@@ -8,6 +8,7 @@ part of 'package:fling_units/src/core/library.dart';
 /// needing control statements or type checks (e.g. `if`, `switch`, or `is`).
 abstract class MeasurementVisitor {
   visitDerived(DerivedMeasurement measurement) {}
+  visitAngle(Angle measurement) {}
   visitTime(Time measurement) {}
   visitMass(Mass measurement) {}
   visitDistance(Distance measurement) {}

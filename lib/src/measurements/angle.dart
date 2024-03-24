@@ -1,129 +1,57 @@
-part of '../../fling_units.dart';
+import "dart:math" as math;
 
-class AngleInterpreter extends MeasurementInterpreter<Angle> {
-  @override
-  Angle call(num value, {Precision precision = Precision.max}) =>
-      Angle(value, this, precision);
+import 'package:fling_units/generator/util/annotations.dart';
 
-  /// Constructs an [AngleInterpreter].
-  const AngleInterpreter._(
-    super.name,
-    super.multiplier, [
-    super.prefix = const MeasurementPrefix.unit(),
-  ]) : super._();
+import 'package:fling_units/fling_units.dart';
 
-  /// Produces a [MassInterpreter] that is a multiple of this.
-  AngleInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      AngleInterpreter._(name, unitMultiplier, prefix);
+part "../generated/angle.dart";
 
-  /// The interpreter for turns.
-  static const _turns = AngleInterpreter._('turn', 1e0);
+@MeasurementConfig(shortName: "Angle")
+enum AngleConfig {
+  @UnitConfig(
+    shortName: "turn",
+    multiplier: 1e0,
+    isSI: true,
+  )
+  turns,
 
-  /// The interpreter for radians.
-  static const _radians = AngleInterpreter._('rad', 2.0 * math.pi);
+  @UnitConfig(
+    shortName: "rad",
+    multiplier: 2.0 * math.pi,
+  )
+  radians,
 
-  /// The interpreter for gradians.
-  static const _gradians = AngleInterpreter._('ᵍ', 4e2);
+  @UnitConfig(
+    shortName: "ᵍ",
+    multiplier: 4e2,
+  )
+  gradians,
 
-  /// The interpreter for degrees.
-  static const _degrees = AngleInterpreter._('°', 360.0);
+  @UnitConfig(
+    shortName: "°",
+    multiplier: 360.0,
+  )
+  degrees,
 
-  /// The interpreter for arc minutes.
-  static const _arcMinutes = AngleInterpreter._('′', 360.0 * 60.0);
+  @UnitConfig(
+    shortName: "′",
+    multiplier: 360.0 * 60.0,
+  )
+  arcMinutes,
 
-  /// The interpreter for arc seconds.
-  static const _arcSeconds = AngleInterpreter._('′', 360.0 * 3600.0);
+  @UnitConfig(
+    shortName: "′",
+    multiplier: 360.0 * 3600.0,
+  )
+  arcSeconds;
 }
 
-/// The interpreter for turns.
-const turns = AngleInterpreter._turns;
-
-/// The interpreter for radians.
-const radians = AngleInterpreter._radians;
-
-/// The interpreter for gradians.
-const gradians = AngleInterpreter._gradians;
-
-/// The interpreter for degrees.
-const degrees = AngleInterpreter._degrees;
-
-/// The interpreter for arc minutes.
-const arcMinutes = AngleInterpreter._arcMinutes;
-
-/// The interpreter for arc seconds.
-const arcSeconds = AngleInterpreter._arcSeconds;
-
-mixin AnglePrefix {
-  /// Applies this to a turn amount.
-  AngleInterpreter get turns => AngleInterpreter._turns._withPrefix(_prefix);
-
-  /// Applies this to a radian amount.
-  AngleInterpreter get radians =>
-      AngleInterpreter._radians._withPrefix(_prefix);
-
-  /// Applies this to a gradian amount.
-  AngleInterpreter get gradians =>
-      AngleInterpreter._gradians._withPrefix(_prefix);
-
-  /// Applies this to a degree amount.
-  AngleInterpreter get degrees =>
-      AngleInterpreter._degrees._withPrefix(_prefix);
-
-  /// Applies this to an arc minute amount.
-  AngleInterpreter get arcMinutes =>
-      AngleInterpreter._arcMinutes._withPrefix(_prefix);
-
-  /// Applies this to an arc minute amount.
-  AngleInterpreter get arcSeconds =>
-      AngleInterpreter._arcSeconds._withPrefix(_prefix);
-
-  /// The prefix multiplier applied to this measurement.
-  MeasurementPrefix get _prefix;
-}
-
-/// Represents an angle.
-class Angle extends Measurement<Angle> {
-  /// Constructs an [Angle] measurement.
-  const Angle(
-    num amount,
-    MeasurementInterpreter<Angle> interpreter, [
-    Precision precision = Precision.max,
-  ]) : super(
-          amount: amount,
-          precision: precision,
-          interpreter: interpreter,
-        );
-
-  /// Zero angle.
-  const Angle.zero([AngleInterpreter super.interpreter = radians])
-      : super.zero();
-
-  /// Infinite angle.
-  const Angle.infinite([AngleInterpreter super.interpreter = radians])
-      : super.infinite();
-
-  /// Infinite negative angle.
-  const Angle.negativeInfinite([AngleInterpreter super.interpreter = radians])
-      : super.negativeInfinite();
-
-  /// NaN (Not a Number) angle.
-  const Angle.nan([super.interpreter = radians]) : super.nan();
-
+extension AngleExtension on Angle {
   /// A right angle.
-  const Angle.right() : this(0.25, turns);
+  Angle right() => const Angle(0.25, turns);
 
   /// A straight angle.
-  const Angle.straight() : this(0.5, turns);
-
-  /// Constructs an [Angle] representing the sum of any number of other [Angle]s.
-  Angle.sum(super.parts, {super.precision}) : super.sum();
-
-  /// Interprets this using the specified units.
-  double as(MeasurementInterpreter<Angle> interpreter) =>
-      _preciseOf(interpreter);
-
-  @override
-  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitAngle(this);
+  Angle straight() => const Angle(0.5, turns);
 
   /// Whether this is an acute angle.
   bool get isAcute => si.abs() < 0.25;
@@ -136,12 +64,4 @@ class Angle extends Measurement<Angle> {
 
   /// Whether this is a straight angle.
   bool get isStraight => si.abs() == 0.5;
-
-  @override
-  Angle construct(
-    double amount,
-    MeasurementInterpreter<Angle>? interpreter,
-    Precision precision,
-  ) =>
-      Angle(amount, interpreter ?? radians, precision);
 }

@@ -27,6 +27,26 @@ class NumExtension {
   /// The number being extended.
   final num _value;
 
+  /// Creates a(n) turns measurement.
+  Angle get turns => AngleInterpreter.turns.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) radians measurement.
+  Angle get radians => AngleInterpreter.radians.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) gradians measurement.
+  Angle get gradians => AngleInterpreter.gradians.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) degrees measurement.
+  Angle get degrees => AngleInterpreter.degrees.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) arcMinutes measurement.
+  Angle get arcMinutes =>
+      AngleInterpreter.arcMinutes.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) arcSeconds measurement.
+  Angle get arcSeconds =>
+      AngleInterpreter.arcSeconds.withPrefix(_prefix)(_value);
+
   /// Creates a(n) seconds measurement.
   Time get seconds => TimeInterpreter.seconds.withPrefix(_prefix)(_value);
 
