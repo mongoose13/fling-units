@@ -11,5 +11,6 @@ export "generators/measurement.dart";
 export "generators/measurement_id.dart";
 export "generators/measurement_prefix.dart";
 export "generators/prefix.dart";
+export "generators/prefixes.dart";
 export "generators/unit.dart";
 export "generators/visitor.dart";

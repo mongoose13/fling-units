@@ -6,7 +6,7 @@ part "derived.dart";
 part "interpreter.dart";
 part "measurement.dart";
 part "precision.dart";
-part "prefixes.dart";
 
+part 'package:fling_units/src/generated/extension.dart';
 part "package:fling_units/src/generated/prefix.dart";
 part 'package:fling_units/src/generated/visitor.dart';

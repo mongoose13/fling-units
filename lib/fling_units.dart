@@ -66,3 +66,5 @@ library fling_units;
 
 export "src/library.dart";
 export "src/core/library.dart";
+
+export "src/prefixes/si.dart";

@@ -1,4 +1,4 @@
-import 'package:fling_units/fling_units.dart';
+part of 'package:fling_units/src/core/library.dart';
 
 /// Wrapper class for extensions on [num] types.
 ///
@@ -15,7 +15,7 @@ import 'package:fling_units/fling_units.dart';
 ///
 /// Having the prefix extensions return instances of this class instead of [num]
 /// prevents all but the first usage (the one we want) demonstrated above.
-abstract class NumExtension {
+class NumExtension {
   const NumExtension(
     this._prefix,
     this._value,
@@ -26,6 +26,9 @@ abstract class NumExtension {
 
   /// The number being extended.
   final num _value;
+
+  /// Creates a(n) amperes measurement.
+  Charge get amperes => ChargeInterpreter.amperes.withPrefix(_prefix)(_value);
 
   /// Creates a(n) fat measurement.
   Pony get fat => PonyInterpreter.fat.withPrefix(_prefix)(_value);

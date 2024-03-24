@@ -10,7 +10,15 @@ Builder extensionBuilder(BuilderOptions options) {
   return SharedPartBuilder([ExtensionGenerator(options)], 'extension');
 }
 
-class ExtensionGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
+/// Measurement constructor extension for the [num] types.
+///
+/// This is syntactic sugar for creating measurements given a number, for
+/// example:
+/// ```dart
+/// a = 5.miles;
+/// b = (2.3).kilo.meters;
+/// ```
+class ExtensionGenerator extends GeneratorForAnnotation<MeasurementConfig> {
   final BuilderOptions builderOptions;
 
   ExtensionGenerator(this.builderOptions);
@@ -26,17 +34,6 @@ class ExtensionGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
     builder.add(
       Extension(
         (measurement) => measurement
-          ..docs
-              .addAll("""Measurement constructor extension for the [num] types.
-
-This is syntactic sugar for creating measurements given a number, for
-example:
-```dart
-a = 5.miles;
-b = (2.3).kilo.meters;
-```"""
-                  .split("\n")
-                  .map((line) => "/// $line"))
           ..name = "NumExtension${builder.measurementClassName}"
           ..on = Reference("num")
           ..methods.addAll(

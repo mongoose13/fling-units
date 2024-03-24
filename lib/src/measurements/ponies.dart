@@ -4,17 +4,17 @@ import 'package:fling_units/fling_units.dart';
 
 part "../generated/ponies.dart";
 
-@MeasurementTemplate(name: "Pony")
+@MeasurementConfig(shortName: "Pony")
 enum PonyConfig {
   /// A fat pony.
-  @MeasurementUnit(
+  @UnitConfig(
     shortName: "F",
     multiplier: 2e0,
   )
   fat,
 
   /// An ugly pony.
-  @MeasurementUnit(
+  @UnitConfig(
     isSI: true,
     shortName: "U",
     multiplier: 1e0,
@@ -22,7 +22,7 @@ enum PonyConfig {
   ugly,
 
   /// A lazy pony.
-  @MeasurementUnit(
+  @UnitConfig(
     shortName: "L",
     multiplier: 5e-2,
   )

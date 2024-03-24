@@ -1,4 +1,9 @@
 builders:
+  prefixes:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["prefixesBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: source
   measurement:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["measurementBuilder"]
@@ -56,46 +61,50 @@ builders:
 targets:
   $default:
     builders:
+      fling_units|prefixes:
+        options:
+          generate_for:
+            - lib/src/prefixes/*.dart
       fling_units|measurement:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|interpreter:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|prefix:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|extension:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|unit:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       source_gen|combining_builder:
         options:
-          build_extensions: {"^lib/src/measurements/{{}}.dart": ["lib/src/generated/{{}}.dart"]}
+          build_extensions: {"^lib/src/measurements/{{}}.dart": ["lib/src/generated/{{}}.dart"],"^lib/src/prefixes/{{}}.dart": ["lib/src/generated/{{}}.dart"]}
       fling_units|measurement_id:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|measurement_prefix:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|library:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|visitor:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart
       fling_units|num_extension:
         options:
           generate_for:
-            - lib/templates/*.dart
+            - lib/src/measurements/*.dart

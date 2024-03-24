@@ -17,12 +17,10 @@ class GlobalExtensionBuilder extends Builder {
     final builder = FlingLibraryBuilder(buildStep);
     final measurements = await builder.measurements;
 
-    builder.add(
-        Directive.import("package:fling_units/fling_units.dart"));
+    builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     builder.add(
       Class(
         (extensionClass) => extensionClass
-          ..abstract = true
           ..name = "NumExtension"
           ..docs.addAll("""Wrapper class for extensions on [num] types.
 

@@ -10,7 +10,7 @@ Builder interpreterBuilder(BuilderOptions options) {
   return SharedPartBuilder([InterpreterGenerator(options)], 'interpreter');
 }
 
-class InterpreterGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
+class InterpreterGenerator extends GeneratorForAnnotation<MeasurementConfig> {
   final BuilderOptions builderOptions;
 
   InterpreterGenerator(this.builderOptions);

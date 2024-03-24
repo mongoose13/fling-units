@@ -10,7 +10,7 @@ Builder unitBuilder(BuilderOptions options) {
   return SharedPartBuilder([UnitGenerator(options)], 'unit');
 }
 
-class UnitGenerator extends GeneratorForAnnotation<MeasurementTemplate> {
+class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
   final BuilderOptions builderOptions;
 
   UnitGenerator(this.builderOptions);

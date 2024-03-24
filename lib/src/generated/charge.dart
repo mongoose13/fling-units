@@ -1,106 +1,94 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../measurements/ponies.dart';
+part of '../measurements/charge.dart';
 
 // **************************************************************************
 // ExtensionGenerator
 // **************************************************************************
 
-extension NumExtensionPony on num {
-  Pony get fat => PonyInterpreter.fat(this);
-  Pony get ugly => PonyInterpreter.ugly(this);
-  Pony get lazy => PonyInterpreter.lazy(this);
+extension NumExtensionCharge on num {
+  Charge get amperes => ChargeInterpreter.amperes(this);
 }
 
 // **************************************************************************
 // InterpreterGenerator
 // **************************************************************************
 
-class PonyInterpreter extends MeasurementInterpreter<Pony> {
-  const PonyInterpreter._(
+class ChargeInterpreter extends MeasurementInterpreter<Charge> {
+  const ChargeInterpreter._(
     super.name,
     super.multiplier, [
     super.prefix = const MeasurementPrefix.unit(),
   ]) : super();
 
-  static const fat = PonyInterpreter._('F', 2.0);
-
-  static const ugly = PonyInterpreter._('U', 1.0);
-
-  static const lazy = PonyInterpreter._('L', 0.05);
+  static const amperes = ChargeInterpreter._('A', 1.0);
 
   @override
-  Pony call(
+  Charge call(
     num value, {
     Precision precision = Precision.max,
   }) =>
-      Pony(value, this, precision);
+      Charge(value, this, precision);
 
-  PonyInterpreter withPrefix(
+  ChargeInterpreter withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      PonyInterpreter._(name, unitMultiplier, prefix);
+      ChargeInterpreter._(name, unitMultiplier, prefix);
 }
 
 // **************************************************************************
 // MeasurementGenerator
 // **************************************************************************
 
-class Pony extends Measurement<Pony> {
-  Pony(
+class Charge extends Measurement<Charge> {
+  Charge(
     num units,
-    MeasurementInterpreter<Pony> interpreter, [
+    MeasurementInterpreter<Charge> interpreter, [
     Precision precision = Precision.max,
   ]) : super(amount: units, precision: precision, interpreter: interpreter);
 
-  const Pony.zero([super.interpreter = siUnit]) : super.zero();
+  const Charge.zero([super.interpreter = siUnit]) : super.zero();
 
-  const Pony.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Charge.infinite([super.interpreter = siUnit]) : super.infinite();
 
-  const Pony.negativeInfinite([super.interpreter = siUnit])
+  const Charge.negativeInfinite([super.interpreter = siUnit])
       : super.negativeInfinite();
 
-  const Pony.nan([super.interpreter = siUnit]) : super.nan();
+  const Charge.nan([super.interpreter = siUnit]) : super.nan();
 
-  Pony.sum(
+  Charge.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const PonyInterpreter siUnit = ugly;
+  static const ChargeInterpreter siUnit = amperes;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitPony(this);
+  acceptVisitor(MeasurementVisitor visitor) => visitor.visitCharge(this);
 
   @override
   construct(
     double amount,
-    MeasurementInterpreter<Pony>? interpreter,
+    MeasurementInterpreter<Charge>? interpreter,
     Precision precision,
   ) =>
-      Pony(amount, interpreter ?? siUnit, precision);
+      Charge(amount, interpreter ?? siUnit, precision);
 }
 
 // **************************************************************************
 // PrefixGenerator
 // **************************************************************************
 
-mixin PonyPrefix {
-  static PonyInterpreter siUnit = PonyInterpreter.ugly;
+mixin ChargePrefix {
+  static ChargeInterpreter siUnit = ChargeInterpreter.amperes;
 
   MeasurementPrefix get prefix;
-  PonyInterpreter get fat => PonyInterpreter.fat.withPrefix(prefix);
-  PonyInterpreter get ugly => PonyInterpreter.ugly.withPrefix(prefix);
-  PonyInterpreter get lazy => PonyInterpreter.lazy.withPrefix(prefix);
+  ChargeInterpreter get amperes => ChargeInterpreter.amperes.withPrefix(prefix);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-const fat = PonyInterpreter.fat;
-
-const ugly = PonyInterpreter.ugly;
-
-const lazy = PonyInterpreter.lazy;
+const amperes = ChargeInterpreter.amperes;

@@ -16,15 +16,15 @@ class MeasurementIdentifierBuilder extends Builder {
     final resolver = buildStep.resolver;
     if (!await resolver.isLibrary(buildStep.inputId)) return;
     final library = LibraryReader(await buildStep.inputLibrary);
-    final measurements = library
-        .annotatedWithExact(TypeChecker.fromRuntime(MeasurementTemplate));
+    final measurements =
+        library.annotatedWithExact(TypeChecker.fromRuntime(MeasurementConfig));
     if (measurements.isNotEmpty) {
-      final unitChecker = TypeChecker.fromRuntime(MeasurementUnit);
+      final unitChecker = TypeChecker.fromRuntime(UnitConfig);
       buildStep.writeAsString(
           buildStep.inputId.changeExtension(".measurements"),
           measurements
               .map((measurement) =>
-                  "${measurement.annotation.read("name").stringValue},${measurement.element.children.where((child) => unitChecker.hasAnnotationOfExact(child)).map((element) => element.name).join(",")}")
+                  "${measurement.annotation.read("shortName").stringValue},${measurement.element.children.where((child) => unitChecker.hasAnnotationOfExact(child)).map((element) => element.name).join(",")}")
               .join("\n"));
     }
   }
