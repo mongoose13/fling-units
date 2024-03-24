@@ -17,8 +17,7 @@ class VisitorBuilder extends Builder {
     final builder = FlingLibraryBuilder(buildStep);
     final measurements = await builder.measurements;
 
-    builder.add(
-        Directive.partOf("package:fling_units/src/core/visitor_base.dart"));
+    builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     builder.add(
       Class(
         (visitorClass) => visitorClass
@@ -32,6 +31,20 @@ any subset of [Measurement] types and treat each type differently without
 needing control statements or type checks (e.g. `if`, `switch`, or `is`)."""
               .split("\n")
               .map((line) => "/// $line"))
+          ..methods.add(
+            Method(
+              (derived) => derived
+                ..name = "visitDerived"
+                ..requiredParameters.add(
+                  Parameter(
+                    (measurement) => measurement
+                      ..name = "measurement"
+                      ..type = Reference("DerivedMeasurement"),
+                  ),
+                )
+                ..body = Code(""),
+            ),
+          )
           ..methods.addAll(
             measurements.map(
               (measurement) => Method(
@@ -43,7 +56,8 @@ needing control statements or type checks (e.g. `if`, `switch`, or `is`)."""
                         ..name = "measurement"
                         ..type = Reference(measurement.name),
                     ),
-                  ),
+                  )
+                  ..body = Code(""),
               ),
             ),
           ),

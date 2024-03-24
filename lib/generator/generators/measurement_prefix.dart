@@ -17,8 +17,7 @@ class MeasurementPrefixBuilder extends Builder {
     final builder = FlingLibraryBuilder(buildStep);
     final measurements = await builder.measurements;
 
-    builder
-        .add(Directive.partOf("package:fling_units/src/core/prefix_base.dart"));
+    builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     builder.add(
       Class(
         (prefixClass) => prefixClass
@@ -31,7 +30,7 @@ class MeasurementPrefixBuilder extends Builder {
           ..fields.add(
             Field(
               (name) => name
-                ..name = "multiplier"
+                ..name = "_multiplier"
                 ..type = Reference("final double"),
             ),
           )
@@ -49,7 +48,7 @@ class MeasurementPrefixBuilder extends Builder {
                 ..requiredParameters.add(
                   Parameter(
                     (multiplier) => multiplier
-                      ..name = "multiplier"
+                      ..name = "_multiplier"
                       ..toThis = true,
                   ),
                 )
@@ -69,7 +68,7 @@ class MeasurementPrefixBuilder extends Builder {
               (unit) => unit
                 ..constant = true
                 ..name = "unit"
-                ..initializers.add(Code("multiplier = 1.0"))
+                ..initializers.add(Code("_multiplier = 1.0"))
                 ..initializers.add(Code("name = \"\"")),
             ),
           )

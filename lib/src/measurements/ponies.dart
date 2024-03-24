@@ -6,10 +6,25 @@ part "../generated/ponies.dart";
 
 @MeasurementTemplate(name: "Pony")
 enum PonyConfig {
-  @MeasurementUnit(shortName: "F", multiplier: 2e0)
+  /// A fat pony.
+  @MeasurementUnit(
+    shortName: "F",
+    multiplier: 2e0,
+  )
   fat,
-  @MeasurementUnit(isSI: true, shortName: "U", multiplier: 1e0)
+
+  /// An ugly pony.
+  @MeasurementUnit(
+    isSI: true,
+    shortName: "U",
+    multiplier: 1e0,
+  )
   ugly,
-  @MeasurementUnit(shortName: "L", multiplier: 5e-2)
+
+  /// A lazy pony.
+  @MeasurementUnit(
+    shortName: "L",
+    multiplier: 5e-2,
+  )
   lazy;
 }

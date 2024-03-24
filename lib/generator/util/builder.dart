@@ -76,12 +76,17 @@ class FlingMeasurementBuilder extends FlingBuilder {
     prefixClassName = "${measurementClassName}Prefix";
     units = element.children
         .where((Element element) => checker.hasAnnotationOfExact(element));
-    siUnit = units.firstWhere((element) =>
-        checker
-            .firstAnnotationOfExact(element)
-            ?.getField('isSI')
-            ?.toBoolValue() ??
-        false);
+    siUnit = units.firstWhere(
+      (element) =>
+          checker
+              .firstAnnotationOfExact(element)
+              ?.getField('isSI')
+              ?.toBoolValue() ??
+          false,
+      orElse: () => throw ArgumentError(
+        "No SI unit identified for $measurementClassName",
+      ),
+    );
   }
 
   String shortNameOf(Element unit) =>

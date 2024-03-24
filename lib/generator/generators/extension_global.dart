@@ -18,7 +18,7 @@ class GlobalExtensionBuilder extends Builder {
     final measurements = await builder.measurements;
 
     builder.add(
-        Directive.partOf("package:fling_units/src/core/extension_base.dart"));
+        Directive.import("package:fling_units/fling_units.dart"));
     builder.add(
       Class(
         (extensionClass) => extensionClass
@@ -90,6 +90,7 @@ prevents all but the first usage (the one we want) demonstrated above."""
                     (method) => method
                       ..docs.add("/// Creates a(n) ${pair.unit} measurement.")
                       ..lambda = true
+                      ..type = MethodType.getter
                       ..name = pair.unit
                       ..returns = Reference(pair.measurement)
                       ..body = Code(

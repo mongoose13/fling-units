@@ -1,4 +1,4 @@
-part of '../../fling_units.dart';
+part of "library.dart";
 
 /// A measurement representing two simpler measurements tied together by either
 /// multiplication or division.
@@ -75,7 +75,7 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
             reciprocal);
 
   /// Interprets this using two specific units.
-  double as(MeasurementInterpreter<A> a, MeasurementInterpreter<B> b) =>
+  double asPair(MeasurementInterpreter<A> a, MeasurementInterpreter<B> b) =>
       _precise(a.of(si) * (_reciprocal ? b.from(1) : b.of(1)));
 
   /// Interprets this using a [DerivedMeasurementInterpreter].
@@ -149,7 +149,7 @@ class DerivedMeasurementInterpreter<A extends Measurement<A>,
   ])  : _reciprocal = reciprocal,
         _interpreterA = a,
         _interpreterB = b,
-        super._(
+        super(
           name ?? '${a ?? 'X'}${reciprocal ? '/' : '⋅'}${b ?? 'X'}',
           reciprocal
               ? (a?.unitMultiplier ?? 1.0) / (b?.unitMultiplier ?? 1.0)
@@ -178,7 +178,7 @@ class _UnknownDerivedMeasurementInterpreter<A extends Measurement<A>,
   String get name => "unknown";
 
   @override
-  double get _unitMultiplier => 1.0;
+  double get unitMultiplier => 1.0;
 
   @override
   MeasurementInterpreter<A>? get _interpreterA => throw UnimplementedError();
@@ -196,7 +196,7 @@ class _UnknownDerivedMeasurementInterpreter<A extends Measurement<A>,
   double from(num value) => value.toDouble();
 
   @override
-  MeasurementPrefix get _prefix => throw UnimplementedError();
+  MeasurementPrefix get prefix => throw UnimplementedError();
 
   @override
   DerivedMeasurement<A, B> call(double value,

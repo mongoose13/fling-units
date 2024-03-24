@@ -1,16 +1,16 @@
-part of 'package:fling_units/src/core/prefix_base.dart';
+part of 'package:fling_units/src/core/library.dart';
 
 class MeasurementPrefix with PonyPrefix {
   const MeasurementPrefix(
-    this.multiplier, {
+    this._multiplier, {
     this.name = "",
   });
 
   const MeasurementPrefix.unit()
-      : multiplier = 1.0,
+      : _multiplier = 1.0,
         name = "";
 
-  final double multiplier;
+  final double _multiplier;
 
   final String name;
 

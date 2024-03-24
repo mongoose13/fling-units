@@ -1,6 +1,4 @@
-import "dart:math" as math;
-
-import "library.dart";
+part of "library.dart";
 
 /// Represents the amount of precision for a measurement.
 ///

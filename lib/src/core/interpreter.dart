@@ -1,4 +1,4 @@
-import "library.dart";
+part of "library.dart";
 
 /// Interprets a measurement as a specific unit.
 ///

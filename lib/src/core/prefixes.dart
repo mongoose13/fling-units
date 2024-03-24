@@ -1,6 +1,4 @@
-import "package:fling_units/fling_units.dart";
-
-part "package:fling_units/src/generated/prefix.dart";
+part of "library.dart";
 
 /// SI prefix "quecto".
 const MeasurementPrefix quecto = MeasurementPrefix(1e-30, name: 'q');

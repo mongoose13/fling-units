@@ -1,4 +1,4 @@
-part of 'package:fling_units/src/core/visitor_base.dart';
+part of 'package:fling_units/src/core/library.dart';
 
 /// Base class for measurement visitors.
 ///
@@ -7,5 +7,6 @@ part of 'package:fling_units/src/core/visitor_base.dart';
 /// any subset of [Measurement] types and treat each type differently without
 /// needing control statements or type checks (e.g. `if`, `switch`, or `is`).
 abstract class MeasurementVisitor {
-  visitPony(Pony measurement);
+  visitDerived(DerivedMeasurement measurement) {}
+  visitPony(Pony measurement) {}
 }

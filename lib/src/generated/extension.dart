@@ -1,4 +1,4 @@
-part of 'package:fling_units/src/core/extension_base.dart';
+import 'package:fling_units/fling_units.dart';
 
 /// Wrapper class for extensions on [num] types.
 ///
@@ -28,11 +28,11 @@ abstract class NumExtension {
   final num _value;
 
   /// Creates a(n) fat measurement.
-  Pony fat() => PonyInterpreter.fat.withPrefix(_prefix)(_value);
+  Pony get fat => PonyInterpreter.fat.withPrefix(_prefix)(_value);
 
   /// Creates a(n) ugly measurement.
-  Pony ugly() => PonyInterpreter.ugly.withPrefix(_prefix)(_value);
+  Pony get ugly => PonyInterpreter.ugly.withPrefix(_prefix)(_value);
 
   /// Creates a(n) lazy measurement.
-  Pony lazy() => PonyInterpreter.lazy.withPrefix(_prefix)(_value);
+  Pony get lazy => PonyInterpreter.lazy.withPrefix(_prefix)(_value);
 }
