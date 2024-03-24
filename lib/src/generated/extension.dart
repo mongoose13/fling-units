@@ -30,12 +30,18 @@ class NumExtension {
   /// Creates a(n) amperes measurement.
   Charge get amperes => ChargeInterpreter.amperes.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) fat measurement.
-  Pony get fat => PonyInterpreter.fat.withPrefix(_prefix)(_value);
+  /// Creates a(n) hertz measurement.
+  Frequency get hertz => FrequencyInterpreter.hertz.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) ugly measurement.
-  Pony get ugly => PonyInterpreter.ugly.withPrefix(_prefix)(_value);
+  /// Creates a(n) candela measurement.
+  Luminosity get candela =>
+      LuminosityInterpreter.candela.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) lazy measurement.
-  Pony get lazy => PonyInterpreter.lazy.withPrefix(_prefix)(_value);
+  /// Creates a(n) candlepower measurement.
+  Luminosity get candlepower =>
+      LuminosityInterpreter.candlepower.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) hefnerkerze measurement.
+  Luminosity get hefnerkerze =>
+      LuminosityInterpreter.hefnerkerze.withPrefix(_prefix)(_value);
 }

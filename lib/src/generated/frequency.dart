@@ -1,106 +1,95 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../measurements/ponies.dart';
+part of '../measurements/frequency.dart';
 
 // **************************************************************************
 // ExtensionGenerator
 // **************************************************************************
 
-extension NumExtensionPony on num {
-  Pony get fat => PonyInterpreter.fat(this);
-  Pony get ugly => PonyInterpreter.ugly(this);
-  Pony get lazy => PonyInterpreter.lazy(this);
+extension NumExtensionFrequency on num {
+  Frequency get hertz => FrequencyInterpreter.hertz(this);
 }
 
 // **************************************************************************
 // InterpreterGenerator
 // **************************************************************************
 
-class PonyInterpreter extends MeasurementInterpreter<Pony> {
-  const PonyInterpreter._(
+class FrequencyInterpreter extends MeasurementInterpreter<Frequency> {
+  const FrequencyInterpreter._(
     super.name,
     super.multiplier, [
     super.prefix = const MeasurementPrefix.unit(),
   ]) : super();
 
-  static const fat = PonyInterpreter._('F', 2.0);
-
-  static const ugly = PonyInterpreter._('U', 1.0);
-
-  static const lazy = PonyInterpreter._('L', 0.05);
+  static const hertz = FrequencyInterpreter._('Hz', 1.0);
 
   @override
-  Pony call(
+  Frequency call(
     num value, {
     Precision precision = Precision.max,
   }) =>
-      Pony(value, this, precision);
+      Frequency(value, this, precision);
 
-  PonyInterpreter withPrefix(
+  FrequencyInterpreter withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      PonyInterpreter._(name, unitMultiplier, prefix);
+      FrequencyInterpreter._(name, unitMultiplier, prefix);
 }
 
 // **************************************************************************
 // MeasurementGenerator
 // **************************************************************************
 
-class Pony extends Measurement<Pony> {
-  Pony(
+class Frequency extends Measurement<Frequency> {
+  Frequency(
     num units,
-    MeasurementInterpreter<Pony> interpreter, [
+    MeasurementInterpreter<Frequency> interpreter, [
     Precision precision = Precision.max,
   ]) : super(amount: units, precision: precision, interpreter: interpreter);
 
-  const Pony.zero([super.interpreter = siUnit]) : super.zero();
+  const Frequency.zero([super.interpreter = siUnit]) : super.zero();
 
-  const Pony.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Frequency.infinite([super.interpreter = siUnit]) : super.infinite();
 
-  const Pony.negativeInfinite([super.interpreter = siUnit])
+  const Frequency.negativeInfinite([super.interpreter = siUnit])
       : super.negativeInfinite();
 
-  const Pony.nan([super.interpreter = siUnit]) : super.nan();
+  const Frequency.nan([super.interpreter = siUnit]) : super.nan();
 
-  Pony.sum(
+  Frequency.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const PonyInterpreter siUnit = ugly;
+  static const FrequencyInterpreter siUnit = hertz;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitPony(this);
+  acceptVisitor(MeasurementVisitor visitor) => visitor.visitFrequency(this);
 
   @override
   construct(
     double amount,
-    MeasurementInterpreter<Pony>? interpreter,
+    MeasurementInterpreter<Frequency>? interpreter,
     Precision precision,
   ) =>
-      Pony(amount, interpreter ?? siUnit, precision);
+      Frequency(amount, interpreter ?? siUnit, precision);
 }
 
 // **************************************************************************
 // PrefixGenerator
 // **************************************************************************
 
-mixin PonyPrefix {
-  static PonyInterpreter siUnit = PonyInterpreter.ugly;
+mixin FrequencyPrefix {
+  static FrequencyInterpreter siUnit = FrequencyInterpreter.hertz;
 
   MeasurementPrefix get prefix;
-  PonyInterpreter get fat => PonyInterpreter.fat.withPrefix(prefix);
-  PonyInterpreter get ugly => PonyInterpreter.ugly.withPrefix(prefix);
-  PonyInterpreter get lazy => PonyInterpreter.lazy.withPrefix(prefix);
+  FrequencyInterpreter get hertz =>
+      FrequencyInterpreter.hertz.withPrefix(prefix);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-const fat = PonyInterpreter.fat;
-
-const ugly = PonyInterpreter.ugly;
-
-const lazy = PonyInterpreter.lazy;
+const hertz = FrequencyInterpreter.hertz;

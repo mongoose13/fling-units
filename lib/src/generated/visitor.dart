@@ -9,5 +9,6 @@ part of 'package:fling_units/src/core/library.dart';
 abstract class MeasurementVisitor {
   visitDerived(DerivedMeasurement measurement) {}
   visitCharge(Charge measurement) {}
-  visitPony(Pony measurement) {}
+  visitFrequency(Frequency measurement) {}
+  visitLuminosity(Luminosity measurement) {}
 }

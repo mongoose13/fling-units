@@ -1,6 +1,6 @@
 part of 'package:fling_units/src/core/library.dart';
 
-class MeasurementPrefix with ChargePrefix, PonyPrefix {
+class MeasurementPrefix with ChargePrefix, FrequencyPrefix, LuminosityPrefix {
   const MeasurementPrefix(
     this._multiplier, {
     this.name = "",
