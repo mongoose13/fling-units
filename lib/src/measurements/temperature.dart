@@ -1,4 +1,4 @@
-part of '../../fling_units.dart';
+import "package:fling_units/fling_units.dart";
 
 /// Represents a "thermometer" temperature.
 ///
@@ -21,58 +21,49 @@ part of '../../fling_units.dart';
 class Temperature implements Comparable<Temperature> {
   /// Absolute zero.
   const Temperature.absoluteZero(
-      [MeasurementInterpreter<TemperatureChange> defaultInterpreter =
-          TemperatureChangeInterpreter._kelvin])
+      [MeasurementInterpreter<TemperatureChange> defaultInterpreter = kelvin])
       : _kelvin = 0.0,
         _precision = Precision.max,
         _defaultInterpreter = defaultInterpreter;
 
   /// Infinite temperature.
   const Temperature.infinite(
-      [MeasurementInterpreter<TemperatureChange> defaultInterpreter =
-          TemperatureChangeInterpreter._kelvin])
+      [MeasurementInterpreter<TemperatureChange> defaultInterpreter = kelvin])
       : _kelvin = double.infinity,
         _precision = Precision.max,
         _defaultInterpreter = defaultInterpreter;
 
   /// NaN (Not a Number) temperature.
   const Temperature.nan(
-      [MeasurementInterpreter<TemperatureChange> interpreter =
-          TemperatureChangeInterpreter._kelvin])
+      [MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
       : _kelvin = double.nan,
         _precision = Precision.max,
         _defaultInterpreter = interpreter;
 
   /// Constructs a [Temperature] from a Kelvin amount.
   Temperature.ofKelvin(
-    num kelvin, {
+    num amount, {
     Precision precision = Precision.max,
   }) : this._(
-          kelvin,
+          amount,
           precision,
-          TemperatureChangeInterpreter._kelvin,
+          kelvin,
         );
 
   /// Constructs a [Temperature] from a degree Celcius amount.
   Temperature.ofCelcius(
-    num celcius, {
+    num amount, {
     Precision precision = Precision.max,
-  }) : this._(
-            TemperatureChangeInterpreter._celcius.from(celcius) -
-                _celciusOffset,
-            precision,
-            TemperatureChangeInterpreter._celcius);
+  }) : this._(celcius.from(amount) - _celciusOffset, precision, celcius);
 
   /// Constructs a [Temperature] from a degree Fahrenheit amount.
   Temperature.ofFahrenheit(
-    num fahrenheit, {
+    num amount, {
     Precision precision = Precision.max,
   }) : this._(
-          TemperatureChangeInterpreter._fahrenheit
-                  .from(fahrenheit - _fahrenheitOffset) -
-              _celciusOffset,
+          fahrenheit.from(amount - _fahrenheitOffset) - _celciusOffset,
           precision,
-          TemperatureChangeInterpreter._fahrenheit,
+          fahrenheit,
         );
 
   /// Constructs a [Temperature] with all custom parameters.
@@ -92,13 +83,12 @@ class Temperature implements Comparable<Temperature> {
   double get asKelvin => _precision.apply(_kelvin);
 
   /// Interprets this as degrees Celcius.
-  double get asCelcius => _precision.apply(
-      TemperatureChangeInterpreter._celcius.of(_kelvin) + _celciusOffset);
+  double get asCelcius =>
+      _precision.apply(celcius.of(_kelvin) + _celciusOffset);
 
   /// Interprets this as degrees Fahrenheit.
-  double get asFahrenheit => _precision.apply(
-      TemperatureChangeInterpreter._fahrenheit.of(_kelvin + _celciusOffset) +
-          _fahrenheitOffset);
+  double get asFahrenheit => _precision
+      .apply(fahrenheit.of(_kelvin + _celciusOffset) + _fahrenheitOffset);
 
   /// Returns `true` if this is finite.
   bool get isFinite => _kelvin.isFinite;
@@ -110,7 +100,7 @@ class Temperature implements Comparable<Temperature> {
   int get precision => _precision.precision;
 
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       other is Temperature &&
       other._kelvin == _kelvin &&
       other._precision == _precision;
@@ -193,9 +183,9 @@ class Temperature implements Comparable<Temperature> {
 
   /// Evaluates the measurement using a different unit.
   double _as(MeasurementInterpreter<TemperatureChange> interpreter) {
-    if (interpreter == TemperatureChangeInterpreter._celcius) {
+    if (interpreter == celcius) {
       return asCelcius;
-    } else if (interpreter == TemperatureChangeInterpreter._fahrenheit) {
+    } else if (interpreter == fahrenheit) {
       return asFahrenheit;
     } else {
       return asKelvin;
@@ -216,4 +206,14 @@ class Temperature implements Comparable<Temperature> {
 
   /// The default interpreter.
   final MeasurementInterpreter<TemperatureChange> _defaultInterpreter;
+}
+
+extension TemperatureVisitorExtension on MeasurementVisitor {
+  void visitTemperature(Temperature temperature) {}
+}
+
+extension NumExtensionTemperature on num {
+  Temperature get ofKelvin => Temperature.ofKelvin(this);
+  Temperature get ofFahrenheit => Temperature.ofFahrenheit(this);
+  Temperature get ofCelcius => Temperature.ofCelcius(this);
 }

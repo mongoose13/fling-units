@@ -48,10 +48,10 @@ enum AngleConfig {
 
 extension AngleExtension on Angle {
   /// A right angle.
-  Angle right() => const Angle(0.25, turns);
+  static Angle right() => const Angle(0.25, turns);
 
   /// A straight angle.
-  Angle straight() => const Angle(0.5, turns);
+  static Angle straight() => const Angle(0.5, turns);
 
   /// Whether this is an acute angle.
   bool get isAcute => si.abs() < 0.25;

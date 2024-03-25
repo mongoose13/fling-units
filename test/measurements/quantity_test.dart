@@ -32,7 +32,7 @@ void main() {
         final result = interpreter.toString();
 
         // then
-        expect(result, '0.0 x');
+        expect(result, '0.0 units');
       });
     });
     group('infinity', () {
@@ -64,7 +64,7 @@ void main() {
         final result = interpreter.toString();
 
         // then
-        expect(result, 'Infinity x');
+        expect(result, 'Infinity units');
       });
     });
     group('negativeInfinity', () {
@@ -96,7 +96,7 @@ void main() {
         final result = interpreter.toString();
 
         // then
-        expect(result, '-Infinity x');
+        expect(result, '-Infinity units');
       });
     });
 
@@ -295,7 +295,7 @@ void main() {
         final result = measurement.withDefaultUnit(milli.units).toString();
 
         // then
-        expect(result, '1.41e+27 mx');
+        expect(result, '1.41e+27 munits');
       });
     });
   });

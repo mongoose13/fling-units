@@ -398,7 +398,17 @@ void main() {
         // then
         expect(result, '3.4 °F');
       });
-      test('extension maintains units', () {
+      test('extension maintains units K', () {
+        // given
+        final measurement = 3.4.ofKelvin.withPrecisionOf(3);
+
+        // when
+        final result = measurement.toString();
+
+        // then
+        expect(result, '3.4 K');
+      });
+      test('extension maintains units F', () {
         // given
         final measurement = 3.4.ofFahrenheit.withPrecisionOf(3);
 
@@ -407,6 +417,16 @@ void main() {
 
         // then
         expect(result, '3.4 °F');
+      });
+      test('extension maintains units C', () {
+        // given
+        final measurement = 3.4.ofCelcius.withPrecisionOf(3);
+
+        // when
+        final result = measurement.toString();
+
+        // then
+        expect(result, '3.4 °C');
       });
       test('modified units', () {
         // given

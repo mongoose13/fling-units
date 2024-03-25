@@ -102,7 +102,7 @@ void main() {
     group('right', () {
       test('has right angle value', () {
         // given
-        final measurement = Angle.right();
+        final measurement = AngleExtension.right();
 
         // when
         final result = measurement.as(turns);
@@ -112,7 +112,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Angle.right();
+        final measurement = AngleExtension.right();
 
         // when
         final result = measurement.precision;
@@ -122,7 +122,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Angle.right().withDefaultUnit(turns);
+        final interpreter = AngleExtension.right().withDefaultUnit(turns);
 
         // when
         final result = interpreter.toString();
@@ -134,7 +134,7 @@ void main() {
     group('straight', () {
       test('has straight angle value', () {
         // given
-        final measurement = Angle.straight();
+        final measurement = AngleExtension.straight();
 
         // when
         final result = measurement.as(turns);
@@ -144,7 +144,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Angle.straight();
+        final measurement = AngleExtension.straight();
 
         // when
         final result = measurement.precision;
@@ -154,7 +154,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Angle.straight().withDefaultUnit(turns);
+        final interpreter = AngleExtension.straight().withDefaultUnit(turns);
 
         // when
         final result = interpreter.toString();
@@ -458,7 +458,7 @@ void main() {
       });
       test('const constructor right angle', () {
         // given
-        final measurement = Angle.right();
+        final measurement = AngleExtension.right();
 
         // when
         final result = measurement.isRight;
@@ -531,7 +531,7 @@ void main() {
       });
       test('const constructor straight angle', () {
         // given
-        final measurement = Angle.straight();
+        final measurement = AngleExtension.straight();
 
         // when
         final result = measurement.isStraight;
@@ -594,7 +594,7 @@ void main() {
       });
       test('right angle', () {
         // given
-        final measurement = Angle.right();
+        final measurement = AngleExtension.right();
 
         // when
         final result = measurement.isAcute;
@@ -657,7 +657,7 @@ void main() {
       });
       test('right angle', () {
         // given
-        final measurement = Angle.right();
+        final measurement = AngleExtension.right();
 
         // when
         final result = measurement.isObtuse;
@@ -667,7 +667,7 @@ void main() {
       });
       test('straight angle', () {
         // given
-        final measurement = Angle.straight();
+        final measurement = AngleExtension.straight();
 
         // when
         final result = measurement.isObtuse;

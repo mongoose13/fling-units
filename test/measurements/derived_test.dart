@@ -83,7 +83,7 @@ void main() {
         );
 
         // when
-        final result = unit.as(meters, meters);
+        final result = unit.asPair(meters, meters);
 
         // then
         expect(result, 6.0);
@@ -96,7 +96,7 @@ void main() {
         );
 
         // when
-        final result = unit.as(meters, deci.meters);
+        final result = unit.asPair(meters, deci.meters);
 
         // then
         expect(result, 60.0);
@@ -109,7 +109,7 @@ void main() {
         );
 
         // when
-        final result = unit.as(deci.meters, meters);
+        final result = unit.asPair(deci.meters, meters);
 
         // then
         expect(result, 60.0);
@@ -138,7 +138,7 @@ void main() {
         );
 
         // when
-        final result = unit.as(meters, meters);
+        final result = unit.asPair(meters, meters);
 
         // then
         expect(result, 2.0);
@@ -151,7 +151,7 @@ void main() {
         );
 
         // when
-        final result = unit.as(meters, deci.meters);
+        final result = unit.asPair(meters, deci.meters);
 
         // then
         expect(result, 0.2);
@@ -164,7 +164,7 @@ void main() {
         );
 
         // when
-        final result = unit.as(deci.meters, meters);
+        final result = unit.asPair(deci.meters, meters);
 
         // then
         expect(result, 20.0);
@@ -177,7 +177,7 @@ void main() {
         );
 
         // when
-        final result = unit.as(meters, seconds);
+        final result = unit.asPair(meters, seconds);
 
         // then
         expect(result, 0.894);
@@ -228,7 +228,7 @@ void main() {
             gallons(5, precision: Precision(3)));
 
         // when
-        final result = unit.as(miles, gallons);
+        final result = unit.asPair(miles, gallons);
 
         // then
         expect(result, 20.0);
@@ -240,7 +240,7 @@ void main() {
             gallons(5, precision: Precision(3)));
 
         // when
-        final result = unit.as(kilo.meters, liters);
+        final result = unit.asPair(kilo.meters, liters);
 
         // then
         expect(result, 7.08);
@@ -298,7 +298,7 @@ void main() {
           final unit = DerivedMeasurement<Distance, Time>.zero();
 
           // when
-          final result = unit.as(miles, hours);
+          final result = unit.asPair(miles, hours);
 
           // then
           expect(result, 0.0);
@@ -308,7 +308,7 @@ void main() {
           final unit = DerivedMeasurement<Distance, Time>.infinite();
 
           // when
-          final result = unit.as(miles, hours);
+          final result = unit.asPair(miles, hours);
 
           // then
           expect(result, double.infinity);
@@ -318,7 +318,7 @@ void main() {
           final unit = DerivedMeasurement<Distance, Time>.negativeInfinite();
 
           // when
-          final result = unit.as(miles, hours);
+          final result = unit.asPair(miles, hours);
 
           // then
           expect(result, -double.infinity);

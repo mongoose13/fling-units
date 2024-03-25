@@ -10,6 +10,7 @@ abstract class MeasurementVisitor {
   visitDerived(DerivedMeasurement measurement) {}
   visitAngle(Angle measurement) {}
   visitTime(Time measurement) {}
+  visitQuantity(Quantity measurement) {}
   visitMass(Mass measurement) {}
   visitDistance(Distance measurement) {}
   visitCharge(Charge measurement) {}

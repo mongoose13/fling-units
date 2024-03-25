@@ -59,6 +59,12 @@ class NumExtension {
   /// Creates a(n) days measurement.
   Time get days => TimeInterpreter.days.withPrefix(_prefix)(_value);
 
+  /// Creates a(n) units measurement.
+  Quantity get units => QuantityInterpreter.units.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) moles measurement.
+  Quantity get moles => QuantityInterpreter.moles.withPrefix(_prefix)(_value);
+
   /// Creates a(n) grams measurement.
   Mass get grams => MassInterpreter.grams.withPrefix(_prefix)(_value);
 

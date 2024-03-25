@@ -1,4 +1,5 @@
 import 'package:fling_units/fling_units.dart';
+import 'package:fling_units/src/measurements/volume.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -9,7 +10,7 @@ void main() {
         final result = Volume.zero();
 
         // then
-        expect(result.asVolume(Volume.cubic(meters)), 0.0);
+        expect(result.asVolume(VolumeExtension.cubic(meters)), 0.0);
       });
       test('has max precision', () {
         // given
@@ -35,7 +36,7 @@ void main() {
         final result = Volume.infinite();
 
         // then
-        expect(result.asVolume(Volume.cubic(meters)), double.infinity);
+        expect(result.asVolume(VolumeExtension.cubic(meters)), double.infinity);
       });
       test('has max precision', () {
         // given
@@ -61,7 +62,7 @@ void main() {
         final result = Volume.negativeInfinite();
 
         // then
-        expect(result.asVolume(Volume.cubic(meters)), double.negativeInfinity);
+        expect(result.asVolume(VolumeExtension.cubic(meters)), double.negativeInfinity);
       });
       test('has max precision', () {
         // given
@@ -85,35 +86,35 @@ void main() {
     group('of', () {
       test('multiplies component parts', () {
         // given
-        final volume = Volume.of(
+        final volume = VolumeExtension.of(
           meters(2, precision: Precision(5)),
           meters(3, precision: Precision(5)),
           meters(4, precision: Precision(5)),
         );
 
         // when
-        final result = volume.asVolume(Volume.cubic(meters));
+        final result = volume.asVolume(VolumeExtension.cubic(meters));
 
         // then
         expect(result, 24.0);
       });
       test('multiplies decimals', () {
         // given
-        final volume = Volume.of(
+        final volume = VolumeExtension.of(
           meters(2.345, precision: Precision(5)),
           meters(3.456, precision: Precision(5)),
           meters(4.567, precision: Precision(5)),
         );
 
         // when
-        final result = volume.asVolume(Volume.cubic(meters));
+        final result = volume.asVolume(VolumeExtension.cubic(meters));
 
         // then
         expect(result, 37.012);
       });
       test('retains correct precision', () {
         // given
-        final volume = Volume.of(
+        final volume = VolumeExtension.of(
           meters(2, precision: Precision(5)),
           meters(3, precision: Precision(3)),
           meters(4, precision: Precision(4)),
@@ -127,7 +128,7 @@ void main() {
       });
       test('automatically named', () {
         // given
-        final volume = Volume.of(
+        final volume = VolumeExtension.of(
           meters(2, precision: Precision(5)),
           inches(3, precision: Precision(3)),
           feet(4, precision: Precision(4)),
@@ -158,14 +159,14 @@ void main() {
       test('adds parts', () {
         // given
         final volume = Volume.sum([
-          Volume.cubic(milli.meters)(1000),
-          Volume.cubic(centi.meters)(200),
-          Volume.cubic(deci.meters)(30),
-          Volume.cubic(meters)(4),
+          VolumeExtension.cubic(milli.meters)(1000),
+          VolumeExtension.cubic(centi.meters)(200),
+          VolumeExtension.cubic(deci.meters)(30),
+          VolumeExtension.cubic(meters)(4),
         ], precision: Precision(10));
 
         // when
-        final result = volume.asVolume(Volume.cubic(meters));
+        final result = volume.asVolume(VolumeExtension.cubic(meters));
 
         // then
         expect(result, 4.030201);
@@ -611,7 +612,7 @@ void main() {
       });
       test('cubic interpreter', () {
         // given
-        final interpreter = Volume.cubic(feet);
+        final interpreter = VolumeExtension.cubic(feet);
 
         // when
         final result = interpreter.toString();
@@ -621,7 +622,7 @@ void main() {
       });
       test('cubic measurement', () {
         // given
-        final measurement = Volume.cubic(feet)(2.3).withPrecisionOf(2);
+        final measurement = VolumeExtension.cubic(feet)(2.3).withPrecisionOf(2);
 
         // when
         final result = measurement.toString();

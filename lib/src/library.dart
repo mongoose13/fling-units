@@ -1,5 +1,6 @@
 export 'measurements/angle.dart';
 export 'measurements/time.dart';
+export 'measurements/quantity.dart';
 export 'measurements/mass.dart';
 export 'measurements/distance.dart';
 export 'measurements/charge.dart';

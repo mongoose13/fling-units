@@ -4,6 +4,7 @@ class MeasurementPrefix
     with
         AnglePrefix,
         TimePrefix,
+        QuantityPrefix,
         MassPrefix,
         DistancePrefix,
         ChargePrefix,

@@ -94,9 +94,9 @@ void main() {
   print("${monitorSurfaceArea.asArea(Area.square(meters))} m²");
   print("${monitorSurfaceArea.asArea(Area.square(centi.meters))} cm²");
   print("${monitorSurfaceArea.asArea(Area.square(inches))} in²");
-  print("${monitorSurfaceArea.as(inches, inches)} in² (alternate form)");
+  print("${monitorSurfaceArea.asPair(inches, inches)} in² (alternate form)");
   print(
-      "${monitorSurfaceArea.as(inches, centi.meters)} in x cm (in case you ever needed that...)");
+      "${monitorSurfaceArea.asPair(inches, centi.meters)} in x cm (in case you ever needed that...)");
 
   // You can also build them from their component parts.
   var oneSquareInch = Area.of(
@@ -163,4 +163,5 @@ void main() {
       "\nMy hand will always have a linear density of ${DerivedMeasurement.divide(massOfMyHand, sizeOfMyHand)}.");
 
   // Have fun!
+  print(1.moles.as(units));
 }

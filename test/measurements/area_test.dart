@@ -118,7 +118,7 @@ void main() {
         final area = Area.square(meters)(1234.0, precision: Precision(5));
 
         // when
-        final result = area.as(meters, meters);
+        final result = area.asPair(meters, meters);
 
         // then
         expect(result, 1234.0);
@@ -128,7 +128,7 @@ void main() {
         final area = Area.square(meters)(1234.0, precision: Precision(5));
 
         // when
-        final result = area.as(kilo.meters, meters);
+        final result = area.asPair(kilo.meters, meters);
 
         // then
         expect(result, 1.234);
@@ -172,7 +172,7 @@ void main() {
         final interpreter = AreaInterpreter.squared(feet);
 
         // when
-        final result = interpreter(5).withPrecisionOf(6).as(meters, meters);
+        final result = interpreter(5).withPrecisionOf(6).asPair(meters, meters);
 
         // then
         expect(result, 0.464515);
@@ -182,7 +182,7 @@ void main() {
         final interpreter = AreaInterpreter.squared(deci.feet);
 
         // when
-        final result = interpreter(5).withPrecisionOf(6).as(meters, meters);
+        final result = interpreter(5).withPrecisionOf(6).asPair(meters, meters);
 
         // then
         expect(result, 0.00464515);
