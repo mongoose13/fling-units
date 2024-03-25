@@ -31,6 +31,12 @@ any subset of [Measurement] types and treat each type differently without
 needing control statements or type checks (e.g. `if`, `switch`, or `is`)."""
               .split("\n")
               .map((line) => "/// $line"))
+          ..mixins.addAll(
+            [
+              Reference("AreaVisitorMixin"),
+              Reference("TemperatureVisitorMixin"),
+            ],
+          )
           ..methods.add(
             Method(
               (derived) => derived

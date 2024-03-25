@@ -208,7 +208,7 @@ class Temperature implements Comparable<Temperature> {
   final MeasurementInterpreter<TemperatureChange> _defaultInterpreter;
 }
 
-extension TemperatureVisitorExtension on MeasurementVisitor {
+mixin TemperatureVisitorMixin {
   void visitTemperature(Temperature temperature) {}
 }
 

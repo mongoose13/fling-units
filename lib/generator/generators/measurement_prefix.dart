@@ -30,7 +30,7 @@ class MeasurementPrefixBuilder extends Builder {
           ..fields.add(
             Field(
               (name) => name
-                ..name = "_multiplier"
+                ..name = "unitMultiplier"
                 ..type = Reference("final double"),
             ),
           )
@@ -48,7 +48,7 @@ class MeasurementPrefixBuilder extends Builder {
                 ..requiredParameters.add(
                   Parameter(
                     (multiplier) => multiplier
-                      ..name = "_multiplier"
+                      ..name = "unitMultiplier"
                       ..toThis = true,
                   ),
                 )
@@ -68,7 +68,7 @@ class MeasurementPrefixBuilder extends Builder {
               (unit) => unit
                 ..constant = true
                 ..name = "unit"
-                ..initializers.add(Code("_multiplier = 1.0"))
+                ..initializers.add(Code("unitMultiplier = 1.0"))
                 ..initializers.add(Code("name = \"\"")),
             ),
           )

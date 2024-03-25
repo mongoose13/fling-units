@@ -106,7 +106,6 @@ class Area extends Measurement<Area> {
         );
 }
 
-// TODO: this doesn't work as desired
-extension AreaVisitorExtension on MeasurementVisitor {
+mixin AreaVisitorMixin {
   void visitArea(Area area) {}
 }
