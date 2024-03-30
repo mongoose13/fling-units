@@ -11,30 +11,35 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
         defaultInterpreter = interpreter,
         precisionData = precision;
 
+  /// Creates a measurement of magnitude zero.
   const Measurement.zero(MeasurementInterpreter<T> interpreter)
       : this(
           amount: 0.0,
           interpreter: interpreter,
         );
 
+  /// Creates a measurement of infinite magnitude.
   const Measurement.infinite(MeasurementInterpreter<T> interpreter)
       : this(
           amount: double.infinity,
           interpreter: interpreter,
         );
 
+  /// Creates a measurement of negative infinite magnitude.
   const Measurement.negativeInfinite(MeasurementInterpreter<T> interpreter)
       : this(
           amount: -double.infinity,
           interpreter: interpreter,
         );
 
+  /// Creates a measurement that is not a number.
   const Measurement.nan(MeasurementInterpreter<T> interpreter)
       : this(
           amount: double.nan,
           interpreter: interpreter,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
   Measurement.sum(
     Iterable<T> parts, {
     Precision precision = Precision.max,
@@ -98,6 +103,23 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Accept a visitor object for double-dispatch.
   void acceptVisitor(MeasurementVisitor visitor);
 
+  /// Returns whether two measurements are functionally identical.
+  ///
+  /// This means that, when their precisions are taken into account, they
+  /// represent identical values. The measurement with the smaller precision
+  /// is used to compare against.
+  ///
+  /// For example, given the three measurements:
+  /// ```
+  /// var a = (3.14159).meters.withPrecision(5);
+  /// var b = (3.14159).meters.withPrecision(3);
+  /// var c = (3.1).meters.withPrecision(3);
+  ///
+  /// a.equals(b); // true  (because 3.14 == 3.14)
+  /// b.equals(a); // true  (because 3.14 == 3.14)
+  /// a.equals(c); // false (because 3.1 != 3.14)
+  /// b.equals(c); // false (because 3.1 != 3.14)
+  /// ```
   bool equals(Measurement<T> other) {
     return identical(this, other) ||
         isNaN && other.isNaN ||

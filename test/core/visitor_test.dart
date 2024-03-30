@@ -11,6 +11,7 @@ class TestVisitor implements MeasurementVisitor {
     _visits[Angle] = true;
   }
 
+  @override
   void visitArea(final Area area) {
     _visits[Area] = true;
   }
@@ -55,6 +56,7 @@ class TestVisitor implements MeasurementVisitor {
     _visits[Quantity] = true;
   }
 
+  @override
   void visitTemperature(final Temperature temperature) {
     _visits[Temperature] = true;
   }

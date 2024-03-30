@@ -170,6 +170,7 @@ class DerivedMeasurementInterpreter<A extends Measurement<A>,
       );
 }
 
+/// A class representing an unknown derived measurement.
 class _UnknownDerivedMeasurementInterpreter<A extends Measurement<A>,
     B extends Measurement<B>> implements DerivedMeasurementInterpreter<A, B> {
   const _UnknownDerivedMeasurementInterpreter._();
