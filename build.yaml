@@ -3,32 +3,32 @@ builders:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["prefixesBuilder"]
     build_extensions: {".dart": [".g.part"]}
-    build_to: source
+    build_to: cache
   measurement:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["measurementBuilder"]
     build_extensions: {".dart": [".g.part"]}
-    build_to: source
+    build_to: cache
   interpreter:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["interpreterBuilder"]
     build_extensions: {".dart": [".g.part"]}
-    build_to: source
+    build_to: cache
   prefix:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["prefixBuilder"]
     build_extensions: {".dart": [".g.part"]}
-    build_to: source
+    build_to: cache
   extension:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["extensionBuilder"]
     build_extensions: {".dart": [".g.part"]}
-    build_to: source
+    build_to: cache
   unit:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["unitBuilder"]
     build_extensions: {".dart": [".g.part"]}
-    build_to: source
+    build_to: cache
   measurement_prefix:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["measurementPrefixBuilder"]
@@ -39,7 +39,7 @@ builders:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["measurementIdentifierBuilder"]
     build_extensions: {".dart": [".measurement"]}
-    build_to: source
+    build_to: cache
   library:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["libraryBuilder"]
