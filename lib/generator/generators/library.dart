@@ -17,6 +17,7 @@ class LibraryBuilder extends Builder {
     final builder = FlingLibraryBuilder(buildStep);
     final measurements = await builder.measurements;
 
+    builder.add(Code("// GENERATED CODE - DO NOT MODIFY BY HAND\n"));
     for (var measurement in measurements) {
       builder.add(Directive.export(measurement.asset
           .changeExtension(".dart")

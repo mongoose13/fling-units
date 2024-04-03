@@ -17,6 +17,7 @@ class VisitorBuilder extends Builder {
     final builder = FlingLibraryBuilder(buildStep);
     final measurements = await builder.measurements;
 
+    builder.add(Code("// GENERATED CODE - DO NOT MODIFY BY HAND\n"));
     builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     builder.add(
       Class(

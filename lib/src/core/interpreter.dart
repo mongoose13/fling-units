@@ -33,6 +33,8 @@ abstract class MeasurementInterpreter<T> {
   String toString() => '$prefix$name';
 
   /// Interprets the base value according to the configured unit.
+  ///
+  /// This effectively converts a measurement to SI units.
   double of(num value) =>
       value.toDouble() * unitMultiplier / prefix.unitMultiplier;
 

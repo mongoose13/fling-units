@@ -37,6 +37,7 @@ class PrefixesGenerator extends GeneratorForAnnotation<PrefixType> {
                   .toDoubleValue(),
             ));
 
+    builder.add(Code("// GENERATED CODE - DO NOT MODIFY BY HAND\n"));
     for (final entry in children) {
       builder.add(
         Field(
