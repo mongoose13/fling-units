@@ -13,6 +13,26 @@ measurements to keep your code simple!
 
 ## Overview
 
+Sick of having to worry about unit conversions in your code? Don't want to worry about mixing up parameters with numeric types?
+
+```dart
+double calculateVelocityInKiloMetersPerHour(double meters, double seconds) {
+  return meters * 1000 / (seconds * 60 * 60);
+}
+
+final minutes = 3.5;
+final miles = 4.8;
+final kph = calculateVelocityInKiloMetersPerHour(minutes / 60.0, miles * 0.007); // oops, wrong order!
+```
+
+Try the simple, type-safe approach instead! You don't need conversion methods - you can operate on the measurements themselves and convert to numeric types only when you know which specific units you need.
+
+```dart
+var myTime = 3.5.minutes;
+var myDistance = 4.8.miles;
+final kph = myDistance.per(myTime).asPair(kilo.meters, hours);
+```
+
 We designed **fling_units** to simplify working with any measurement unit within
 a code base by abstracting measurements to basic types that can be "interpreted"
 into any valid unit of that type, all in a type-safe way. This means you will
@@ -20,7 +40,7 @@ never pass around a measurement of the wrong type or unit again without seeing
 red squiggles in your IDE.
 
 Have a look at the examples below for more details on what is possible, and let
-me know how we can improve **fling_units** by creating an issue!
+us know how we can improve **fling_units** by creating an issue!
 
 ## Philosophy
 
