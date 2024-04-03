@@ -2,22 +2,19 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:fling_units/generator/builders/base.dart';
 
 import '../util/builder.dart';
 
 Builder measurementPrefixBuilder(BuilderOptions options) {
-  return MeasurementPrefixBuilder(options);
+  return FlingBuilderBase("prefix", MeasurementPrefixGenerator());
 }
 
-class MeasurementPrefixBuilder extends Builder {
-  MeasurementPrefixBuilder(BuilderOptions options);
-
+class MeasurementPrefixGenerator implements FlingGenerator {
   @override
-  FutureOr<void> build(BuildStep buildStep) async {
-    final builder = FlingLibraryBuilder(buildStep);
+  Future<void> generate(FlingStandaloneBuilder builder) async {
     final measurements = await builder.measurements;
 
-    builder.add(Code("// GENERATED CODE - DO NOT MODIFY BY HAND\n"));
     builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     builder.add(
       Class(
@@ -95,12 +92,5 @@ class MeasurementPrefixBuilder extends Builder {
           ),
       ),
     );
-
-    buildStep.writeAsString(buildStep.allowedOutputs.first, builder.flush());
   }
-
-  @override
-  Map<String, List<String>> get buildExtensions => {
-        r'$lib$': ['src/generated/prefix.dart']
-      };
 }

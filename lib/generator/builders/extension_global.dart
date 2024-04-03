@@ -2,22 +2,22 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:fling_units/generator/builders/base.dart';
 
 import '../util/builder.dart';
 
 Builder numExtensionBuilder(BuilderOptions options) {
-  return GlobalExtensionBuilder(options);
+  return FlingBuilderBase(
+    "extension",
+    GlobalExtensionGenerator(),
+  );
 }
 
-class GlobalExtensionBuilder extends Builder {
-  GlobalExtensionBuilder(BuilderOptions options);
-
+class GlobalExtensionGenerator implements FlingGenerator {
   @override
-  FutureOr<void> build(BuildStep buildStep) async {
-    final builder = FlingLibraryBuilder(buildStep);
+  Future<void> generate(FlingStandaloneBuilder builder) async {
     final measurements = await builder.measurements;
 
-    builder.add(Code("// GENERATED CODE - DO NOT MODIFY BY HAND\n"));
     builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     builder.add(
       Class(
@@ -99,16 +99,5 @@ prevents all but the first usage (the one we want) demonstrated above."""
           ),
       ),
     );
-    /*
-  /// Creates an ampere measurement.
-  Charge get amperes => ChargeInterpreter._amperes._withPrefix(_prefix)(_value);
-    */
-
-    buildStep.writeAsString(buildStep.allowedOutputs.first, builder.flush());
   }
-
-  @override
-  Map<String, List<String>> get buildExtensions => {
-        r'$lib$': ["src/generated/extension.dart"]
-      };
 }

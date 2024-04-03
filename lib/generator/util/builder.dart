@@ -36,10 +36,10 @@ class FlingPrefixBuilder extends FlingBuilder {
   final checker = const TypeChecker.fromRuntime(PrefixConfig);
 }
 
-class FlingLibraryBuilder extends FlingBuilder {
+class FlingStandaloneBuilder extends FlingBuilder {
   late final Future<Iterable<MeasurementDetails>> measurements;
 
-  FlingLibraryBuilder(BuildStep buildStep) {
+  FlingStandaloneBuilder(BuildStep buildStep) {
     measurements = _init(buildStep);
   }
 

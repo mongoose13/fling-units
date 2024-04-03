@@ -64,7 +64,7 @@
 /// ```
 library fling_units;
 
-export "src/library.dart";
+export "src/generated/library.dart";
 
 export "src/core/library.dart";
 

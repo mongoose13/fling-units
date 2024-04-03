@@ -2,22 +2,19 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:fling_units/generator/builders/base.dart';
 
 import '../util/builder.dart';
 
 Builder visitorBuilder(BuilderOptions options) {
-  return VisitorBuilder(options);
+  return FlingBuilderBase("visitor", VisitorGenerator());
 }
 
-class VisitorBuilder extends Builder {
-  VisitorBuilder(BuilderOptions options);
-
+class VisitorGenerator implements FlingGenerator {
   @override
-  FutureOr<void> build(BuildStep buildStep) async {
-    final builder = FlingLibraryBuilder(buildStep);
+  Future<void> generate(FlingStandaloneBuilder builder) async {
     final measurements = await builder.measurements;
 
-    builder.add(Code("// GENERATED CODE - DO NOT MODIFY BY HAND\n"));
     builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     builder.add(
       Class(
@@ -70,12 +67,5 @@ needing control statements or type checks (e.g. `if`, `switch`, or `is`)."""
           ),
       ),
     );
-
-    buildStep.writeAsString(buildStep.allowedOutputs.first, builder.flush());
   }
-
-  @override
-  Map<String, List<String>> get buildExtensions => {
-        r'$lib$': ["src/generated/visitor.dart"]
-      };
 }
