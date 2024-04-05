@@ -163,10 +163,10 @@ void main() {
       "\nMy hand will always have a linear density of ${DerivedMeasurement.divide(massOfMyHand, sizeOfMyHand)}.");
 
   // Have fun!
-  final u = meters.per.meters;
+  final u = meters.per.meter;
   final m = u(1);
-  print(m.as(inches.per.meters));
+  print(m.as(inches.per.meter));
 
   final m1 = 2.inches.per.meters;
-  print(m1.as(meters.per.meters));
+  print(m1.as(meters.per.meter));
 }

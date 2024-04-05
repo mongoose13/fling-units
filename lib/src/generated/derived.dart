@@ -5,7 +5,7 @@ class DerivedUnitBuilder<T extends Measurement<T>> {
 
   DerivedUnitBuilder(this._first);
 
-  DerivedUnit<T, Distance> get meters => DerivedUnit(_first, f.meters);
+  DerivedUnit<T, Distance> get meter => DerivedUnit(_first, f.meters);
 }
 
 class DerivedMeasurementBuilder<T extends Measurement<T>> {
