@@ -209,7 +209,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..name = "per"
                 ..returns = Reference(
                     "DerivedMeasurementBuilder<${builder.measurementClassName}>")
-                ..body = Code("DerivedMeasurementBuilder(this)"),
+                ..body = Code("DerivedMeasurementBuilder(this, true)"),
             ),
           ),
       ),

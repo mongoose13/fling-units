@@ -91,7 +91,8 @@ class Angle extends Measurement<Angle> {
       Angle(amount, interpreter ?? siUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Angle> get per => DerivedMeasurementBuilder(this);
+  DerivedMeasurementBuilder<Angle> get per =>
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

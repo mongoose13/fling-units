@@ -76,7 +76,8 @@ class Charge extends Measurement<Charge> {
       Charge(amount, interpreter ?? siUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Charge> get per => DerivedMeasurementBuilder(this);
+  DerivedMeasurementBuilder<Charge> get per =>
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

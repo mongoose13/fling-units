@@ -167,6 +167,9 @@ void main() {
   final m = u(1);
   print(m.as(inches.per.meter));
 
-  final m1 = 2.inches.per.meters;
+  final m1 = 2.inches.per.meter;
   print(m1.as(meters.per.meter));
+
+  final m2 = m1.per.meter;
+  print(m2.as(meters.per.meter.per.meter));
 }

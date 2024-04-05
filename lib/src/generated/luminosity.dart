@@ -83,7 +83,7 @@ class Luminosity extends Measurement<Luminosity> {
 
   @override
   DerivedMeasurementBuilder<Luminosity> get per =>
-      DerivedMeasurementBuilder(this);
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

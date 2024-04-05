@@ -70,7 +70,7 @@ class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
 
   @override
   DerivedMeasurementBuilder<DerivedMeasurement<A, B>> get per =>
-      DerivedMeasurementBuilder(this);
+      DerivedMeasurementBuilder(this, true);
 
   /// Interprets this using two specific units.
   double asPair(Unit<A> a, Unit<B> b) =>
@@ -167,7 +167,7 @@ class DerivedUnit<A extends Measurement<A>, B extends Measurement<B>>
 
   @override
   DerivedUnitBuilder<DerivedMeasurement<A, B>> get per =>
-      DerivedUnitBuilder(this);
+      DerivedUnitBuilder(this, true);
 }
 
 /// A class representing an unknown derived measurement.
@@ -206,7 +206,7 @@ class _UnknownDerivedUnit<A extends Measurement<A>, B extends Measurement<B>>
 
   @override
   DerivedUnitBuilder<DerivedMeasurement<A, B>> get per =>
-      DerivedUnitBuilder(this);
+      DerivedUnitBuilder(this, true);
 
   @override
   String toString() => "unknown";

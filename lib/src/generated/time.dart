@@ -85,7 +85,8 @@ class Time extends Measurement<Time> {
       Time(amount, interpreter ?? siUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Time> get per => DerivedMeasurementBuilder(this);
+  DerivedMeasurementBuilder<Time> get per =>
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

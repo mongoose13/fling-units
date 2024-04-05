@@ -92,7 +92,7 @@ class Distance extends Measurement<Distance> {
 
   @override
   DerivedMeasurementBuilder<Distance> get per =>
-      DerivedMeasurementBuilder(this);
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

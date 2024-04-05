@@ -77,7 +77,7 @@ class Frequency extends Measurement<Frequency> {
 
   @override
   DerivedMeasurementBuilder<Frequency> get per =>
-      DerivedMeasurementBuilder(this);
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

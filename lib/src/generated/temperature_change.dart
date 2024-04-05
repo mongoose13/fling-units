@@ -85,7 +85,7 @@ class TemperatureChange extends Measurement<TemperatureChange> {
 
   @override
   DerivedMeasurementBuilder<TemperatureChange> get per =>
-      DerivedMeasurementBuilder(this);
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

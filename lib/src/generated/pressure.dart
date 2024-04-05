@@ -102,7 +102,7 @@ class Pressure extends Measurement<Pressure> {
 
   @override
   DerivedMeasurementBuilder<Pressure> get per =>
-      DerivedMeasurementBuilder(this);
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

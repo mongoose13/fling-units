@@ -80,7 +80,7 @@ class Quantity extends Measurement<Quantity> {
 
   @override
   DerivedMeasurementBuilder<Quantity> get per =>
-      DerivedMeasurementBuilder(this);
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

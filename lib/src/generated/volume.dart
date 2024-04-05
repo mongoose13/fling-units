@@ -121,7 +121,8 @@ class Volume extends Measurement<Volume> {
       Volume(amount, interpreter ?? siUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Volume> get per => DerivedMeasurementBuilder(this);
+  DerivedMeasurementBuilder<Volume> get per =>
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************

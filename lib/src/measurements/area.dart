@@ -69,7 +69,8 @@ class Area extends Measurement<Area> {
   Area.sum(super.parts, {super.precision}) : super.sum();
 
   @override
-  DerivedMeasurementBuilder<Area> get per => DerivedMeasurementBuilder(this);
+  DerivedMeasurementBuilder<Area> get per =>
+      DerivedMeasurementBuilder(this, true);
 
   /// Interprets this [Measurement] in the specified units.
   double asPair(

@@ -100,7 +100,8 @@ class Mass extends Measurement<Mass> {
       Mass(amount, interpreter ?? siUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Mass> get per => DerivedMeasurementBuilder(this);
+  DerivedMeasurementBuilder<Mass> get per =>
+      DerivedMeasurementBuilder(this, true);
 }
 
 // **************************************************************************
