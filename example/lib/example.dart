@@ -171,5 +171,5 @@ void main() {
   print(m1.as(meters.per.meter));
 
   final m2 = m1.per.meter;
-  print(m2.as(meters.per.meter.per.meter));
+  print(m2.as(meters.per.meter.by.meter));
 }

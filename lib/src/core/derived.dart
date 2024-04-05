@@ -209,5 +209,9 @@ class _UnknownDerivedUnit<A extends Measurement<A>, B extends Measurement<B>>
       DerivedUnitBuilder(this, true);
 
   @override
+  DerivedUnitBuilder<DerivedMeasurement<A, B>> get by =>
+      DerivedUnitBuilder(this, false);
+
+  @override
   String toString() => "unknown";
 }

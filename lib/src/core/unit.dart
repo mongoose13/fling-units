@@ -44,6 +44,7 @@ abstract class Unit<T extends Measurement<T>> {
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 
   DerivedUnitBuilder<T> get per => DerivedUnitBuilder(this, true);
+  DerivedUnitBuilder<T> get by => DerivedUnitBuilder(this, false);
 
   /// The standardized short form name of the unit (e.g. "m" for meters).
   final String name;
