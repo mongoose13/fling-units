@@ -107,17 +107,17 @@ void main() {
       "${oneSquareInch.asArea(Area.square(feet))} square feet.");
 
   //------------------------------------------------//
-
+/*
   // Need a derived unit that isn"t specifically implemented? Build it yourself!
   // You can also use the common derived units to create your masterpiece.
-  var fuelConsumption = distanceToSeattle.per(usGallons(2.4));
+  var fuelConsumption = distanceToSeattle.per.meters(2.4);
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
   print("${fuelConsumption.asPair(miles, usGallons)} mpg");
   // Interpret the derived unit in any combination of component units.
   print("${fuelConsumption.asPair(miles, liters)} mpl");
   print("${fuelConsumption.asPair(kilo.meters, liters)} kpl");
   print("${fuelConsumption.asPair(kilo.meters, usGallons)} kpg");
-
+*/
   var coulombs = seconds(4).by(amperes(8));
   print("My invention generates $coulombs!");
 
@@ -139,7 +139,7 @@ void main() {
     1.hours.withPrecisionOf(3),
   );
   print("\nMy car is going $carSpeed!");
-  final carVelocity = carSpeed.withDefaultUnit(DerivedMeasurementInterpreter(
+  final carVelocity = carSpeed.withDefaultUnit(DerivedUnit(
     feet,
     minutes,
     true,
@@ -148,7 +148,7 @@ void main() {
   ));
   print("My car is going $carVelocity!");
   print(
-      "My car is going ${carVelocity.defaultValue} in ${carVelocity.defaultInterpreter}!");
+      "My car is going ${carVelocity.defaultValue} in ${carVelocity.defaultUnit}!");
 
   //------------------------------------------------//
 
@@ -163,5 +163,10 @@ void main() {
       "\nMy hand will always have a linear density of ${DerivedMeasurement.divide(massOfMyHand, sizeOfMyHand)}.");
 
   // Have fun!
-  meters.of(3);
+  final u = meters.per.meters;
+  final m = u(1);
+  print(m.as(inches.per.meters));
+
+  final m1 = 2.inches.per.meters;
+  print(m1.as(meters.per.meters));
 }

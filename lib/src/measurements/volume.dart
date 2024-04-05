@@ -104,24 +104,24 @@ enum VolumeConfig {
   usLegalCups;
 }
 
-extension VolumeInterpreterExtension on VolumeInterpreter {
-  /// Constructs a [VolumeInterpreter] from any three [DistanceInterpreter]s.
-  static VolumeInterpreter from(
-    MeasurementInterpreter<Distance> a,
-    MeasurementInterpreter<Distance> b,
-    MeasurementInterpreter<Distance> c, {
+extension VolumeUnitExtension on VolumeUnit {
+  /// Constructs a [VolumeUnit] from any three [DistanceUnit]s.
+  static VolumeUnit from(
+    Unit<Distance> a,
+    Unit<Distance> b,
+    Unit<Distance> c, {
     String? name,
   }) =>
       _unitless(a, b, c, name: name);
 
-  /// Constructs a [VolumeInterpreter] with potentially null interpreters.
-  static VolumeInterpreter _unitless(
-    MeasurementInterpreter<Distance>? a,
-    MeasurementInterpreter<Distance>? b,
-    MeasurementInterpreter<Distance>? c, {
+  /// Constructs a [VolumeUnit] with potentially null interpreters.
+  static VolumeUnit _unitless(
+    Unit<Distance>? a,
+    Unit<Distance>? b,
+    Unit<Distance>? c, {
     String? name,
   }) =>
-      VolumeInterpreter._(
+      VolumeUnit._(
           name ?? '${a?.name ?? 'X'}⋅${b?.name ?? 'X'}⋅${c?.name ?? 'X'}',
           (a?.unitMultiplier ?? 1.0) *
               (b?.unitMultiplier ?? 1.0) *
@@ -130,10 +130,10 @@ extension VolumeInterpreterExtension on VolumeInterpreter {
               (b?.prefix.unitMultiplier ?? 1.0) /
               (c?.prefix.unitMultiplier ?? 1.0));
 
-  /// Constructs a [VolumeInterpreter] that will cube a basic
-  /// [DistanceInterpreter].
-  static VolumeInterpreter cubed(
-    DistanceInterpreter a, {
+  /// Constructs a [VolumeUnit] that will cube a basic
+  /// [DistanceUnit].
+  static VolumeUnit cubed(
+    DistanceUnit a, {
     String? name,
   }) =>
       from(a, a, a, name: name ?? '${a.name}³');
@@ -143,10 +143,10 @@ extension VolumeExtension on Volume {
   /// Constructs a [Volume] from three [Distance] measurements.
   static Volume of(Distance a, Distance b, Distance c) => Volume(
         a.defaultValue * b.defaultValue * c.defaultValue,
-        VolumeInterpreterExtension._unitless(
-          a.defaultInterpreter,
-          b.defaultInterpreter,
-          c.defaultInterpreter,
+        VolumeUnitExtension._unitless(
+          a.defaultUnit,
+          b.defaultUnit,
+          c.defaultUnit,
         ),
         Precision.combine([
           a.precisionData,
@@ -156,18 +156,18 @@ extension VolumeExtension on Volume {
       );
 
   /// Produces an interpreter for the cube of a provided unit.
-  static VolumeInterpreter cubic(DistanceInterpreter distanceInterpreter) =>
-      VolumeInterpreterExtension.cubed(distanceInterpreter);
+  static VolumeUnit cubic(DistanceUnit distanceUnit) =>
+      VolumeUnitExtension.cubed(distanceUnit);
 
   /// Interprets this in the specified units.
   double asTriple(
-    DistanceInterpreter a,
-    DistanceInterpreter b,
-    DistanceInterpreter c,
+    DistanceUnit a,
+    DistanceUnit b,
+    DistanceUnit c,
   ) =>
       precisionData.apply(a.of(b.of(c.of(si))));
 
   /// Interprets this in the specified volume unit.
-  double asVolume(MeasurementInterpreter<Volume> interpreter) =>
+  double asVolume(Unit<Volume> interpreter) =>
       precisionData.apply(interpreter.of(si));
 }

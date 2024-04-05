@@ -41,9 +41,9 @@ class PrefixGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 (siUnitField) => siUnitField
                   ..name = 'siUnit'
                   ..static = true
-                  ..type = Reference(builder.interpreterClassName)
+                  ..type = Reference(builder.unitClassName)
                   ..assignment = Code(
-                      "${builder.interpreterClassName}.${builder.siUnit.displayName}"),
+                      "${builder.unitClassName}.${builder.siUnit.displayName}"),
               ),
             );
           final units = element.children
@@ -56,9 +56,9 @@ class PrefixGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..lambda = true
                   ..name = name
                   ..type = MethodType.getter
-                  ..returns = Reference(builder.interpreterClassName)
-                  ..body = Code(
-                      "${builder.interpreterClassName}.$name.withPrefix(prefix)"),
+                  ..returns = Reference(builder.unitClassName)
+                  ..body =
+                      Code("${builder.unitClassName}.$name.withPrefix(prefix)"),
               ),
             );
           }

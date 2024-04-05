@@ -2,25 +2,25 @@ part of "library.dart";
 
 /// Interprets a measurement as a specific unit.
 ///
-/// [MeasurementInterpreter]s allow [Measurement]s to be interpreted as whatever
-/// unit the [MeasurementInterpreter] was configured for. Users of the library
+/// [Unit]s allow [Measurement]s to be interpreted as whatever
+/// unit the [Unit] was configured for. Users of the library
 /// will generally only require the built-in interpreters for the [Measurement]
 /// types being used (e.g. [miles] or [kilo].[meters]), but if needed, some
-/// [MeasurementInterpreter] subtypes can be configured further (e.g.
-/// [AreaInterpreter]).
+/// [Unit] subtypes can be configured further (e.g.
+/// [AreaUnit]).
 ///
-/// [MeasurementInterpreter]s allow the corresponding unit to be instantiated by
+/// [Unit]s allow the corresponding unit to be instantiated by
 /// "calling" it. For instance, one could create a [Distance] measurement in
-/// miles by using the [miles] interpreter: `miles(5)`. Interpreters are also
+/// miles by using the [miles] interpreter: `miles(5)`. [Unit]s are also
 /// offered as extensions on [num], so they could be used this way: `5.miles`.
 ///
 /// Users should not need to access the internal workings of
-/// [MeasurementInterpreter]s, but instead pass them to the appropriate
+/// [Unit]s, but instead pass them to the appropriate
 /// [Measurement] instances for interpretation (typically via an `as()` method,
 /// such as [Area.asPair]).
-abstract class MeasurementInterpreter<T> {
-  /// Constructs a [MeasurementInterpreter].
-  const MeasurementInterpreter(
+abstract class Unit<T extends Measurement<T>> {
+  /// Constructs a [Unit].
+  const Unit(
     this.name,
     this.unitMultiplier,
     this.prefix,
@@ -43,6 +43,8 @@ abstract class MeasurementInterpreter<T> {
   double from(num value) =>
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 
+  DerivedUnitBuilder<T> get per => DerivedUnitBuilder(this);
+
   /// The standardized short form name of the unit (e.g. "m" for meters).
   final String name;
 
@@ -53,14 +55,13 @@ abstract class MeasurementInterpreter<T> {
   final MeasurementPrefix prefix;
 }
 
-/// A [MeasurementInterpreter] that rounds its results to `int`s.
+/// A [Unit] that rounds its results to `int`s.
 ///
 /// This is useful for measurements that should not be represented fractionally,
 /// e.g. the number of items in a collection.
-abstract class RoundingMeasurementInterpreter<T>
-    extends MeasurementInterpreter<T> {
-  /// Constructs a [RoundingMeasurementInterpreter].
-  const RoundingMeasurementInterpreter._(
+abstract class RoundingUnit<T extends Measurement<T>> extends Unit<T> {
+  /// Constructs a [RoundingUnit].
+  const RoundingUnit._(
     super.name,
     super.unitMultiplier, [
     super.prefix = const MeasurementPrefix.unit(),

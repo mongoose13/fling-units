@@ -44,7 +44,7 @@ enum DistanceConfig {
   nauticalMiles;
 }
 
-extension DistanceInterpreterExtension on DistanceInterpreter {
-  AreaInterpreter get squared => AreaInterpreter.squared(this);
-  VolumeInterpreter get cubed => VolumeInterpreterExtension.cubed(this);
+extension DistanceUnitExtension on DistanceUnit {
+  AreaUnit get squared => AreaUnit.squared(this);
+  VolumeUnit get cubed => VolumeUnitExtension.cubed(this);
 }

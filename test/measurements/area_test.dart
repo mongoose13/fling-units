@@ -20,7 +20,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Area.zero(AreaInterpreter.squared(feet));
+        final interpreter = Area.zero(AreaUnit.squared(feet));
 
         // when
         final result = interpreter.toString();
@@ -46,7 +46,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Area.infinite(AreaInterpreter.squared(feet));
+        final interpreter = Area.infinite(AreaUnit.squared(feet));
 
         // when
         final result = interpreter.toString();
@@ -72,8 +72,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter =
-            Area.negativeInfinite(AreaInterpreter.squared(feet));
+        final interpreter = Area.negativeInfinite(AreaUnit.squared(feet));
 
         // when
         final result = interpreter.toString();
@@ -169,7 +168,7 @@ void main() {
     group('squared', () {
       test('converts to SI', () {
         // given
-        final interpreter = AreaInterpreter.squared(feet);
+        final interpreter = AreaUnit.squared(feet);
 
         // when
         final result = interpreter(5).withPrecisionOf(6).asPair(meters, meters);
@@ -179,7 +178,7 @@ void main() {
       });
       test('converts to SI with prefix', () {
         // given
-        final interpreter = AreaInterpreter.squared(deci.feet);
+        final interpreter = AreaUnit.squared(deci.feet);
 
         // when
         final result = interpreter(5).withPrecisionOf(6).asPair(meters, meters);
@@ -192,7 +191,7 @@ void main() {
     group('toString', () {
       test('named custom interpreter', () {
         // given
-        final interpreter = AreaInterpreter(meters, feet, name: 'mf');
+        final interpreter = AreaUnit(meters, feet, name: 'mf');
 
         // when
         final result = interpreter.toString();
@@ -202,7 +201,7 @@ void main() {
       });
       test('unnamed custom interpreter', () {
         // given
-        final interpreter = AreaInterpreter(meters, feet);
+        final interpreter = AreaUnit(meters, feet);
 
         // when
         final result = interpreter.toString();
@@ -212,7 +211,7 @@ void main() {
       });
       test('squared units', () {
         // given
-        final area = AreaInterpreter.squared(feet);
+        final area = AreaUnit.squared(feet);
 
         // when
         final result = area.toString();
@@ -222,7 +221,7 @@ void main() {
       });
       test('squared units with prefix', () {
         // given
-        final area = AreaInterpreter.squared(deka.feet);
+        final area = AreaUnit.squared(deka.feet);
 
         // when
         final result = area.toString();
@@ -232,7 +231,7 @@ void main() {
       });
       test('squared measurement', () {
         // given
-        final area = AreaInterpreter.squared(feet)(5);
+        final area = AreaUnit.squared(feet)(5);
 
         // when
         final result = area.toString();
@@ -242,7 +241,7 @@ void main() {
       });
       test('squared measurement with prefix', () {
         // given
-        final area = AreaInterpreter.squared(deka.feet)(5);
+        final area = AreaUnit.squared(deka.feet)(5);
 
         // when
         final result = area.toString();

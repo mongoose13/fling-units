@@ -44,8 +44,7 @@ class ExtensionGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..type = MethodType.getter
                   ..name = unit.name
                   ..returns = Reference(builder.measurementClassName)
-                  ..body = Code(
-                      "${builder.interpreterClassName}.${unit.name}(this)"),
+                  ..body = Code("${builder.unitClassName}.${unit.name}(this)"),
               ),
             ),
           ),

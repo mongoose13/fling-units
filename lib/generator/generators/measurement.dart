@@ -34,7 +34,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..static = true
                 ..modifier = FieldModifier.constant
                 ..name = 'siUnit'
-                ..type = Reference(builder.interpreterClassName)
+                ..type = Reference(builder.unitClassName)
                 ..assignment = Code(builder.siUnit.displayName),
             ),
           )
@@ -53,7 +53,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   Parameter(
                     (interpreter) => interpreter
                       ..name = "interpreter"
-                      ..type = Reference(builder.interpreterType),
+                      ..type = Reference(builder.unitType),
                   ),
                 )
                 ..optionalParameters.add(
@@ -186,7 +186,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   Parameter(
                     (interpreter) => interpreter
                       ..name = "interpreter"
-                      ..type = Reference("${builder.interpreterType}?"),
+                      ..type = Reference("${builder.unitType}?"),
                   ),
                 )
                 ..requiredParameters.add(
@@ -198,6 +198,18 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 )
                 ..body = Code(
                     "${builder.measurementClassName}(amount, interpreter ?? siUnit, precision)"),
+            ),
+          )
+          ..methods.add(
+            Method(
+              (per) => per
+                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
+                ..lambda = true
+                ..type = MethodType.getter
+                ..name = "per"
+                ..returns = Reference(
+                    "DerivedMeasurementBuilder<${builder.measurementClassName}>")
+                ..body = Code("DerivedMeasurementBuilder(this)"),
             ),
           ),
       ),

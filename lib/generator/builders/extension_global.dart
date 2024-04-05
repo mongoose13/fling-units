@@ -93,7 +93,7 @@ prevents all but the first usage (the one we want) demonstrated above."""
                       ..name = pair.unit
                       ..returns = Reference(pair.measurement)
                       ..body = Code(
-                          "${pair.measurement}Interpreter.${pair.unit}.withPrefix(_prefix)(_value)"),
+                          "${pair.measurement}Unit.${pair.unit}.withPrefix(_prefix)(_value)"),
                   ),
                 ),
           ),

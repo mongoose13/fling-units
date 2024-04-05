@@ -64,8 +64,8 @@ class FlingMeasurementBuilder extends FlingBuilder {
   final checker = const TypeChecker.fromRuntime(UnitConfig);
 
   late final String measurementClassName;
-  late final String interpreterClassName;
-  late final String interpreterType;
+  late final String unitClassName;
+  late final String unitType;
   late final String prefixClassName;
 
   late final Iterable<Element> units;
@@ -76,8 +76,8 @@ class FlingMeasurementBuilder extends FlingBuilder {
     ConstantReader annotation,
   ) {
     measurementClassName = annotation.read('shortName').stringValue;
-    interpreterClassName = "${measurementClassName}Interpreter";
-    interpreterType = "MeasurementInterpreter<$measurementClassName>";
+    unitClassName = "${measurementClassName}Unit";
+    unitType = "Unit<$measurementClassName>";
     prefixClassName = "${measurementClassName}Prefix";
     units = element.children
         .where((Element element) => checker.hasAnnotationOfExact(element));

@@ -41,7 +41,7 @@ extension TimeExtension on Time {
   Time ofDuration(
     Duration duration, {
     Precision precision = Precision.max,
-    MeasurementInterpreter<Time> interpreter = seconds,
+    Unit<Time> interpreter = seconds,
   }) =>
       Time(duration.inMicroseconds, interpreter, precision);
 

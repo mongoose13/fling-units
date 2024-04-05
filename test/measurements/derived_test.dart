@@ -17,7 +17,7 @@ void main() {
       test('with custom default interpreter', () {
         // given
         final interpreter = DerivedMeasurement<Distance, Time>.zero(
-            DerivedMeasurementInterpreter(feet, minutes, true));
+            DerivedUnit(feet, minutes, true));
 
         // when
         final result = interpreter.toString();
@@ -40,7 +40,7 @@ void main() {
       test('with custom default interpreter', () {
         // given
         final interpreter = DerivedMeasurement<Distance, Time>.infinite(
-            DerivedMeasurementInterpreter(feet, minutes, true));
+            DerivedUnit(feet, minutes, true));
 
         // when
         final result = interpreter.toString();
@@ -64,7 +64,7 @@ void main() {
       test('with custom default interpreter', () {
         // given
         final interpreter = DerivedMeasurement<Distance, Time>.negativeInfinite(
-            DerivedMeasurementInterpreter(feet, minutes, true));
+            DerivedUnit(feet, minutes, true));
 
         // when
         final result = interpreter.toString();
@@ -282,9 +282,8 @@ void main() {
         );
 
         // when
-        final result = unit
-            .withDefaultUnit(DerivedMeasurementInterpreter(feet, inches))
-            .toString();
+        final result =
+            unit.withDefaultUnit(DerivedUnit(feet, inches)).toString();
 
         // then
         expect(result, '775.0 ft⋅in');

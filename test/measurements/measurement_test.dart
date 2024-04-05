@@ -9,7 +9,7 @@ void main() {
         final measurement = 3.feet;
 
         // when
-        final result = measurement.defaultInterpreter;
+        final result = measurement.defaultUnit;
 
         // then
         expect(result, feet);

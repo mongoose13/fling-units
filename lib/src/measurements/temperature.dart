@@ -21,24 +21,23 @@ import "package:fling_units/fling_units.dart";
 class Temperature implements Comparable<Temperature> {
   /// Absolute zero.
   const Temperature.absoluteZero(
-      [MeasurementInterpreter<TemperatureChange> defaultInterpreter = kelvin])
+      [Unit<TemperatureChange> defaultUnit = kelvin])
       : _kelvin = 0.0,
         _precision = Precision.max,
-        _defaultInterpreter = defaultInterpreter;
+        _defaultUnit = defaultUnit;
 
   /// Infinite temperature.
   const Temperature.infinite(
-      [MeasurementInterpreter<TemperatureChange> defaultInterpreter = kelvin])
+      [Unit<TemperatureChange> defaultUnit = kelvin])
       : _kelvin = double.infinity,
         _precision = Precision.max,
-        _defaultInterpreter = defaultInterpreter;
+        _defaultUnit = defaultUnit;
 
   /// NaN (Not a Number) temperature.
-  const Temperature.nan(
-      [MeasurementInterpreter<TemperatureChange> interpreter = kelvin])
+  const Temperature.nan([Unit<TemperatureChange> interpreter = kelvin])
       : _kelvin = double.nan,
         _precision = Precision.max,
-        _defaultInterpreter = interpreter;
+        _defaultUnit = interpreter;
 
   /// Constructs a [Temperature] from a Kelvin amount.
   Temperature.ofKelvin(
@@ -70,10 +69,10 @@ class Temperature implements Comparable<Temperature> {
   Temperature._(
     num kelvin,
     Precision precision,
-    MeasurementInterpreter<TemperatureChange> defaultInterpreter,
+    Unit<TemperatureChange> defaultUnit,
   )   : _kelvin = kelvin,
         _precision = precision,
-        _defaultInterpreter = defaultInterpreter {
+        _defaultUnit = defaultUnit {
     if (_kelvin.isNegative) {
       throw ArgumentError('Temperatures cannot go below 0 Kelvin: $_kelvin');
     }
@@ -165,7 +164,7 @@ class Temperature implements Comparable<Temperature> {
   /// Constructs a new measurement equivalent to this one but with a different
   /// [Precision].
   Temperature withPrecision(Precision precision) =>
-      Temperature._(_kelvin, precision, _defaultInterpreter);
+      Temperature._(_kelvin, precision, _defaultUnit);
 
   /// Constructs a new measurement equivalent to this one but with a different
   /// precision (significant digits).
@@ -174,15 +173,14 @@ class Temperature implements Comparable<Temperature> {
 
   /// Constructs a new measurement equivalent to this one but with a different
   /// default measurement unit.
-  Temperature withDefaultUnit(
-          MeasurementInterpreter<TemperatureChange> interpreter) =>
+  Temperature withDefaultUnit(Unit<TemperatureChange> interpreter) =>
       Temperature._(_kelvin, _precision, interpreter);
 
   @override
-  String toString() => '${_as(_defaultInterpreter)} $_defaultInterpreter';
+  String toString() => '${_as(_defaultUnit)} $_defaultUnit';
 
   /// Evaluates the measurement using a different unit.
-  double _as(MeasurementInterpreter<TemperatureChange> interpreter) {
+  double _as(Unit<TemperatureChange> interpreter) {
     if (interpreter == celcius) {
       return asCelcius;
     } else if (interpreter == fahrenheit) {
@@ -205,7 +203,7 @@ class Temperature implements Comparable<Temperature> {
   final Precision _precision;
 
   /// The default interpreter.
-  final MeasurementInterpreter<TemperatureChange> _defaultInterpreter;
+  final Unit<TemperatureChange> _defaultUnit;
 }
 
 mixin TemperatureVisitorMixin {
