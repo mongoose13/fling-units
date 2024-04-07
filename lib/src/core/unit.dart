@@ -20,14 +20,14 @@ part of "library.dart";
 /// such as [Area.asPair]).
 abstract class Unit<T extends Measurement<T>> {
   /// Constructs a [Unit].
-  const Unit(
-    this.name,
-    this.unitMultiplier,
-    this.prefix,
-  );
+  const Unit({
+    required this.name,
+    required this.unitMultiplier,
+    required this.prefix,
+  });
 
   /// Creates a measurement based on the value and the configured multiplier.
-  T call(double value, {Precision precision = Precision.max});
+  T call(num magnitude, {Precision precision = Precision.max});
 
   @override
   String toString() => '$prefix$name';
@@ -43,8 +43,13 @@ abstract class Unit<T extends Measurement<T>> {
   double from(num value) =>
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 
-  DerivedUnitBuilder<T> get per => DerivedUnitBuilder(this, true);
-  DerivedUnitBuilder<T> get by => DerivedUnitBuilder(this, false);
+  DerivedUnitPerBuilder<T> get per => DerivedUnitPerBuilder(this);
+  DerivedUnitByBuilder<T> get by => DerivedUnitByBuilder(this);
+
+  DerivedUnitBy<T, V> multiply<V extends Measurement<V>>(Unit<V> other) =>
+      DerivedUnitBy(this, other);
+  DerivedUnitPer<T, V> divide<V extends Measurement<V>>(Unit<V> other) =>
+      DerivedUnitPer(this, other);
 
   /// The standardized short form name of the unit (e.g. "m" for meters).
   final String name;
@@ -62,11 +67,11 @@ abstract class Unit<T extends Measurement<T>> {
 /// e.g. the number of items in a collection.
 abstract class RoundingUnit<T extends Measurement<T>> extends Unit<T> {
   /// Constructs a [RoundingUnit].
-  const RoundingUnit._(
-    super.name,
-    super.unitMultiplier, [
+  const RoundingUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
   @override
   double of(num value) =>

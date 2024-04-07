@@ -3,8 +3,8 @@ import "package:fling_units/fling_units.dart";
 /// Interprets [Area]s as a specific unit.
 class AreaUnit extends Unit<Area> {
   @override
-  Area call(double value, {Precision precision = Precision.max}) =>
-      Area(value, this, precision);
+  Area call(num magnitude, {Precision precision = Precision.max}) =>
+      Area(magnitude, this, precision);
 
   /// Constructs an [AreaUnit] from any two [DistanceUnit]s.
   AreaUnit(
@@ -26,13 +26,19 @@ class AreaUnit extends Unit<Area> {
     Unit<Distance> a,
     Unit<Distance> b,
   ) : super(
-          name,
-          a.unitMultiplier * b.unitMultiplier / b.prefix.unitMultiplier,
-          a.prefix,
+          name: name,
+          unitMultiplier:
+              a.unitMultiplier * b.unitMultiplier / b.prefix.unitMultiplier,
+          prefix: a.prefix,
         );
 
   /// Constructs the SI derived area unit, square meters.
-  const AreaUnit._m2() : super('m²', 1.0, const MeasurementPrefix.unit());
+  const AreaUnit._m2()
+      : super(
+          name: 'm²',
+          unitMultiplier: 1.0,
+          prefix: const MeasurementPrefix.unit(),
+        );
 }
 
 /// Represents the two-dimensional derived unit of perpendicular distances.
@@ -69,8 +75,8 @@ class Area extends Measurement<Area> {
   Area.sum(super.parts, {super.precision}) : super.sum();
 
   @override
-  DerivedMeasurementBuilder<Area> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Area> get per =>
+      DerivedMeasurementPerBuilder(this);
 
   /// Interprets this [Measurement] in the specified units.
   double asPair(
@@ -96,12 +102,12 @@ class Area extends Measurement<Area> {
   /// Constructs an [Area].
   Area(
     num squareMeters,
-    Unit<Area> interpreter, [
+    Unit<Area> unit, [
     Precision precision = Precision.max,
   ]) : super(
-          amount: squareMeters,
+          magnitude: squareMeters,
           precision: precision,
-          interpreter: interpreter,
+          defaultUnit: unit,
         );
 }
 

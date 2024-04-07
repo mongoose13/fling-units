@@ -30,56 +30,63 @@ extension NumExtensionVolume on num {
 // **************************************************************************
 
 class VolumeUnit extends Unit<Volume> {
-  const VolumeUnit._(
-    super.name,
-    super.multiplier, [
+  const VolumeUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const liters = VolumeUnit._('L', 1000.0);
+  static const liters = VolumeUnit._(name: 'L', unitMultiplier: 1000.0);
 
-  static const teaspoons = VolumeUnit._('tsp', 168936.0);
+  static const teaspoons = VolumeUnit._(name: 'tsp', unitMultiplier: 168936.0);
 
-  static const tablespoons = VolumeUnit._('tbsp', 56312.0);
+  static const tablespoons =
+      VolumeUnit._(name: 'tbsp', unitMultiplier: 56312.0);
 
-  static const fluidOunces = VolumeUnit._('fl oz', 35195.1);
+  static const fluidOunces =
+      VolumeUnit._(name: 'fl oz', unitMultiplier: 35195.1);
 
-  static const cups = VolumeUnit._('cup', 3519.51);
+  static const cups = VolumeUnit._(name: 'cup', unitMultiplier: 3519.51);
 
-  static const pints = VolumeUnit._('pt', 1759.75);
+  static const pints = VolumeUnit._(name: 'pt', unitMultiplier: 1759.75);
 
-  static const quarts = VolumeUnit._('qt', 879.877);
+  static const quarts = VolumeUnit._(name: 'qt', unitMultiplier: 879.877);
 
-  static const gallons = VolumeUnit._('gal', 219.969);
+  static const gallons = VolumeUnit._(name: 'gal', unitMultiplier: 219.969);
 
-  static const usTeaspoons = VolumeUnit._('us tsp', 202884.0);
+  static const usTeaspoons =
+      VolumeUnit._(name: 'us tsp', unitMultiplier: 202884.0);
 
-  static const usTablespoons = VolumeUnit._('us tbsp', 67628.0);
+  static const usTablespoons =
+      VolumeUnit._(name: 'us tbsp', unitMultiplier: 67628.0);
 
-  static const usFluidOunces = VolumeUnit._('us fl oz', 33814.0);
+  static const usFluidOunces =
+      VolumeUnit._(name: 'us fl oz', unitMultiplier: 33814.0);
 
-  static const usCups = VolumeUnit._('us cup', 4226.76);
+  static const usCups = VolumeUnit._(name: 'us cup', unitMultiplier: 4226.76);
 
-  static const usPints = VolumeUnit._('us pt', 2113.38);
+  static const usPints = VolumeUnit._(name: 'us pt', unitMultiplier: 2113.38);
 
-  static const usQuarts = VolumeUnit._('us qt', 1056.69);
+  static const usQuarts = VolumeUnit._(name: 'us qt', unitMultiplier: 1056.69);
 
-  static const usGallons = VolumeUnit._('us gal', 264.172);
+  static const usGallons =
+      VolumeUnit._(name: 'us gal', unitMultiplier: 264.172);
 
-  static const usLegalCups = VolumeUnit._('legal cup', 4166.67);
+  static const usLegalCups =
+      VolumeUnit._(name: 'legal cup', unitMultiplier: 4166.67);
 
   @override
   Volume call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Volume(value, this, precision);
+      Volume(magnitude, this, precision);
 
   VolumeUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      VolumeUnit._(name, unitMultiplier, prefix);
+      VolumeUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -88,10 +95,14 @@ class VolumeUnit extends Unit<Volume> {
 
 class Volume extends Measurement<Volume> {
   const Volume(
-    num units,
-    Unit<Volume> interpreter, [
+    num magnitude,
+    Unit<Volume> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Volume.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -114,15 +125,15 @@ class Volume extends Measurement<Volume> {
 
   @override
   construct(
-    double amount,
-    Unit<Volume>? interpreter,
+    num magnitude,
+    Unit<Volume> defaultUnit,
     Precision precision,
   ) =>
-      Volume(amount, interpreter ?? siUnit, precision);
+      Volume(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Volume> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Volume> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

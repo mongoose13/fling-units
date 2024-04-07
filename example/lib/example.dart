@@ -107,9 +107,10 @@ void main() {
       "${oneSquareInch.asArea(Area.square(feet))} square feet.");
 
   //------------------------------------------------//
-/*
+
   // Need a derived unit that isn"t specifically implemented? Build it yourself!
   // You can also use the common derived units to create your masterpiece.
+/*
   var fuelConsumption = distanceToSeattle.per.meters(2.4);
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
   print("${fuelConsumption.asPair(miles, usGallons)} mpg");
@@ -118,8 +119,8 @@ void main() {
   print("${fuelConsumption.asPair(kilo.meters, liters)} kpl");
   print("${fuelConsumption.asPair(kilo.meters, usGallons)} kpg");
 */
-  var coulombs = seconds(4).by(amperes(8));
-  print("My invention generates $coulombs!");
+  var coulombs = seconds.by.ampere;
+  print("My invention generates ${coulombs(23)}!");
 
   //------------------------------------------------//
 
@@ -134,17 +135,15 @@ void main() {
 
   // This is also true for derived units. The library will produce a default
   // unit name, but you can also supply your own.
-  final carSpeed = DerivedMeasurement<Distance, Time>.divide(
+  final carSpeed = DerivedMeasurementPer<Distance, Time>.divide(
     100.miles.withPrecisionOf(3),
     1.hours.withPrecisionOf(3),
   );
   print("\nMy car is going $carSpeed!");
-  final carVelocity = carSpeed.withDefaultUnit(DerivedUnit(
+  final carVelocity = carSpeed.withDefaultUnit(DerivedUnitPer(
     feet,
     minutes,
-    true,
-    MeasurementPrefix.unit(),
-    "feet per minute",
+    name: "feet per minute",
   ));
   print("My car is going $carVelocity!");
   print(
@@ -160,7 +159,7 @@ void main() {
   const sizeOfMyHand = Distance(5.0, inches);
   const massOfMyHand = Mass(1.2, pounds);
   print(
-      "\nMy hand will always have a linear density of ${DerivedMeasurement.divide(massOfMyHand, sizeOfMyHand)}.");
+      "\nMy hand will always have a linear density of ${DerivedMeasurementPer.divide(massOfMyHand, sizeOfMyHand)}.");
 
   // Have fun!
   final u = meters.per.meter;
@@ -170,6 +169,6 @@ void main() {
   final m1 = 2.inches.per.meter;
   print(m1.as(meters.per.meter));
 
-  final m2 = m1.per.meter;
+  final m2 = m1.by.meter;
   print(m2.as(meters.per.meter.by.meter));
 }

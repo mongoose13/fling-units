@@ -16,28 +16,30 @@ extension NumExtensionQuantity on num {
 // **************************************************************************
 
 class QuantityUnit extends Unit<Quantity> {
-  const QuantityUnit._(
-    super.name,
-    super.multiplier, [
+  const QuantityUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const units = QuantityUnit._('units', 1.0);
+  static const units = QuantityUnit._(name: 'units', unitMultiplier: 1.0);
 
-  static const moles = QuantityUnit._('mol', 1.660539067e-24);
+  static const moles =
+      QuantityUnit._(name: 'mol', unitMultiplier: 1.660539067e-24);
 
   @override
   Quantity call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Quantity(value, this, precision);
+      Quantity(magnitude, this, precision);
 
   QuantityUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      QuantityUnit._(name, unitMultiplier, prefix);
+      QuantityUnit._(
+          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -46,10 +48,14 @@ class QuantityUnit extends Unit<Quantity> {
 
 class Quantity extends Measurement<Quantity> {
   const Quantity(
-    num units,
-    Unit<Quantity> interpreter, [
+    num magnitude,
+    Unit<Quantity> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Quantity.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -72,15 +78,15 @@ class Quantity extends Measurement<Quantity> {
 
   @override
   construct(
-    double amount,
-    Unit<Quantity>? interpreter,
+    num magnitude,
+    Unit<Quantity> defaultUnit,
     Precision precision,
   ) =>
-      Quantity(amount, interpreter ?? siUnit, precision);
+      Quantity(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Quantity> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Quantity> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

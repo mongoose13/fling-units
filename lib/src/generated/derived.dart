@@ -2,23 +2,40 @@ part of 'package:fling_units/src/core/library.dart';
 
 // TODO: generate this file!
 
-class DerivedUnitBuilder<T extends Measurement<T>> {
+class DerivedUnitByBuilder<T extends Measurement<T>> {
   final Unit<T> _first;
-  final bool _reciprocal;
 
-  DerivedUnitBuilder(this._first, this._reciprocal);
+  DerivedUnitByBuilder(this._first);
 
-  DerivedUnit<T, Distance> get meter =>
-      DerivedUnit(_first, f.meters, _reciprocal);
+  DerivedUnitBy<T, Distance> get meter => DerivedUnitBy(_first, f.meters);
 }
 
-class DerivedMeasurementBuilder<T extends Measurement<T>> {
-  final T _measurement;
-  final bool _reciprocal;
+class DerivedUnitPerBuilder<T extends Measurement<T>> {
+  final Unit<T> _first;
 
-  DerivedMeasurementBuilder(this._measurement, this._reciprocal);
+  DerivedUnitPerBuilder(this._first);
 
-  DerivedMeasurement<T, Distance> get meter => _reciprocal
-      ? DerivedMeasurement.divide(_measurement, 1.meters)
-      : DerivedMeasurement.multiply(_measurement, 1.meters);
+  DerivedUnitPer<T, Distance> get meter => DerivedUnitPer(_first, f.meters);
+}
+
+class DerivedMeasurementByBuilder<T extends Measurement<T>> {
+  final Measurement<T> _measurement;
+
+  DerivedMeasurementByBuilder(this._measurement);
+
+  DerivedMeasurementBy<T, Distance> get meter => DerivedMeasurementBy(
+        magnitude: _measurement._magnitude,
+        defaultUnit: _measurement.defaultUnit.multiply(meters),
+      );
+}
+
+class DerivedMeasurementPerBuilder<T extends Measurement<T>> {
+  final Measurement<T> _measurement;
+
+  DerivedMeasurementPerBuilder(this._measurement);
+
+  DerivedMeasurementPer<T, Distance> get meter => DerivedMeasurementPer(
+        magnitude: _measurement._magnitude,
+        defaultUnit: _measurement.defaultUnit.divide(meters),
+      );
 }

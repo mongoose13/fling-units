@@ -38,8 +38,8 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..returns = Reference(builder.measurementClassName)
                 ..requiredParameters.add(
                   Parameter(
-                    (value) => value
-                      ..name = "value"
+                    (magnitude) => magnitude
+                      ..name = "magnitude"
                       ..type = Reference("num"),
                   ),
                 )
@@ -52,7 +52,7 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ))
                 ..lambda = true
                 ..body = Code(
-                    "${builder.measurementClassName}(value, this, precision)"),
+                    "${builder.measurementClassName}(magnitude, this, precision)"),
             ))
             ..methods.add(
               Method(
@@ -77,40 +77,40 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                     ),
                   )
                   ..body = Code(
-                      "${builder.unitClassName}._(name, unitMultiplier, prefix)"),
+                      "${builder.unitClassName}._(name: name, unitMultiplier: unitMultiplier, prefix: prefix)"),
               ),
             )
             ..constructors.add(
-              Constructor(
-                (constructor) => constructor
-                  ..constant = true
-                  ..name = "_"
-                  ..requiredParameters.add(
-                    Parameter(
-                      (name) => name
-                        ..toSuper = true
-                        ..name = "name",
-                    ),
-                  )
-                  ..requiredParameters.add(
-                    Parameter(
-                      (multiplier) => multiplier
-                        ..toSuper = true
-                        ..name = "multiplier",
-                    ),
-                  )
-                  ..optionalParameters.add(
-                    Parameter(
-                      (prefix) => prefix
-                        ..toSuper = true
-                        ..name = "prefix"
-                        ..defaultTo = Code("const MeasurementPrefix.unit()"),
-                    ),
-                  )
-                  ..initializers.add(
-                    Code("super()"),
+              Constructor((constructor) => constructor
+                ..constant = true
+                ..name = "_"
+                ..optionalParameters.add(
+                  Parameter(
+                    (name) => name
+                      ..toSuper = true
+                      ..name = "name"
+                      ..required = true
+                      ..named = true,
                   ),
-              ),
+                )
+                ..optionalParameters.add(
+                  Parameter(
+                    (unitMultiplier) => unitMultiplier
+                      ..toSuper = true
+                      ..name = "unitMultiplier"
+                      ..required = true
+                      ..named = true,
+                  ),
+                )
+                ..optionalParameters.add(
+                  Parameter(
+                    (prefix) => prefix
+                      ..toSuper = true
+                      ..name = "prefix"
+                      ..named = true
+                      ..defaultTo = Code("const MeasurementPrefix.unit()"),
+                  ),
+                )),
             );
           for (final unit in builder.units) {
             interpreter.fields.add(
@@ -120,7 +120,7 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..modifier = FieldModifier.constant
                   ..name = unit.displayName
                   ..assignment = Code(
-                      "${builder.unitClassName}._('${builder.shortNameOf(unit)}', ${builder.multiplierOf(unit)})"),
+                      "${builder.unitClassName}._(name: '${builder.shortNameOf(unit)}', unitMultiplier: ${builder.multiplierOf(unit)})"),
               ),
             );
           }

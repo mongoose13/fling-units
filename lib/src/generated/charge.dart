@@ -15,26 +15,26 @@ extension NumExtensionCharge on num {
 // **************************************************************************
 
 class ChargeUnit extends Unit<Charge> {
-  const ChargeUnit._(
-    super.name,
-    super.multiplier, [
+  const ChargeUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const amperes = ChargeUnit._('A', 1.0);
+  static const amperes = ChargeUnit._(name: 'A', unitMultiplier: 1.0);
 
   @override
   Charge call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Charge(value, this, precision);
+      Charge(magnitude, this, precision);
 
   ChargeUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      ChargeUnit._(name, unitMultiplier, prefix);
+      ChargeUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -43,10 +43,14 @@ class ChargeUnit extends Unit<Charge> {
 
 class Charge extends Measurement<Charge> {
   const Charge(
-    num units,
-    Unit<Charge> interpreter, [
+    num magnitude,
+    Unit<Charge> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Charge.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -69,15 +73,15 @@ class Charge extends Measurement<Charge> {
 
   @override
   construct(
-    double amount,
-    Unit<Charge>? interpreter,
+    num magnitude,
+    Unit<Charge> defaultUnit,
     Precision precision,
   ) =>
-      Charge(amount, interpreter ?? siUnit, precision);
+      Charge(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Charge> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Charge> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

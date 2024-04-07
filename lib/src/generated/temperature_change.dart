@@ -17,30 +17,33 @@ extension NumExtensionTemperatureChange on num {
 // **************************************************************************
 
 class TemperatureChangeUnit extends Unit<TemperatureChange> {
-  const TemperatureChangeUnit._(
-    super.name,
-    super.multiplier, [
+  const TemperatureChangeUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const kelvin = TemperatureChangeUnit._('K', 1.0);
+  static const kelvin = TemperatureChangeUnit._(name: 'K', unitMultiplier: 1.0);
 
-  static const celcius = TemperatureChangeUnit._('°C', 1.0);
+  static const celcius =
+      TemperatureChangeUnit._(name: '°C', unitMultiplier: 1.0);
 
-  static const fahrenheit = TemperatureChangeUnit._('°F', 1.8);
+  static const fahrenheit =
+      TemperatureChangeUnit._(name: '°F', unitMultiplier: 1.8);
 
   @override
   TemperatureChange call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      TemperatureChange(value, this, precision);
+      TemperatureChange(magnitude, this, precision);
 
   TemperatureChangeUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      TemperatureChangeUnit._(name, unitMultiplier, prefix);
+      TemperatureChangeUnit._(
+          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -49,10 +52,14 @@ class TemperatureChangeUnit extends Unit<TemperatureChange> {
 
 class TemperatureChange extends Measurement<TemperatureChange> {
   const TemperatureChange(
-    num units,
-    Unit<TemperatureChange> interpreter, [
+    num magnitude,
+    Unit<TemperatureChange> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const TemperatureChange.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -77,15 +84,15 @@ class TemperatureChange extends Measurement<TemperatureChange> {
 
   @override
   construct(
-    double amount,
-    Unit<TemperatureChange>? interpreter,
+    num magnitude,
+    Unit<TemperatureChange> defaultUnit,
     Precision precision,
   ) =>
-      TemperatureChange(amount, interpreter ?? siUnit, precision);
+      TemperatureChange(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<TemperatureChange> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<TemperatureChange> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

@@ -20,36 +20,38 @@ extension NumExtensionDistance on num {
 // **************************************************************************
 
 class DistanceUnit extends Unit<Distance> {
-  const DistanceUnit._(
-    super.name,
-    super.multiplier, [
+  const DistanceUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const meters = DistanceUnit._('m', 1.0);
+  static const meters = DistanceUnit._(name: 'm', unitMultiplier: 1.0);
 
-  static const miles = DistanceUnit._('mi', 0.0006213712);
+  static const miles = DistanceUnit._(name: 'mi', unitMultiplier: 0.0006213712);
 
-  static const yards = DistanceUnit._('yd', 1.093613);
+  static const yards = DistanceUnit._(name: 'yd', unitMultiplier: 1.093613);
 
-  static const feet = DistanceUnit._('ft', 3.28084);
+  static const feet = DistanceUnit._(name: 'ft', unitMultiplier: 3.28084);
 
-  static const inches = DistanceUnit._('in', 39.37008);
+  static const inches = DistanceUnit._(name: 'in', unitMultiplier: 39.37008);
 
-  static const nauticalMiles = DistanceUnit._('NM', 0.000539956803456);
+  static const nauticalMiles =
+      DistanceUnit._(name: 'NM', unitMultiplier: 0.000539956803456);
 
   @override
   Distance call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Distance(value, this, precision);
+      Distance(magnitude, this, precision);
 
   DistanceUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      DistanceUnit._(name, unitMultiplier, prefix);
+      DistanceUnit._(
+          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -58,10 +60,14 @@ class DistanceUnit extends Unit<Distance> {
 
 class Distance extends Measurement<Distance> {
   const Distance(
-    num units,
-    Unit<Distance> interpreter, [
+    num magnitude,
+    Unit<Distance> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Distance.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -84,15 +90,15 @@ class Distance extends Measurement<Distance> {
 
   @override
   construct(
-    double amount,
-    Unit<Distance>? interpreter,
+    num magnitude,
+    Unit<Distance> defaultUnit,
     Precision precision,
   ) =>
-      Distance(amount, interpreter ?? siUnit, precision);
+      Distance(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Distance> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Distance> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

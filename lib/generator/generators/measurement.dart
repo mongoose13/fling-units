@@ -44,15 +44,15 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..constant = true
                 ..requiredParameters.add(
                   Parameter(
-                    (units) => units
-                      ..name = "units"
+                    (magnitude) => magnitude
+                      ..name = "magnitude"
                       ..type = Reference("num"),
                   ),
                 )
                 ..requiredParameters.add(
                   Parameter(
-                    (interpreter) => interpreter
-                      ..name = "interpreter"
+                    (defaultUnit) => defaultUnit
+                      ..name = "defaultUnit"
                       ..type = Reference(builder.unitType),
                   ),
                 )
@@ -65,7 +65,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ),
                 )
                 ..initializers.add(Code(
-                    "super(amount: units, precision: precision, interpreter: interpreter)")),
+                    "super(magnitude: magnitude, precision: precision, defaultUnit: defaultUnit,)")),
             ),
           )
           ..constructors.add(
@@ -177,16 +177,16 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..name = "construct"
                 ..requiredParameters.add(
                   Parameter(
-                    (amount) => amount
-                      ..name = "amount"
-                      ..type = Reference("double"),
+                    (magnitude) => magnitude
+                      ..name = "magnitude"
+                      ..type = Reference("num"),
                   ),
                 )
                 ..requiredParameters.add(
                   Parameter(
-                    (interpreter) => interpreter
-                      ..name = "interpreter"
-                      ..type = Reference("${builder.unitType}?"),
+                    (defaultUnit) => defaultUnit
+                      ..name = "defaultUnit"
+                      ..type = Reference(builder.unitType),
                   ),
                 )
                 ..requiredParameters.add(
@@ -197,7 +197,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ),
                 )
                 ..body = Code(
-                    "${builder.measurementClassName}(amount, interpreter ?? siUnit, precision)"),
+                    "${builder.measurementClassName}(magnitude, defaultUnit, precision)"),
             ),
           )
           ..methods.add(
@@ -208,8 +208,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..type = MethodType.getter
                 ..name = "per"
                 ..returns = Reference(
-                    "DerivedMeasurementBuilder<${builder.measurementClassName}>")
-                ..body = Code("DerivedMeasurementBuilder(this, true)"),
+                    "DerivedMeasurementPerBuilder<${builder.measurementClassName}>")
+                ..body = Code("DerivedMeasurementPerBuilder(this)"),
             ),
           ),
       ),

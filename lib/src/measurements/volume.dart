@@ -122,8 +122,8 @@ extension VolumeUnitExtension on VolumeUnit {
     String? name,
   }) =>
       VolumeUnit._(
-          name ?? '${a?.name ?? 'X'}⋅${b?.name ?? 'X'}⋅${c?.name ?? 'X'}',
-          (a?.unitMultiplier ?? 1.0) *
+          name: name ?? '${a?.name ?? 'X'}⋅${b?.name ?? 'X'}⋅${c?.name ?? 'X'}',
+          unitMultiplier: (a?.unitMultiplier ?? 1.0) *
               (b?.unitMultiplier ?? 1.0) *
               (c?.unitMultiplier ?? 1.0) /
               (a?.prefix.unitMultiplier ?? 1.0) /

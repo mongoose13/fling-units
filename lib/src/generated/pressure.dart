@@ -23,43 +23,46 @@ extension NumExtensionPressure on num {
 // **************************************************************************
 
 class PressureUnit extends Unit<Pressure> {
-  const PressureUnit._(
-    super.name,
-    super.multiplier, [
+  const PressureUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const pascals = PressureUnit._('Pa', 1.0);
+  static const pascals = PressureUnit._(name: 'Pa', unitMultiplier: 1.0);
 
-  static const bars = PressureUnit._('bar', 0.00001);
+  static const bars = PressureUnit._(name: 'bar', unitMultiplier: 0.00001);
 
-  static const baryes = PressureUnit._('Ba', 0.1);
+  static const baryes = PressureUnit._(name: 'Ba', unitMultiplier: 0.1);
 
   static const standardAtmospheres =
-      PressureUnit._('atm', 0.000009869232667160129);
+      PressureUnit._(name: 'atm', unitMultiplier: 0.000009869232667160129);
 
-  static const technicalAtmospheres = PressureUnit._('at', 98.0665);
+  static const technicalAtmospheres =
+      PressureUnit._(name: 'at', unitMultiplier: 98.0665);
 
-  static const mmHg = PressureUnit._('mmHg', 0.0075006);
+  static const mmHg = PressureUnit._(name: 'mmHg', unitMultiplier: 0.0075006);
 
-  static const inHg = PressureUnit._('inHg', 3386.39);
+  static const inHg = PressureUnit._(name: 'inHg', unitMultiplier: 3386.39);
 
-  static const torr = PressureUnit._('Torr', 133.32236842105263);
+  static const torr =
+      PressureUnit._(name: 'Torr', unitMultiplier: 133.32236842105263);
 
-  static const psi = PressureUnit._('psi', 6894.76);
+  static const psi = PressureUnit._(name: 'psi', unitMultiplier: 6894.76);
 
   @override
   Pressure call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Pressure(value, this, precision);
+      Pressure(magnitude, this, precision);
 
   PressureUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      PressureUnit._(name, unitMultiplier, prefix);
+      PressureUnit._(
+          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -68,10 +71,14 @@ class PressureUnit extends Unit<Pressure> {
 
 class Pressure extends Measurement<Pressure> {
   const Pressure(
-    num units,
-    Unit<Pressure> interpreter, [
+    num magnitude,
+    Unit<Pressure> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Pressure.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -94,15 +101,15 @@ class Pressure extends Measurement<Pressure> {
 
   @override
   construct(
-    double amount,
-    Unit<Pressure>? interpreter,
+    num magnitude,
+    Unit<Pressure> defaultUnit,
     Precision precision,
   ) =>
-      Pressure(amount, interpreter ?? siUnit, precision);
+      Pressure(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Pressure> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Pressure> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

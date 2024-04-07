@@ -38,12 +38,26 @@ needing control statements or type checks (e.g. `if`, `switch`, or `is`)."""
           ..methods.add(
             Method(
               (derived) => derived
-                ..name = "visitDerived"
+                ..name = "visitDerivedBy"
                 ..requiredParameters.add(
                   Parameter(
                     (measurement) => measurement
                       ..name = "measurement"
-                      ..type = Reference("DerivedMeasurement"),
+                      ..type = Reference("DerivedMeasurementBy"),
+                  ),
+                )
+                ..body = Code(""),
+            ),
+          )
+          ..methods.add(
+            Method(
+              (derived) => derived
+                ..name = "visitDerivedPer"
+                ..requiredParameters.add(
+                  Parameter(
+                    (measurement) => measurement
+                      ..name = "measurement"
+                      ..type = Reference("DerivedMeasurementPer"),
                   ),
                 )
                 ..body = Code(""),

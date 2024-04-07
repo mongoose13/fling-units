@@ -5,213 +5,185 @@ part of "library.dart";
 ///
 /// For example, velocity can be modeled as [Distance] / [Time] and [Area] can
 /// be modeled as [Distance] * [Distance].
-class DerivedMeasurement<A extends Measurement<A>, B extends Measurement<B>>
-    extends Measurement<DerivedMeasurement<A, B>> {
+class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
+    extends Measurement<DerivedMeasurementPer<A, B>> {
   /// The derived measurement of zero magnitude.
-  const DerivedMeasurement.zero(
-      [DerivedUnit<A, B> super.interpreter = const _UnknownDerivedUnit._()])
-      : _reciprocal = false,
-        super.zero();
+  const DerivedMeasurementPer.zero(super.interpreter) : super.zero();
 
   /// The derived measurement of infinite magnitude.
-  const DerivedMeasurement.infinite(
-      [DerivedUnit<A, B> super.interpreter = const _UnknownDerivedUnit._()])
-      : _reciprocal = false,
-        super.infinite();
+  const DerivedMeasurementPer.infinite(super.interpreter) : super.infinite();
 
   /// The derived measurement of negative infinite magnitude.
-  const DerivedMeasurement.negativeInfinite(
-      [DerivedUnit<A, B> super.interpreter = const _UnknownDerivedUnit._()])
-      : _reciprocal = false,
-        super.negativeInfinite();
+  const DerivedMeasurementPer.negativeInfinite(
+      DerivedUnitPer<A, B> super.interpreter)
+      : super.negativeInfinite();
 
   /// NaN (Not a Number) derived measurement.
-  const DerivedMeasurement.nan(
-      [super.interpreter = const _UnknownDerivedUnit._()])
-      : _reciprocal = false,
-        super.nan();
-
-  /// Constructs a derived measurement representing the multiplication of a pair
-  /// of simpler measurements.
-  DerivedMeasurement.multiply(A a, B b, [String? name])
-      : this._combine(
-            a.defaultValue * b.defaultValue,
-            Precision.combine([a.precisionData, b.precisionData]),
-            a.defaultUnit,
-            b.defaultUnit,
-            false,
-            name);
+  const DerivedMeasurementPer.nan(super.interpreter) : super.nan();
 
   /// Constructs a derived measurement representing the division of a pair of
   /// simpler measurements.
-  DerivedMeasurement.divide(A a, B b, [String? name])
-      : this._combine(
-            a.defaultValue / b.defaultValue,
-            Precision.combine([a.precisionData, b.precisionData]),
-            a.defaultUnit,
-            b.defaultUnit,
-            true,
-            name);
-
-  /// Creates a derived measurement representing a pair of simpler units.
-  DerivedMeasurement._combine(double value, Precision precision,
-      [Unit<A>? a, Unit<B>? b, bool reciprocal = false, String? name])
+  DerivedMeasurementPer.divide(A a, B b)
       : this(
-            value,
-            precision,
-            DerivedUnit._unitless(
-              a,
-              b,
-              reciprocal,
-              const MeasurementPrefix.unit(),
-              name,
-            ),
-            reciprocal);
+          magnitude: a.defaultValue / b.defaultValue,
+          defaultUnit: a.defaultUnit.divide(b.defaultUnit),
+          precision: Precision.combine([a.precisionData, b.precisionData]),
+        );
 
   @override
-  DerivedMeasurementBuilder<DerivedMeasurement<A, B>> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPer<A, B> construct(
+    double magnitude,
+    Unit<DerivedMeasurementPer<A, B>> defaultUnit,
+    Precision precision,
+  ) =>
+      DerivedMeasurementPer(
+        magnitude: magnitude,
+        defaultUnit: defaultUnit,
+        precision: precision,
+      );
+
+  @override
+  DerivedMeasurementPerBuilder<DerivedMeasurementPer<A, B>> get per =>
+      DerivedMeasurementPerBuilder(this);
 
   /// Interprets this using two specific units.
-  double asPair(Unit<A> a, Unit<B> b) =>
-      _precise(a.of(si) * (_reciprocal ? b.from(1) : b.of(1)));
+  double asPair(Unit<A> a, Unit<B> b) => _precise(a.of(si) * b.from(1));
 
   /// Interprets this using a [DerivedUnit].
-  double asInterpretedBy(DerivedUnit<A, B> interpreter) =>
+  double asInterpretedBy(DerivedUnitPer<A, B> interpreter) =>
       _precise(interpreter.of(si));
 
   @override
-  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitDerived(this);
-
-  @override
-  DerivedMeasurement<A, B> construct(
-    double amount,
-    Unit<DerivedMeasurement<A, B>>? interpreter,
-    Precision precision,
-  ) =>
-      DerivedMeasurement(
-          amount, precision, interpreter ?? const _UnknownDerivedUnit._());
+  void acceptVisitor(MeasurementVisitor visitor) =>
+      visitor.visitDerivedPer(this);
 
   /// Constructs a derived measurement.
-  const DerivedMeasurement(
-    num si,
-    Precision precision, [
-    Unit<DerivedMeasurement<A, B>> interpreter = const _UnknownDerivedUnit._(),
-    this._reciprocal = false,
-  ]) : super(amount: si, precision: precision, interpreter: interpreter);
+  const DerivedMeasurementPer({
+    required super.magnitude,
+    required super.defaultUnit,
+    super.precision,
+  });
+}
 
-  /// Whether this has a reciprocal unit.
-  final bool _reciprocal;
+class DerivedMeasurementBy<A extends Measurement<A>, B extends Measurement<B>>
+    extends Measurement<DerivedMeasurementBy<A, B>> {
+  /// Constructs a derived measurement.
+  const DerivedMeasurementBy({
+    required super.magnitude,
+    required super.defaultUnit,
+    super.precision,
+  });
+
+  /// The derived measurement of zero magnitude.
+  const DerivedMeasurementBy.zero(super.defaultUnit) : super.zero();
+
+  /// The derived measurement of infinite magnitude.
+  const DerivedMeasurementBy.infinite(super.defaultUnit) : super.infinite();
+
+  /// The derived measurement of negative infinite magnitude.
+  const DerivedMeasurementBy.negativeInfinite(super.defaultUnit)
+      : super.negativeInfinite();
+
+  /// NaN (Not a Number) derived measurement.
+  const DerivedMeasurementBy.nan(super.defaultUnit) : super.nan();
+
+  /// Constructs a derived measurement representing the multiplication of a pair
+  /// of simpler measurements.
+  DerivedMeasurementBy.multiply(A a, B b)
+      : this(
+          magnitude: a.defaultValue * b.defaultValue,
+          precision: Precision.combine([a.precisionData, b.precisionData]),
+          defaultUnit: a.defaultUnit.multiply(b.defaultUnit),
+        );
+
+  @override
+  DerivedMeasurementBy<A, B> construct(
+    double magnitude,
+    Unit<DerivedMeasurementBy<A, B>> defaultUnit,
+    Precision precision,
+  ) =>
+      DerivedMeasurementBy(
+        magnitude: magnitude,
+        defaultUnit: defaultUnit,
+        precision: precision,
+      );
+
+  /// Interprets this using two specific units.
+  double asPair(Unit<A> a, Unit<B> b) => _precise(a.of(si) * b.of(1));
+
+  @override
+  void acceptVisitor(MeasurementVisitor visitor) =>
+      visitor.visitDerivedBy(this);
 }
 
 /// An interpreter for derived measurements (from two basic measurements).
-class DerivedUnit<A extends Measurement<A>, B extends Measurement<B>>
-    extends Unit<DerivedMeasurement<A, B>> {
-  /// Whether the unit is a division.
-  ///
-  /// For example, "miles / hour" is a division, while "miles * miles" (square
-  /// miles) would be a multiplication.
-  final bool _reciprocal;
-
+class DerivedUnitBy<A extends Measurement<A>, B extends Measurement<B>>
+    extends Unit<DerivedMeasurementBy<A, B>> {
   /// The numerator's interpreter.
-  final Unit<A>? _unitA;
+  final Unit<A> _unitA;
 
   /// The denominator's interpreter.
-  final Unit<B>? _unitB;
+  final Unit<B> _unitB;
 
   /// Constructs an interpreter from two basic interpreters.
   ///
   /// The prefix, if supplied, will apply to the entire interpreter.
   ///
   /// If a name is not supplied, a standard name will be provided.
-  DerivedUnit(
-    Unit<A> a,
-    Unit<B> b, [
-    bool reciprocal = false,
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  DerivedUnitBy(
+    this._unitA,
+    this._unitB, {
+    super.prefix = const MeasurementPrefix.unit(),
+    super.unitMultiplier = 1.0,
     String? name,
-  ]) : this._unitless(a, b, reciprocal, prefix, name);
-
-  /// Constructs a [DerivedUnit] with a potentially null
-  /// interpreter.
-  ///
-  /// If a name is not supplied, a standard name will be provided.
-  DerivedUnit._unitless([
-    Unit<A>? a,
-    Unit<B>? b,
-    bool reciprocal = false,
-    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
-    String? name,
-  ])  : _reciprocal = reciprocal,
-        _unitA = a,
-        _unitB = b,
-        super(
-          name ?? '${a ?? 'X'}${reciprocal ? '/' : '⋅'}${b ?? 'X'}',
-          reciprocal
-              ? (a?.unitMultiplier ?? 1.0) / (b?.unitMultiplier ?? 1.0)
-              : (a?.unitMultiplier ?? 1.0) * (b?.unitMultiplier ?? 1.0),
-          prefix,
-        );
+  }) : super(name: name ?? "${_unitA.name}*${_unitB.name}");
 
   @override
-  DerivedMeasurement<A, B> call(double value,
+  DerivedMeasurementBy<A, B> call(num magnitude,
           {Precision precision = Precision.max}) =>
-      DerivedMeasurement._combine(
-        value,
-        precision,
-        _unitA,
-        _unitB,
-        _reciprocal,
-        name,
+      DerivedMeasurementBy(
+        magnitude: magnitude,
+        precision: precision,
+        defaultUnit: _unitA.multiply(_unitB),
       );
 
   @override
-  DerivedUnitBuilder<DerivedMeasurement<A, B>> get per =>
-      DerivedUnitBuilder(this, true);
+  DerivedUnitPerBuilder<DerivedMeasurementBy<A, B>> get per =>
+      DerivedUnitPerBuilder(this);
 }
 
-/// A class representing an unknown derived measurement.
-class _UnknownDerivedUnit<A extends Measurement<A>, B extends Measurement<B>>
-    implements DerivedUnit<A, B> {
-  const _UnknownDerivedUnit._();
+/// An interpreter for derived measurements (from two basic measurements).
+class DerivedUnitPer<A extends Measurement<A>, B extends Measurement<B>>
+    extends Unit<DerivedMeasurementPer<A, B>> {
+  /// The numerator's interpreter.
+  final Unit<A> _unitA;
+
+  /// The denominator's interpreter.
+  final Unit<B> _unitB;
+
+  /// Constructs an interpreter from two basic interpreters.
+  ///
+  /// The prefix, if supplied, will apply to the entire interpreter.
+  ///
+  /// If a name is not supplied, a standard name will be provided.
+  DerivedUnitPer(
+    this._unitA,
+    this._unitB, {
+    super.prefix = const MeasurementPrefix.unit(),
+    super.unitMultiplier = 1.0,
+    String? name,
+  }) : super(name: name ?? "${_unitA.name}/${_unitB.name}");
 
   @override
-  String get name => "unknown";
-
-  @override
-  double get unitMultiplier => 1.0;
-
-  @override
-  Unit<A>? get _unitA => throw UnimplementedError();
-
-  @override
-  Unit<B>? get _unitB => throw UnimplementedError();
-
-  @override
-  bool get _reciprocal => throw UnimplementedError();
-
-  @override
-  double of(num value) => value.toDouble();
-
-  @override
-  double from(num value) => value.toDouble();
-
-  @override
-  MeasurementPrefix get prefix => throw UnimplementedError();
-
-  @override
-  DerivedMeasurement<A, B> call(double value,
+  DerivedMeasurementPer<A, B> call(num magnitude,
           {Precision precision = Precision.max}) =>
-      throw UnimplementedError();
+      DerivedMeasurementPer(
+        magnitude: magnitude,
+        defaultUnit: _unitA.divide(_unitB),
+        precision: precision,
+      );
 
   @override
-  DerivedUnitBuilder<DerivedMeasurement<A, B>> get per =>
-      DerivedUnitBuilder(this, true);
-
-  @override
-  DerivedUnitBuilder<DerivedMeasurement<A, B>> get by =>
-      DerivedUnitBuilder(this, false);
-
-  @override
-  String toString() => "unknown";
+  DerivedUnitPerBuilder<DerivedMeasurementPer<A, B>> get per =>
+      DerivedUnitPerBuilder(this);
 }

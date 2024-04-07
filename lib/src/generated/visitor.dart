@@ -10,7 +10,8 @@ part of 'package:fling_units/src/core/library.dart';
 /// needing control statements or type checks (e.g. `if`, `switch`, or `is`).
 abstract class MeasurementVisitor
     with AreaVisitorMixin, TemperatureVisitorMixin {
-  visitDerived(DerivedMeasurement measurement) {}
+  visitDerivedBy(DerivedMeasurementBy measurement) {}
+  visitDerivedPer(DerivedMeasurementPer measurement) {}
   visitAngle(Angle measurement) {}
   visitTime(Time measurement) {}
   visitQuantity(Quantity measurement) {}

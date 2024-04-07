@@ -18,32 +18,35 @@ extension NumExtensionTime on num {
 // **************************************************************************
 
 class TimeUnit extends Unit<Time> {
-  const TimeUnit._(
-    super.name,
-    super.multiplier, [
+  const TimeUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const seconds = TimeUnit._('s', 1.0);
+  static const seconds = TimeUnit._(name: 's', unitMultiplier: 1.0);
 
-  static const minutes = TimeUnit._('min', 0.016666666666666666);
+  static const minutes =
+      TimeUnit._(name: 'min', unitMultiplier: 0.016666666666666666);
 
-  static const hours = TimeUnit._('h', 0.0002777777777777778);
+  static const hours =
+      TimeUnit._(name: 'h', unitMultiplier: 0.0002777777777777778);
 
-  static const days = TimeUnit._('d', 0.000011574074074074073);
+  static const days =
+      TimeUnit._(name: 'd', unitMultiplier: 0.000011574074074074073);
 
   @override
   Time call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Time(value, this, precision);
+      Time(magnitude, this, precision);
 
   TimeUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      TimeUnit._(name, unitMultiplier, prefix);
+      TimeUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -52,10 +55,14 @@ class TimeUnit extends Unit<Time> {
 
 class Time extends Measurement<Time> {
   const Time(
-    num units,
-    Unit<Time> interpreter, [
+    num magnitude,
+    Unit<Time> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Time.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -78,15 +85,15 @@ class Time extends Measurement<Time> {
 
   @override
   construct(
-    double amount,
-    Unit<Time>? interpreter,
+    num magnitude,
+    Unit<Time> defaultUnit,
     Precision precision,
   ) =>
-      Time(amount, interpreter ?? siUnit, precision);
+      Time(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Time> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Time> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

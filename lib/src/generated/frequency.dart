@@ -15,26 +15,27 @@ extension NumExtensionFrequency on num {
 // **************************************************************************
 
 class FrequencyUnit extends Unit<Frequency> {
-  const FrequencyUnit._(
-    super.name,
-    super.multiplier, [
+  const FrequencyUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const hertz = FrequencyUnit._('Hz', 1.0);
+  static const hertz = FrequencyUnit._(name: 'Hz', unitMultiplier: 1.0);
 
   @override
   Frequency call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Frequency(value, this, precision);
+      Frequency(magnitude, this, precision);
 
   FrequencyUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      FrequencyUnit._(name, unitMultiplier, prefix);
+      FrequencyUnit._(
+          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -43,10 +44,14 @@ class FrequencyUnit extends Unit<Frequency> {
 
 class Frequency extends Measurement<Frequency> {
   const Frequency(
-    num units,
-    Unit<Frequency> interpreter, [
+    num magnitude,
+    Unit<Frequency> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Frequency.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -69,15 +74,15 @@ class Frequency extends Measurement<Frequency> {
 
   @override
   construct(
-    double amount,
-    Unit<Frequency>? interpreter,
+    num magnitude,
+    Unit<Frequency> defaultUnit,
     Precision precision,
   ) =>
-      Frequency(amount, interpreter ?? siUnit, precision);
+      Frequency(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Frequency> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Frequency> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

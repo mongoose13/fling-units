@@ -20,36 +20,37 @@ extension NumExtensionAngle on num {
 // **************************************************************************
 
 class AngleUnit extends Unit<Angle> {
-  const AngleUnit._(
-    super.name,
-    super.multiplier, [
+  const AngleUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const turns = AngleUnit._('turn', 1.0);
+  static const turns = AngleUnit._(name: 'turn', unitMultiplier: 1.0);
 
-  static const radians = AngleUnit._('rad', 6.283185307179586);
+  static const radians =
+      AngleUnit._(name: 'rad', unitMultiplier: 6.283185307179586);
 
-  static const gradians = AngleUnit._('ᵍ', 400.0);
+  static const gradians = AngleUnit._(name: 'ᵍ', unitMultiplier: 400.0);
 
-  static const degrees = AngleUnit._('°', 360.0);
+  static const degrees = AngleUnit._(name: '°', unitMultiplier: 360.0);
 
-  static const arcMinutes = AngleUnit._('′', 21600.0);
+  static const arcMinutes = AngleUnit._(name: '′', unitMultiplier: 21600.0);
 
-  static const arcSeconds = AngleUnit._('′', 1296000.0);
+  static const arcSeconds = AngleUnit._(name: '′', unitMultiplier: 1296000.0);
 
   @override
   Angle call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Angle(value, this, precision);
+      Angle(magnitude, this, precision);
 
   AngleUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      AngleUnit._(name, unitMultiplier, prefix);
+      AngleUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -58,10 +59,14 @@ class AngleUnit extends Unit<Angle> {
 
 class Angle extends Measurement<Angle> {
   const Angle(
-    num units,
-    Unit<Angle> interpreter, [
+    num magnitude,
+    Unit<Angle> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Angle.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -84,15 +89,15 @@ class Angle extends Measurement<Angle> {
 
   @override
   construct(
-    double amount,
-    Unit<Angle>? interpreter,
+    num magnitude,
+    Unit<Angle> defaultUnit,
     Precision precision,
   ) =>
-      Angle(amount, interpreter ?? siUnit, precision);
+      Angle(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Angle> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Angle> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************

@@ -17,30 +17,33 @@ extension NumExtensionLuminosity on num {
 // **************************************************************************
 
 class LuminosityUnit extends Unit<Luminosity> {
-  const LuminosityUnit._(
-    super.name,
-    super.multiplier, [
+  const LuminosityUnit._({
+    required super.name,
+    required super.unitMultiplier,
     super.prefix = const MeasurementPrefix.unit(),
-  ]) : super();
+  });
 
-  static const candela = LuminosityUnit._('cd', 1.0);
+  static const candela = LuminosityUnit._(name: 'cd', unitMultiplier: 1.0);
 
-  static const candlepower = LuminosityUnit._('cp', 1.0194);
+  static const candlepower =
+      LuminosityUnit._(name: 'cp', unitMultiplier: 1.0194);
 
-  static const hefnerkerze = LuminosityUnit._('HK', 1.087);
+  static const hefnerkerze =
+      LuminosityUnit._(name: 'HK', unitMultiplier: 1.087);
 
   @override
   Luminosity call(
-    num value, {
+    num magnitude, {
     Precision precision = Precision.max,
   }) =>
-      Luminosity(value, this, precision);
+      Luminosity(magnitude, this, precision);
 
   LuminosityUnit withPrefix(
     MeasurementPrefix prefix, {
     Precision precision = Precision.max,
   }) =>
-      LuminosityUnit._(name, unitMultiplier, prefix);
+      LuminosityUnit._(
+          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
 }
 
 // **************************************************************************
@@ -49,10 +52,14 @@ class LuminosityUnit extends Unit<Luminosity> {
 
 class Luminosity extends Measurement<Luminosity> {
   const Luminosity(
-    num units,
-    Unit<Luminosity> interpreter, [
+    num magnitude,
+    Unit<Luminosity> defaultUnit, [
     Precision precision = Precision.max,
-  ]) : super(amount: units, precision: precision, interpreter: interpreter);
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+          defaultUnit: defaultUnit,
+        );
 
   const Luminosity.zero([super.interpreter = siUnit]) : super.zero();
 
@@ -75,15 +82,15 @@ class Luminosity extends Measurement<Luminosity> {
 
   @override
   construct(
-    double amount,
-    Unit<Luminosity>? interpreter,
+    num magnitude,
+    Unit<Luminosity> defaultUnit,
     Precision precision,
   ) =>
-      Luminosity(amount, interpreter ?? siUnit, precision);
+      Luminosity(magnitude, defaultUnit, precision);
 
   @override
-  DerivedMeasurementBuilder<Luminosity> get per =>
-      DerivedMeasurementBuilder(this, true);
+  DerivedMeasurementPerBuilder<Luminosity> get per =>
+      DerivedMeasurementPerBuilder(this);
 }
 
 // **************************************************************************
