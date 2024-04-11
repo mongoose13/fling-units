@@ -68,14 +68,14 @@ class Angle extends Measurement<Angle> {
           defaultUnit: defaultUnit,
         );
 
-  const Angle.zero([super.interpreter = siUnit]) : super.zero();
+  const Angle.zero([super.unit = siUnit]) : super.zero();
 
-  const Angle.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Angle.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Angle.negativeInfinite([super.interpreter = siUnit])
+  const Angle.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Angle.nan([super.interpreter = siUnit]) : super.nan();
+  const Angle.nan([super.unit = siUnit]) : super.nan();
 
   Angle.sum(
     super.parts, {

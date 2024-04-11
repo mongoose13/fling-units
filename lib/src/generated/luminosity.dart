@@ -61,14 +61,14 @@ class Luminosity extends Measurement<Luminosity> {
           defaultUnit: defaultUnit,
         );
 
-  const Luminosity.zero([super.interpreter = siUnit]) : super.zero();
+  const Luminosity.zero([super.unit = siUnit]) : super.zero();
 
-  const Luminosity.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Luminosity.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Luminosity.negativeInfinite([super.interpreter = siUnit])
+  const Luminosity.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Luminosity.nan([super.interpreter = siUnit]) : super.nan();
+  const Luminosity.nan([super.unit = siUnit]) : super.nan();
 
   Luminosity.sum(
     super.parts, {

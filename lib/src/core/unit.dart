@@ -4,20 +4,20 @@ part of "library.dart";
 ///
 /// [Unit]s allow [Measurement]s to be interpreted as whatever
 /// unit the [Unit] was configured for. Users of the library
-/// will generally only require the built-in interpreters for the [Measurement]
+/// will generally only require the built-in units for the [Measurement]
 /// types being used (e.g. [miles] or [kilo].[meters]), but if needed, some
 /// [Unit] subtypes can be configured further (e.g.
 /// [AreaUnit]).
 ///
-/// [Unit]s allow the corresponding unit to be instantiated by
-/// "calling" it. For instance, one could create a [Distance] measurement in
-/// miles by using the [miles] interpreter: `miles(5)`. [Unit]s are also
-/// offered as extensions on [num], so they could be used this way: `5.miles`.
+/// [Unit]s allow the corresponding unit to be instantiated by "calling"
+/// it. For instance, one could create a [Distance] measurement in miles
+/// by using the [miles] unit: `miles(5)`. [Unit]s are also offered as
+///  extensions on [num], so they could be used this way: `5.miles`.
 ///
 /// Users should not need to access the internal workings of
 /// [Unit]s, but instead pass them to the appropriate
-/// [Measurement] instances for interpretation (typically via an `as()` method,
-/// such as [Area.asPair]).
+/// [Measurement] instances for interpretation (typically via the
+/// [Measurement.as] method).
 abstract class Unit<T extends Measurement<T>> {
   /// Constructs a [Unit].
   const Unit({

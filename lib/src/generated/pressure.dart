@@ -80,14 +80,14 @@ class Pressure extends Measurement<Pressure> {
           defaultUnit: defaultUnit,
         );
 
-  const Pressure.zero([super.interpreter = siUnit]) : super.zero();
+  const Pressure.zero([super.unit = siUnit]) : super.zero();
 
-  const Pressure.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Pressure.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Pressure.negativeInfinite([super.interpreter = siUnit])
+  const Pressure.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Pressure.nan([super.interpreter = siUnit]) : super.nan();
+  const Pressure.nan([super.unit = siUnit]) : super.nan();
 
   Pressure.sum(
     super.parts, {

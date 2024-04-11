@@ -53,14 +53,14 @@ class Frequency extends Measurement<Frequency> {
           defaultUnit: defaultUnit,
         );
 
-  const Frequency.zero([super.interpreter = siUnit]) : super.zero();
+  const Frequency.zero([super.unit = siUnit]) : super.zero();
 
-  const Frequency.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Frequency.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Frequency.negativeInfinite([super.interpreter = siUnit])
+  const Frequency.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Frequency.nan([super.interpreter = siUnit]) : super.nan();
+  const Frequency.nan([super.unit = siUnit]) : super.nan();
 
   Frequency.sum(
     super.parts, {

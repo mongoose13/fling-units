@@ -75,8 +75,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..name = "zero"
                 ..optionalParameters.add(
                   Parameter(
-                    (interpreter) => interpreter
-                      ..name = "interpreter"
+                    (unit) => unit
+                      ..name = "unit"
                       ..toSuper = true
                       ..defaultTo = Code("siUnit"),
                   ),
@@ -91,8 +91,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..name = "infinite"
                 ..optionalParameters.add(
                   Parameter(
-                    (interpreter) => interpreter
-                      ..name = "interpreter"
+                    (unit) => unit
+                      ..name = "unit"
                       ..toSuper = true
                       ..defaultTo = Code("siUnit"),
                   ),
@@ -107,8 +107,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..name = "negativeInfinite"
                 ..optionalParameters.add(
                   Parameter(
-                    (interpreter) => interpreter
-                      ..name = "interpreter"
+                    (unit) => unit
+                      ..name = "unit"
                       ..toSuper = true
                       ..defaultTo = Code("siUnit"),
                   ),
@@ -123,8 +123,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..name = "nan"
                 ..optionalParameters.add(
                   Parameter(
-                    (interpreter) => interpreter
-                      ..name = "interpreter"
+                    (unit) => unit
+                      ..name = "unit"
                       ..toSuper = true
                       ..defaultTo = Code("siUnit"),
                   ),

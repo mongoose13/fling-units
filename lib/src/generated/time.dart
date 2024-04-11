@@ -64,14 +64,13 @@ class Time extends Measurement<Time> {
           defaultUnit: defaultUnit,
         );
 
-  const Time.zero([super.interpreter = siUnit]) : super.zero();
+  const Time.zero([super.unit = siUnit]) : super.zero();
 
-  const Time.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Time.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Time.negativeInfinite([super.interpreter = siUnit])
-      : super.negativeInfinite();
+  const Time.negativeInfinite([super.unit = siUnit]) : super.negativeInfinite();
 
-  const Time.nan([super.interpreter = siUnit]) : super.nan();
+  const Time.nan([super.unit = siUnit]) : super.nan();
 
   Time.sum(
     super.parts, {

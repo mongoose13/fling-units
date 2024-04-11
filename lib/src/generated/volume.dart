@@ -104,14 +104,14 @@ class Volume extends Measurement<Volume> {
           defaultUnit: defaultUnit,
         );
 
-  const Volume.zero([super.interpreter = siUnit]) : super.zero();
+  const Volume.zero([super.unit = siUnit]) : super.zero();
 
-  const Volume.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Volume.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Volume.negativeInfinite([super.interpreter = siUnit])
+  const Volume.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Volume.nan([super.interpreter = siUnit]) : super.nan();
+  const Volume.nan([super.unit = siUnit]) : super.nan();
 
   Volume.sum(
     super.parts, {

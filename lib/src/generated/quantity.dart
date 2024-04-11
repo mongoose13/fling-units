@@ -57,14 +57,14 @@ class Quantity extends Measurement<Quantity> {
           defaultUnit: defaultUnit,
         );
 
-  const Quantity.zero([super.interpreter = siUnit]) : super.zero();
+  const Quantity.zero([super.unit = siUnit]) : super.zero();
 
-  const Quantity.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Quantity.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Quantity.negativeInfinite([super.interpreter = siUnit])
+  const Quantity.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Quantity.nan([super.interpreter = siUnit]) : super.nan();
+  const Quantity.nan([super.unit = siUnit]) : super.nan();
 
   Quantity.sum(
     super.parts, {

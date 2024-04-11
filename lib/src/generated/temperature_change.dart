@@ -61,15 +61,14 @@ class TemperatureChange extends Measurement<TemperatureChange> {
           defaultUnit: defaultUnit,
         );
 
-  const TemperatureChange.zero([super.interpreter = siUnit]) : super.zero();
+  const TemperatureChange.zero([super.unit = siUnit]) : super.zero();
 
-  const TemperatureChange.infinite([super.interpreter = siUnit])
-      : super.infinite();
+  const TemperatureChange.infinite([super.unit = siUnit]) : super.infinite();
 
-  const TemperatureChange.negativeInfinite([super.interpreter = siUnit])
+  const TemperatureChange.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const TemperatureChange.nan([super.interpreter = siUnit]) : super.nan();
+  const TemperatureChange.nan([super.unit = siUnit]) : super.nan();
 
   TemperatureChange.sum(
     super.parts, {

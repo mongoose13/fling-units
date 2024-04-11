@@ -69,14 +69,14 @@ class Distance extends Measurement<Distance> {
           defaultUnit: defaultUnit,
         );
 
-  const Distance.zero([super.interpreter = siUnit]) : super.zero();
+  const Distance.zero([super.unit = siUnit]) : super.zero();
 
-  const Distance.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Distance.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Distance.negativeInfinite([super.interpreter = siUnit])
+  const Distance.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Distance.nan([super.interpreter = siUnit]) : super.nan();
+  const Distance.nan([super.unit = siUnit]) : super.nan();
 
   Distance.sum(
     super.parts, {

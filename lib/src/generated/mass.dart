@@ -79,14 +79,13 @@ class Mass extends Measurement<Mass> {
           defaultUnit: defaultUnit,
         );
 
-  const Mass.zero([super.interpreter = siUnit]) : super.zero();
+  const Mass.zero([super.unit = siUnit]) : super.zero();
 
-  const Mass.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Mass.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Mass.negativeInfinite([super.interpreter = siUnit])
-      : super.negativeInfinite();
+  const Mass.negativeInfinite([super.unit = siUnit]) : super.negativeInfinite();
 
-  const Mass.nan([super.interpreter = siUnit]) : super.nan();
+  const Mass.nan([super.unit = siUnit]) : super.nan();
 
   Mass.sum(
     super.parts, {

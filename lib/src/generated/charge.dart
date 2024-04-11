@@ -52,14 +52,14 @@ class Charge extends Measurement<Charge> {
           defaultUnit: defaultUnit,
         );
 
-  const Charge.zero([super.interpreter = siUnit]) : super.zero();
+  const Charge.zero([super.unit = siUnit]) : super.zero();
 
-  const Charge.infinite([super.interpreter = siUnit]) : super.infinite();
+  const Charge.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Charge.negativeInfinite([super.interpreter = siUnit])
+  const Charge.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Charge.nan([super.interpreter = siUnit]) : super.nan();
+  const Charge.nan([super.unit = siUnit]) : super.nan();
 
   Charge.sum(
     super.parts, {

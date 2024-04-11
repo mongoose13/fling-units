@@ -8,18 +8,17 @@ part of "library.dart";
 class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
     extends Measurement<DerivedMeasurementPer<A, B>> {
   /// The derived measurement of zero magnitude.
-  const DerivedMeasurementPer.zero(super.interpreter) : super.zero();
+  const DerivedMeasurementPer.zero(super.unit) : super.zero();
 
   /// The derived measurement of infinite magnitude.
-  const DerivedMeasurementPer.infinite(super.interpreter) : super.infinite();
+  const DerivedMeasurementPer.infinite(super.unit) : super.infinite();
 
   /// The derived measurement of negative infinite magnitude.
-  const DerivedMeasurementPer.negativeInfinite(
-      DerivedUnitPer<A, B> super.interpreter)
+  const DerivedMeasurementPer.negativeInfinite(DerivedUnitPer<A, B> super.unit)
       : super.negativeInfinite();
 
   /// NaN (Not a Number) derived measurement.
-  const DerivedMeasurementPer.nan(super.interpreter) : super.nan();
+  const DerivedMeasurementPer.nan(super.unit) : super.nan();
 
   /// Constructs a derived measurement representing the division of a pair of
   /// simpler measurements.
@@ -106,18 +105,18 @@ class DerivedMeasurementBy<A extends Measurement<A>, B extends Measurement<B>>
       visitor.visitDerivedBy(this);
 }
 
-/// An interpreter for derived measurements (from two basic measurements).
+/// A unit for derived measurements (from two basic measurements).
 class DerivedUnitBy<A extends Measurement<A>, B extends Measurement<B>>
     extends Unit<DerivedMeasurementBy<A, B>> {
-  /// The numerator's interpreter.
+  /// The numerator's unit.
   final Unit<A> _unitA;
 
-  /// The denominator's interpreter.
+  /// The denominator's unit.
   final Unit<B> _unitB;
 
-  /// Constructs an interpreter from two basic interpreters.
+  /// Constructs a unit from two basic units.
   ///
-  /// The prefix, if supplied, will apply to the entire interpreter.
+  /// The prefix, if supplied, will apply to the entire derived unit.
   ///
   /// If a name is not supplied, a standard name will be provided.
   DerivedUnitBy(
@@ -144,18 +143,18 @@ class DerivedUnitBy<A extends Measurement<A>, B extends Measurement<B>>
       DerivedUnitPerBuilder(this);
 }
 
-/// An interpreter for derived measurements (from two basic measurements).
+/// A unit for derived measurements (from two basic measurements).
 class DerivedUnitPer<A extends Measurement<A>, B extends Measurement<B>>
     extends Unit<DerivedMeasurementPer<A, B>> {
-  /// The numerator's interpreter.
+  /// The numerator's unit.
   final Unit<A> _unitA;
 
-  /// The denominator's interpreter.
+  /// The denominator's unit.
   final Unit<B> _unitB;
 
-  /// Constructs an interpreter from two basic interpreters.
+  /// Constructs a unit from two basic units.
   ///
-  /// The prefix, if supplied, will apply to the entire interpreter.
+  /// The prefix, if supplied, will apply to the entire derived unit.
   ///
   /// If a name is not supplied, a standard name will be provided.
   DerivedUnitPer(
