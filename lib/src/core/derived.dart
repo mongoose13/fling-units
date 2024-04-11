@@ -47,10 +47,6 @@ class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
       DerivedMeasurementPerBuilder(this);
 
   @override
-  double as(Unit<DerivedMeasurementPer<A, B>> interpreter) =>
-      _precise(interpreter.of(si));
-
-  @override
   void acceptVisitor(MeasurementVisitor visitor) =>
       visitor.visitDerivedPer(this);
 
@@ -104,10 +100,6 @@ class DerivedMeasurementBy<A extends Measurement<A>, B extends Measurement<B>>
         defaultUnit: defaultUnit,
         precision: precision,
       );
-
-  @override
-  double as(Unit<DerivedMeasurementBy<A, B>> interpreter) =>
-      _precise(interpreter.of(si));
 
   @override
   void acceptVisitor(MeasurementVisitor visitor) =>

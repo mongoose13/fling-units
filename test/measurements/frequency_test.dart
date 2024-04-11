@@ -101,8 +101,6 @@ void main() {
       });
     });
 
-    
-
     group('sum', () {
       test('adds parts', () {
         // given
@@ -209,7 +207,7 @@ void main() {
         final measurement = deci.hertz(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.hertz).toString();
+        final result = measurement.butAs(milli.hertz).toString();
 
         // then
         expect(result, '2350.0 mHz');

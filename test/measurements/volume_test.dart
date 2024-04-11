@@ -61,7 +61,8 @@ void main() {
         final result = Volume.negativeInfinite();
 
         // then
-        expect(result.asVolume(VolumeExtension.cubic(meters)), double.negativeInfinity);
+        expect(result.asVolume(VolumeExtension.cubic(meters)),
+            double.negativeInfinity);
       });
       test('has max precision', () {
         // given
@@ -604,7 +605,7 @@ void main() {
         final measurement = deci.cups(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.liters).toString();
+        final result = measurement.butAs(milli.liters).toString();
 
         // then
         expect(result, '666.0 mL');

@@ -406,7 +406,7 @@ void main() {
         final measurement = deci.pascals(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.bars).toString();
+        final result = measurement.butAs(milli.bars).toString();
 
         // then
         expect(result, '0.0235 mbar');

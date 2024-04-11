@@ -396,7 +396,7 @@ void main() {
         final measurement = deci.pounds(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.tonnes).toString();
+        final result = measurement.butAs(milli.tonnes).toString();
 
         // then
         expect(result, '1.06 mt');

@@ -263,7 +263,7 @@ void main() {
         final measurement = deci.fahrenheit(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.celcius).toString();
+        final result = measurement.butAs(milli.celcius).toString();
 
         // then
         expect(result, '1300.0 m°C');

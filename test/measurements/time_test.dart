@@ -286,7 +286,7 @@ void main() {
         final measurement = deci.minutes(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.days).toString();
+        final result = measurement.butAs(milli.days).toString();
 
         // then
         expect(result, '1.63 md');

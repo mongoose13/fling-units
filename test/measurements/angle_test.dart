@@ -122,7 +122,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = AngleExtension.right().withDefaultUnit(turns);
+        final interpreter = AngleExtension.right().butAs(turns);
 
         // when
         final result = interpreter.toString();
@@ -154,7 +154,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = AngleExtension.straight().withDefaultUnit(turns);
+        final interpreter = AngleExtension.straight().butAs(turns);
 
         // when
         final result = interpreter.toString();

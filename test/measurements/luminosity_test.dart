@@ -264,8 +264,7 @@ void main() {
         final measurement = deci.candlepower(23.45).withPrecisionOf(3);
 
         // when
-        final result =
-            measurement.withDefaultUnit(milli.hefnerkerze).toString();
+        final result = measurement.butAs(milli.hefnerkerze).toString();
 
         // then
         expect(result, '2500.0 mHK');

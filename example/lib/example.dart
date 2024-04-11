@@ -35,9 +35,8 @@ void main() {
   final bucketMagnitudeDifference =
       Precision(3).apply(myBucketSize.compareMagnitude(yourBucketSize));
   final timesYourBucketFitsInMine = myBucketSize ~/ yourBucketSize;
-  final leftOverBucketVolume = (myBucketSize % yourBucketSize)
-      .withPrecisionOf(3)
-      .withDefaultUnit(liters);
+  final leftOverBucketVolume =
+      (myBucketSize % yourBucketSize).withPrecisionOf(3).butAs(liters);
 
   //------------------------------------------------//
 
@@ -131,7 +130,7 @@ void main() {
   final goldAmount = 1234.milli.grams.withPrecisionOf(4);
   print("I have $goldAmount of gold!");
   print("I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!");
-  print("I have ${goldAmount.withDefaultUnit(ounces)} of gold!");
+  print("I have ${goldAmount.butAs(ounces)} of gold!");
 
   // This is also true for derived units. The library will produce a default
   // unit name, but you can also supply your own.
@@ -140,7 +139,7 @@ void main() {
     1.hours.withPrecisionOf(3),
   );
   print("\nMy car is going $carSpeed!");
-  final carVelocity = carSpeed.withDefaultUnit(DerivedUnitPer(
+  final carVelocity = carSpeed.butAs(DerivedUnitPer(
     feet,
     minutes,
     name: "feet per minute",
@@ -164,7 +163,8 @@ void main() {
   // Have fun!
   final u = meters.per.minutes;
   final m = u(1);
-  print("\n$m = ${m.as(inches.per.seconds)} ${inches.per.seconds}");
+  print("\n$m = ${m.butAs(inches.per.seconds)}");
+  print("$m = ${m.as(inches.per.seconds)}");
 
   final m1 = 2.inches.per.hertz;
   print(m1.as(meters.per.hertz));

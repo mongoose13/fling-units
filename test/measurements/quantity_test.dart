@@ -272,7 +272,7 @@ void main() {
         final measurement = deci.moles(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.units).toString();
+        final result = measurement.butAs(milli.units).toString();
 
         // then
         expect(result, '1.41e+27 munits');

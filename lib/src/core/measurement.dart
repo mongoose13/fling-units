@@ -62,7 +62,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// [toString]) will make use of this unit.
   ///
   /// By default, this is set as the unit used to create the measurement. It can
-  /// be changed using [withDefaultUnit].
+  /// be changed using [butAs].
   final Unit<T> defaultUnit;
 
   /// Returns the default measurement value (i.e. the measurement as interpreted
@@ -93,11 +93,6 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Creates an equivalent measurement with the specified precision (significant digits).
   T withPrecisionOf(int precision) =>
       construct(_magnitude.toDouble(), defaultUnit, Precision(precision));
-
-  /// Creates a new measurement equivalent to this one but with a different
-  /// default unit.
-  T withDefaultUnit(Unit<T> defaultUnit) =>
-      construct(defaultUnit.of(si), defaultUnit, precisionData);
 
   /// Accept a visitor object for double-dispatch.
   void acceptVisitor(MeasurementVisitor visitor);
@@ -246,9 +241,14 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   double _preciseSI() => _precise(si);
 
   /// Interprets this using the specified units.
-  double as(Unit<T> interpreter) => _preciseOf(interpreter);
+  double as(Unit<T> unit) => _preciseOf(unit);
 
-  /// The value of this measurement, in the interpreter's units.
+  /// Creates a new measurement equivalent to this one but with a different
+  /// default unit.
+  T butAs(Unit<T> unit) =>
+      construct(unit.of(si), unit, precisionData);
+
+  /// The value of this measurement in the default unit.
   final num _magnitude;
 
   /// The precision of this measurement.

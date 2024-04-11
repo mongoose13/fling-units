@@ -340,7 +340,7 @@ void main() {
         final measurement = deci.feet(23.45).withPrecisionOf(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.meters).toString();
+        final result = measurement.butAs(milli.meters).toString();
 
         // then
         expect(result, '715.0 mm');
