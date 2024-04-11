@@ -164,11 +164,6 @@ void main() {
   final u = meters.per.minutes;
   final m = u(1);
   print("\n$m = ${m.butAs(inches.per.seconds)}");
-  print("$m = ${m.as(inches.per.seconds)}");
 
-  final m1 = 2.inches.per.hertz;
-  print(m1.as(meters.per.hertz));
-
-  final m2 = m1.by.radians;
-  print(m2.as(meters.per.hertz.by.radians));
+  print("My hand is ${3.4.inches.by.inches.butAs(meters.by.meters)}");
 }

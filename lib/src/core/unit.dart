@@ -43,11 +43,17 @@ abstract class Unit<T extends Measurement<T>> {
   double from(num value) =>
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 
+  /// Returns a derived unit builder (division) iniialized with this as the first unit.
   DerivedUnitPerBuilder<T> get per => DerivedUnitPerBuilder(this);
+
+  /// Returns a derived unit builder (multiplication) iniialized with this as the first unit.
   DerivedUnitByBuilder<T> get by => DerivedUnitByBuilder(this);
 
+  /// Creates a derived unit that is the multiplication of this and another unit.
   DerivedUnitBy<T, V> multiply<V extends Measurement<V>>(Unit<V> other) =>
       DerivedUnitBy(this, other);
+
+  /// Creates a derived unit that is the division of this and another unit.
   DerivedUnitPer<T, V> divide<V extends Measurement<V>>(Unit<V> other) =>
       DerivedUnitPer(this, other);
 

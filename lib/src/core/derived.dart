@@ -1,10 +1,8 @@
 part of "library.dart";
 
-/// A measurement representing two simpler measurements tied together by either
-/// multiplication or division.
-///
-/// For example, velocity can be modeled as [Distance] / [Time] and [Area] can
-/// be modeled as [Distance] * [Distance].
+/// A derived measurement representing the multiplication of two more basic measurements.
+/// 
+/// For example, velocity can be modeled as a derived unit with [Distance] and [Time].
 class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
     extends Measurement<DerivedMeasurementPer<A, B>> {
   /// The derived measurement of zero magnitude.
@@ -42,10 +40,6 @@ class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
       );
 
   @override
-  DerivedMeasurementPerBuilder<DerivedMeasurementPer<A, B>> get per =>
-      DerivedMeasurementPerBuilder(this);
-
-  @override
   void acceptVisitor(MeasurementVisitor visitor) =>
       visitor.visitDerivedPer(this);
 
@@ -57,6 +51,9 @@ class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
   });
 }
 
+/// A derived measurement representing the multiplication of two more basic measurements.
+/// 
+/// For example, area can be modeled as a derived unit with [Distance] and [Distance].
 class DerivedMeasurementBy<A extends Measurement<A>, B extends Measurement<B>>
     extends Measurement<DerivedMeasurementBy<A, B>> {
   /// Constructs a derived measurement.
@@ -137,10 +134,6 @@ class DerivedUnitBy<A extends Measurement<A>, B extends Measurement<B>>
         precision: precision,
         defaultUnit: _unitA.multiply(_unitB),
       );
-
-  @override
-  DerivedUnitPerBuilder<DerivedMeasurementBy<A, B>> get per =>
-      DerivedUnitPerBuilder(this);
 }
 
 /// A unit for derived measurements (from two basic measurements).
@@ -175,8 +168,4 @@ class DerivedUnitPer<A extends Measurement<A>, B extends Measurement<B>>
         defaultUnit: _unitA.divide(_unitB),
         precision: precision,
       );
-
-  @override
-  DerivedUnitPerBuilder<DerivedMeasurementPer<A, B>> get per =>
-      DerivedUnitPerBuilder(this);
 }
