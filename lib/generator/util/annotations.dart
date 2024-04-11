@@ -9,11 +9,13 @@ class MeasurementConfig {
 class UnitConfig {
   final bool isSI;
   final String shortName;
+  final String singularName;
   final double multiplier;
 
   const UnitConfig({
     this.isSI = false,
     required this.shortName,
+    required this.singularName,
     required this.multiplier,
   });
 }

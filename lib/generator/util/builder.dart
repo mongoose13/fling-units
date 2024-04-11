@@ -7,10 +7,20 @@ import 'package:source_gen/source_gen.dart';
 
 import 'annotations.dart';
 
+class UnitDetails {
+  final String name;
+  final String singularName;
+
+  UnitDetails({
+    required this.name,
+    required this.singularName,
+  });
+}
+
 class MeasurementDetails {
   final String name;
   final AssetId asset;
-  final Iterable<String> units;
+  final Iterable<UnitDetails> units;
 
   MeasurementDetails({
     required this.name,
@@ -53,7 +63,12 @@ class FlingStandaloneBuilder extends FlingBuilder {
       (pair) => MeasurementDetails(
         name: pair.line.first,
         asset: pair.asset,
-        units: pair.line.skip(1),
+        units: pair.line.skip(1).map(
+              (name) => UnitDetails(
+                name: name,
+                singularName: name, // TODO: implement
+              ),
+            ),
       ),
     );
   }

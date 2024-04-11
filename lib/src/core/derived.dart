@@ -46,11 +46,8 @@ class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
   DerivedMeasurementPerBuilder<DerivedMeasurementPer<A, B>> get per =>
       DerivedMeasurementPerBuilder(this);
 
-  /// Interprets this using two specific units.
-  double asPair(Unit<A> a, Unit<B> b) => _precise(a.of(si) * b.from(1));
-
-  /// Interprets this using a [DerivedUnit].
-  double asInterpretedBy(DerivedUnitPer<A, B> interpreter) =>
+  @override
+  double as(Unit<DerivedMeasurementPer<A, B>> interpreter) =>
       _precise(interpreter.of(si));
 
   @override
@@ -108,8 +105,9 @@ class DerivedMeasurementBy<A extends Measurement<A>, B extends Measurement<B>>
         precision: precision,
       );
 
-  /// Interprets this using two specific units.
-  double asPair(Unit<A> a, Unit<B> b) => _precise(a.of(si) * b.of(1));
+  @override
+  double as(Unit<DerivedMeasurementBy<A, B>> interpreter) =>
+      _precise(interpreter.of(si));
 
   @override
   void acceptVisitor(MeasurementVisitor visitor) =>
@@ -134,9 +132,11 @@ class DerivedUnitBy<A extends Measurement<A>, B extends Measurement<B>>
     this._unitA,
     this._unitB, {
     super.prefix = const MeasurementPrefix.unit(),
-    super.unitMultiplier = 1.0,
     String? name,
-  }) : super(name: name ?? "${_unitA.name}*${_unitB.name}");
+  }) : super(
+          name: name ?? "${_unitA.name}*${_unitB.name}",
+          unitMultiplier: _unitA.unitMultiplier * _unitB.unitMultiplier,
+        );
 
   @override
   DerivedMeasurementBy<A, B> call(num magnitude,
@@ -170,9 +170,11 @@ class DerivedUnitPer<A extends Measurement<A>, B extends Measurement<B>>
     this._unitA,
     this._unitB, {
     super.prefix = const MeasurementPrefix.unit(),
-    super.unitMultiplier = 1.0,
     String? name,
-  }) : super(name: name ?? "${_unitA.name}/${_unitB.name}");
+  }) : super(
+          name: name ?? "${_unitA.name}/${_unitB.name}",
+          unitMultiplier: _unitA.unitMultiplier / _unitB.unitMultiplier,
+        );
 
   @override
   DerivedMeasurementPer<A, B> call(num magnitude,

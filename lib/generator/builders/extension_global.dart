@@ -90,10 +90,10 @@ prevents all but the first usage (the one we want) demonstrated above."""
                       ..docs.add("/// Creates a(n) ${pair.unit} measurement.")
                       ..lambda = true
                       ..type = MethodType.getter
-                      ..name = pair.unit
+                      ..name = pair.unit.name
                       ..returns = Reference(pair.measurement)
                       ..body = Code(
-                          "${pair.measurement}Unit.${pair.unit}.withPrefix(_prefix)(_value)"),
+                          "${pair.measurement}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
                   ),
                 ),
           ),

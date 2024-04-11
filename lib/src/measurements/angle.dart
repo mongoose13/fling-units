@@ -10,6 +10,7 @@ part "../generated/angle.dart";
 enum AngleConfig {
   @UnitConfig(
     shortName: "turn",
+    singularName: "turn",
     multiplier: 1e0,
     isSI: true,
   )
@@ -17,30 +18,35 @@ enum AngleConfig {
 
   @UnitConfig(
     shortName: "rad",
+    singularName: "radian",
     multiplier: 2.0 * math.pi,
   )
   radians,
 
   @UnitConfig(
     shortName: "ᵍ",
+    singularName: "gradian",
     multiplier: 4e2,
   )
   gradians,
 
   @UnitConfig(
     shortName: "°",
+    singularName: "degree",
     multiplier: 360.0,
   )
   degrees,
 
   @UnitConfig(
     shortName: "′",
+    singularName: "arcMinute",
     multiplier: 360.0 * 60.0,
   )
   arcMinutes,
 
   @UnitConfig(
     shortName: "′",
+    singularName: "arcSecond",
     multiplier: 360.0 * 3600.0,
   )
   arcSeconds;

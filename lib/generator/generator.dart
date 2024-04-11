@@ -3,6 +3,7 @@ library;
 export "util/annotations.dart";
 export "util/builder.dart";
 
+export "builders/derived.dart";
 export "generators/extension.dart";
 export "builders/extension_global.dart";
 export "generators/unit.dart";

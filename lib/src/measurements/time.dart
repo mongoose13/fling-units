@@ -8,6 +8,7 @@ part "../generated/time.dart";
 enum TimeConfig {
   @UnitConfig(
     shortName: "s",
+    singularName: "second",
     multiplier: 1e0,
     isSI: true,
   )
@@ -15,18 +16,21 @@ enum TimeConfig {
 
   @UnitConfig(
     shortName: "min",
+    singularName: "minute",
     multiplier: 1.0 / 60.0,
   )
   minutes,
 
   @UnitConfig(
     shortName: "h",
+    singularName: "hour",
     multiplier: 1.0 / 60.0 / 60.0,
   )
   hours,
 
   @UnitConfig(
     shortName: "d",
+    singularName: "day",
     multiplier: 1.0 / 60.0 / 60.0 / 24.0,
   )
   days;

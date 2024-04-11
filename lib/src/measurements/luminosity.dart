@@ -8,6 +8,7 @@ part "../generated/luminosity.dart";
 enum LuminosityConfig {
   @UnitConfig(
     shortName: "cd",
+    singularName: "candela",
     multiplier: 1e0,
     isSI: true,
   )
@@ -15,12 +16,14 @@ enum LuminosityConfig {
 
   @UnitConfig(
     shortName: "cp",
+    singularName: "candlepower",
     multiplier: 1.0194,
   )
   candlepower,
 
   @UnitConfig(
     shortName: "HK",
+    singularName: "hefnerkerze",
     multiplier: 1.0870,
   )
   hefnerkerze;

@@ -8,6 +8,7 @@ part "../generated/quantity.dart";
 enum QuantityConfig {
   @UnitConfig(
     shortName: "units",
+    singularName: "unit",
     multiplier: 1e0,
     isSI: true,
   )
@@ -15,6 +16,7 @@ enum QuantityConfig {
 
   @UnitConfig(
     shortName: "mol",
+    singularName: "mole",
     multiplier: 1.660539067e-24,
   )
   moles;

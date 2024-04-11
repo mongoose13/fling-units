@@ -119,7 +119,7 @@ void main() {
   print("${fuelConsumption.asPair(kilo.meters, liters)} kpl");
   print("${fuelConsumption.asPair(kilo.meters, usGallons)} kpg");
 */
-  var coulombs = seconds.by.ampere;
+  var coulombs = seconds.by.amperes;
   print("My invention generates ${coulombs(23)}!");
 
   //------------------------------------------------//
@@ -162,13 +162,13 @@ void main() {
       "\nMy hand will always have a linear density of ${DerivedMeasurementPer.divide(massOfMyHand, sizeOfMyHand)}.");
 
   // Have fun!
-  final u = meters.per.meter;
+  final u = meters.per.minutes;
   final m = u(1);
-  print(m.as(inches.per.meter));
+  print("\n$m = ${m.as(inches.per.seconds)} ${inches.per.seconds}");
 
-  final m1 = 2.inches.per.meter;
-  print(m1.as(meters.per.meter));
+  final m1 = 2.inches.per.hertz;
+  print(m1.as(meters.per.hertz));
 
-  final m2 = m1.by.meter;
-  print(m2.as(meters.per.meter.by.meter));
+  final m2 = m1.by.radians;
+  print(m2.as(meters.per.hertz.by.radians));
 }

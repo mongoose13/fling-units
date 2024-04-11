@@ -8,6 +8,7 @@ part "../generated/charge.dart";
 enum ChargeConfig {
   @UnitConfig(
     shortName: "A",
+    singularName: "ampere",
     multiplier: 1e0,
     isSI: true,
   )

@@ -29,6 +29,7 @@ part "../generated/temperature_change.dart";
 enum TemperatureChangeConfig {
   @UnitConfig(
     shortName: "K",
+    singularName: "kelvin",
     multiplier: 1e0,
     isSI: true,
   )
@@ -36,12 +37,14 @@ enum TemperatureChangeConfig {
 
   @UnitConfig(
     shortName: "°C",
+    singularName: "celcius",
     multiplier: 1e0,
   )
   celcius,
 
   @UnitConfig(
     shortName: "°F",
+    singularName: "fahrenheit",
     multiplier: 9.0 / 5.0,
   )
   fahrenheit;

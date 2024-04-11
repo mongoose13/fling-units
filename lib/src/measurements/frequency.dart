@@ -8,6 +8,7 @@ part "../generated/frequency.dart";
 enum FrequencyConfig {
   @UnitConfig(
     shortName: "Hz",
+    singularName: "hertz",
     multiplier: 1e0,
     isSI: true,
   )
