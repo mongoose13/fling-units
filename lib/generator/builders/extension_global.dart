@@ -87,7 +87,7 @@ prevents all but the first usage (the one we want) demonstrated above."""
                 .map(
                   (pair) => Method(
                     (method) => method
-                      ..docs.add("/// Creates a(n) ${pair.unit} measurement.")
+                      ..docs.add("/// Creates a(n) ${pair.unit.name} measurement.")
                       ..lambda = true
                       ..type = MethodType.getter
                       ..name = pair.unit.name
