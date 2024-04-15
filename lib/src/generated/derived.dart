@@ -4,10 +4,16 @@ part of 'package:fling_units/src/core/library.dart';
 
 /// Blah blah
 class DerivedUnitByBuilder<T extends Measurement<T>> {
-  const DerivedUnitByBuilder(this._first);
+  const DerivedUnitByBuilder(
+    this._first, [
+    this._prefix = const MeasurementPrefix.unit(),
+  ]);
 
   /// The first unit.
   final Unit<T> _first;
+
+  /// The second unit's prefix.
+  final MeasurementPrefix _prefix;
 
   DerivedUnitBy<T, Angle> get turns => DerivedUnitBy(_first, f.turns);
 
@@ -458,10 +464,16 @@ class DerivedMeasurementByBuilder<T extends Measurement<T>> {
 
 /// Blah blah
 class DerivedUnitPerBuilder<T extends Measurement<T>> {
-  const DerivedUnitPerBuilder(this._first);
+  const DerivedUnitPerBuilder(
+    this._first, [
+    this._prefix = const MeasurementPrefix.unit(),
+  ]);
 
   /// The first unit.
   final Unit<T> _first;
+
+  /// The second unit's prefix.
+  final MeasurementPrefix _prefix;
 
   DerivedUnitPer<T, Angle> get turns => DerivedUnitPer(_first, f.turns);
 
