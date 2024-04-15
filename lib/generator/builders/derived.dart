@@ -43,19 +43,39 @@ class DerivedGenerator implements FlingGenerator {
                   ..type = Reference("Unit<T>"),
               ),
             )
+            ..fields.add(
+              Field(
+                (prefix) => prefix
+                  ..docs.add("/// The second unit's prefix.")
+                  ..modifier = FieldModifier.final$
+                  ..name = "_prefix"
+                  ..type = Reference("MeasurementPrefix"),
+              ),
+            )
             ..constructors.add(
               Constructor(
                 (constructor) => constructor
                   ..constant = true
                   ..requiredParameters.add(
                     Parameter(
-                      (prefix) => prefix
+                      (first) => first
                         ..toThis = true
                         ..name = "_first",
+                    ),
+                  )
+                  ..optionalParameters.add(
+                    Parameter(
+                      (prefix) => prefix
+                        ..toThis = true
+                        ..name = "_prefix"
+                        ..defaultTo = Code("const MeasurementPrefix.unit()"),
                     ),
                   ),
               ),
             )
+            // TODO: add prefixes here, e.g.:
+            // DerivedUnitByBuilder<T> get kilo => DerivedUnitByBuilder(_first, f.kilo);
+            ..methods.addAll([])
             ..methods.addAll(
               measurements.expand(
                 (measurement) => measurement.units.map(
