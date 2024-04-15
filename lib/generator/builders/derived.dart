@@ -87,7 +87,7 @@ class DerivedGenerator implements FlingGenerator {
                       ..name = unit.singularName
                       ..lambda = true
                       ..body = Code(
-                          "$unitClassName(_first, f.${unit.singularName})"),
+                          "$unitClassName(_first, f.${unit.singularName}, prefix: _prefix)"),
                   ),
                 ),
               ),
