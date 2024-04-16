@@ -30,7 +30,7 @@ class MeasurementIdentifierBuilder extends Builder {
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => {
+  Map<String, List<String>> get buildExtensions => const {
         '.dart': ['.measurements']
       };
 }

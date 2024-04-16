@@ -17,3 +17,4 @@ export "generators/prefixes.dart";
 export "generators/global.dart";
 
 export "identifiers/measurement_id.dart";
+export "identifiers/prefix_id.dart";

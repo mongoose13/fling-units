@@ -45,6 +45,11 @@ builders:
     builder_factories: ["libraryBuilder"]
     build_extensions: {".measurement": ["lib/src/generated/fling_units.dart"]}
     build_to: source
+  prefix_id:
+    import: "package:fling_units/generator/generator.dart"
+    builder_factories: ["prefixIdentifierBuilder"]
+    build_extensions: {".dart": [".prefixes"]}
+    build_to: cache
   visitor:
     import: "package:fling_units/generator/generator.dart"
     builder_factories: ["visitorBuilder"]
@@ -62,7 +67,7 @@ builders:
     builder_factories: ["derivedBuilder"]
     build_extensions: {".measurement": ["lib/src/generated/derived.dart"]}
     build_to: source
-    required_inputs: [".measurement"]
+    required_inputs: [".measurement", ".prefixes"]
 
 targets:
   $default:
@@ -98,6 +103,10 @@ targets:
         options:
           generate_for:
             - lib/src/measurements/*.dart
+      fling_units|prefix_id:
+        options:
+          generate_for:
+            - lib/src/prefixes/*.dart
       fling_units|measurement_prefix:
         options:
           generate_for:

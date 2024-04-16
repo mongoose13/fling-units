@@ -15,6 +15,54 @@ class DerivedUnitByBuilder<T extends Measurement<T>> {
   /// The second unit's prefix.
   final MeasurementPrefix _prefix;
 
+  DerivedUnitByBuilder<T> get quecto => DerivedUnitByBuilder(_first, f.quecto);
+
+  DerivedUnitByBuilder<T> get ronto => DerivedUnitByBuilder(_first, f.ronto);
+
+  DerivedUnitByBuilder<T> get yocto => DerivedUnitByBuilder(_first, f.yocto);
+
+  DerivedUnitByBuilder<T> get zepto => DerivedUnitByBuilder(_first, f.zepto);
+
+  DerivedUnitByBuilder<T> get atto => DerivedUnitByBuilder(_first, f.atto);
+
+  DerivedUnitByBuilder<T> get femto => DerivedUnitByBuilder(_first, f.femto);
+
+  DerivedUnitByBuilder<T> get pico => DerivedUnitByBuilder(_first, f.pico);
+
+  DerivedUnitByBuilder<T> get nano => DerivedUnitByBuilder(_first, f.nano);
+
+  DerivedUnitByBuilder<T> get micro => DerivedUnitByBuilder(_first, f.micro);
+
+  DerivedUnitByBuilder<T> get milli => DerivedUnitByBuilder(_first, f.milli);
+
+  DerivedUnitByBuilder<T> get centi => DerivedUnitByBuilder(_first, f.centi);
+
+  DerivedUnitByBuilder<T> get deci => DerivedUnitByBuilder(_first, f.deci);
+
+  DerivedUnitByBuilder<T> get deka => DerivedUnitByBuilder(_first, f.deka);
+
+  DerivedUnitByBuilder<T> get hecto => DerivedUnitByBuilder(_first, f.hecto);
+
+  DerivedUnitByBuilder<T> get kilo => DerivedUnitByBuilder(_first, f.kilo);
+
+  DerivedUnitByBuilder<T> get mega => DerivedUnitByBuilder(_first, f.mega);
+
+  DerivedUnitByBuilder<T> get giga => DerivedUnitByBuilder(_first, f.giga);
+
+  DerivedUnitByBuilder<T> get tera => DerivedUnitByBuilder(_first, f.tera);
+
+  DerivedUnitByBuilder<T> get peta => DerivedUnitByBuilder(_first, f.peta);
+
+  DerivedUnitByBuilder<T> get exa => DerivedUnitByBuilder(_first, f.exa);
+
+  DerivedUnitByBuilder<T> get zetta => DerivedUnitByBuilder(_first, f.zetta);
+
+  DerivedUnitByBuilder<T> get yotta => DerivedUnitByBuilder(_first, f.yotta);
+
+  DerivedUnitByBuilder<T> get ronna => DerivedUnitByBuilder(_first, f.ronna);
+
+  DerivedUnitByBuilder<T> get quetta => DerivedUnitByBuilder(_first, f.quetta);
+
   DerivedUnitBy<T, Angle> get turns =>
       DerivedUnitBy(_first, f.turns, prefix: _prefix);
 
@@ -518,6 +566,56 @@ class DerivedUnitPerBuilder<T extends Measurement<T>> {
 
   /// The second unit's prefix.
   final MeasurementPrefix _prefix;
+
+  DerivedUnitPerBuilder<T> get quecto =>
+      DerivedUnitPerBuilder(_first, f.quecto);
+
+  DerivedUnitPerBuilder<T> get ronto => DerivedUnitPerBuilder(_first, f.ronto);
+
+  DerivedUnitPerBuilder<T> get yocto => DerivedUnitPerBuilder(_first, f.yocto);
+
+  DerivedUnitPerBuilder<T> get zepto => DerivedUnitPerBuilder(_first, f.zepto);
+
+  DerivedUnitPerBuilder<T> get atto => DerivedUnitPerBuilder(_first, f.atto);
+
+  DerivedUnitPerBuilder<T> get femto => DerivedUnitPerBuilder(_first, f.femto);
+
+  DerivedUnitPerBuilder<T> get pico => DerivedUnitPerBuilder(_first, f.pico);
+
+  DerivedUnitPerBuilder<T> get nano => DerivedUnitPerBuilder(_first, f.nano);
+
+  DerivedUnitPerBuilder<T> get micro => DerivedUnitPerBuilder(_first, f.micro);
+
+  DerivedUnitPerBuilder<T> get milli => DerivedUnitPerBuilder(_first, f.milli);
+
+  DerivedUnitPerBuilder<T> get centi => DerivedUnitPerBuilder(_first, f.centi);
+
+  DerivedUnitPerBuilder<T> get deci => DerivedUnitPerBuilder(_first, f.deci);
+
+  DerivedUnitPerBuilder<T> get deka => DerivedUnitPerBuilder(_first, f.deka);
+
+  DerivedUnitPerBuilder<T> get hecto => DerivedUnitPerBuilder(_first, f.hecto);
+
+  DerivedUnitPerBuilder<T> get kilo => DerivedUnitPerBuilder(_first, f.kilo);
+
+  DerivedUnitPerBuilder<T> get mega => DerivedUnitPerBuilder(_first, f.mega);
+
+  DerivedUnitPerBuilder<T> get giga => DerivedUnitPerBuilder(_first, f.giga);
+
+  DerivedUnitPerBuilder<T> get tera => DerivedUnitPerBuilder(_first, f.tera);
+
+  DerivedUnitPerBuilder<T> get peta => DerivedUnitPerBuilder(_first, f.peta);
+
+  DerivedUnitPerBuilder<T> get exa => DerivedUnitPerBuilder(_first, f.exa);
+
+  DerivedUnitPerBuilder<T> get zetta => DerivedUnitPerBuilder(_first, f.zetta);
+
+  DerivedUnitPerBuilder<T> get yotta => DerivedUnitPerBuilder(_first, f.yotta);
+
+  DerivedUnitPerBuilder<T> get ronna => DerivedUnitPerBuilder(_first, f.ronna);
+
+  DerivedUnitPerBuilder<T> get quetta =>
+      DerivedUnitPerBuilder(_first, f.quetta);
 
   DerivedUnitPer<T, Angle> get turns =>
       DerivedUnitPer(_first, f.turns, prefix: _prefix);

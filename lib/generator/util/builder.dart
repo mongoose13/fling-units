@@ -47,16 +47,26 @@ class FlingPrefixBuilder extends FlingBuilder {
 }
 
 class FlingStandaloneBuilder extends FlingBuilder {
-  late final Future<Iterable<MeasurementDetails>> measurements;
+  final BuildStep _buildStep;
+  Future<Iterable<MeasurementDetails>>? _measurements;
+  Future<Iterable<PrefixDetails>>? _prefixes;
 
-  FlingStandaloneBuilder(BuildStep buildStep) {
-    measurements = _init(buildStep);
+  FlingStandaloneBuilder(this._buildStep);
+
+  Future<Iterable<MeasurementDetails>> get measurements {
+    _measurements ??= _readMeasurements();
+    return _measurements!;
   }
 
-  Future<Iterable<MeasurementDetails>> _init(BuildStep buildStep) async {
+  Future<Iterable<PrefixDetails>> get prefixes {
+    _prefixes ??= _readPrefixes();
+    return _prefixes!;
+  }
+
+  Future<Iterable<MeasurementDetails>> _readMeasurements() async {
     final assets =
-        await buildStep.findAssets(Glob('**/*.measurements')).toList();
-    final pairs = await Future.wait(assets.map((asset) => buildStep
+        await _buildStep.findAssets(Glob('**/*.measurements')).toList();
+    final pairs = await Future.wait(assets.map((asset) => _buildStep
         .readAsString(asset)
         .then((line) => (asset: asset, line: line.split(",")))));
     return pairs.map(
@@ -71,6 +81,23 @@ class FlingStandaloneBuilder extends FlingBuilder {
             ),
       ),
     );
+  }
+
+  Future<Iterable<PrefixDetails>> _readPrefixes() async {
+    final assets = await _buildStep.findAssets(Glob('**/*.prefixes')).toList();
+    final data = await Future.wait(assets.map((asset) => _buildStep
+        .readAsString(asset)
+        .then((file) => (asset: asset, lines: file.split("\n")))));
+    return data.expand((asset) {
+      return asset.lines.map((line) {
+        final parts = line.split(",");
+        return (
+          name: parts.first,
+          shortName: parts.skip(1).first,
+          multiplier: double.parse(parts.skip(2).first),
+        );
+      });
+    });
   }
 }
 

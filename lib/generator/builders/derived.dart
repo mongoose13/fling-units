@@ -19,6 +19,7 @@ class DerivedGenerator implements FlingGenerator {
   @override
   Future<void> generate(FlingStandaloneBuilder builder) async {
     final measurements = await builder.measurements;
+    final prefixes = await builder.prefixes;
 
     builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
     final genericType = Reference("T extends Measurement<T>");
@@ -75,7 +76,19 @@ class DerivedGenerator implements FlingGenerator {
             )
             // TODO: add prefixes here, e.g.:
             // DerivedUnitByBuilder<T> get kilo => DerivedUnitByBuilder(_first, f.kilo);
-            ..methods.addAll([])
+            ..methods.addAll(
+              prefixes.map(
+                (prefix) => Method(
+                  (prefixMethod) => prefixMethod
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = prefix.name
+                    ..returns = Reference("DerivedUnit${opType}Builder<T>")
+                    ..body = Code(
+                        "DerivedUnit${opType}Builder(_first, f.${prefix.name})"),
+                ),
+              ),
+            )
             ..methods.addAll(
               measurements.expand(
                 (measurement) => measurement.units.map(
