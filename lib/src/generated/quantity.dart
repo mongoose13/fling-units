@@ -40,6 +40,15 @@ class QuantityUnit extends Unit<Quantity> {
   }) =>
       QuantityUnit._(
           name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+
+  @override
+  bool operator ==(Object other) =>
+      other is QuantityUnit &&
+      other.unitMultiplier == unitMultiplier &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * name.hashCode;
 }
 
 // **************************************************************************

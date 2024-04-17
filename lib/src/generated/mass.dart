@@ -62,6 +62,15 @@ class MassUnit extends Unit<Mass> {
     Precision precision = Precision.max,
   }) =>
       MassUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+
+  @override
+  bool operator ==(Object other) =>
+      other is MassUnit &&
+      other.unitMultiplier == unitMultiplier &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * name.hashCode;
 }
 
 // **************************************************************************

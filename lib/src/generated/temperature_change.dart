@@ -44,6 +44,15 @@ class TemperatureChangeUnit extends Unit<TemperatureChange> {
   }) =>
       TemperatureChangeUnit._(
           name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+
+  @override
+  bool operator ==(Object other) =>
+      other is TemperatureChangeUnit &&
+      other.unitMultiplier == unitMultiplier &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * name.hashCode;
 }
 
 // **************************************************************************

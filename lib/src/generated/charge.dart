@@ -35,6 +35,15 @@ class ChargeUnit extends Unit<Charge> {
     Precision precision = Precision.max,
   }) =>
       ChargeUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+
+  @override
+  bool operator ==(Object other) =>
+      other is ChargeUnit &&
+      other.unitMultiplier == unitMultiplier &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * name.hashCode;
 }
 
 // **************************************************************************

@@ -47,6 +47,15 @@ class TimeUnit extends Unit<Time> {
     Precision precision = Precision.max,
   }) =>
       TimeUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+
+  @override
+  bool operator ==(Object other) =>
+      other is TimeUnit &&
+      other.unitMultiplier == unitMultiplier &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * name.hashCode;
 }
 
 // **************************************************************************

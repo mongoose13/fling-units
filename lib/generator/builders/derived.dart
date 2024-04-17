@@ -178,5 +178,139 @@ class DerivedGenerator implements FlingGenerator {
         ),
       );
     }
+    builder.add(
+      Class(
+        (squareUnit) => squareUnit
+          ..name = "SquareUnitBuilder"
+          ..fields.add(
+            Field(
+              (prefix) => prefix
+                ..modifier = FieldModifier.final$
+                ..type = Reference("MeasurementPrefix")
+                ..name = "_prefix",
+            ),
+          )
+          ..constructors.add(
+            Constructor(
+              (constructor) => constructor
+                ..constant = true
+                ..optionalParameters.add(
+                  Parameter(
+                    (prefix) => prefix
+                      ..toThis = true
+                      ..name = "_prefix"
+                      ..defaultTo = Code("const MeasurementPrefix.unit()"),
+                  ),
+                ),
+            ),
+          )
+          ..methods.addAll(
+            prefixes.map(
+              (prefix) => Method(
+                (prefixMethod) => prefixMethod
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..name = prefix.name
+                  ..returns = Reference("SquareUnitBuilder")
+                  ..body = Code("SquareUnitBuilder(f.${prefix.name})"),
+              ),
+            ),
+          )
+          ..methods.addAll(
+            measurements
+                .expand((measurement) => measurement.units.map((unit) => (
+                      measurement: measurement,
+                      unit: unit,
+                    )))
+                .map(
+                  (pair) => Method(
+                    (unitMethod) => unitMethod
+                      ..lambda = true
+                      ..type = MethodType.getter
+                      ..name = pair.unit.name
+                      ..returns = Reference(
+                          "DerivedUnitBy<${pair.measurement.name},${pair.measurement.name}>")
+                      ..body = Code(
+                          "DerivedUnitBy(_prefix.${pair.unit.name}, _prefix.${pair.unit.name})"),
+                  ),
+                ),
+          ),
+      ),
+    );
+    builder.add(
+      Field(
+        (square) => square
+          ..type = Reference("SquareUnitBuilder")
+          ..name = "square"
+          ..assignment = Code("SquareUnitBuilder()"),
+      ),
+    );
+    builder.add(
+      Class(
+        (cubicUnit) => cubicUnit
+          ..name = "CubicUnitBuilder"
+          ..fields.add(
+            Field(
+              (prefix) => prefix
+                ..modifier = FieldModifier.final$
+                ..type = Reference("MeasurementPrefix")
+                ..name = "_prefix",
+            ),
+          )
+          ..constructors.add(
+            Constructor(
+              (constructor) => constructor
+                ..constant = true
+                ..optionalParameters.add(
+                  Parameter(
+                    (prefix) => prefix
+                      ..toThis = true
+                      ..name = "_prefix"
+                      ..defaultTo = Code("const MeasurementPrefix.unit()"),
+                  ),
+                ),
+            ),
+          )
+          ..methods.addAll(
+            prefixes.map(
+              (prefix) => Method(
+                (prefixMethod) => prefixMethod
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..name = prefix.name
+                  ..returns = Reference("CubicUnitBuilder")
+                  ..body = Code("CubicUnitBuilder(f.${prefix.name})"),
+              ),
+            ),
+          )
+          ..methods.addAll(
+            measurements
+                .expand((measurement) => measurement.units.map((unit) => (
+                      measurement: measurement,
+                      unit: unit,
+                    )))
+                .map(
+                  (pair) => Method(
+                    (unitMethod) => unitMethod
+                      ..lambda = true
+                      ..type = MethodType.getter
+                      ..name = pair.unit.name
+                      ..returns = Reference(
+                          "DerivedUnitBy<DerivedMeasurementBy<${pair.measurement.name},${pair.measurement.name}>, ${pair.measurement.name}>")
+                      ..body = Code(
+                          "DerivedUnitBy(DerivedUnitBy(_prefix.${pair.unit.name}, _prefix.${pair.unit.name}), _prefix.${pair.unit.name}, name: \"\${_prefix.${pair.unit.name}.toString()}³\")"),
+                  ),
+                ),
+          ),
+      ),
+    );
+    builder.add(
+      Field(
+        (square) => square
+          ..type = Reference("CubicUnitBuilder")
+          ..name = "cubic"
+          ..assignment = Code("CubicUnitBuilder()"),
+      ),
+    );
   }
 }

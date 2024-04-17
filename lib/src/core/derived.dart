@@ -119,7 +119,10 @@ class DerivedUnitBy<A extends Measurement<A>, B extends Measurement<B>>
     this._unitB, {
     String? name,
   }) : super(
-          name: name ?? "${_unitA.name}*${_unitB.name}",
+          name: name ??
+              (_unitA == _unitB
+                  ? "${_unitA.toString()}²"
+                  : "${_unitA.toString()}*${_unitB.toString()}"),
           unitMultiplier: _unitA.unitMultiplier * _unitB.unitMultiplier,
           prefix: _unitA.prefix * _unitB.prefix,
         );

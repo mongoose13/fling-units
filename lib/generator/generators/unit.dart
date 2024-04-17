@@ -80,6 +80,35 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                       "${builder.unitClassName}._(name: name, unitMultiplier: unitMultiplier, prefix: prefix)"),
               ),
             )
+            ..methods.add(
+              Method(
+                (equality) => equality
+                  ..lambda = true
+                  ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
+                  ..returns = Reference("bool")
+                  ..name = "operator =="
+                  ..requiredParameters.add(
+                    Parameter(
+                      (other) => other
+                        ..name = "other"
+                        ..type = Reference("Object"),
+                    ),
+                  )
+                  ..body = Code(
+                      "other is ${builder.unitClassName} && other.unitMultiplier == unitMultiplier && other.name == name"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (hash) => hash
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
+                  ..returns = Reference("int")
+                  ..name = "hashCode"
+                  ..body = Code("unitMultiplier.hashCode * name.hashCode"),
+              ),
+            )
             ..constructors.add(
               Constructor((constructor) => constructor
                 ..constant = true
