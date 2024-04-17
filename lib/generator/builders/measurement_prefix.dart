@@ -89,6 +89,38 @@ class MeasurementPrefixGenerator implements FlingGenerator {
                 ..name = "toString"
                 ..body = Code("name"),
             ),
+          )
+          ..methods.add(
+            Method(
+              (multiply) => multiply
+                ..lambda = true
+                ..name = "operator *"
+                ..requiredParameters.add(
+                  Parameter(
+                    (other) => other
+                      ..name = "other"
+                      ..type = Reference("MeasurementPrefix"),
+                  ),
+                )
+                ..body = Code(
+                    "MeasurementPrefix(unitMultiplier * other.unitMultiplier)"),
+            ),
+          )
+          ..methods.add(
+            Method(
+              (divide) => divide
+                ..lambda = true
+                ..name = "operator /"
+                ..requiredParameters.add(
+                  Parameter(
+                    (other) => other
+                      ..name = "other"
+                      ..type = Reference("MeasurementPrefix"),
+                  ),
+                )
+                ..body = Code(
+                    "MeasurementPrefix(unitMultiplier / other.unitMultiplier)"),
+            ),
           ),
       ),
     );

@@ -33,4 +33,10 @@ class MeasurementPrefix
 
   @override
   toString() => name;
+
+  operator *(MeasurementPrefix other) =>
+      MeasurementPrefix(unitMultiplier * other.unitMultiplier);
+
+  operator /(MeasurementPrefix other) =>
+      MeasurementPrefix(unitMultiplier / other.unitMultiplier);
 }

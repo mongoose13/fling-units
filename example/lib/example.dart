@@ -166,4 +166,6 @@ void main() {
   print("\n$m = ${m.butAs(inches.per.seconds)}");
 
   print("My hand is ${3.4.inches.by.inches.butAs(meters.by.meters)}");
+
+  print(2.54.centi.meters.per.deka.seconds.butAs(milli.inches.per.deci.minutes));
 }

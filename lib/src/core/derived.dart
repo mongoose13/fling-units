@@ -1,7 +1,7 @@
 part of "library.dart";
 
 /// A derived measurement representing the multiplication of two more basic measurements.
-/// 
+///
 /// For example, velocity can be modeled as a derived unit with [Distance] and [Time].
 class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
     extends Measurement<DerivedMeasurementPer<A, B>> {
@@ -52,7 +52,7 @@ class DerivedMeasurementPer<A extends Measurement<A>, B extends Measurement<B>>
 }
 
 /// A derived measurement representing the multiplication of two more basic measurements.
-/// 
+///
 /// For example, area can be modeled as a derived unit with [Distance] and [Distance].
 class DerivedMeasurementBy<A extends Measurement<A>, B extends Measurement<B>>
     extends Measurement<DerivedMeasurementBy<A, B>> {
@@ -113,17 +113,15 @@ class DerivedUnitBy<A extends Measurement<A>, B extends Measurement<B>>
 
   /// Constructs a unit from two basic units.
   ///
-  /// The prefix, if supplied, will apply to the entire derived unit.
-  ///
   /// If a name is not supplied, a standard name will be provided.
   DerivedUnitBy(
     this._unitA,
     this._unitB, {
-    super.prefix = const MeasurementPrefix.unit(),
     String? name,
   }) : super(
           name: name ?? "${_unitA.name}*${_unitB.name}",
           unitMultiplier: _unitA.unitMultiplier * _unitB.unitMultiplier,
+          prefix: _unitA.prefix * _unitB.prefix,
         );
 
   @override
@@ -147,17 +145,15 @@ class DerivedUnitPer<A extends Measurement<A>, B extends Measurement<B>>
 
   /// Constructs a unit from two basic units.
   ///
-  /// The prefix, if supplied, will apply to the entire derived unit.
-  ///
   /// If a name is not supplied, a standard name will be provided.
   DerivedUnitPer(
     this._unitA,
     this._unitB, {
-    super.prefix = const MeasurementPrefix.unit(),
     String? name,
   }) : super(
-          name: name ?? "${_unitA.name}/${_unitB.name}",
+          name: name ?? "${_unitA.toString()}/${_unitB.toString()}",
           unitMultiplier: _unitA.unitMultiplier / _unitB.unitMultiplier,
+          prefix: _unitA.prefix / _unitB.prefix,
         );
 
   @override

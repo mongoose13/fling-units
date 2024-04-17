@@ -74,8 +74,6 @@ class DerivedGenerator implements FlingGenerator {
                   ),
               ),
             )
-            // TODO: add prefixes here, e.g.:
-            // DerivedUnitByBuilder<T> get kilo => DerivedUnitByBuilder(_first, f.kilo);
             ..methods.addAll(
               prefixes.map(
                 (prefix) => Method(
@@ -85,7 +83,7 @@ class DerivedGenerator implements FlingGenerator {
                     ..name = prefix.name
                     ..returns = Reference("DerivedUnit${opType}Builder<T>")
                     ..body = Code(
-                        "DerivedUnit${opType}Builder(_first, f.${prefix.name})"),
+                        "DerivedUnit${opType}Builder(_first, f.${prefix.name},)"),
                 ),
               ),
             )
@@ -100,7 +98,7 @@ class DerivedGenerator implements FlingGenerator {
                       ..name = unit.singularName
                       ..lambda = true
                       ..body = Code(
-                          "$unitClassName(_first, f.${unit.singularName}, prefix: _prefix)"),
+                          "$unitClassName(_first, _prefix.${unit.singularName},)"),
                   ),
                 ),
               ),
@@ -115,9 +113,19 @@ class DerivedGenerator implements FlingGenerator {
             ..fields.add(
               Field(
                 (measurement) => measurement
+                  ..docs.add("/// The first measurement.")
                   ..name = "_measurement"
                   ..modifier = FieldModifier.final$
                   ..type = Reference("Measurement<T>"),
+              ),
+            )
+            ..fields.add(
+              Field(
+                (prefix) => prefix
+                  ..docs.add("/// The second unit's prefix.")
+                  ..modifier = FieldModifier.final$
+                  ..name = "_prefix"
+                  ..type = Reference("MeasurementPrefix"),
               ),
             )
             ..constructors.add(
@@ -127,7 +135,28 @@ class DerivedGenerator implements FlingGenerator {
                     Parameter((measurement) => measurement
                       ..toThis = true
                       ..name = "_measurement"),
+                  )
+                  ..optionalParameters.add(
+                    Parameter(
+                      (prefix) => prefix
+                        ..toThis = true
+                        ..name = "_prefix"
+                        ..defaultTo = Code("const MeasurementPrefix.unit()"),
+                    ),
                   ),
+              ),
+            )
+            ..methods.addAll(
+              prefixes.map(
+                (prefix) => Method(
+                  (prefixMethod) => prefixMethod
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = prefix.name
+                    ..returns = Reference("${measurementClassName}Builder<T>")
+                    ..body = Code(
+                        "${measurementClassName}Builder(_measurement, f.${prefix.name},)"),
+                ),
               ),
             )
             ..methods.addAll(
@@ -141,7 +170,7 @@ class DerivedGenerator implements FlingGenerator {
                       ..name = unit.singularName
                       ..lambda = true
                       ..body = Code(
-                          "$measurementClassName(magnitude: _measurement._magnitude, defaultUnit: _measurement.defaultUnit.$operator(f.${unit.name}),)"),
+                          "$measurementClassName(magnitude: _measurement._magnitude, defaultUnit: _measurement.defaultUnit.$operator(_prefix.${unit.name},),)"),
                   ),
                 ),
               ),
