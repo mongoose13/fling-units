@@ -15,6 +15,9 @@ class DerivedUnitByBuilder<T extends Measurement<T>> {
   /// The second unit's prefix.
   final MeasurementPrefix _prefix;
 
+  SquareDerivedUnitByBuilder<T> get square =>
+      SquareDerivedUnitByBuilder(_first, _prefix);
+
   DerivedUnitByBuilder<T> get quecto => DerivedUnitByBuilder(
         _first,
         f.quecto,
@@ -1006,6 +1009,9 @@ class DerivedUnitPerBuilder<T extends Measurement<T>> {
   /// The second unit's prefix.
   final MeasurementPrefix _prefix;
 
+  SquareDerivedUnitPerBuilder<T> get square =>
+      SquareDerivedUnitPerBuilder(_first, _prefix);
+
   DerivedUnitPerBuilder<T> get quecto => DerivedUnitPerBuilder(
         _first,
         f.quecto,
@@ -1984,242 +1990,6 @@ class DerivedMeasurementPerBuilder<T extends Measurement<T>> {
         ),
       );
 }
-
-class SquareUnitBuilder {
-  const SquareUnitBuilder([this._prefix = const MeasurementPrefix.unit()]);
-
-  final MeasurementPrefix _prefix;
-
-  SquareUnitBuilder get quecto => SquareUnitBuilder(f.quecto);
-
-  SquareUnitBuilder get ronto => SquareUnitBuilder(f.ronto);
-
-  SquareUnitBuilder get yocto => SquareUnitBuilder(f.yocto);
-
-  SquareUnitBuilder get zepto => SquareUnitBuilder(f.zepto);
-
-  SquareUnitBuilder get atto => SquareUnitBuilder(f.atto);
-
-  SquareUnitBuilder get femto => SquareUnitBuilder(f.femto);
-
-  SquareUnitBuilder get pico => SquareUnitBuilder(f.pico);
-
-  SquareUnitBuilder get nano => SquareUnitBuilder(f.nano);
-
-  SquareUnitBuilder get micro => SquareUnitBuilder(f.micro);
-
-  SquareUnitBuilder get milli => SquareUnitBuilder(f.milli);
-
-  SquareUnitBuilder get centi => SquareUnitBuilder(f.centi);
-
-  SquareUnitBuilder get deci => SquareUnitBuilder(f.deci);
-
-  SquareUnitBuilder get deka => SquareUnitBuilder(f.deka);
-
-  SquareUnitBuilder get hecto => SquareUnitBuilder(f.hecto);
-
-  SquareUnitBuilder get kilo => SquareUnitBuilder(f.kilo);
-
-  SquareUnitBuilder get mega => SquareUnitBuilder(f.mega);
-
-  SquareUnitBuilder get giga => SquareUnitBuilder(f.giga);
-
-  SquareUnitBuilder get tera => SquareUnitBuilder(f.tera);
-
-  SquareUnitBuilder get peta => SquareUnitBuilder(f.peta);
-
-  SquareUnitBuilder get exa => SquareUnitBuilder(f.exa);
-
-  SquareUnitBuilder get zetta => SquareUnitBuilder(f.zetta);
-
-  SquareUnitBuilder get yotta => SquareUnitBuilder(f.yotta);
-
-  SquareUnitBuilder get ronna => SquareUnitBuilder(f.ronna);
-
-  SquareUnitBuilder get quetta => SquareUnitBuilder(f.quetta);
-
-  DerivedUnitBy<Angle, Angle> get turns =>
-      DerivedUnitBy(_prefix.turns, _prefix.turns);
-
-  DerivedUnitBy<Angle, Angle> get radians =>
-      DerivedUnitBy(_prefix.radians, _prefix.radians);
-
-  DerivedUnitBy<Angle, Angle> get gradians =>
-      DerivedUnitBy(_prefix.gradians, _prefix.gradians);
-
-  DerivedUnitBy<Angle, Angle> get degrees =>
-      DerivedUnitBy(_prefix.degrees, _prefix.degrees);
-
-  DerivedUnitBy<Angle, Angle> get arcMinutes =>
-      DerivedUnitBy(_prefix.arcMinutes, _prefix.arcMinutes);
-
-  DerivedUnitBy<Angle, Angle> get arcSeconds =>
-      DerivedUnitBy(_prefix.arcSeconds, _prefix.arcSeconds);
-
-  DerivedUnitBy<Time, Time> get seconds =>
-      DerivedUnitBy(_prefix.seconds, _prefix.seconds);
-
-  DerivedUnitBy<Time, Time> get minutes =>
-      DerivedUnitBy(_prefix.minutes, _prefix.minutes);
-
-  DerivedUnitBy<Time, Time> get hours =>
-      DerivedUnitBy(_prefix.hours, _prefix.hours);
-
-  DerivedUnitBy<Time, Time> get days =>
-      DerivedUnitBy(_prefix.days, _prefix.days);
-
-  DerivedUnitBy<Quantity, Quantity> get units =>
-      DerivedUnitBy(_prefix.units, _prefix.units);
-
-  DerivedUnitBy<Quantity, Quantity> get moles =>
-      DerivedUnitBy(_prefix.moles, _prefix.moles);
-
-  DerivedUnitBy<Mass, Mass> get grams =>
-      DerivedUnitBy(_prefix.grams, _prefix.grams);
-
-  DerivedUnitBy<Mass, Mass> get tonnes =>
-      DerivedUnitBy(_prefix.tonnes, _prefix.tonnes);
-
-  DerivedUnitBy<Mass, Mass> get atomicMassUnits =>
-      DerivedUnitBy(_prefix.atomicMassUnits, _prefix.atomicMassUnits);
-
-  DerivedUnitBy<Mass, Mass> get daltons =>
-      DerivedUnitBy(_prefix.daltons, _prefix.daltons);
-
-  DerivedUnitBy<Mass, Mass> get electronRestMass =>
-      DerivedUnitBy(_prefix.electronRestMass, _prefix.electronRestMass);
-
-  DerivedUnitBy<Mass, Mass> get longTons =>
-      DerivedUnitBy(_prefix.longTons, _prefix.longTons);
-
-  DerivedUnitBy<Mass, Mass> get shortTons =>
-      DerivedUnitBy(_prefix.shortTons, _prefix.shortTons);
-
-  DerivedUnitBy<Mass, Mass> get pounds =>
-      DerivedUnitBy(_prefix.pounds, _prefix.pounds);
-
-  DerivedUnitBy<Mass, Mass> get ounces =>
-      DerivedUnitBy(_prefix.ounces, _prefix.ounces);
-
-  DerivedUnitBy<Distance, Distance> get meters =>
-      DerivedUnitBy(_prefix.meters, _prefix.meters);
-
-  DerivedUnitBy<Distance, Distance> get miles =>
-      DerivedUnitBy(_prefix.miles, _prefix.miles);
-
-  DerivedUnitBy<Distance, Distance> get yards =>
-      DerivedUnitBy(_prefix.yards, _prefix.yards);
-
-  DerivedUnitBy<Distance, Distance> get feet =>
-      DerivedUnitBy(_prefix.feet, _prefix.feet);
-
-  DerivedUnitBy<Distance, Distance> get inches =>
-      DerivedUnitBy(_prefix.inches, _prefix.inches);
-
-  DerivedUnitBy<Distance, Distance> get nauticalMiles =>
-      DerivedUnitBy(_prefix.nauticalMiles, _prefix.nauticalMiles);
-
-  DerivedUnitBy<Charge, Charge> get amperes =>
-      DerivedUnitBy(_prefix.amperes, _prefix.amperes);
-
-  DerivedUnitBy<TemperatureChange, TemperatureChange> get kelvin =>
-      DerivedUnitBy(_prefix.kelvin, _prefix.kelvin);
-
-  DerivedUnitBy<TemperatureChange, TemperatureChange> get celcius =>
-      DerivedUnitBy(_prefix.celcius, _prefix.celcius);
-
-  DerivedUnitBy<TemperatureChange, TemperatureChange> get fahrenheit =>
-      DerivedUnitBy(_prefix.fahrenheit, _prefix.fahrenheit);
-
-  DerivedUnitBy<Pressure, Pressure> get pascals =>
-      DerivedUnitBy(_prefix.pascals, _prefix.pascals);
-
-  DerivedUnitBy<Pressure, Pressure> get bars =>
-      DerivedUnitBy(_prefix.bars, _prefix.bars);
-
-  DerivedUnitBy<Pressure, Pressure> get baryes =>
-      DerivedUnitBy(_prefix.baryes, _prefix.baryes);
-
-  DerivedUnitBy<Pressure, Pressure> get standardAtmospheres =>
-      DerivedUnitBy(_prefix.standardAtmospheres, _prefix.standardAtmospheres);
-
-  DerivedUnitBy<Pressure, Pressure> get technicalAtmospheres =>
-      DerivedUnitBy(_prefix.technicalAtmospheres, _prefix.technicalAtmospheres);
-
-  DerivedUnitBy<Pressure, Pressure> get mmHg =>
-      DerivedUnitBy(_prefix.mmHg, _prefix.mmHg);
-
-  DerivedUnitBy<Pressure, Pressure> get inHg =>
-      DerivedUnitBy(_prefix.inHg, _prefix.inHg);
-
-  DerivedUnitBy<Pressure, Pressure> get torr =>
-      DerivedUnitBy(_prefix.torr, _prefix.torr);
-
-  DerivedUnitBy<Pressure, Pressure> get psi =>
-      DerivedUnitBy(_prefix.psi, _prefix.psi);
-
-  DerivedUnitBy<Frequency, Frequency> get hertz =>
-      DerivedUnitBy(_prefix.hertz, _prefix.hertz);
-
-  DerivedUnitBy<Volume, Volume> get liters =>
-      DerivedUnitBy(_prefix.liters, _prefix.liters);
-
-  DerivedUnitBy<Volume, Volume> get teaspoons =>
-      DerivedUnitBy(_prefix.teaspoons, _prefix.teaspoons);
-
-  DerivedUnitBy<Volume, Volume> get tablespoons =>
-      DerivedUnitBy(_prefix.tablespoons, _prefix.tablespoons);
-
-  DerivedUnitBy<Volume, Volume> get fluidOunces =>
-      DerivedUnitBy(_prefix.fluidOunces, _prefix.fluidOunces);
-
-  DerivedUnitBy<Volume, Volume> get cups =>
-      DerivedUnitBy(_prefix.cups, _prefix.cups);
-
-  DerivedUnitBy<Volume, Volume> get pints =>
-      DerivedUnitBy(_prefix.pints, _prefix.pints);
-
-  DerivedUnitBy<Volume, Volume> get quarts =>
-      DerivedUnitBy(_prefix.quarts, _prefix.quarts);
-
-  DerivedUnitBy<Volume, Volume> get gallons =>
-      DerivedUnitBy(_prefix.gallons, _prefix.gallons);
-
-  DerivedUnitBy<Volume, Volume> get usTeaspoons =>
-      DerivedUnitBy(_prefix.usTeaspoons, _prefix.usTeaspoons);
-
-  DerivedUnitBy<Volume, Volume> get usTablespoons =>
-      DerivedUnitBy(_prefix.usTablespoons, _prefix.usTablespoons);
-
-  DerivedUnitBy<Volume, Volume> get usFluidOunces =>
-      DerivedUnitBy(_prefix.usFluidOunces, _prefix.usFluidOunces);
-
-  DerivedUnitBy<Volume, Volume> get usCups =>
-      DerivedUnitBy(_prefix.usCups, _prefix.usCups);
-
-  DerivedUnitBy<Volume, Volume> get usPints =>
-      DerivedUnitBy(_prefix.usPints, _prefix.usPints);
-
-  DerivedUnitBy<Volume, Volume> get usQuarts =>
-      DerivedUnitBy(_prefix.usQuarts, _prefix.usQuarts);
-
-  DerivedUnitBy<Volume, Volume> get usGallons =>
-      DerivedUnitBy(_prefix.usGallons, _prefix.usGallons);
-
-  DerivedUnitBy<Volume, Volume> get usLegalCups =>
-      DerivedUnitBy(_prefix.usLegalCups, _prefix.usLegalCups);
-
-  DerivedUnitBy<Luminosity, Luminosity> get candela =>
-      DerivedUnitBy(_prefix.candela, _prefix.candela);
-
-  DerivedUnitBy<Luminosity, Luminosity> get candlepower =>
-      DerivedUnitBy(_prefix.candlepower, _prefix.candlepower);
-
-  DerivedUnitBy<Luminosity, Luminosity> get hefnerkerze =>
-      DerivedUnitBy(_prefix.hefnerkerze, _prefix.hefnerkerze);
-}
-
-SquareUnitBuilder square = SquareUnitBuilder();
 
 class CubicUnitBuilder {
   const CubicUnitBuilder([this._prefix = const MeasurementPrefix.unit()]);

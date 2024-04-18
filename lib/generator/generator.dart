@@ -16,5 +16,7 @@ export "generators/prefix.dart";
 export "generators/prefixes.dart";
 export "generators/global.dart";
 
+export "builders/derived/square.dart";
+
 export "identifiers/measurement_id.dart";
 export "identifiers/prefix_id.dart";

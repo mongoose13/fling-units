@@ -171,4 +171,5 @@ void main() {
   print(square.inches(144).butAs(square.feet));
   print(square.centi.meters);
   print(cubic.centi.meters);
+  print(meters.per.square.seconds(3).butAs(feet.per.square.deci.seconds));
 }
