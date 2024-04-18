@@ -8,6 +8,7 @@ part "unit.dart";
 part "measurement.dart";
 part "precision.dart";
 
+part "package:fling_units/src/generated/cubic.dart";
 part 'package:fling_units/src/generated/derived.dart';
 part 'package:fling_units/src/generated/extension.dart';
 part "package:fling_units/src/generated/prefix.dart";
