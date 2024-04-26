@@ -34,7 +34,7 @@ class ExtensionGenerator extends GeneratorForAnnotation<MeasurementConfig> {
     builder.add(
       Extension(
         (measurement) => measurement
-          ..name = "NumExtension${builder.measurementClassName}"
+          ..name = "NumExtension${builder.dimensionName}"
           ..on = Reference("num")
           ..methods.addAll(
             builder.units.map(
@@ -43,8 +43,8 @@ class ExtensionGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..lambda = true
                   ..type = MethodType.getter
                   ..name = unit.name
-                  ..returns = Reference(builder.measurementClassName)
-                  ..body = Code("${builder.unitClassName}.${unit.name}(this)"),
+                  ..returns = builder.measurementType
+                  ..body = Code("${builder.unitName}.${unit.name}(this)"),
               ),
             ),
           ),

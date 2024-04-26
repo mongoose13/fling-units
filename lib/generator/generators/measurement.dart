@@ -26,15 +26,15 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
     builder.add(
       Class(
         (measurement) => measurement
-          ..name = builder.measurementClassName
-          ..extend = Reference("Measurement<${builder.measurementClassName}>")
+          ..name = builder.measurementName
+          ..extend = builder.measurementType
           ..fields.add(
             Field(
               (siUnit) => siUnit
                 ..static = true
                 ..modifier = FieldModifier.constant
                 ..name = 'siUnit'
-                ..type = Reference(builder.unitClassName)
+                ..type = builder.unitType
                 ..assignment = Code(builder.siUnit.displayName),
             ),
           )
@@ -53,15 +53,15 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   Parameter(
                     (defaultUnit) => defaultUnit
                       ..name = "defaultUnit"
-                      ..type = Reference(builder.unitType),
+                      ..type = builder.unitType,
                   ),
                 )
                 ..optionalParameters.add(
                   Parameter(
                     (precision) => precision
                       ..name = "precision"
-                      ..type = Reference("Precision")
-                      ..defaultTo = Code("Precision.max"),
+                      ..type = Reference("f.Precision")
+                      ..defaultTo = Code("f.Precision.max"),
                   ),
                 )
                 ..initializers.add(Code(
@@ -162,11 +162,10 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   Parameter(
                     (visitor) => visitor
                       ..name = "visitor"
-                      ..type = Reference("MeasurementVisitor"),
+                      ..type = Reference("f.MeasurementVisitor"),
                   ),
                 )
-                ..body =
-                    Code("visitor.visit${builder.measurementClassName}(this)"),
+                ..body = Code("visitor.visit${builder.dimensionName}(this)"),
             ),
           )
           ..methods.add(
@@ -186,30 +185,18 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   Parameter(
                     (defaultUnit) => defaultUnit
                       ..name = "defaultUnit"
-                      ..type = Reference(builder.unitType),
+                      ..type = builder.unitType,
                   ),
                 )
                 ..requiredParameters.add(
                   Parameter(
                     (precision) => precision
                       ..name = "precision"
-                      ..type = Reference("Precision"),
+                      ..type = Reference("f.Precision"),
                   ),
                 )
                 ..body = Code(
-                    "${builder.measurementClassName}(magnitude, defaultUnit, precision)"),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (per) => per
-                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-                ..lambda = true
-                ..type = MethodType.getter
-                ..name = "per"
-                ..returns = Reference(
-                    "DerivedMeasurementPerBuilder<${builder.measurementClassName}>")
-                ..body = Code("DerivedMeasurementPerBuilder(this)"),
+                    "${builder.measurementName}(magnitude, defaultUnit, precision)"),
             ),
           ),
       ),

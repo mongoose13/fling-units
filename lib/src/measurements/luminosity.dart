@@ -1,6 +1,6 @@
 import 'package:fling_units/generator/util/annotations.dart';
 
-import 'package:fling_units/fling_units.dart';
+import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/luminosity.dart";
 

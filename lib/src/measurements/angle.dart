@@ -2,7 +2,7 @@ import "dart:math" as math;
 
 import 'package:fling_units/generator/util/annotations.dart';
 
-import 'package:fling_units/fling_units.dart';
+import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/angle.dart";
 
@@ -52,12 +52,12 @@ enum AngleConfig {
   arcSeconds;
 }
 
-extension AngleExtension on Angle {
+extension AngleExtension on AngleMeasurement {
   /// A right angle.
-  static Angle right() => const Angle(0.25, turns);
+  static AngleMeasurement right() => const AngleMeasurement(0.25, turns);
 
   /// A straight angle.
-  static Angle straight() => const Angle(0.5, turns);
+  static AngleMeasurement straight() => const AngleMeasurement(0.5, turns);
 
   /// Whether this is an acute angle.
   bool get isAcute => si.abs() < 0.25;

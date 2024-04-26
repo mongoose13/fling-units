@@ -68,7 +68,6 @@ export "src/generated/library.dart";
 
 export "src/core/library.dart";
 
-export "src/measurements/area.dart";
 export "src/measurements/temperature.dart";
 
 export "src/prefixes/si.dart";

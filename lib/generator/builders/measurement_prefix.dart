@@ -21,7 +21,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
         (prefixClass) => prefixClass
           ..mixins.addAll(
             measurements.map(
-              (measurement) => Reference("${measurement.name}Prefix"),
+              (measurement) => Reference("f.${measurement.name}Prefix"),
             ),
           )
           ..name = "MeasurementPrefix"

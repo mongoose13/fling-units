@@ -20,15 +20,13 @@ import "package:fling_units/fling_units.dart";
 /// "thermometer" temperatures with the `+` operator.
 class Temperature implements Comparable<Temperature> {
   /// Absolute zero.
-  const Temperature.absoluteZero(
-      [Unit<TemperatureChange> defaultUnit = kelvin])
+  const Temperature.absoluteZero([Unit<TemperatureChange> defaultUnit = kelvin])
       : _kelvin = 0.0,
         _precision = Precision.max,
         _defaultUnit = defaultUnit;
 
   /// Infinite temperature.
-  const Temperature.infinite(
-      [Unit<TemperatureChange> defaultUnit = kelvin])
+  const Temperature.infinite([Unit<TemperatureChange> defaultUnit = kelvin])
       : _kelvin = double.infinity,
         _precision = Precision.max,
         _defaultUnit = defaultUnit;
@@ -130,10 +128,10 @@ class Temperature implements Comparable<Temperature> {
   /// Temperature.kelvin(2) + TemperatureChange.kelvin(3) == Temperature.kelvin(5)
   /// Temperature.kelvin(2) + TemperatureChange.kelvin(-1) == Temperature.kelvin(1)
   /// ```
-  Temperature operator +(TemperatureChange change) => Temperature.ofKelvin(
-      _kelvin + change.si,
-      precision:
-          Precision.addition(kelvin(_kelvin, precision: _precision), change));
+  Temperature operator +(Measurement<TemperatureChange> change) =>
+      Temperature.ofKelvin(_kelvin + change.si,
+          precision: Precision.addition(
+              kelvin(_kelvin, precision: _precision), change));
 
   /// Creates a [Temperature] representing the application of a [Temperature]
   /// and the opposite of a [TemperatureChange].
@@ -143,19 +141,19 @@ class Temperature implements Comparable<Temperature> {
   /// Temperature.kelvin(5) - TemperatureChange.kelvin(3) == Temperature.kelvin(2)
   /// Temperature.kelvin(3) - TemperatureChange.kelvin(-5) == Temperature.kelvin(8)
   /// ```
-  Temperature operator -(TemperatureChange change) => Temperature.ofKelvin(
-      _kelvin - change.si,
-      precision:
-          Precision.addition(kelvin(_kelvin, precision: _precision), -change));
+  Temperature operator -(Measurement<TemperatureChange> change) =>
+      Temperature.ofKelvin(_kelvin - change.si,
+          precision: Precision.addition(
+              kelvin(_kelvin, precision: _precision), -change));
 
   /// Returns the difference between this and another [Temperature].
   ///
   /// The resulting [TemperatureChange] will be negative if this is smaller than
   /// the other [Temperature].
-  TemperatureChange difference(Temperature other) => kelvin(
-      _kelvin - other._kelvin,
-      precision: Precision.addition(kelvin(_kelvin, precision: _precision),
-          kelvin(other._kelvin, precision: other._precision)));
+  Measurement<TemperatureChange> difference(Temperature other) =>
+      kelvin(_kelvin - other._kelvin,
+          precision: Precision.addition(kelvin(_kelvin, precision: _precision),
+              kelvin(other._kelvin, precision: other._precision)));
 
   /// Accept a measurement visitor.
   void acceptVisitor(MeasurementVisitor visitor) =>

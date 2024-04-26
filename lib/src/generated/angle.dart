@@ -7,50 +7,78 @@ part of '../measurements/angle.dart';
 // **************************************************************************
 
 extension NumExtensionAngle on num {
-  Angle get turns => AngleUnit.turns(this);
-  Angle get radians => AngleUnit.radians(this);
-  Angle get gradians => AngleUnit.gradians(this);
-  Angle get degrees => AngleUnit.degrees(this);
-  Angle get arcMinutes => AngleUnit.arcMinutes(this);
-  Angle get arcSeconds => AngleUnit.arcSeconds(this);
+  f.Measurement<Angle> get turns => AngleUnit.turns(this);
+  f.Measurement<Angle> get radians => AngleUnit.radians(this);
+  f.Measurement<Angle> get gradians => AngleUnit.gradians(this);
+  f.Measurement<Angle> get degrees => AngleUnit.degrees(this);
+  f.Measurement<Angle> get arcMinutes => AngleUnit.arcMinutes(this);
+  f.Measurement<Angle> get arcSeconds => AngleUnit.arcSeconds(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class AngleUnit extends Unit<Angle> {
+class Angle extends f.Dimension {}
+
+class AngleUnit extends f.Unit<Angle> {
   const AngleUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const turns = AngleUnit._(name: 'turn', unitMultiplier: 1.0);
+  static const AngleUnit turns = AngleUnit._(
+    name: 'turn',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const radians =
-      AngleUnit._(name: 'rad', unitMultiplier: 6.283185307179586);
+  static const AngleUnit radians = AngleUnit._(
+    name: 'rad',
+    unitMultiplier: 6.283185307179586,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const gradians = AngleUnit._(name: 'ᵍ', unitMultiplier: 400.0);
+  static const AngleUnit gradians = AngleUnit._(
+    name: 'ᵍ',
+    unitMultiplier: 400.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const degrees = AngleUnit._(name: '°', unitMultiplier: 360.0);
+  static const AngleUnit degrees = AngleUnit._(
+    name: '°',
+    unitMultiplier: 360.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const arcMinutes = AngleUnit._(name: '′', unitMultiplier: 21600.0);
+  static const AngleUnit arcMinutes = AngleUnit._(
+    name: '′',
+    unitMultiplier: 21600.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const arcSeconds = AngleUnit._(name: '′', unitMultiplier: 1296000.0);
+  static const AngleUnit arcSeconds = AngleUnit._(
+    name: '′',
+    unitMultiplier: 1296000.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Angle call(
+  f.Measurement<Angle> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Angle(magnitude, this, precision);
+      AngleMeasurement(magnitude, this, precision);
 
   AngleUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
-      AngleUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+      AngleUnit._(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -66,47 +94,43 @@ class AngleUnit extends Unit<Angle> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Angle extends Measurement<Angle> {
-  const Angle(
+class AngleMeasurement extends f.Measurement<Angle> {
+  const AngleMeasurement(
     num magnitude,
-    Unit<Angle> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Angle> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Angle.zero([super.unit = siUnit]) : super.zero();
+  const AngleMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Angle.infinite([super.unit = siUnit]) : super.infinite();
+  const AngleMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Angle.negativeInfinite([super.unit = siUnit])
+  const AngleMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Angle.nan([super.unit = siUnit]) : super.nan();
+  const AngleMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Angle.sum(
+  AngleMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const AngleUnit siUnit = turns;
+  static const f.Unit<Angle> siUnit = turns;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitAngle(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitAngle(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Angle> defaultUnit,
-    Precision precision,
+    f.Unit<Angle> defaultUnit,
+    f.Precision precision,
   ) =>
-      Angle(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Angle> get per =>
-      DerivedMeasurementPerBuilder(this);
+      AngleMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -114,9 +138,7 @@ class Angle extends Measurement<Angle> {
 // **************************************************************************
 
 mixin AnglePrefix {
-  static AngleUnit siUnit = AngleUnit.turns;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   AngleUnit get turns => AngleUnit.turns.withPrefix(prefix);
   AngleUnit get radians => AngleUnit.radians.withPrefix(prefix);
   AngleUnit get gradians => AngleUnit.gradians.withPrefix(prefix);
@@ -129,14 +151,14 @@ mixin AnglePrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const turns = AngleUnit.turns;
+const AngleUnit turns = AngleUnit.turns;
 
-const radians = AngleUnit.radians;
+const AngleUnit radians = AngleUnit.radians;
 
-const gradians = AngleUnit.gradians;
+const AngleUnit gradians = AngleUnit.gradians;
 
-const degrees = AngleUnit.degrees;
+const AngleUnit degrees = AngleUnit.degrees;
 
-const arcMinutes = AngleUnit.arcMinutes;
+const AngleUnit arcMinutes = AngleUnit.arcMinutes;
 
-const arcSeconds = AngleUnit.arcSeconds;
+const AngleUnit arcSeconds = AngleUnit.arcSeconds;

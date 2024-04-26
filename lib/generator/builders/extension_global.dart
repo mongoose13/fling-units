@@ -87,13 +87,14 @@ prevents all but the first usage (the one we want) demonstrated above."""
                 .map(
                   (pair) => Method(
                     (method) => method
-                      ..docs.add("/// Creates a(n) ${pair.unit.name} measurement.")
+                      ..docs.add(
+                          "/// Creates a(n) ${pair.unit.name} measurement.")
                       ..lambda = true
                       ..type = MethodType.getter
                       ..name = pair.unit.name
-                      ..returns = Reference(pair.measurement)
+                      ..returns = Reference("Measurement<f.${pair.measurement}>")
                       ..body = Code(
-                          "${pair.measurement}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
+                          "f.${pair.measurement}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
                   ),
                 ),
           ),

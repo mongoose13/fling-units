@@ -1,6 +1,6 @@
 import 'package:fling_units/generator/util/annotations.dart';
 
-import 'package:fling_units/fling_units.dart';
+import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/time.dart";
 
@@ -40,17 +40,17 @@ enum TimeConfig {
   This first method seems incorrect
   - we are creating a Time in seconds from input in microseconds?
   */
-extension TimeExtension on Time {
+extension TimeExtension on TimeMeasurement {
   /// Constructs a [Time] from a [Duration].
-  Time ofDuration(
+  TimeMeasurement ofDuration(
     Duration duration, {
-    Precision precision = Precision.max,
-    Unit<Time> interpreter = seconds,
+    f.Precision precision = f.Precision.max,
+    f.Unit<Time> interpreter = seconds,
   }) =>
-      Time(duration.inMicroseconds, interpreter, precision);
+      TimeMeasurement(duration.inMicroseconds, interpreter, precision);
 
   /// Constructs a [Duration] based on this.
   ///
   /// Note that any granularity below microseconds will be lost.
-  Duration get asDuration => Duration(microseconds: as(micro.seconds).toInt());
+  Duration get asDuration => Duration(microseconds: as(f.micro.seconds).toInt());
 }

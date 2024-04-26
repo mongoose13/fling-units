@@ -7,34 +7,43 @@ part of '../measurements/charge.dart';
 // **************************************************************************
 
 extension NumExtensionCharge on num {
-  Charge get amperes => ChargeUnit.amperes(this);
+  f.Measurement<Charge> get amperes => ChargeUnit.amperes(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class ChargeUnit extends Unit<Charge> {
+class Charge extends f.Dimension {}
+
+class ChargeUnit extends f.Unit<Charge> {
   const ChargeUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const amperes = ChargeUnit._(name: 'A', unitMultiplier: 1.0);
+  static const ChargeUnit amperes = ChargeUnit._(
+    name: 'A',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Charge call(
+  f.Measurement<Charge> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Charge(magnitude, this, precision);
+      ChargeMeasurement(magnitude, this, precision);
 
   ChargeUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
-      ChargeUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+      ChargeUnit._(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -50,47 +59,43 @@ class ChargeUnit extends Unit<Charge> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Charge extends Measurement<Charge> {
-  const Charge(
+class ChargeMeasurement extends f.Measurement<Charge> {
+  const ChargeMeasurement(
     num magnitude,
-    Unit<Charge> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Charge> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Charge.zero([super.unit = siUnit]) : super.zero();
+  const ChargeMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Charge.infinite([super.unit = siUnit]) : super.infinite();
+  const ChargeMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Charge.negativeInfinite([super.unit = siUnit])
+  const ChargeMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Charge.nan([super.unit = siUnit]) : super.nan();
+  const ChargeMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Charge.sum(
+  ChargeMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const ChargeUnit siUnit = amperes;
+  static const f.Unit<Charge> siUnit = amperes;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitCharge(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitCharge(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Charge> defaultUnit,
-    Precision precision,
+    f.Unit<Charge> defaultUnit,
+    f.Precision precision,
   ) =>
-      Charge(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Charge> get per =>
-      DerivedMeasurementPerBuilder(this);
+      ChargeMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -98,9 +103,7 @@ class Charge extends Measurement<Charge> {
 // **************************************************************************
 
 mixin ChargePrefix {
-  static ChargeUnit siUnit = ChargeUnit.amperes;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   ChargeUnit get amperes => ChargeUnit.amperes.withPrefix(prefix);
 }
 
@@ -108,4 +111,4 @@ mixin ChargePrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const amperes = ChargeUnit.amperes;
+const ChargeUnit amperes = ChargeUnit.amperes;

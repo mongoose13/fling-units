@@ -25,17 +25,21 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
 
     builder.add(
       Class(
+        (dimension) => dimension
+          ..name = builder.dimensionName
+          ..extend = builder.dimensionType,
+      ),
+    );
+    builder.add(
+      Class(
         (interpreter) {
           interpreter
-            ..name = builder.unitClassName
-            ..extend = Reference(
-              builder.unitType,
-            )
+            ..name = builder.unitName
+            ..extend = builder.unitExtends
             ..methods.add(Method(
               (call) => call
-                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
                 ..name = "call"
-                ..returns = Reference(builder.measurementClassName)
+                ..returns = builder.measurementType
                 ..requiredParameters.add(
                   Parameter(
                     (magnitude) => magnitude
@@ -47,24 +51,24 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   (precision) => precision
                     ..named = true
                     ..name = "precision"
-                    ..type = Reference("Precision")
-                    ..defaultTo = Code("Precision.max"),
+                    ..type = Reference("f.Precision")
+                    ..defaultTo = Code("f.Precision.max"),
                 ))
                 ..lambda = true
                 ..body = Code(
-                    "${builder.measurementClassName}(magnitude, this, precision)"),
+                    "${builder.measurementName}(magnitude, this, precision)"),
             ))
             ..methods.add(
               Method(
                 (withPrefix) => withPrefix
                   ..lambda = true
                   ..name = "withPrefix"
-                  ..returns = Reference(builder.unitClassName)
+                  ..returns = Reference(builder.unitName)
                   ..requiredParameters.add(
                     Parameter(
                       (prefix) => prefix
                         ..name = "prefix"
-                        ..type = Reference("MeasurementPrefix"),
+                        ..type = Reference("f.MeasurementPrefix"),
                     ),
                   )
                   ..optionalParameters.add(
@@ -72,12 +76,15 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                       (precision) => precision
                         ..named = true
                         ..name = "precision"
-                        ..type = Reference("Precision")
-                        ..defaultTo = Code("Precision.max"),
+                        ..type = Reference("f.Precision")
+                        ..defaultTo = Code("f.Precision.max"),
                     ),
                   )
-                  ..body = Code(
-                      "${builder.unitClassName}._(name: name, unitMultiplier: unitMultiplier, prefix: prefix)"),
+                  ..body = Code("${builder.unitName}._("
+                      " name: name,"
+                      " unitMultiplier: unitMultiplier,"
+                      " prefix: prefix,"
+                      ")"),
               ),
             )
             ..methods.add(
@@ -94,8 +101,9 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                         ..type = Reference("Object"),
                     ),
                   )
-                  ..body = Code(
-                      "other is ${builder.unitClassName} && other.unitMultiplier == unitMultiplier && other.name == name"),
+                  ..body = Code("other is ${builder.unitName}"
+                      " && other.unitMultiplier == unitMultiplier"
+                      " && other.name == name"),
               ),
             )
             ..methods.add(
@@ -137,7 +145,7 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                       ..toSuper = true
                       ..name = "prefix"
                       ..named = true
-                      ..defaultTo = Code("const MeasurementPrefix.unit()"),
+                      ..defaultTo = Code("const f.MeasurementPrefix.unit()"),
                   ),
                 )),
             );
@@ -148,8 +156,12 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..static = true
                   ..modifier = FieldModifier.constant
                   ..name = unit.displayName
-                  ..assignment = Code(
-                      "${builder.unitClassName}._(name: '${builder.shortNameOf(unit)}', unitMultiplier: ${builder.multiplierOf(unit)})"),
+                  ..type = Reference(builder.unitName)
+                  ..assignment = Code("${builder.unitName}._("
+                      "name: '${builder.shortNameOf(unit)}', "
+                      "unitMultiplier: ${builder.multiplierOf(unit)}, "
+                      "prefix: f.MeasurementPrefix.unit(),"
+                      ")"),
               ),
             );
           }

@@ -1,6 +1,6 @@
 import 'package:fling_units/generator/util/annotations.dart';
 
-import 'package:fling_units/fling_units.dart';
+import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/distance.dart";
 
@@ -48,9 +48,4 @@ enum DistanceConfig {
     multiplier: 0.000539956803456,
   )
   nauticalMiles;
-}
-
-extension DistanceUnitExtension on DistanceUnit {
-  AreaUnit get squared => AreaUnit.squared(this);
-  VolumeUnit get cubed => VolumeUnitExtension.cubed(this);
 }

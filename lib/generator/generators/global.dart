@@ -28,8 +28,9 @@ class GlobalGenerator extends GeneratorForAnnotation<MeasurementConfig> {
         Field(
           (unitField) => unitField
             ..modifier = FieldModifier.constant
+            ..type = Reference(builder.unitName)
             ..name = unit.displayName
-            ..assignment = Code("${builder.unitClassName}.${unit.displayName}"),
+            ..assignment = Code("${builder.unitName}.${unit.displayName}"),
         ),
       );
     }

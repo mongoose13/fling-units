@@ -55,7 +55,7 @@ class Precision {
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
-  static Precision addition<T extends Measurement<T>>(
+  static Precision addition<T extends Dimension>(
       Measurement<T> a, Measurement<T> b) {
     if (a.isInfinite || b.isInfinite) {
       return Precision.max;

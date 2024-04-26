@@ -7,61 +7,99 @@ part of '../measurements/mass.dart';
 // **************************************************************************
 
 extension NumExtensionMass on num {
-  Mass get grams => MassUnit.grams(this);
-  Mass get tonnes => MassUnit.tonnes(this);
-  Mass get atomicMassUnits => MassUnit.atomicMassUnits(this);
-  Mass get daltons => MassUnit.daltons(this);
-  Mass get electronRestMass => MassUnit.electronRestMass(this);
-  Mass get longTons => MassUnit.longTons(this);
-  Mass get shortTons => MassUnit.shortTons(this);
-  Mass get pounds => MassUnit.pounds(this);
-  Mass get ounces => MassUnit.ounces(this);
+  f.Measurement<Mass> get grams => MassUnit.grams(this);
+  f.Measurement<Mass> get tonnes => MassUnit.tonnes(this);
+  f.Measurement<Mass> get atomicMassUnits => MassUnit.atomicMassUnits(this);
+  f.Measurement<Mass> get daltons => MassUnit.daltons(this);
+  f.Measurement<Mass> get electronRestMass => MassUnit.electronRestMass(this);
+  f.Measurement<Mass> get longTons => MassUnit.longTons(this);
+  f.Measurement<Mass> get shortTons => MassUnit.shortTons(this);
+  f.Measurement<Mass> get pounds => MassUnit.pounds(this);
+  f.Measurement<Mass> get ounces => MassUnit.ounces(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class MassUnit extends Unit<Mass> {
+class Mass extends f.Dimension {}
+
+class MassUnit extends f.Unit<Mass> {
   const MassUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const grams = MassUnit._(name: 'g', unitMultiplier: 1.0);
+  static const MassUnit grams = MassUnit._(
+    name: 'g',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const tonnes = MassUnit._(name: 't', unitMultiplier: 0.000001);
+  static const MassUnit tonnes = MassUnit._(
+    name: 't',
+    unitMultiplier: 0.000001,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const atomicMassUnits =
-      MassUnit._(name: 'u', unitMultiplier: 6.022136651e+23);
+  static const MassUnit atomicMassUnits = MassUnit._(
+    name: 'u',
+    unitMultiplier: 6.022136651e+23,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const daltons =
-      MassUnit._(name: 'Da', unitMultiplier: 6.02214076208e+23);
+  static const MassUnit daltons = MassUnit._(
+    name: 'Da',
+    unitMultiplier: 6.02214076208e+23,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const electronRestMass =
-      MassUnit._(name: 'me', unitMultiplier: 1.09776910594e+27);
+  static const MassUnit electronRestMass = MassUnit._(
+    name: 'me',
+    unitMultiplier: 1.09776910594e+27,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const longTons = MassUnit._(name: 't', unitMultiplier: 9.842065276e-7);
+  static const MassUnit longTons = MassUnit._(
+    name: 't',
+    unitMultiplier: 9.842065276e-7,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const shortTons = MassUnit._(name: 'tn', unitMultiplier: 0.0000011023);
+  static const MassUnit shortTons = MassUnit._(
+    name: 'tn',
+    unitMultiplier: 0.0000011023,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const pounds = MassUnit._(name: 'lb', unitMultiplier: 0.0022046226);
+  static const MassUnit pounds = MassUnit._(
+    name: 'lb',
+    unitMultiplier: 0.0022046226,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const ounces = MassUnit._(name: 'oz', unitMultiplier: 0.0352739619);
+  static const MassUnit ounces = MassUnit._(
+    name: 'oz',
+    unitMultiplier: 0.0352739619,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Mass call(
+  f.Measurement<Mass> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Mass(magnitude, this, precision);
+      MassMeasurement(magnitude, this, precision);
 
   MassUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
-      MassUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+      MassUnit._(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -77,46 +115,43 @@ class MassUnit extends Unit<Mass> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Mass extends Measurement<Mass> {
-  const Mass(
+class MassMeasurement extends f.Measurement<Mass> {
+  const MassMeasurement(
     num magnitude,
-    Unit<Mass> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Mass> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Mass.zero([super.unit = siUnit]) : super.zero();
+  const MassMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Mass.infinite([super.unit = siUnit]) : super.infinite();
+  const MassMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Mass.negativeInfinite([super.unit = siUnit]) : super.negativeInfinite();
+  const MassMeasurement.negativeInfinite([super.unit = siUnit])
+      : super.negativeInfinite();
 
-  const Mass.nan([super.unit = siUnit]) : super.nan();
+  const MassMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Mass.sum(
+  MassMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const MassUnit siUnit = grams;
+  static const f.Unit<Mass> siUnit = grams;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitMass(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitMass(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Mass> defaultUnit,
-    Precision precision,
+    f.Unit<Mass> defaultUnit,
+    f.Precision precision,
   ) =>
-      Mass(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Mass> get per =>
-      DerivedMeasurementPerBuilder(this);
+      MassMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -124,9 +159,7 @@ class Mass extends Measurement<Mass> {
 // **************************************************************************
 
 mixin MassPrefix {
-  static MassUnit siUnit = MassUnit.grams;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   MassUnit get grams => MassUnit.grams.withPrefix(prefix);
   MassUnit get tonnes => MassUnit.tonnes.withPrefix(prefix);
   MassUnit get atomicMassUnits => MassUnit.atomicMassUnits.withPrefix(prefix);
@@ -142,20 +175,20 @@ mixin MassPrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const grams = MassUnit.grams;
+const MassUnit grams = MassUnit.grams;
 
-const tonnes = MassUnit.tonnes;
+const MassUnit tonnes = MassUnit.tonnes;
 
-const atomicMassUnits = MassUnit.atomicMassUnits;
+const MassUnit atomicMassUnits = MassUnit.atomicMassUnits;
 
-const daltons = MassUnit.daltons;
+const MassUnit daltons = MassUnit.daltons;
 
-const electronRestMass = MassUnit.electronRestMass;
+const MassUnit electronRestMass = MassUnit.electronRestMass;
 
-const longTons = MassUnit.longTons;
+const MassUnit longTons = MassUnit.longTons;
 
-const shortTons = MassUnit.shortTons;
+const MassUnit shortTons = MassUnit.shortTons;
 
-const pounds = MassUnit.pounds;
+const MassUnit pounds = MassUnit.pounds;
 
-const ounces = MassUnit.ounces;
+const MassUnit ounces = MassUnit.ounces;

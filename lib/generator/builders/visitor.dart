@@ -31,37 +31,8 @@ needing control statements or type checks (e.g. `if`, `switch`, or `is`)."""
               .map((line) => "/// $line"))
           ..mixins.addAll(
             [
-              Reference("AreaVisitorMixin"),
-              Reference("TemperatureVisitorMixin"),
+              Reference("f.TemperatureVisitorMixin"),
             ],
-          )
-          ..methods.add(
-            Method(
-              (derived) => derived
-                ..name = "visitDerivedBy"
-                ..requiredParameters.add(
-                  Parameter(
-                    (measurement) => measurement
-                      ..name = "measurement"
-                      ..type = Reference("DerivedMeasurementBy"),
-                  ),
-                )
-                ..body = Code(""),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (derived) => derived
-                ..name = "visitDerivedPer"
-                ..requiredParameters.add(
-                  Parameter(
-                    (measurement) => measurement
-                      ..name = "measurement"
-                      ..type = Reference("DerivedMeasurementPer"),
-                  ),
-                )
-                ..body = Code(""),
-            ),
           )
           ..methods.addAll(
             measurements.map(
@@ -72,7 +43,8 @@ needing control statements or type checks (e.g. `if`, `switch`, or `is`)."""
                     Parameter(
                       (parameter) => parameter
                         ..name = "measurement"
-                        ..type = Reference(measurement.name),
+                        ..type =
+                            Reference("Measurement<f.${measurement.name}>"),
                     ),
                   )
                   ..body = Code(""),

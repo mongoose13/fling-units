@@ -27,23 +27,13 @@ class PrefixGenerator extends GeneratorForAnnotation<MeasurementConfig> {
       Mixin(
         (prefix) {
           prefix
-            ..name = builder.prefixClassName
+            ..name = builder.prefixName
             ..methods.add(
               Method(
                 (prefix) => prefix
                   ..name = "prefix"
                   ..type = MethodType.getter
-                  ..returns = Reference("MeasurementPrefix"),
-              ),
-            )
-            ..fields.add(
-              Field(
-                (siUnitField) => siUnitField
-                  ..name = 'siUnit'
-                  ..static = true
-                  ..type = Reference(builder.unitClassName)
-                  ..assignment = Code(
-                      "${builder.unitClassName}.${builder.siUnit.displayName}"),
+                  ..returns = Reference("f.MeasurementPrefix"),
               ),
             );
           final units = element.children
@@ -56,9 +46,8 @@ class PrefixGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..lambda = true
                   ..name = name
                   ..type = MethodType.getter
-                  ..returns = Reference(builder.unitClassName)
-                  ..body =
-                      Code("${builder.unitClassName}.$name.withPrefix(prefix)"),
+                  ..returns = Reference(builder.unitName)
+                  ..body = Code("${builder.unitName}.$name.withPrefix(prefix)"),
               ),
             );
           }

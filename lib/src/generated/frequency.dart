@@ -7,35 +7,43 @@ part of '../measurements/frequency.dart';
 // **************************************************************************
 
 extension NumExtensionFrequency on num {
-  Frequency get hertz => FrequencyUnit.hertz(this);
+  f.Measurement<Frequency> get hertz => FrequencyUnit.hertz(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class FrequencyUnit extends Unit<Frequency> {
+class Frequency extends f.Dimension {}
+
+class FrequencyUnit extends f.Unit<Frequency> {
   const FrequencyUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const hertz = FrequencyUnit._(name: 'Hz', unitMultiplier: 1.0);
+  static const FrequencyUnit hertz = FrequencyUnit._(
+    name: 'Hz',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Frequency call(
+  f.Measurement<Frequency> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Frequency(magnitude, this, precision);
+      FrequencyMeasurement(magnitude, this, precision);
 
   FrequencyUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
       FrequencyUnit._(
-          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -51,47 +59,43 @@ class FrequencyUnit extends Unit<Frequency> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Frequency extends Measurement<Frequency> {
-  const Frequency(
+class FrequencyMeasurement extends f.Measurement<Frequency> {
+  const FrequencyMeasurement(
     num magnitude,
-    Unit<Frequency> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Frequency> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Frequency.zero([super.unit = siUnit]) : super.zero();
+  const FrequencyMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Frequency.infinite([super.unit = siUnit]) : super.infinite();
+  const FrequencyMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Frequency.negativeInfinite([super.unit = siUnit])
+  const FrequencyMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Frequency.nan([super.unit = siUnit]) : super.nan();
+  const FrequencyMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Frequency.sum(
+  FrequencyMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const FrequencyUnit siUnit = hertz;
+  static const f.Unit<Frequency> siUnit = hertz;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitFrequency(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitFrequency(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Frequency> defaultUnit,
-    Precision precision,
+    f.Unit<Frequency> defaultUnit,
+    f.Precision precision,
   ) =>
-      Frequency(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Frequency> get per =>
-      DerivedMeasurementPerBuilder(this);
+      FrequencyMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -99,9 +103,7 @@ class Frequency extends Measurement<Frequency> {
 // **************************************************************************
 
 mixin FrequencyPrefix {
-  static FrequencyUnit siUnit = FrequencyUnit.hertz;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   FrequencyUnit get hertz => FrequencyUnit.hertz.withPrefix(prefix);
 }
 
@@ -109,4 +111,4 @@ mixin FrequencyPrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const hertz = FrequencyUnit.hertz;
+const FrequencyUnit hertz = FrequencyUnit.hertz;

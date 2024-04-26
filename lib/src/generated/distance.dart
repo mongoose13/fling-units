@@ -7,51 +7,78 @@ part of '../measurements/distance.dart';
 // **************************************************************************
 
 extension NumExtensionDistance on num {
-  Distance get meters => DistanceUnit.meters(this);
-  Distance get miles => DistanceUnit.miles(this);
-  Distance get yards => DistanceUnit.yards(this);
-  Distance get feet => DistanceUnit.feet(this);
-  Distance get inches => DistanceUnit.inches(this);
-  Distance get nauticalMiles => DistanceUnit.nauticalMiles(this);
+  f.Measurement<Distance> get meters => DistanceUnit.meters(this);
+  f.Measurement<Distance> get miles => DistanceUnit.miles(this);
+  f.Measurement<Distance> get yards => DistanceUnit.yards(this);
+  f.Measurement<Distance> get feet => DistanceUnit.feet(this);
+  f.Measurement<Distance> get inches => DistanceUnit.inches(this);
+  f.Measurement<Distance> get nauticalMiles => DistanceUnit.nauticalMiles(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class DistanceUnit extends Unit<Distance> {
+class Distance extends f.Dimension {}
+
+class DistanceUnit extends f.Unit<Distance> {
   const DistanceUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const meters = DistanceUnit._(name: 'm', unitMultiplier: 1.0);
+  static const DistanceUnit meters = DistanceUnit._(
+    name: 'm',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const miles = DistanceUnit._(name: 'mi', unitMultiplier: 0.0006213712);
+  static const DistanceUnit miles = DistanceUnit._(
+    name: 'mi',
+    unitMultiplier: 0.0006213712,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const yards = DistanceUnit._(name: 'yd', unitMultiplier: 1.093613);
+  static const DistanceUnit yards = DistanceUnit._(
+    name: 'yd',
+    unitMultiplier: 1.093613,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const feet = DistanceUnit._(name: 'ft', unitMultiplier: 3.28084);
+  static const DistanceUnit feet = DistanceUnit._(
+    name: 'ft',
+    unitMultiplier: 3.28084,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const inches = DistanceUnit._(name: 'in', unitMultiplier: 39.37008);
+  static const DistanceUnit inches = DistanceUnit._(
+    name: 'in',
+    unitMultiplier: 39.37008,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const nauticalMiles =
-      DistanceUnit._(name: 'NM', unitMultiplier: 0.000539956803456);
+  static const DistanceUnit nauticalMiles = DistanceUnit._(
+    name: 'NM',
+    unitMultiplier: 0.000539956803456,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Distance call(
+  f.Measurement<Distance> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Distance(magnitude, this, precision);
+      DistanceMeasurement(magnitude, this, precision);
 
   DistanceUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
       DistanceUnit._(
-          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -67,47 +94,43 @@ class DistanceUnit extends Unit<Distance> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Distance extends Measurement<Distance> {
-  const Distance(
+class DistanceMeasurement extends f.Measurement<Distance> {
+  const DistanceMeasurement(
     num magnitude,
-    Unit<Distance> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Distance> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Distance.zero([super.unit = siUnit]) : super.zero();
+  const DistanceMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Distance.infinite([super.unit = siUnit]) : super.infinite();
+  const DistanceMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Distance.negativeInfinite([super.unit = siUnit])
+  const DistanceMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Distance.nan([super.unit = siUnit]) : super.nan();
+  const DistanceMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Distance.sum(
+  DistanceMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const DistanceUnit siUnit = meters;
+  static const f.Unit<Distance> siUnit = meters;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitDistance(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitDistance(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Distance> defaultUnit,
-    Precision precision,
+    f.Unit<Distance> defaultUnit,
+    f.Precision precision,
   ) =>
-      Distance(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Distance> get per =>
-      DerivedMeasurementPerBuilder(this);
+      DistanceMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -115,9 +138,7 @@ class Distance extends Measurement<Distance> {
 // **************************************************************************
 
 mixin DistancePrefix {
-  static DistanceUnit siUnit = DistanceUnit.meters;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   DistanceUnit get meters => DistanceUnit.meters.withPrefix(prefix);
   DistanceUnit get miles => DistanceUnit.miles.withPrefix(prefix);
   DistanceUnit get yards => DistanceUnit.yards.withPrefix(prefix);
@@ -131,14 +152,14 @@ mixin DistancePrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const meters = DistanceUnit.meters;
+const DistanceUnit meters = DistanceUnit.meters;
 
-const miles = DistanceUnit.miles;
+const DistanceUnit miles = DistanceUnit.miles;
 
-const yards = DistanceUnit.yards;
+const DistanceUnit yards = DistanceUnit.yards;
 
-const feet = DistanceUnit.feet;
+const DistanceUnit feet = DistanceUnit.feet;
 
-const inches = DistanceUnit.inches;
+const DistanceUnit inches = DistanceUnit.inches;
 
-const nauticalMiles = DistanceUnit.nauticalMiles;
+const DistanceUnit nauticalMiles = DistanceUnit.nauticalMiles;

@@ -7,39 +7,50 @@ part of '../measurements/quantity.dart';
 // **************************************************************************
 
 extension NumExtensionQuantity on num {
-  Quantity get units => QuantityUnit.units(this);
-  Quantity get moles => QuantityUnit.moles(this);
+  f.Measurement<Quantity> get units => QuantityUnit.units(this);
+  f.Measurement<Quantity> get moles => QuantityUnit.moles(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class QuantityUnit extends Unit<Quantity> {
+class Quantity extends f.Dimension {}
+
+class QuantityUnit extends f.Unit<Quantity> {
   const QuantityUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const units = QuantityUnit._(name: 'units', unitMultiplier: 1.0);
+  static const QuantityUnit units = QuantityUnit._(
+    name: 'units',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const moles =
-      QuantityUnit._(name: 'mol', unitMultiplier: 1.660539067e-24);
+  static const QuantityUnit moles = QuantityUnit._(
+    name: 'mol',
+    unitMultiplier: 1.660539067e-24,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Quantity call(
+  f.Measurement<Quantity> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Quantity(magnitude, this, precision);
+      QuantityMeasurement(magnitude, this, precision);
 
   QuantityUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
       QuantityUnit._(
-          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -55,47 +66,43 @@ class QuantityUnit extends Unit<Quantity> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Quantity extends Measurement<Quantity> {
-  const Quantity(
+class QuantityMeasurement extends f.Measurement<Quantity> {
+  const QuantityMeasurement(
     num magnitude,
-    Unit<Quantity> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Quantity> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Quantity.zero([super.unit = siUnit]) : super.zero();
+  const QuantityMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Quantity.infinite([super.unit = siUnit]) : super.infinite();
+  const QuantityMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Quantity.negativeInfinite([super.unit = siUnit])
+  const QuantityMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Quantity.nan([super.unit = siUnit]) : super.nan();
+  const QuantityMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Quantity.sum(
+  QuantityMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const QuantityUnit siUnit = units;
+  static const f.Unit<Quantity> siUnit = units;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitQuantity(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitQuantity(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Quantity> defaultUnit,
-    Precision precision,
+    f.Unit<Quantity> defaultUnit,
+    f.Precision precision,
   ) =>
-      Quantity(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Quantity> get per =>
-      DerivedMeasurementPerBuilder(this);
+      QuantityMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -103,9 +110,7 @@ class Quantity extends Measurement<Quantity> {
 // **************************************************************************
 
 mixin QuantityPrefix {
-  static QuantityUnit siUnit = QuantityUnit.units;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   QuantityUnit get units => QuantityUnit.units.withPrefix(prefix);
   QuantityUnit get moles => QuantityUnit.moles.withPrefix(prefix);
 }
@@ -114,6 +119,6 @@ mixin QuantityPrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const units = QuantityUnit.units;
+const QuantityUnit units = QuantityUnit.units;
 
-const moles = QuantityUnit.moles;
+const QuantityUnit moles = QuantityUnit.moles;

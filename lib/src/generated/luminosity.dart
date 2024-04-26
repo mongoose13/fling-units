@@ -7,43 +7,57 @@ part of '../measurements/luminosity.dart';
 // **************************************************************************
 
 extension NumExtensionLuminosity on num {
-  Luminosity get candela => LuminosityUnit.candela(this);
-  Luminosity get candlepower => LuminosityUnit.candlepower(this);
-  Luminosity get hefnerkerze => LuminosityUnit.hefnerkerze(this);
+  f.Measurement<Luminosity> get candela => LuminosityUnit.candela(this);
+  f.Measurement<Luminosity> get candlepower => LuminosityUnit.candlepower(this);
+  f.Measurement<Luminosity> get hefnerkerze => LuminosityUnit.hefnerkerze(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class LuminosityUnit extends Unit<Luminosity> {
+class Luminosity extends f.Dimension {}
+
+class LuminosityUnit extends f.Unit<Luminosity> {
   const LuminosityUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const candela = LuminosityUnit._(name: 'cd', unitMultiplier: 1.0);
+  static const LuminosityUnit candela = LuminosityUnit._(
+    name: 'cd',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const candlepower =
-      LuminosityUnit._(name: 'cp', unitMultiplier: 1.0194);
+  static const LuminosityUnit candlepower = LuminosityUnit._(
+    name: 'cp',
+    unitMultiplier: 1.0194,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const hefnerkerze =
-      LuminosityUnit._(name: 'HK', unitMultiplier: 1.087);
+  static const LuminosityUnit hefnerkerze = LuminosityUnit._(
+    name: 'HK',
+    unitMultiplier: 1.087,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Luminosity call(
+  f.Measurement<Luminosity> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Luminosity(magnitude, this, precision);
+      LuminosityMeasurement(magnitude, this, precision);
 
   LuminosityUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
       LuminosityUnit._(
-          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -59,47 +73,44 @@ class LuminosityUnit extends Unit<Luminosity> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Luminosity extends Measurement<Luminosity> {
-  const Luminosity(
+class LuminosityMeasurement extends f.Measurement<Luminosity> {
+  const LuminosityMeasurement(
     num magnitude,
-    Unit<Luminosity> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Luminosity> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Luminosity.zero([super.unit = siUnit]) : super.zero();
+  const LuminosityMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Luminosity.infinite([super.unit = siUnit]) : super.infinite();
+  const LuminosityMeasurement.infinite([super.unit = siUnit])
+      : super.infinite();
 
-  const Luminosity.negativeInfinite([super.unit = siUnit])
+  const LuminosityMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Luminosity.nan([super.unit = siUnit]) : super.nan();
+  const LuminosityMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Luminosity.sum(
+  LuminosityMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const LuminosityUnit siUnit = candela;
+  static const f.Unit<Luminosity> siUnit = candela;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitLuminosity(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitLuminosity(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Luminosity> defaultUnit,
-    Precision precision,
+    f.Unit<Luminosity> defaultUnit,
+    f.Precision precision,
   ) =>
-      Luminosity(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Luminosity> get per =>
-      DerivedMeasurementPerBuilder(this);
+      LuminosityMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -107,9 +118,7 @@ class Luminosity extends Measurement<Luminosity> {
 // **************************************************************************
 
 mixin LuminosityPrefix {
-  static LuminosityUnit siUnit = LuminosityUnit.candela;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   LuminosityUnit get candela => LuminosityUnit.candela.withPrefix(prefix);
   LuminosityUnit get candlepower =>
       LuminosityUnit.candlepower.withPrefix(prefix);
@@ -121,8 +130,8 @@ mixin LuminosityPrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const candela = LuminosityUnit.candela;
+const LuminosityUnit candela = LuminosityUnit.candela;
 
-const candlepower = LuminosityUnit.candlepower;
+const LuminosityUnit candlepower = LuminosityUnit.candlepower;
 
-const hefnerkerze = LuminosityUnit.hefnerkerze;
+const LuminosityUnit hefnerkerze = LuminosityUnit.hefnerkerze;

@@ -7,46 +7,64 @@ part of '../measurements/time.dart';
 // **************************************************************************
 
 extension NumExtensionTime on num {
-  Time get seconds => TimeUnit.seconds(this);
-  Time get minutes => TimeUnit.minutes(this);
-  Time get hours => TimeUnit.hours(this);
-  Time get days => TimeUnit.days(this);
+  f.Measurement<Time> get seconds => TimeUnit.seconds(this);
+  f.Measurement<Time> get minutes => TimeUnit.minutes(this);
+  f.Measurement<Time> get hours => TimeUnit.hours(this);
+  f.Measurement<Time> get days => TimeUnit.days(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class TimeUnit extends Unit<Time> {
+class Time extends f.Dimension {}
+
+class TimeUnit extends f.Unit<Time> {
   const TimeUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const seconds = TimeUnit._(name: 's', unitMultiplier: 1.0);
+  static const TimeUnit seconds = TimeUnit._(
+    name: 's',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const minutes =
-      TimeUnit._(name: 'min', unitMultiplier: 0.016666666666666666);
+  static const TimeUnit minutes = TimeUnit._(
+    name: 'min',
+    unitMultiplier: 0.016666666666666666,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const hours =
-      TimeUnit._(name: 'h', unitMultiplier: 0.0002777777777777778);
+  static const TimeUnit hours = TimeUnit._(
+    name: 'h',
+    unitMultiplier: 0.0002777777777777778,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const days =
-      TimeUnit._(name: 'd', unitMultiplier: 0.000011574074074074073);
+  static const TimeUnit days = TimeUnit._(
+    name: 'd',
+    unitMultiplier: 0.000011574074074074073,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Time call(
+  f.Measurement<Time> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Time(magnitude, this, precision);
+      TimeMeasurement(magnitude, this, precision);
 
   TimeUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
-      TimeUnit._(name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+      TimeUnit._(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -62,46 +80,43 @@ class TimeUnit extends Unit<Time> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Time extends Measurement<Time> {
-  const Time(
+class TimeMeasurement extends f.Measurement<Time> {
+  const TimeMeasurement(
     num magnitude,
-    Unit<Time> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Time> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Time.zero([super.unit = siUnit]) : super.zero();
+  const TimeMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Time.infinite([super.unit = siUnit]) : super.infinite();
+  const TimeMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Time.negativeInfinite([super.unit = siUnit]) : super.negativeInfinite();
+  const TimeMeasurement.negativeInfinite([super.unit = siUnit])
+      : super.negativeInfinite();
 
-  const Time.nan([super.unit = siUnit]) : super.nan();
+  const TimeMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Time.sum(
+  TimeMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const TimeUnit siUnit = seconds;
+  static const f.Unit<Time> siUnit = seconds;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitTime(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitTime(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Time> defaultUnit,
-    Precision precision,
+    f.Unit<Time> defaultUnit,
+    f.Precision precision,
   ) =>
-      Time(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Time> get per =>
-      DerivedMeasurementPerBuilder(this);
+      TimeMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -109,9 +124,7 @@ class Time extends Measurement<Time> {
 // **************************************************************************
 
 mixin TimePrefix {
-  static TimeUnit siUnit = TimeUnit.seconds;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   TimeUnit get seconds => TimeUnit.seconds.withPrefix(prefix);
   TimeUnit get minutes => TimeUnit.minutes.withPrefix(prefix);
   TimeUnit get hours => TimeUnit.hours.withPrefix(prefix);
@@ -122,10 +135,10 @@ mixin TimePrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const seconds = TimeUnit.seconds;
+const TimeUnit seconds = TimeUnit.seconds;
 
-const minutes = TimeUnit.minutes;
+const TimeUnit minutes = TimeUnit.minutes;
 
-const hours = TimeUnit.hours;
+const TimeUnit hours = TimeUnit.hours;
 
-const days = TimeUnit.days;
+const TimeUnit days = TimeUnit.days;

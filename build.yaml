@@ -62,24 +62,6 @@ builders:
     build_extensions: {".measurement": ["lib/src/generated/extension.dart"]}
     build_to: source
     required_inputs: [".measurement"]
-  derived:
-    import: "package:fling_units/generator/generator.dart"
-    builder_factories: ["derivedBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/derived.dart"]}
-    build_to: source
-    required_inputs: [".measurement", ".prefixes"]
-  square:
-    import: "package:fling_units/generator/generator.dart"
-    builder_factories: ["derivedSquareBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/square.dart"]}
-    build_to: source
-    required_inputs: [".measurement", ".prefixes"]
-  cubic:
-    import: "package:fling_units/generator/generator.dart"
-    builder_factories: ["derivedCubicBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/cubic.dart"]}
-    build_to: source
-    required_inputs: [".measurement", ".prefixes"]
 
 targets:
   $default:
@@ -132,18 +114,6 @@ targets:
           generate_for:
             - lib/src/measurements/*.dart
       fling_units|num_extension:
-        options:
-          generate_for:
-            - lib/src/measurements/*.dart
-      fling_units|derived:
-        options:
-          generate_for:
-            - lib/src/measurements/*.dart
-      fling_units|square:
-        options:
-          generate_for:
-            - lib/src/measurements/*.dart
-      fling_units|cubic:
         options:
           generate_for:
             - lib/src/measurements/*.dart

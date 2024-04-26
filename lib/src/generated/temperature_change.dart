@@ -7,43 +7,60 @@ part of '../measurements/temperature_change.dart';
 // **************************************************************************
 
 extension NumExtensionTemperatureChange on num {
-  TemperatureChange get kelvin => TemperatureChangeUnit.kelvin(this);
-  TemperatureChange get celcius => TemperatureChangeUnit.celcius(this);
-  TemperatureChange get fahrenheit => TemperatureChangeUnit.fahrenheit(this);
+  f.Measurement<TemperatureChange> get kelvin =>
+      TemperatureChangeUnit.kelvin(this);
+  f.Measurement<TemperatureChange> get celcius =>
+      TemperatureChangeUnit.celcius(this);
+  f.Measurement<TemperatureChange> get fahrenheit =>
+      TemperatureChangeUnit.fahrenheit(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class TemperatureChangeUnit extends Unit<TemperatureChange> {
+class TemperatureChange extends f.Dimension {}
+
+class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
   const TemperatureChangeUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const kelvin = TemperatureChangeUnit._(name: 'K', unitMultiplier: 1.0);
+  static const TemperatureChangeUnit kelvin = TemperatureChangeUnit._(
+    name: 'K',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const celcius =
-      TemperatureChangeUnit._(name: '°C', unitMultiplier: 1.0);
+  static const TemperatureChangeUnit celcius = TemperatureChangeUnit._(
+    name: '°C',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const fahrenheit =
-      TemperatureChangeUnit._(name: '°F', unitMultiplier: 1.8);
+  static const TemperatureChangeUnit fahrenheit = TemperatureChangeUnit._(
+    name: '°F',
+    unitMultiplier: 1.8,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  TemperatureChange call(
+  f.Measurement<TemperatureChange> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      TemperatureChange(magnitude, this, precision);
+      TemperatureChangeMeasurement(magnitude, this, precision);
 
   TemperatureChangeUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
       TemperatureChangeUnit._(
-          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -59,48 +76,45 @@ class TemperatureChangeUnit extends Unit<TemperatureChange> {
 // MeasurementGenerator
 // **************************************************************************
 
-class TemperatureChange extends Measurement<TemperatureChange> {
-  const TemperatureChange(
+class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
+  const TemperatureChangeMeasurement(
     num magnitude,
-    Unit<TemperatureChange> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<TemperatureChange> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const TemperatureChange.zero([super.unit = siUnit]) : super.zero();
+  const TemperatureChangeMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const TemperatureChange.infinite([super.unit = siUnit]) : super.infinite();
+  const TemperatureChangeMeasurement.infinite([super.unit = siUnit])
+      : super.infinite();
 
-  const TemperatureChange.negativeInfinite([super.unit = siUnit])
+  const TemperatureChangeMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const TemperatureChange.nan([super.unit = siUnit]) : super.nan();
+  const TemperatureChangeMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  TemperatureChange.sum(
+  TemperatureChangeMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const TemperatureChangeUnit siUnit = kelvin;
+  static const f.Unit<TemperatureChange> siUnit = kelvin;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) =>
+  acceptVisitor(f.MeasurementVisitor visitor) =>
       visitor.visitTemperatureChange(this);
 
   @override
   construct(
     num magnitude,
-    Unit<TemperatureChange> defaultUnit,
-    Precision precision,
+    f.Unit<TemperatureChange> defaultUnit,
+    f.Precision precision,
   ) =>
-      TemperatureChange(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<TemperatureChange> get per =>
-      DerivedMeasurementPerBuilder(this);
+      TemperatureChangeMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -108,9 +122,7 @@ class TemperatureChange extends Measurement<TemperatureChange> {
 // **************************************************************************
 
 mixin TemperatureChangePrefix {
-  static TemperatureChangeUnit siUnit = TemperatureChangeUnit.kelvin;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   TemperatureChangeUnit get kelvin =>
       TemperatureChangeUnit.kelvin.withPrefix(prefix);
   TemperatureChangeUnit get celcius =>
@@ -123,8 +135,8 @@ mixin TemperatureChangePrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const kelvin = TemperatureChangeUnit.kelvin;
+const TemperatureChangeUnit kelvin = TemperatureChangeUnit.kelvin;
 
-const celcius = TemperatureChangeUnit.celcius;
+const TemperatureChangeUnit celcius = TemperatureChangeUnit.celcius;
 
-const fahrenheit = TemperatureChangeUnit.fahrenheit;
+const TemperatureChangeUnit fahrenheit = TemperatureChangeUnit.fahrenheit;

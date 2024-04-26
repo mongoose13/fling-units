@@ -7,62 +7,101 @@ part of '../measurements/pressure.dart';
 // **************************************************************************
 
 extension NumExtensionPressure on num {
-  Pressure get pascals => PressureUnit.pascals(this);
-  Pressure get bars => PressureUnit.bars(this);
-  Pressure get baryes => PressureUnit.baryes(this);
-  Pressure get standardAtmospheres => PressureUnit.standardAtmospheres(this);
-  Pressure get technicalAtmospheres => PressureUnit.technicalAtmospheres(this);
-  Pressure get mmHg => PressureUnit.mmHg(this);
-  Pressure get inHg => PressureUnit.inHg(this);
-  Pressure get torr => PressureUnit.torr(this);
-  Pressure get psi => PressureUnit.psi(this);
+  f.Measurement<Pressure> get pascals => PressureUnit.pascals(this);
+  f.Measurement<Pressure> get bars => PressureUnit.bars(this);
+  f.Measurement<Pressure> get baryes => PressureUnit.baryes(this);
+  f.Measurement<Pressure> get standardAtmospheres =>
+      PressureUnit.standardAtmospheres(this);
+  f.Measurement<Pressure> get technicalAtmospheres =>
+      PressureUnit.technicalAtmospheres(this);
+  f.Measurement<Pressure> get mmHg => PressureUnit.mmHg(this);
+  f.Measurement<Pressure> get inHg => PressureUnit.inHg(this);
+  f.Measurement<Pressure> get torr => PressureUnit.torr(this);
+  f.Measurement<Pressure> get psi => PressureUnit.psi(this);
 }
 
 // **************************************************************************
 // UnitGenerator
 // **************************************************************************
 
-class PressureUnit extends Unit<Pressure> {
+class Pressure extends f.Dimension {}
+
+class PressureUnit extends f.Unit<Pressure> {
   const PressureUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const f.MeasurementPrefix.unit(),
   });
 
-  static const pascals = PressureUnit._(name: 'Pa', unitMultiplier: 1.0);
+  static const PressureUnit pascals = PressureUnit._(
+    name: 'Pa',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const bars = PressureUnit._(name: 'bar', unitMultiplier: 0.00001);
+  static const PressureUnit bars = PressureUnit._(
+    name: 'bar',
+    unitMultiplier: 0.00001,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const baryes = PressureUnit._(name: 'Ba', unitMultiplier: 0.1);
+  static const PressureUnit baryes = PressureUnit._(
+    name: 'Ba',
+    unitMultiplier: 0.1,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const standardAtmospheres =
-      PressureUnit._(name: 'atm', unitMultiplier: 0.000009869232667160129);
+  static const PressureUnit standardAtmospheres = PressureUnit._(
+    name: 'atm',
+    unitMultiplier: 0.000009869232667160129,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const technicalAtmospheres =
-      PressureUnit._(name: 'at', unitMultiplier: 98.0665);
+  static const PressureUnit technicalAtmospheres = PressureUnit._(
+    name: 'at',
+    unitMultiplier: 98.0665,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const mmHg = PressureUnit._(name: 'mmHg', unitMultiplier: 0.0075006);
+  static const PressureUnit mmHg = PressureUnit._(
+    name: 'mmHg',
+    unitMultiplier: 0.0075006,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const inHg = PressureUnit._(name: 'inHg', unitMultiplier: 3386.39);
+  static const PressureUnit inHg = PressureUnit._(
+    name: 'inHg',
+    unitMultiplier: 3386.39,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const torr =
-      PressureUnit._(name: 'Torr', unitMultiplier: 133.32236842105263);
+  static const PressureUnit torr = PressureUnit._(
+    name: 'Torr',
+    unitMultiplier: 133.32236842105263,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  static const psi = PressureUnit._(name: 'psi', unitMultiplier: 6894.76);
+  static const PressureUnit psi = PressureUnit._(
+    name: 'psi',
+    unitMultiplier: 6894.76,
+    prefix: f.MeasurementPrefix.unit(),
+  );
 
-  @override
-  Pressure call(
+  f.Measurement<Pressure> call(
     num magnitude, {
-    Precision precision = Precision.max,
+    f.Precision precision = f.Precision.max,
   }) =>
-      Pressure(magnitude, this, precision);
+      PressureMeasurement(magnitude, this, precision);
 
   PressureUnit withPrefix(
-    MeasurementPrefix prefix, {
-    Precision precision = Precision.max,
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
   }) =>
       PressureUnit._(
-          name: name, unitMultiplier: unitMultiplier, prefix: prefix);
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -78,47 +117,43 @@ class PressureUnit extends Unit<Pressure> {
 // MeasurementGenerator
 // **************************************************************************
 
-class Pressure extends Measurement<Pressure> {
-  const Pressure(
+class PressureMeasurement extends f.Measurement<Pressure> {
+  const PressureMeasurement(
     num magnitude,
-    Unit<Pressure> defaultUnit, [
-    Precision precision = Precision.max,
+    f.Unit<Pressure> defaultUnit, [
+    f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
           defaultUnit: defaultUnit,
         );
 
-  const Pressure.zero([super.unit = siUnit]) : super.zero();
+  const PressureMeasurement.zero([super.unit = siUnit]) : super.zero();
 
-  const Pressure.infinite([super.unit = siUnit]) : super.infinite();
+  const PressureMeasurement.infinite([super.unit = siUnit]) : super.infinite();
 
-  const Pressure.negativeInfinite([super.unit = siUnit])
+  const PressureMeasurement.negativeInfinite([super.unit = siUnit])
       : super.negativeInfinite();
 
-  const Pressure.nan([super.unit = siUnit]) : super.nan();
+  const PressureMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  Pressure.sum(
+  PressureMeasurement.sum(
     super.parts, {
     super.precision,
   }) : super.sum();
 
-  static const PressureUnit siUnit = pascals;
+  static const f.Unit<Pressure> siUnit = pascals;
 
   @override
-  acceptVisitor(MeasurementVisitor visitor) => visitor.visitPressure(this);
+  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitPressure(this);
 
   @override
   construct(
     num magnitude,
-    Unit<Pressure> defaultUnit,
-    Precision precision,
+    f.Unit<Pressure> defaultUnit,
+    f.Precision precision,
   ) =>
-      Pressure(magnitude, defaultUnit, precision);
-
-  @override
-  DerivedMeasurementPerBuilder<Pressure> get per =>
-      DerivedMeasurementPerBuilder(this);
+      PressureMeasurement(magnitude, defaultUnit, precision);
 }
 
 // **************************************************************************
@@ -126,9 +161,7 @@ class Pressure extends Measurement<Pressure> {
 // **************************************************************************
 
 mixin PressurePrefix {
-  static PressureUnit siUnit = PressureUnit.pascals;
-
-  MeasurementPrefix get prefix;
+  f.MeasurementPrefix get prefix;
   PressureUnit get pascals => PressureUnit.pascals.withPrefix(prefix);
   PressureUnit get bars => PressureUnit.bars.withPrefix(prefix);
   PressureUnit get baryes => PressureUnit.baryes.withPrefix(prefix);
@@ -146,20 +179,20 @@ mixin PressurePrefix {
 // GlobalGenerator
 // **************************************************************************
 
-const pascals = PressureUnit.pascals;
+const PressureUnit pascals = PressureUnit.pascals;
 
-const bars = PressureUnit.bars;
+const PressureUnit bars = PressureUnit.bars;
 
-const baryes = PressureUnit.baryes;
+const PressureUnit baryes = PressureUnit.baryes;
 
-const standardAtmospheres = PressureUnit.standardAtmospheres;
+const PressureUnit standardAtmospheres = PressureUnit.standardAtmospheres;
 
-const technicalAtmospheres = PressureUnit.technicalAtmospheres;
+const PressureUnit technicalAtmospheres = PressureUnit.technicalAtmospheres;
 
-const mmHg = PressureUnit.mmHg;
+const PressureUnit mmHg = PressureUnit.mmHg;
 
-const inHg = PressureUnit.inHg;
+const PressureUnit inHg = PressureUnit.inHg;
 
-const torr = PressureUnit.torr;
+const PressureUnit torr = PressureUnit.torr;
 
-const psi = PressureUnit.psi;
+const PressureUnit psi = PressureUnit.psi;

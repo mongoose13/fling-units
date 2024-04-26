@@ -106,10 +106,14 @@ class FlingMeasurementBuilder extends FlingBuilder {
   static final overrideAnnotation = CodeExpression(Code("override"));
   final checker = const TypeChecker.fromRuntime(UnitConfig);
 
-  late final String measurementClassName;
-  late final String unitClassName;
-  late final String unitType;
-  late final String prefixClassName;
+  late final String dimensionName;
+  late final Reference dimensionType;
+  late final String unitName;
+  late final Reference unitExtends;
+  late final Reference unitType;
+  late final String measurementName;
+  late final Reference measurementType;
+  late final String prefixName;
 
   late final Iterable<Element> units;
   late final Element siUnit;
@@ -118,10 +122,17 @@ class FlingMeasurementBuilder extends FlingBuilder {
     Element element,
     ConstantReader annotation,
   ) {
-    measurementClassName = annotation.read('shortName').stringValue;
-    unitClassName = "${measurementClassName}Unit";
-    unitType = "Unit<$measurementClassName>";
-    prefixClassName = "${measurementClassName}Prefix";
+    dimensionName = annotation.read('shortName').stringValue;
+    dimensionType = Reference("f.Dimension");
+
+    unitName = "${dimensionName}Unit";
+    measurementName = "${dimensionName}Measurement";
+    prefixName = "${dimensionName}Prefix";
+
+    unitExtends = Reference("f.Unit<$dimensionName>");
+    unitType = Reference("f.Unit<$dimensionName>");
+    measurementType = Reference("f.Measurement<$dimensionName>");
+
     units = element.children
         .where((Element element) => checker.hasAnnotationOfExact(element));
     siUnit = units.firstWhere(
@@ -132,7 +143,7 @@ class FlingMeasurementBuilder extends FlingBuilder {
               ?.toBoolValue() ??
           false,
       orElse: () => throw ArgumentError(
-        "No SI unit identified for $measurementClassName",
+        "No SI unit identified for $dimensionName",
       ),
     );
   }

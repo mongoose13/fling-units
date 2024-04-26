@@ -18,7 +18,7 @@ part of "library.dart";
 /// [Unit]s, but instead pass them to the appropriate
 /// [Measurement] instances for interpretation (typically via the
 /// [Measurement.as] method).
-abstract class Unit<T extends Measurement<T>> {
+abstract class Unit<T extends Dimension> {
   /// Constructs a [Unit].
   const Unit({
     required this.name,
@@ -26,8 +26,15 @@ abstract class Unit<T extends Measurement<T>> {
     required this.prefix,
   });
 
+  /*
+  /// Creates a new unit, replacing this unit's prefix with the specified prefix.
+  Unit<T> withPrefix(MeasurementPrefix prefix);
+
   /// Creates a measurement based on the value and the configured multiplier.
-  T call(num magnitude, {Precision precision = Precision.max});
+  Measurement<T> call(
+    List<num> magnitudes, {
+    Precision precision = Precision.max,
+  });*/
 
   @override
   String toString() => '$prefix$name';
@@ -43,20 +50,6 @@ abstract class Unit<T extends Measurement<T>> {
   double from(num value) =>
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 
-  /// Returns a derived unit builder (division) iniialized with this as the first unit.
-  DerivedUnitPerBuilder<T> get per => DerivedUnitPerBuilder(this);
-
-  /// Returns a derived unit builder (multiplication) iniialized with this as the first unit.
-  DerivedUnitByBuilder<T> get by => DerivedUnitByBuilder(this);
-
-  /// Creates a derived unit that is the multiplication of this and another unit.
-  DerivedUnitBy<T, V> multiply<V extends Measurement<V>>(Unit<V> other) =>
-      DerivedUnitBy(this, other);
-
-  /// Creates a derived unit that is the division of this and another unit.
-  DerivedUnitPer<T, V> divide<V extends Measurement<V>>(Unit<V> other) =>
-      DerivedUnitPer(this, other);
-
   /// The standardized short form name of the unit (e.g. "m" for meters).
   final String name;
 
@@ -65,13 +58,61 @@ abstract class Unit<T extends Measurement<T>> {
 
   /// The prefix to apply to the measurement.
   final MeasurementPrefix prefix;
+
+  /// The total mutiplier for this unit.
+  double get multiplier => prefix.unitMultiplier * unitMultiplier;
+}
+
+abstract class UnitModifier<U extends Unit> {
+  final U unit;
+
+  UnitModifier(this.unit);
+
+  @override
+  String toString() => unit.toString();
+
+  double get multiplier;
+
+  String get opString;
+
+  static bool isNumerator<T extends UnitModifier>() =>
+      <T>[] is List<UnitNumerator>;
+
+  static num typeMultiplier<T extends UnitModifier>(num? value) => value == null
+      ? 1.0
+      : isNumerator<T>()
+          ? value
+          : 1.0 / value;
+}
+
+class UnitNumerator<U extends Unit> extends UnitModifier<U> {
+  UnitNumerator(super.unit);
+
+  @override
+  double get multiplier => unit.multiplier;
+
+  @override
+  String get opString => "*";
+}
+
+class UnitDenominator<U extends Unit> extends UnitModifier<U> {
+  UnitDenominator(super.unit);
+
+  @override
+  double get multiplier => 1.0 / unit.multiplier;
+
+  @override
+  String get opString => "/";
+
+  @override
+  String toString() => "${unit.toString()}⁻¹";
 }
 
 /// A [Unit] that rounds its results to `int`s.
 ///
 /// This is useful for measurements that should not be represented fractionally,
 /// e.g. the number of items in a collection.
-abstract class RoundingUnit<T extends Measurement<T>> extends Unit<T> {
+abstract class RoundingUnit<T extends Dimension> extends Unit<T> {
   /// Constructs a [RoundingUnit].
   const RoundingUnit._({
     required super.name,
@@ -88,3 +129,229 @@ abstract class RoundingUnit<T extends Measurement<T>> extends Unit<T> {
   double from(num value) =>
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 }
+
+class DerivedUnit<D extends Dimension> extends Unit<D> {
+  DerivedUnit({
+    required super.name,
+    required super.unitMultiplier,
+    super.prefix = const MeasurementPrefix.unit(),
+    Iterable<bool> operators = const [],
+  });
+
+  DerivedUnit<D> withPrefix(MeasurementPrefix prefix) => DerivedUnit(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
+
+  static DerivedUnit<Dimension1<UnitDenominator<U>>> inverse<U extends Unit>(
+    U unit, {
+    String? name,
+    double? unitMultiplier,
+  }) =>
+      DerivedUnit(
+        name: name ?? "1/${unit.toString()}",
+        unitMultiplier: unitMultiplier ?? 1.0 / unit.multiplier,
+        operators: [false],
+      );
+
+  static DerivedUnit<Dimension3<A, B, C>> of3<A extends UnitModifier,
+          B extends UnitModifier, C extends UnitModifier>(
+    String name,
+    double unitMultiplier,
+  ) =>
+      DerivedUnit(
+        name: name,
+        unitMultiplier: unitMultiplier,
+      );
+
+  static DerivedUnit<Dimension3<A, B, C>> from3<A extends UnitModifier,
+          B extends UnitModifier, C extends UnitModifier>(
+    A a,
+    B b,
+    C c, {
+    String? name,
+    double? unitMultiplier,
+  }) =>
+      DerivedUnit(
+        name: name ??
+            (a == b && a == c
+                ? "${a.toString()}³"
+                : "${a.toString()}x${b.toString()}x${c.toString()}"),
+        unitMultiplier:
+            unitMultiplier ?? a.multiplier * b.multiplier * c.multiplier,
+      );
+}
+
+class DerivedUnit2<
+    M1 extends UnitModifier<Unit<D1>>,
+    M2 extends UnitModifier<Unit<D2>>,
+    D1 extends Dimension,
+    D2 extends Dimension> extends Unit<Dimension2<M1, M2>> {
+  final List<bool> _multipliers;
+
+  DerivedUnit2.from(
+    M1 a,
+    M2 b, {
+    String? name,
+    MeasurementPrefix? prefix,
+  })  : _multipliers = [
+          UnitModifier.isNumerator<M1>(),
+          UnitModifier.isNumerator<M2>(),
+        ],
+        super(
+          name: name ??
+              (a == b ? "${a.toString()}²" : "${a.toString()}⋅${b.toString()}"),
+          unitMultiplier: (UnitModifier.typeMultiplier(a.multiplier) *
+                  UnitModifier.typeMultiplier(b.multiplier))
+              .toDouble(),
+          prefix: prefix ?? const MeasurementPrefix.unit(),
+        );
+
+  static DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1,
+      D2> ratio<D1 extends Dimension, D2 extends Dimension>(
+    Unit<D1> a,
+    Unit<D2> b, {
+    String? name,
+    MeasurementPrefix? prefix,
+  }) =>
+      DerivedUnit2.from(
+        UnitNumerator(a),
+        UnitDenominator(b),
+        name: name,
+        prefix: prefix,
+      );
+
+  static DerivedUnit2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>, D1, D2>
+      product<D1 extends Dimension, D2 extends Dimension>(
+    Unit<D1> a,
+    Unit<D2> b, {
+    String? name,
+    MeasurementPrefix? prefix,
+  }) =>
+          DerivedUnit2.from(
+            UnitNumerator(a),
+            UnitNumerator(b),
+            name: name,
+            prefix: prefix,
+          );
+
+  static DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
+      square<D extends Dimension>(
+    Unit<D> unit, {
+    String? name,
+    MeasurementPrefix? prefix,
+  }) =>
+          DerivedUnit2.from(
+            UnitNumerator(unit),
+            UnitNumerator(unit),
+            name: name ?? "${unit.toString()}²",
+            prefix: prefix,
+          );
+
+  Measurement<Dimension2<M1, M2>> call(
+    num a, [
+    num? b,
+    Precision precision = Precision.max,
+  ]) =>
+      DerivedMeasurement(
+        magnitude: UnitModifier.typeMultiplier<M1>(a) *
+            UnitModifier.typeMultiplier<M2>(b),
+        defaultUnit: this,
+      );
+
+  Measurement<Dimension2<M1, M2>>
+      using<X1 extends Measurement<D1>, X2 extends Measurement<D2>>(
+    X1 a,
+    X2 b, {
+    Precision precision = Precision.max,
+  }) {
+    return DerivedMeasurement(
+      magnitude: (_multipliers[0] ? a.si : 1.0 / a.si) *
+          (_multipliers[1] ? b.si : 1.0 / b.si) /
+          multiplier,
+      defaultUnit: this,
+    );
+  }
+}
+
+final square = DerivedUnit2.square;
+final ratio = DerivedUnit2.ratio;
+final product = DerivedUnit2.product;
+
+class DerivedUnit3<
+    M1 extends UnitModifier<Unit<D1>>,
+    M2 extends UnitModifier<Unit<D2>>,
+    M3 extends UnitModifier<Unit<D3>>,
+    D1 extends Dimension,
+    D2 extends Dimension,
+    D3 extends Dimension> extends Unit<Dimension3<M1, M2, M3>> {
+  DerivedUnit3({
+    required super.name,
+    required super.unitMultiplier,
+    super.prefix = const MeasurementPrefix.unit(),
+  });
+
+  DerivedUnit3.from(
+    M1 a,
+    M2 b,
+    M3 c, {
+    String? name,
+    MeasurementPrefix? prefix,
+  }) : super(
+          name: name ?? "${a.toString()}⋅${b.toString()}⋅${c.toString()}",
+          unitMultiplier: a.multiplier * b.multiplier * c.multiplier,
+          prefix: prefix ?? const MeasurementPrefix.unit(),
+        );
+
+  static DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
+      UnitNumerator<Unit<D>>, D, D, D> cubic<D extends Dimension>(
+    Unit<D> unit, {
+    String? name,
+    MeasurementPrefix? prefix,
+  }) =>
+      DerivedUnit3.from(
+        UnitNumerator(unit),
+        UnitNumerator(unit),
+        UnitNumerator(unit),
+        name: name ?? "${unit.toString()}³",
+        prefix: prefix,
+      );
+
+  DerivedUnit3<M1, M2, M3, D1, D2, D3> withPrefix(MeasurementPrefix prefix) =>
+      DerivedUnit3(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
+
+  Measurement<Dimension3<M1, M2, M3>> call(
+    num a, [
+    num? b,
+    num? c,
+    Precision precision = Precision.max,
+  ]) =>
+      DerivedMeasurement(
+        magnitude: (M1.runtimeType == UnitNumerator ? a : 1.0 / a) *
+            (b != null
+                ? (M2.runtimeType == UnitNumerator ? b : 1.0 / b)
+                : 1.0) *
+            (c != null ? (M3.runtimeType == UnitNumerator ? c : 1.0 / c) : 1.0),
+        defaultUnit: this,
+      );
+
+  Measurement<Dimension3<M1, M2, M3>> using<X1 extends Measurement<D1>,
+          X2 extends Measurement<D2>, X3 extends Measurement<D2>>(
+    X1 a,
+    X2 b,
+    X3 c, {
+    Precision precision = Precision.max,
+  }) =>
+      // TODO: magnitude calculation
+      DerivedMeasurement(
+        magnitude: (a.si * b.si * c.si) / multiplier,
+        defaultUnit: this,
+      );
+}
+
+final cubic = DerivedUnit3.cubic;

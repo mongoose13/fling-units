@@ -1,7 +1,8 @@
 part of "library.dart";
 
 /// Base class for any type of measurement.
-abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
+abstract class Measurement<T extends Dimension>
+    implements Comparable<Measurement<T>> {
   /// Creates a base measurement.
   const Measurement({
     required num magnitude,
@@ -40,7 +41,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
 
   /// Creates a measurement that is the sum of several measurements.
   Measurement.sum(
-    Iterable<T> parts, {
+    Iterable<Measurement<T>> parts, {
     Precision precision = Precision.max,
   }) : this(
           magnitude: parts.first.defaultUnit.of(parts.fold(
@@ -50,7 +51,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
         );
 
   /// Constructs a new measurement.
-  T construct(
+  Measurement<T> construct(
     double magnitude,
     Unit<T> defaultUnit,
     Precision precision,
@@ -91,7 +92,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   int get precision => precisionData.precision;
 
   /// Creates an equivalent measurement with the specified precision (significant digits).
-  T withPrecisionOf(int precision) =>
+  Measurement<T> withPrecisionOf(int precision) =>
       construct(_magnitude.toDouble(), defaultUnit, Precision(precision));
 
   /// Accept a visitor object for double-dispatch.
@@ -133,49 +134,49 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Returns `true` if this is greater than the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator >(T other) => _precise(si) > _precise(other.si);
+  bool operator >(Measurement<T> other) => _precise(si) > _precise(other.si);
 
   /// Returns `true` if this is greater than or equal to the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator >=(T other) => _precise(si) >= _precise(other.si);
+  bool operator >=(Measurement<T> other) => _precise(si) >= _precise(other.si);
 
   /// Returns `true` if this is less than the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator <(T other) => _precise(si) < _precise(other.si);
+  bool operator <(Measurement<T> other) => _precise(si) < _precise(other.si);
 
   /// Returns `true` if this is less than or equal to the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator <=(T other) => _precise(si) <= _precise(other.si);
+  bool operator <=(Measurement<T> other) => _precise(si) <= _precise(other.si);
 
   @override
-  int compareTo(T other) => si.compareTo(other.si);
+  int compareTo(Measurement<T> other) => si.compareTo(other.si);
 
   /// Returns a measurement representing the opposite of this.
-  T operator -() => construct(-si, defaultUnit, precisionData);
+  Measurement<T> operator -() => construct(-si, defaultUnit, precisionData);
 
   /// Returns a measurement equivalent to the sum of two others.
-  T operator +(T other) => construct(
+  Measurement<T> operator +(Measurement<T> other) => construct(
         si + other.si,
         defaultUnit,
         Precision.addition(this, other),
       );
 
   /// Returns a measurement equivalent to the difference between two others.
-  T operator -(T other) => construct(
+  Measurement<T> operator -(Measurement<T> other) => construct(
         si - other.si,
         defaultUnit,
         Precision.addition(this, -other),
       );
 
   /// Returns a measurement equivalent to a multiple of this.
-  T operator *(num multiplier) =>
+  Measurement<T> operator *(num multiplier) =>
       construct(si * multiplier, defaultUnit, precisionData);
 
   /// Returns a measurement equivalent to a fraction of this.
-  T operator /(num divisor) =>
+  Measurement<T> operator /(num divisor) =>
       construct(si / divisor, defaultUnit, precisionData);
 
   /// Returns the Euclidean remainder of the division between two measurements.
@@ -197,7 +198,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// ```
   ///
   /// If the divisor is zero or the dividend is infinite, the result is always NaN.
-  T operator %(T other) => construct(
+  Measurement<T> operator %(Measurement<T> other) => construct(
         defaultUnit.of(_preciseSI() % other._preciseSI()),
         defaultUnit,
         Precision.combine([precisionData, other.precisionData]),
@@ -214,10 +215,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// Attempting to divide by a measurement of magnitude zero, or attempting to
   /// divide an infinite measurement, will result in UnsupportedError (`int`
   /// cannot hold an infinite or `NaN` value).
-  int operator ~/(T other) => _preciseSI() ~/ other._preciseSI();
-
-  DerivedMeasurementPerBuilder<T> get per => DerivedMeasurementPerBuilder(this);
-  DerivedMeasurementByBuilder<T> get by => DerivedMeasurementByBuilder(this);
+  int operator ~/(Measurement<T> other) => _preciseSI() ~/ other._preciseSI();
 
   /// Returns the difference in magnitude between this and another measurement.
   ///
@@ -225,7 +223,8 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   /// ```dart
   /// meters(3).compareMagnitude(deka.meters(3));  // 0.1
   /// ```
-  double compareMagnitude(T other) => _preciseSI() / other._preciseSI();
+  double compareMagnitude(Measurement<T> other) =>
+      _preciseSI() / other._preciseSI();
 
   @override
   String toString() => '$defaultValue $defaultUnit';
@@ -245,7 +244,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
 
   /// Creates a new measurement equivalent to this one but with a different
   /// default unit.
-  T butAs(Unit<T> unit) =>
+  Measurement<T> butAs(Unit<T> unit) =>
       construct(unit.of(si), unit, precisionData);
 
   /// The value of this measurement in the default unit.
