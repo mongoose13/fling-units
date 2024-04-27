@@ -9,11 +9,6 @@ class DerivedMeasurement<D extends Dimension>
   });
 
   @override
-  void acceptVisitor(MeasurementVisitor visitor) {
-    // TODO: implement acceptVisitor
-  }
-
-  @override
   DerivedMeasurement<D> construct(
     double magnitude,
     Unit<D> defaultUnit,

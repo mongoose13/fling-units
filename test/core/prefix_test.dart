@@ -81,11 +81,10 @@ void main() {
   group('liters', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).liters(5.5, precision: Precision(2));
+      final measurement = MeasurementPrefix(3).liters(5.5).withPrecisionOf(2);
 
       // when
-      final result = measurement.asVolume(liters);
+      final result = measurement.as(liters);
 
       // then
       expect(result, 17.0);

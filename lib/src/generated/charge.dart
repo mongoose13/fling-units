@@ -87,9 +87,6 @@ class ChargeMeasurement extends f.Measurement<Charge> {
   static const f.Unit<Charge> siUnit = amperes;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitCharge(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Charge> defaultUnit,

@@ -12,4 +12,3 @@ part "volume.dart";
 
 part 'package:fling_units/src/generated/extension.dart';
 part "package:fling_units/src/generated/prefix.dart";
-part 'package:fling_units/src/generated/visitor.dart';

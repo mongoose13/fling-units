@@ -94,9 +94,6 @@ class QuantityMeasurement extends f.Measurement<Quantity> {
   static const f.Unit<Quantity> siUnit = units;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitQuantity(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Quantity> defaultUnit,

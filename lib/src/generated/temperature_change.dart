@@ -105,10 +105,6 @@ class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
   static const f.Unit<TemperatureChange> siUnit = kelvin;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) =>
-      visitor.visitTemperatureChange(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<TemperatureChange> defaultUnit,

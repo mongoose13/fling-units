@@ -143,9 +143,6 @@ class MassMeasurement extends f.Measurement<Mass> {
   static const f.Unit<Mass> siUnit = grams;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitMass(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Mass> defaultUnit,

@@ -87,9 +87,6 @@ class FrequencyMeasurement extends f.Measurement<Frequency> {
   static const f.Unit<Frequency> siUnit = hertz;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitFrequency(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Frequency> defaultUnit,

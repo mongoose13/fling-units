@@ -208,7 +208,7 @@ void main() {
     });
     test('infinity', () {
       // given
-      final measurement = Distance.infinite();
+      final measurement = DistanceMeasurement.infinite();
 
       // when
       final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -218,7 +218,7 @@ void main() {
     });
     test('negative infinity', () {
       // given
-      final measurement = Distance.negativeInfinite();
+      final measurement = DistanceMeasurement.negativeInfinite();
 
       // when
       final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -228,7 +228,7 @@ void main() {
     });
     test('NaN', () {
       // given
-      final measurement = Distance.infinite() + Distance.negativeInfinite();
+      final measurement = DistanceMeasurement.infinite() + DistanceMeasurement.negativeInfinite();
 
       // when
       final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -311,7 +311,7 @@ void main() {
     });
     test('infinity', () {
       // given
-      final measurement = Distance.infinite();
+      final measurement = DistanceMeasurement.infinite();
 
       // when
       final result = Precision.digitsAfterDecimal(measurement);
@@ -321,7 +321,7 @@ void main() {
     });
     test('negative infinity', () {
       // given
-      final measurement = Distance.negativeInfinite();
+      final measurement = DistanceMeasurement.negativeInfinite();
 
       // when
       final result = Precision.digitsAfterDecimal(measurement);
@@ -331,7 +331,7 @@ void main() {
     });
     test('NaN', () {
       // given
-      final measurement = Distance.infinite() + Distance.negativeInfinite();
+      final measurement = DistanceMeasurement.infinite() + DistanceMeasurement.negativeInfinite();
 
       // when
       final result = Precision.digitsAfterDecimal(measurement);

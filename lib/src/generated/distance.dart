@@ -122,9 +122,6 @@ class DistanceMeasurement extends f.Measurement<Distance> {
   static const f.Unit<Distance> siUnit = meters;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitDistance(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Distance> defaultUnit,

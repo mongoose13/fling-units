@@ -95,9 +95,6 @@ abstract class Measurement<T extends Dimension>
   Measurement<T> withPrecisionOf(int precision) =>
       construct(_magnitude.toDouble(), defaultUnit, Precision(precision));
 
-  /// Accept a visitor object for double-dispatch.
-  void acceptVisitor(MeasurementVisitor visitor);
-
   /// Returns whether two measurements are functionally identical.
   ///
   /// This means that, when their precisions are taken into account, they

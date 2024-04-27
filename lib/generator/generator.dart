@@ -6,7 +6,6 @@ export "util/builder.dart";
 export "builders/extension_global.dart";
 export "builders/library.dart";
 export "builders/measurement_prefix.dart";
-export "builders/visitor.dart";
 
 export "generators/extension.dart";
 export "generators/unit.dart";

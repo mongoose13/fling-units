@@ -154,22 +154,6 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
           )
           ..methods.add(
             Method(
-              (acceptVisitor) => acceptVisitor
-                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-                ..lambda = true
-                ..name = "acceptVisitor"
-                ..requiredParameters.add(
-                  Parameter(
-                    (visitor) => visitor
-                      ..name = "visitor"
-                      ..type = Reference("f.MeasurementVisitor"),
-                  ),
-                )
-                ..body = Code("visitor.visit${builder.dimensionName}(this)"),
-            ),
-          )
-          ..methods.add(
-            Method(
               (construct) => construct
                 ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
                 ..lambda = true

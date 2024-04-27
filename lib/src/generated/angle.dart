@@ -122,9 +122,6 @@ class AngleMeasurement extends f.Measurement<Angle> {
   static const f.Unit<Angle> siUnit = turns;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitAngle(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Angle> defaultUnit,

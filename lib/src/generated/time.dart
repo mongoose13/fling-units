@@ -108,9 +108,6 @@ class TimeMeasurement extends f.Measurement<Time> {
   static const f.Unit<Time> siUnit = seconds;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitTime(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Time> defaultUnit,

@@ -102,9 +102,6 @@ class LuminosityMeasurement extends f.Measurement<Luminosity> {
   static const f.Unit<Luminosity> siUnit = candela;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitLuminosity(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Luminosity> defaultUnit,

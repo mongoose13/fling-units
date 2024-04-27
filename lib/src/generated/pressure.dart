@@ -145,9 +145,6 @@ class PressureMeasurement extends f.Measurement<Pressure> {
   static const f.Unit<Pressure> siUnit = pascals;
 
   @override
-  acceptVisitor(f.MeasurementVisitor visitor) => visitor.visitPressure(this);
-
-  @override
   construct(
     num magnitude,
     f.Unit<Pressure> defaultUnit,
