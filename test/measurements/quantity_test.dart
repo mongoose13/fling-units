@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 quantity', () {
         // given
-        final quantity = Quantity.zero();
+        final quantity = QuantityMeasurement.zero();
 
         // when
         final result = quantity.as(units);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final quantity = Quantity.zero();
+        final quantity = QuantityMeasurement.zero();
 
         // when
         final result = quantity.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Quantity.zero(units);
+        final interpreter = QuantityMeasurement.zero(units);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite quantity', () {
         // given
-        final quantity = Quantity.infinite();
+        final quantity = QuantityMeasurement.infinite();
 
         // when
         final result = quantity.as(units);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final quantity = Quantity.infinite();
+        final quantity = QuantityMeasurement.infinite();
 
         // when
         final result = quantity.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Quantity.infinite(units);
+        final interpreter = QuantityMeasurement.infinite(units);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative quantity', () {
         // given
-        final quantity = Quantity.negativeInfinite();
+        final quantity = QuantityMeasurement.negativeInfinite();
 
         // when
         final result = quantity.as(units);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final quantity = Quantity.negativeInfinite();
+        final quantity = QuantityMeasurement.negativeInfinite();
 
         // when
         final result = quantity.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Quantity.negativeInfinite(units);
+        final interpreter = QuantityMeasurement.negativeInfinite(units);
 
         // when
         final result = interpreter.toString();
@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final quantity = Quantity.sum([
+        final quantity = QuantityMeasurement.sum([
           moles(2.1),
           units(5e23),
           moles(0.3),

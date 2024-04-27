@@ -81,10 +81,6 @@ class NumExtension {
   Measurement<f.Distance> get nauticalMiles =>
       f.DistanceUnit.nauticalMiles.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) hertz measurement.
-  Measurement<f.Frequency> get hertz =>
-      f.FrequencyUnit.hertz.withPrefix(_prefix)(_value);
-
   /// Creates a(n) candela measurement.
   Measurement<f.Luminosity> get candela =>
       f.LuminosityUnit.candela.withPrefix(_prefix)(_value);

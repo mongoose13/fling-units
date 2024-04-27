@@ -3,7 +3,6 @@
 export '../measurements/angle.dart';
 export '../measurements/charge.dart';
 export '../measurements/distance.dart';
-export '../measurements/frequency.dart';
 export '../measurements/luminosity.dart';
 export '../measurements/mass.dart';
 export '../measurements/pressure.dart';

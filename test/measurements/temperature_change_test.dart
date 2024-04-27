@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 temperature', () {
         // given
-        final temperature = TemperatureChange.zero();
+        final temperature = TemperatureChangeMeasurement.zero();
 
         // when
         final result = temperature.as(kelvin);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final temperature = TemperatureChange.zero();
+        final temperature = TemperatureChangeMeasurement.zero();
 
         // when
         final result = temperature.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = TemperatureChange.zero(fahrenheit);
+        final interpreter = TemperatureChangeMeasurement.zero(fahrenheit);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite temperature', () {
         // given
-        final temperature = TemperatureChange.infinite();
+        final temperature = TemperatureChangeMeasurement.infinite();
 
         // when
         final result = temperature.as(kelvin);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final temperature = TemperatureChange.infinite();
+        final temperature = TemperatureChangeMeasurement.infinite();
 
         // when
         final result = temperature.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = TemperatureChange.infinite(fahrenheit);
+        final interpreter = TemperatureChangeMeasurement.infinite(fahrenheit);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative mass', () {
         // given
-        final temperature = TemperatureChange.negativeInfinite();
+        final temperature = TemperatureChangeMeasurement.negativeInfinite();
 
         // when
         final result = temperature.as(kelvin);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final temperature = TemperatureChange.negativeInfinite();
+        final temperature = TemperatureChangeMeasurement.negativeInfinite();
 
         // when
         final result = temperature.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = TemperatureChange.negativeInfinite(fahrenheit);
+        final interpreter = TemperatureChangeMeasurement.negativeInfinite(fahrenheit);
 
         // when
         final result = interpreter.toString();
@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final temperature = TemperatureChange.sum([
+        final temperature = TemperatureChangeMeasurement.sum([
           kelvin(1),
           celcius(2),
           fahrenheit(3),

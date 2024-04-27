@@ -294,7 +294,7 @@ void main() {
       test('infinity', () {
         // given
         final temperature = Temperature.ofKelvin(123);
-        final change = TemperatureChange.infinite();
+        final change = TemperatureChangeMeasurement.infinite();
 
         // when
         final result = temperature + change;
@@ -305,7 +305,7 @@ void main() {
       test('negative infinity', () {
         // given
         final temperature = Temperature.ofKelvin(123);
-        final change = TemperatureChange.negativeInfinite();
+        final change = TemperatureChangeMeasurement.negativeInfinite();
 
         // then
         expect(() => temperature + change, throwsArgumentError);
@@ -369,7 +369,7 @@ void main() {
       test('infinity', () {
         // given
         final temperature = Temperature.ofKelvin(123);
-        final change = TemperatureChange.infinite();
+        final change = TemperatureChangeMeasurement.infinite();
 
         // then
         expect(() => temperature - change, throwsArgumentError);
@@ -377,7 +377,7 @@ void main() {
       test('negative infinity', () {
         // given
         final temperature = Temperature.ofKelvin(123);
-        final change = TemperatureChange.negativeInfinite();
+        final change = TemperatureChangeMeasurement.negativeInfinite();
 
         // when
         final result = temperature - change;

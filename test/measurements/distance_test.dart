@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 distance', () {
         // given
-        final measurement = Distance.zero();
+        final measurement = DistanceMeasurement.zero();
 
         // when
         final result = measurement.as(meters);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Distance.zero();
+        final measurement = DistanceMeasurement.zero();
 
         // when
         final result = measurement.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Distance.zero(feet);
+        final interpreter = DistanceMeasurement.zero(feet);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite distance', () {
         // given
-        final measurement = Distance.infinite();
+        final measurement = DistanceMeasurement.infinite();
 
         // when
         final result = measurement.as(meters);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Distance.infinite();
+        final measurement = DistanceMeasurement.infinite();
 
         // when
         final result = measurement.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Distance.infinite(feet);
+        final interpreter = DistanceMeasurement.infinite(feet);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative distance', () {
         // given
-        final measurement = Distance.negativeInfinite();
+        final measurement = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = measurement.as(meters);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Distance.negativeInfinite();
+        final measurement = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = measurement.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Distance.negativeInfinite(feet);
+        final interpreter = DistanceMeasurement.negativeInfinite(feet);
 
         // when
         final result = interpreter.toString();
@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final measurement = Distance.sum(
+        final measurement = DistanceMeasurement.sum(
           [
             kilo.meters(1),
             hecto.meters(2),

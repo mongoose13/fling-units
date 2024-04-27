@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 charge', () {
         // given
-        final measurement = Charge.zero();
+        final measurement = ChargeMeasurement.zero();
 
         // when
         final result = measurement.as(amperes);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Charge.zero();
+        final measurement = ChargeMeasurement.zero();
 
         // when
         final result = measurement.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Charge.zero(amperes);
+        final interpreter = ChargeMeasurement.zero(amperes);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite charge', () {
         // given
-        final measurement = Charge.infinite();
+        final measurement = ChargeMeasurement.infinite();
 
         // when
         final result = measurement.as(amperes);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Charge.infinite();
+        final measurement = ChargeMeasurement.infinite();
 
         // when
         final result = measurement.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Charge.infinite(amperes);
+        final interpreter = ChargeMeasurement.infinite(amperes);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative charge', () {
         // given
-        final measurement = Charge.negativeInfinite();
+        final measurement = ChargeMeasurement.negativeInfinite();
 
         // when
         final result = measurement.as(amperes);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Charge.negativeInfinite();
+        final measurement = ChargeMeasurement.negativeInfinite();
 
         // when
         final result = measurement.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Charge.negativeInfinite(amperes);
+        final interpreter = ChargeMeasurement.negativeInfinite(amperes);
 
         // when
         final result = interpreter.toString();
@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final measurement = Charge.sum([
+        final measurement = ChargeMeasurement.sum([
           amperes(2.1),
           amperes(5.0),
           amperes(0.3),

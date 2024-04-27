@@ -58,16 +58,4 @@ extension AngleExtension on AngleMeasurement {
 
   /// A straight angle.
   static AngleMeasurement straight() => const AngleMeasurement(0.5, turns);
-
-  /// Whether this is an acute angle.
-  bool get isAcute => si.abs() < 0.25;
-
-  /// Whether this is an obtuse angle.
-  bool get isObtuse => si.abs() > 0.25 && si.abs() < 0.5;
-
-  /// Whether this is a right angle.
-  bool get isRight => si.abs() == 0.25;
-
-  /// Whether this is a straight angle.
-  bool get isStraight => si.abs() == 0.5;
 }

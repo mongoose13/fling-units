@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 mass', () {
         // given
-        final mass = Mass.zero();
+        final mass = MassMeasurement.zero();
 
         // when
         final result = mass.as(grams);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final mass = Mass.zero();
+        final mass = MassMeasurement.zero();
 
         // when
         final result = mass.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Mass.zero(pounds);
+        final interpreter = MassMeasurement.zero(pounds);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite mass', () {
         // given
-        final mass = Mass.infinite();
+        final mass = MassMeasurement.infinite();
 
         // when
         final result = mass.as(grams);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final mass = Mass.infinite();
+        final mass = MassMeasurement.infinite();
 
         // when
         final result = mass.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Mass.infinite(pounds);
+        final interpreter = MassMeasurement.infinite(pounds);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative mass', () {
         // given
-        final mass = Mass.negativeInfinite();
+        final mass = MassMeasurement.negativeInfinite();
 
         // when
         final result = mass.as(grams);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final mass = Mass.negativeInfinite();
+        final mass = MassMeasurement.negativeInfinite();
 
         // when
         final result = mass.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Mass.negativeInfinite(pounds);
+        final interpreter = MassMeasurement.negativeInfinite(pounds);
 
         // when
         final result = interpreter.toString();
@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds up component parts', () {
         // given
-        final mass = Mass.sum([
+        final mass = MassMeasurement.sum([
           grams(1),
           kilo.grams(2),
           centi.grams(3),

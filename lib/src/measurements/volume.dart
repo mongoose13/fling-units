@@ -1,4 +1,4 @@
-part of "library.dart";
+part of "../core/library.dart";
 
 typedef _VolumeComponent = f.Unit<f.Distance>;
 

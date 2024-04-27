@@ -1,16 +1,22 @@
-import 'package:fling_units/generator/util/annotations.dart';
+part of "../core/library.dart";
 
-import 'package:fling_units/fling_units.dart' as f;
+typedef _FrequencyComponent = UnitDenominator<Unit<Time>>;
 
-part "../generated/frequency.dart";
+typedef FrequencyUnit = f.DerivedUnit1<_FrequencyComponent, Time>;
 
-@MeasurementConfig(shortName: "Frequency")
-enum FrequencyConfig {
-  @UnitConfig(
-    shortName: "Hz",
-    singularName: "hertz",
-    multiplier: 1e0,
-    isSI: true,
-  )
-  hertz;
+typedef FrequencyMeasurement
+    = f.Measurement<Dimension1<_FrequencyComponent>>;
+
+final FrequencyUnit hertz = f.DerivedUnit1.inverse(seconds, name: "Hz");
+
+extension FrequencyExtensionNum on num {
+  FrequencyMeasurement get hertz => f.hertz(this);
+}
+
+extension FrequencyNumExtension on f.NumExtension {
+  FrequencyMeasurement get hertz => f.hertz.withPrefix(_prefix)(_value);
+}
+
+extension FrequencyMeasurementPrefix on MeasurementPrefix {
+  FrequencyUnit get hertz => f.hertz.withPrefix(prefix);
 }

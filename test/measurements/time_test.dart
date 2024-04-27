@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 distance', () {
         // given
-        final time = Time.zero();
+        final time = TimeMeasurement.zero();
 
         // when
         final result = time.as(seconds);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final time = Time.zero();
+        final time = TimeMeasurement.zero();
 
         // when
         final result = time.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Time.zero(minutes);
+        final interpreter = TimeMeasurement.zero(minutes);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite distance', () {
         // given
-        final time = Time.infinite();
+        final time = TimeMeasurement.infinite();
 
         // when
         final result = time.as(seconds);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final time = Time.infinite();
+        final time = TimeMeasurement.infinite();
 
         // when
         final result = time.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Time.infinite(minutes);
+        final interpreter = TimeMeasurement.infinite(minutes);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative distance', () {
         // given
-        final time = Time.negativeInfinite();
+        final time = TimeMeasurement.negativeInfinite();
 
         // when
         final result = time.as(seconds);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final time = Time.negativeInfinite();
+        final time = TimeMeasurement.negativeInfinite();
 
         // when
         final result = time.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Time.negativeInfinite(minutes);
+        final interpreter = TimeMeasurement.negativeInfinite(minutes);
 
         // when
         final result = interpreter.toString();
@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final time = Time.sum([
+        final time = TimeMeasurement.sum([
           seconds(1),
           deci.seconds(2),
           hecto.seconds(3),

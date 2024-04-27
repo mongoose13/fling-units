@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 value', () {
         // given
-        final measurement = Angle.zero();
+        final measurement = AngleMeasurement.zero();
 
         // when
         final result = measurement.as(radians);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Angle.zero();
+        final measurement = AngleMeasurement.zero();
 
         // when
         final result = measurement.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Angle.zero(radians);
+        final interpreter = AngleMeasurement.zero(radians);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite value', () {
         // given
-        final measurement = Angle.infinite();
+        final measurement = AngleMeasurement.infinite();
 
         // when
         final result = measurement.as(radians);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Angle.infinite();
+        final measurement = AngleMeasurement.infinite();
 
         // when
         final result = measurement.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Angle.infinite(radians);
+        final interpreter = AngleMeasurement.infinite(radians);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative value', () {
         // given
-        final measurement = Angle.negativeInfinite();
+        final measurement = AngleMeasurement.negativeInfinite();
 
         // when
         final result = measurement.as(radians);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Angle.negativeInfinite();
+        final measurement = AngleMeasurement.negativeInfinite();
 
         // when
         final result = measurement.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Angle.negativeInfinite(radians);
+        final interpreter = AngleMeasurement.negativeInfinite(radians);
 
         // when
         final result = interpreter.toString();
@@ -167,7 +167,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final measurement = Angle.sum([
+        final measurement = AngleMeasurement.sum([
           degrees(2.1),
           arcMinutes(5.0),
           arcSeconds(0.3),
@@ -392,288 +392,6 @@ void main() {
 
         // then
         expect(result, '23.0 d°');
-      });
-    });
-
-    group('isRight', () {
-      test('right angle', () {
-        // given
-        final measurement = 0.25.turns;
-
-        // when
-        final result = measurement.isRight;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('negative right angle', () {
-        // given
-        final measurement = -0.25.turns;
-
-        // when
-        final result = measurement.isRight;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('not right angle', () {
-        // given
-        final measurement = 0.2.turns;
-
-        // when
-        final result = measurement.isRight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('negative not right angle', () {
-        // given
-        final measurement = -0.2.turns;
-
-        // when
-        final result = measurement.isRight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('zero angle', () {
-        // given
-        final measurement = Angle.zero();
-
-        // when
-        final result = measurement.isRight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('3/4 angle', () {
-        // given
-        final measurement = 0.75.turns;
-
-        // when
-        final result = measurement.isRight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('const constructor right angle', () {
-        // given
-        final measurement = AngleExtension.right();
-
-        // when
-        final result = measurement.isRight;
-
-        // then
-        expect(result, isTrue);
-      });
-    });
-
-    group('isStraight', () {
-      test('straight angle', () {
-        // given
-        final measurement = 0.5.turns;
-
-        // when
-        final result = measurement.isStraight;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('negative straight angle', () {
-        // given
-        final measurement = -0.5.turns;
-
-        // when
-        final result = measurement.isStraight;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('not straight angle', () {
-        // given
-        final measurement = 0.52.turns;
-
-        // when
-        final result = measurement.isStraight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('negative not straight angle', () {
-        // given
-        final measurement = -0.52.turns;
-
-        // when
-        final result = measurement.isStraight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('zero angle', () {
-        // given
-        final measurement = Angle.zero();
-
-        // when
-        final result = measurement.isStraight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('full turn angle', () {
-        // given
-        final measurement = 1.turns;
-
-        // when
-        final result = measurement.isStraight;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('const constructor straight angle', () {
-        // given
-        final measurement = AngleExtension.straight();
-
-        // when
-        final result = measurement.isStraight;
-
-        // then
-        expect(result, isTrue);
-      });
-    });
-
-    group('isAcute', () {
-      test('acute angle', () {
-        // given
-        final measurement = 0.1.turns;
-
-        // when
-        final result = measurement.isAcute;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('negative acute angle', () {
-        // given
-        final measurement = -0.1.turns;
-
-        // when
-        final result = measurement.isAcute;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('not acute angle', () {
-        // given
-        final measurement = 0.3.turns;
-
-        // when
-        final result = measurement.isAcute;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('negative not acute angle', () {
-        // given
-        final measurement = -0.3.turns;
-
-        // when
-        final result = measurement.isAcute;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('zero angle', () {
-        // given
-        final measurement = Angle.zero();
-
-        // when
-        final result = measurement.isAcute;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('right angle', () {
-        // given
-        final measurement = AngleExtension.right();
-
-        // when
-        final result = measurement.isAcute;
-
-        // then
-        expect(result, isFalse);
-      });
-    });
-
-    group('isObtuse', () {
-      test('obtuse angle', () {
-        // given
-        final measurement = 0.3.turns;
-
-        // when
-        final result = measurement.isObtuse;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('negative obtuse angle', () {
-        // given
-        final measurement = -0.3.turns;
-
-        // when
-        final result = measurement.isObtuse;
-
-        // then
-        expect(result, isTrue);
-      });
-      test('acute angle', () {
-        // given
-        final measurement = 0.2.turns;
-
-        // when
-        final result = measurement.isObtuse;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('negative acute angle', () {
-        // given
-        final measurement = -0.2.turns;
-
-        // when
-        final result = measurement.isObtuse;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('zero angle', () {
-        // given
-        final measurement = Angle.zero();
-
-        // when
-        final result = measurement.isObtuse;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('right angle', () {
-        // given
-        final measurement = AngleExtension.right();
-
-        // when
-        final result = measurement.isObtuse;
-
-        // then
-        expect(result, isFalse);
-      });
-      test('straight angle', () {
-        // given
-        final measurement = AngleExtension.straight();
-
-        // when
-        final result = measurement.isObtuse;
-
-        // then
-        expect(result, isFalse);
       });
     });
   });

@@ -130,56 +130,61 @@ abstract class RoundingUnit<T extends Dimension> extends Unit<T> {
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 }
 
-class DerivedUnit<D extends Dimension> extends Unit<D> {
-  DerivedUnit({
+class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
+    extends Unit<Dimension1<M>> {
+  final bool _multiplier;
+
+  DerivedUnit1._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
-    Iterable<bool> operators = const [],
-  });
+    required super.prefix,
+  }) : _multiplier = UnitModifier.isNumerator<M>();
 
-  DerivedUnit<D> withPrefix(MeasurementPrefix prefix) => DerivedUnit(
+  DerivedUnit1.from(
+    M measurement, {
+    String? name,
+    MeasurementPrefix? prefix,
+  }) : this._(
+          name: name ?? measurement.toString(),
+          unitMultiplier:
+              UnitModifier.typeMultiplier(measurement.multiplier).toDouble(),
+          prefix: prefix ?? const MeasurementPrefix.unit(),
+        );
+
+  static DerivedUnit1<UnitDenominator<Unit<D>>, D> inverse<D extends Dimension>(
+    Unit<D> unit, {
+    String? name,
+    double? unitMultiplier,
+  }) =>
+      DerivedUnit1.from(
+        UnitDenominator(unit),
+        name: name ?? "1/${unit.toString()}",
+      );
+
+  Measurement<Dimension1<M>> call(
+    num a, [
+    Precision precision = Precision.max,
+  ]) =>
+      DerivedMeasurement(
+        magnitude: UnitModifier.typeMultiplier<M>(a),
+        defaultUnit: this,
+      );
+
+  Measurement<Dimension1<M>> using<X extends Measurement<D>>(
+    X measurement, {
+    Precision precision = Precision.max,
+  }) {
+    return DerivedMeasurement(
+      magnitude:
+          (_multiplier ? measurement.si : 1.0 / measurement.si) / multiplier,
+      defaultUnit: this,
+    );
+  }
+
+  DerivedUnit1<M, D> withPrefix(MeasurementPrefix prefix) => DerivedUnit1._(
         name: name,
         unitMultiplier: unitMultiplier,
         prefix: prefix,
-      );
-
-  static DerivedUnit<Dimension1<UnitDenominator<U>>> inverse<U extends Unit>(
-    U unit, {
-    String? name,
-    double? unitMultiplier,
-  }) =>
-      DerivedUnit(
-        name: name ?? "1/${unit.toString()}",
-        unitMultiplier: unitMultiplier ?? 1.0 / unit.multiplier,
-        operators: [false],
-      );
-
-  static DerivedUnit<Dimension3<A, B, C>> of3<A extends UnitModifier,
-          B extends UnitModifier, C extends UnitModifier>(
-    String name,
-    double unitMultiplier,
-  ) =>
-      DerivedUnit(
-        name: name,
-        unitMultiplier: unitMultiplier,
-      );
-
-  static DerivedUnit<Dimension3<A, B, C>> from3<A extends UnitModifier,
-          B extends UnitModifier, C extends UnitModifier>(
-    A a,
-    B b,
-    C c, {
-    String? name,
-    double? unitMultiplier,
-  }) =>
-      DerivedUnit(
-        name: name ??
-            (a == b && a == c
-                ? "${a.toString()}³"
-                : "${a.toString()}x${b.toString()}x${c.toString()}"),
-        unitMultiplier:
-            unitMultiplier ?? a.multiplier * b.multiplier * c.multiplier,
       );
 }
 
@@ -190,16 +195,21 @@ class DerivedUnit2<
     D2 extends Dimension> extends Unit<Dimension2<M1, M2>> {
   final List<bool> _multipliers;
 
+  DerivedUnit2._({
+    required super.name,
+    required super.unitMultiplier,
+    required super.prefix,
+  }) : _multipliers = [
+          UnitModifier.isNumerator<M1>(),
+          UnitModifier.isNumerator<M2>(),
+        ];
+
   DerivedUnit2.from(
     M1 a,
     M2 b, {
     String? name,
     MeasurementPrefix? prefix,
-  })  : _multipliers = [
-          UnitModifier.isNumerator<M1>(),
-          UnitModifier.isNumerator<M2>(),
-        ],
-        super(
+  }) : this._(
           name: name ??
               (a == b ? "${a.toString()}²" : "${a.toString()}⋅${b.toString()}"),
           unitMultiplier: (UnitModifier.typeMultiplier(a.multiplier) *
@@ -273,6 +283,13 @@ class DerivedUnit2<
       defaultUnit: this,
     );
   }
+
+  DerivedUnit2<M1, M2, D1, D2> withPrefix(MeasurementPrefix prefix) =>
+      DerivedUnit2._(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 }
 
 final square = DerivedUnit2.square;
