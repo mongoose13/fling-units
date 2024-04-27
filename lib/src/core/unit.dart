@@ -158,7 +158,7 @@ class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
   }) =>
       DerivedUnit1.from(
         UnitDenominator(unit),
-        name: name ?? "1/${unit.toString()}",
+        name: name ?? "${unit.toString()}⁻¹",
       );
 
   Measurement<Dimension1<M>> call(

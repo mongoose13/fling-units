@@ -46,9 +46,10 @@ void main() {
     print("I don't think we're in Kansas any more.");
   }
 
-  print("\nMy bucket is $bucketMagnitudeDifference times bigger than yours!");
-  print(
-      "Or, if you prefer, yours fits $timesYourBucketFitsInMine times into mine, with $leftOverBucketVolume left over.");
+  print("\nMy bucket is $bucketMagnitudeDifference"
+      " times bigger than yours!");
+  print("Or, if you prefer, yours fits $timesYourBucketFitsInMine"
+      " times into mine, with $leftOverBucketVolume left over.");
 
   print("\nIt is cold...");
   while (bodyTemperature < Temperature.ofFahrenheit(98.6)) {
@@ -87,7 +88,7 @@ void main() {
   // in their own toString() methods using whichever unit was used to
   // instantiate them. You can also change the default unit later.
   final goldAmount = 1234.milli.grams.withPrecisionOf(4);
-  print("I have $goldAmount of gold!");
+  print("\nI have $goldAmount of gold!");
   print("I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!");
   print("I have ${goldAmount.butAs(ounces)} of gold!");
 
@@ -110,7 +111,7 @@ void main() {
   final yourSpeed = milesPerHour(
     distanceToSeattle.as(miles), // miles
     1.5, // hours
-  );
+  ).withPrecisionOf(3);
   print("\nYou're driving to Seattle at $yourSpeed");
 
   // You can also build a measurement using existing measurements of the correct
@@ -118,7 +119,7 @@ void main() {
   final mySpeed = milesPerHour.using(
     distanceToSeattle,
     2.hours,
-  );
+  ).withPrecisionOf(3);
   print("I'm going $mySpeed");
 
   // Then, interpret the derived unit in any combination of component units.
@@ -136,9 +137,10 @@ void main() {
   // extensions or prefixes at this time, nor is it possible to create const
   // derived units at this time.
 
+  const massOfMyHand = MassMeasurement(2.5, pounds);
   const sizeOfMyHand = DistanceMeasurement(5.0, inches);
-  final tu = cubic(inches)(30);
-  final tu2 = tu.butAs(liters);
+  print("\nMy hand will always have a linear density of"
+      " ${ratio(pounds, inches).using(massOfMyHand, sizeOfMyHand)}");
 
   // Have fun!
 }
