@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has zero pressure', () {
         // given
-        final measurement = Pressure.zero();
+        final measurement = PressureMeasurement.zero();
 
         // when
         final result = measurement.as(pascals);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Pressure.zero();
+        final measurement = PressureMeasurement.zero();
 
         // when
         final result = measurement.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final measurement = Pressure.zero(psi);
+        final measurement = PressureMeasurement.zero(psi);
 
         // when
         final result = measurement.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite measurement', () {
         // given
-        final measurement = Pressure.infinite();
+        final measurement = PressureMeasurement.infinite();
 
         // when
         final result = measurement.as(pascals);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Pressure.infinite();
+        final measurement = PressureMeasurement.infinite();
 
         // when
         final result = measurement.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final measurement = Pressure.infinite(psi);
+        final measurement = PressureMeasurement.infinite(psi);
 
         // when
         final result = measurement.toString();
@@ -70,7 +70,7 @@ void main() {
     group('infinity', () {
       test('has negative infinite measurement', () {
         // given
-        final measurement = Pressure.negativeInfinite();
+        final measurement = PressureMeasurement.negativeInfinite();
 
         // when
         final result = measurement.as(pascals);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final measurement = Pressure.negativeInfinite();
+        final measurement = PressureMeasurement.negativeInfinite();
 
         // when
         final result = measurement.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final measurement = Pressure.negativeInfinite(psi);
+        final measurement = PressureMeasurement.negativeInfinite(psi);
 
         // when
         final result = measurement.toString();
@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds up component parts', () {
         // given
-        final measurement = Pressure.sum([
+        final measurement = PressureMeasurement.sum([
           pascals(2),
           bars(1),
           standardAtmospheres(0.5),
