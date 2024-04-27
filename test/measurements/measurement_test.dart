@@ -29,7 +29,7 @@ void main() {
     group('isNegative', () {
       test('on a zero value', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit.isNegative;
@@ -59,7 +59,7 @@ void main() {
       });
       test('on a positive infinite unit', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = unit.isNegative;
@@ -69,7 +69,7 @@ void main() {
       });
       test('on a negative infinite unit', () {
         // given
-        final unit = Distance.negativeInfinite();
+        final unit = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit.isNegative;
@@ -92,7 +92,7 @@ void main() {
     group('isFinite', () {
       test('on a zero unit', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit.isFinite;
@@ -122,7 +122,7 @@ void main() {
       });
       test('on a positive infinite unit', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = unit.isFinite;
@@ -132,7 +132,7 @@ void main() {
       });
       test('on a negative infinite unit', () {
         // given
-        final unit = Distance.negativeInfinite();
+        final unit = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit.isFinite;
@@ -155,7 +155,7 @@ void main() {
     group('isInfinite', () {
       test('on a zero unit', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit.isInfinite;
@@ -185,7 +185,7 @@ void main() {
       });
       test('on a positive infinite unit', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = unit.isInfinite;
@@ -195,7 +195,7 @@ void main() {
       });
       test('on a negative infinite unit', () {
         // given
-        final unit = Distance.negativeInfinite();
+        final unit = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit.isInfinite;
@@ -218,7 +218,7 @@ void main() {
     group('isNaN', () {
       test('on a zero unit', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit.isNaN;
@@ -248,7 +248,7 @@ void main() {
       });
       test('on a positive infinite unit', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = unit.isNaN;
@@ -258,7 +258,7 @@ void main() {
       });
       test('on a negative infinite unit', () {
         // given
-        final unit = Distance.negativeInfinite();
+        final unit = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit.isNaN;
@@ -281,40 +281,40 @@ void main() {
     group('hashCode', () {
       test('zero', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
-        final result = unit.hashCode == Distance.zero().hashCode;
+        final result = unit.hashCode == DistanceMeasurement.zero().hashCode;
 
         // then
         expect(result, true);
       });
       test('infinite', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
-        final result = unit.hashCode == Distance.infinite().hashCode;
+        final result = unit.hashCode == DistanceMeasurement.infinite().hashCode;
 
         // then
         expect(result, true);
       });
       test('negative infinite', () {
         // given
-        final unit = Distance.negativeInfinite();
+        final unit = DistanceMeasurement.negativeInfinite();
 
         // when
-        final result = unit.hashCode == Distance.negativeInfinite().hashCode;
+        final result = unit.hashCode == DistanceMeasurement.negativeInfinite().hashCode;
 
         // then
         expect(result, true);
       });
       test('not a number', () {
         // given
-        final unit = Distance.nan();
+        final unit = DistanceMeasurement.nan();
 
         // when
-        final result = unit.hashCode == Distance.nan().hashCode;
+        final result = unit.hashCode == DistanceMeasurement.nan().hashCode;
 
         // then
         expect(result, true);
@@ -356,7 +356,7 @@ void main() {
     group('==', () {
       test('same constant', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit == unit;
@@ -445,7 +445,7 @@ void main() {
     group('equals', () {
       test('same constant', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit.equals(unit);
@@ -589,7 +589,7 @@ void main() {
       });
       test('from infinite', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -601,7 +601,7 @@ void main() {
       test('to infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 > unit2;
@@ -611,7 +611,7 @@ void main() {
       });
       test('from negative infinite', () {
         // given
-        final unit1 = Distance.negativeInfinite();
+        final unit1 = DistanceMeasurement.negativeInfinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -623,7 +623,7 @@ void main() {
       test('to negative infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.negativeInfinite();
+        final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit1 > unit2;
@@ -691,7 +691,7 @@ void main() {
       });
       test('from infinite', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -703,7 +703,7 @@ void main() {
       test('to infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 >= unit2;
@@ -713,7 +713,7 @@ void main() {
       });
       test('from negative infinite', () {
         // given
-        final unit1 = Distance.negativeInfinite();
+        final unit1 = DistanceMeasurement.negativeInfinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -725,7 +725,7 @@ void main() {
       test('to negative infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.negativeInfinite();
+        final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit1 >= unit2;
@@ -793,7 +793,7 @@ void main() {
       });
       test('from infinite', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -805,7 +805,7 @@ void main() {
       test('to infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 < unit2;
@@ -815,7 +815,7 @@ void main() {
       });
       test('from negative infinite', () {
         // given
-        final unit1 = Distance.negativeInfinite();
+        final unit1 = DistanceMeasurement.negativeInfinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -827,7 +827,7 @@ void main() {
       test('to negative infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.negativeInfinite();
+        final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit1 < unit2;
@@ -895,7 +895,7 @@ void main() {
       });
       test('from infinite', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -907,7 +907,7 @@ void main() {
       test('to infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 <= unit2;
@@ -917,7 +917,7 @@ void main() {
       });
       test('from negative infinite', () {
         // given
-        final unit1 = Distance.negativeInfinite();
+        final unit1 = DistanceMeasurement.negativeInfinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -929,7 +929,7 @@ void main() {
       test('to negative infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.negativeInfinite();
+        final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit1 <= unit2;
@@ -975,7 +975,7 @@ void main() {
       });
       test('from infinite', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -987,7 +987,7 @@ void main() {
       test('to infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1.compareTo(unit2);
@@ -997,7 +997,7 @@ void main() {
       });
       test('from negative infinite', () {
         // given
-        final unit1 = Distance.negativeInfinite();
+        final unit1 = DistanceMeasurement.negativeInfinite();
         final unit2 = meters(3, precision: Precision(5));
 
         // when
@@ -1009,7 +1009,7 @@ void main() {
       test('to negative infinite', () {
         // given
         final unit1 = meters(3, precision: Precision(5));
-        final unit2 = Distance.negativeInfinite();
+        final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit1.compareTo(unit2);
@@ -1042,7 +1042,7 @@ void main() {
       });
       test('zero maintains value', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = -unit;
@@ -1052,17 +1052,17 @@ void main() {
       });
       test('zero keeps precision', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = -unit;
 
         // then
-        expect(result.precision, Distance.zero().precision);
+        expect(result.precision, DistanceMeasurement.zero().precision);
       });
       test('infinite changes sign', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = -unit;
@@ -1072,17 +1072,17 @@ void main() {
       });
       test('infinite keeps precision', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = -unit;
 
         // then
-        expect(result.precision, Distance.infinite().precision);
+        expect(result.precision, DistanceMeasurement.infinite().precision);
       });
       test('negative infinite changes sign', () {
         // given
-        final unit = Distance.negativeInfinite();
+        final unit = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = -unit;
@@ -1092,13 +1092,13 @@ void main() {
       });
       test('negative infinite keeps precision', () {
         // given
-        final unit = Distance.negativeInfinite();
+        final unit = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = -unit;
 
         // then
-        expect(result.precision, Distance.negativeInfinite().precision);
+        expect(result.precision, DistanceMeasurement.negativeInfinite().precision);
       });
     });
 
@@ -1139,7 +1139,7 @@ void main() {
       test('infinite', () {
         // given
         final unit1 = meters(2, precision: Precision(5));
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 + unit2;
@@ -1150,7 +1150,7 @@ void main() {
       test('negative infinite', () {
         // given
         final unit1 = meters(2, precision: Precision(5));
-        final unit2 = Distance.negativeInfinite();
+        final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit1 + unit2;
@@ -1208,7 +1208,7 @@ void main() {
       test('infinite', () {
         // given
         final unit1 = meters(2, precision: Precision(5));
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 - unit2;
@@ -1219,7 +1219,7 @@ void main() {
       test('negative infinite', () {
         // given
         final unit1 = meters(2, precision: Precision(5));
-        final unit2 = Distance.negativeInfinite();
+        final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
         final result = unit1 - unit2;
@@ -1263,7 +1263,7 @@ void main() {
       });
       test('zero value', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit * 3;
@@ -1283,7 +1283,7 @@ void main() {
       });
       test('infinite value', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = unit * 3;
@@ -1336,7 +1336,7 @@ void main() {
       });
       test('zero value', () {
         // given
-        final unit = Distance.zero();
+        final unit = DistanceMeasurement.zero();
 
         // when
         final result = unit / 3;
@@ -1356,7 +1356,7 @@ void main() {
       });
       test('infinite value', () {
         // given
-        final unit = Distance.infinite();
+        final unit = DistanceMeasurement.infinite();
 
         // when
         final result = unit / 3;
@@ -1423,14 +1423,14 @@ void main() {
       test('compare to zero', () {
         // given
         final unit1 = meters(4.0);
-        final unit2 = Distance.zero();
+        final unit2 = DistanceMeasurement.zero();
 
         // then
         expect(() => unit1 ~/ unit2, throwsUnsupportedError);
       });
       test('compare with zero', () {
         // given
-        final unit1 = Distance.zero();
+        final unit1 = DistanceMeasurement.zero();
         final unit2 = meters(4.0);
 
         // when
@@ -1442,7 +1442,7 @@ void main() {
       test('compare to infinity', () {
         // given
         final unit1 = meters(4.0);
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 ~/ unit2;
@@ -1452,7 +1452,7 @@ void main() {
       });
       test('compare with infinity', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(4.0);
 
         // then
@@ -1540,19 +1540,19 @@ void main() {
       });
       test('infinite dividend', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(2);
 
         // when
         final result = unit1 % unit2;
 
         // then
-        expect(result.equals(Distance.nan()), true);
+        expect(result.equals(DistanceMeasurement.nan()), true);
       });
       test('infinite divisor', () {
         // given
         final unit1 = meters(5);
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 % unit2;
@@ -1562,69 +1562,69 @@ void main() {
       });
       test('both infinite', () {
         // given
-        final unit1 = Distance.infinite();
-        final unit2 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 % unit2;
 
         // then
-        expect(result.equals(Distance.nan()), true);
+        expect(result.equals(DistanceMeasurement.nan()), true);
       });
       test('zero dividend', () {
         // given
-        final unit1 = Distance.zero();
+        final unit1 = DistanceMeasurement.zero();
         final unit2 = meters(2);
 
         // when
         final result = unit1 % unit2;
 
         // then
-        expect(result.equals(Distance.zero()), true);
+        expect(result.equals(DistanceMeasurement.zero()), true);
       });
       test('zero divisor', () {
         // given
         final unit1 = meters(5);
-        final unit2 = Distance.zero();
+        final unit2 = DistanceMeasurement.zero();
 
         // when
         final result = unit1 % unit2;
 
         // then
-        expect(result.equals(Distance.nan()), true);
+        expect(result.equals(DistanceMeasurement.nan()), true);
       });
       test('both zero', () {
         // given
-        final unit1 = Distance.zero();
-        final unit2 = Distance.zero();
+        final unit1 = DistanceMeasurement.zero();
+        final unit2 = DistanceMeasurement.zero();
 
         // when
         final result = unit1 % unit2;
 
         // then
-        expect(result.equals(Distance.nan()), true);
+        expect(result.equals(DistanceMeasurement.nan()), true);
       });
       test('zero divisor, infinite dividend', () {
         // given
-        final unit1 = Distance.infinite();
-        final unit2 = Distance.zero();
+        final unit1 = DistanceMeasurement.infinite();
+        final unit2 = DistanceMeasurement.zero();
 
         // when
         final result = unit1 % unit2;
 
         // then
-        expect(result.equals(Distance.nan()), true);
+        expect(result.equals(DistanceMeasurement.nan()), true);
       });
       test('infinite divisor, zero dividend', () {
         // given
-        final unit1 = Distance.zero();
-        final unit2 = Distance.infinite();
+        final unit1 = DistanceMeasurement.zero();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1 % unit2;
 
         // then
-        expect(result.equals(Distance.zero()), true);
+        expect(result.equals(DistanceMeasurement.zero()), true);
       });
     });
 
@@ -1676,7 +1676,7 @@ void main() {
       test('compare to zero', () {
         // given
         final unit1 = meters(4.0);
-        final unit2 = Distance.zero();
+        final unit2 = DistanceMeasurement.zero();
 
         // when
         final result = unit1.compareMagnitude(unit2);
@@ -1686,7 +1686,7 @@ void main() {
       });
       test('compare with zero', () {
         // given
-        final unit1 = Distance.zero();
+        final unit1 = DistanceMeasurement.zero();
         final unit2 = meters(4.0);
 
         // when
@@ -1698,7 +1698,7 @@ void main() {
       test('compare to infinity', () {
         // given
         final unit1 = meters(4.0);
-        final unit2 = Distance.infinite();
+        final unit2 = DistanceMeasurement.infinite();
 
         // when
         final result = unit1.compareMagnitude(unit2);
@@ -1708,7 +1708,7 @@ void main() {
       });
       test('compare with infinity', () {
         // given
-        final unit1 = Distance.infinite();
+        final unit1 = DistanceMeasurement.infinite();
         final unit2 = meters(4.0);
 
         // when
