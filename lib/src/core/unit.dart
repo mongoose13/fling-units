@@ -41,12 +41,25 @@ abstract class Unit<T extends Dimension> {
 
   /// Interprets the base value according to the configured unit.
   ///
-  /// This effectively converts a measurement to SI units.
-  double of(num value) =>
-      value.toDouble() * unitMultiplier / prefix.unitMultiplier;
+  /// This effectively converts a number from SI units to this unit.
+  /// For example:
+  /// ```
+  /// feet.of(3);               // 9.84...
+  /// kilo.meters.of(1000);     // 1.0
+  /// ```
+  double of(num siValue) =>
+      siValue.toDouble() * unitMultiplier / prefix.unitMultiplier;
 
   /// Interprets the provided value as if it were of the configured unit,
   /// returning the base value.
+  ///
+  /// This effectively converts a value of this unit into the corresponding
+  /// value in SI units.
+  /// For example:
+  /// ```
+  /// feet.from(1);             // 3.28...
+  /// kilo.meters.from(1);      // 1000.0
+  /// ```
   double from(num value) =>
       value.toDouble() / unitMultiplier * prefix.unitMultiplier;
 
@@ -83,6 +96,12 @@ abstract class UnitModifier<U extends Unit> {
       : isNumerator<T>()
           ? value
           : 1.0 / value;
+
+  static num invertedTypeMultiplier<T extends UnitModifier>(num? value) => value == null
+      ? 1.0
+      : isNumerator<T>()
+          ? 1.0 / value
+          : value;
 }
 
 class UnitNumerator<U extends Unit> extends UnitModifier<U> {
@@ -121,8 +140,8 @@ abstract class RoundingUnit<T extends Dimension> extends Unit<T> {
   });
 
   @override
-  double of(num value) =>
-      (value.toDouble() * unitMultiplier / prefix.unitMultiplier)
+  double of(num siValue) =>
+      (siValue.toDouble() * unitMultiplier / prefix.unitMultiplier)
           .roundToDouble();
 
   @override
@@ -212,9 +231,10 @@ class DerivedUnit2<
   }) : this._(
           name: name ??
               (a == b ? "${a.toString()}²" : "${a.toString()}⋅${b.toString()}"),
-          unitMultiplier: (UnitModifier.typeMultiplier(a.multiplier) *
-                  UnitModifier.typeMultiplier(b.multiplier))
-              .toDouble(),
+          unitMultiplier: 
+              (UnitModifier.invertedTypeMultiplier(a.multiplier) *
+                      UnitModifier.invertedTypeMultiplier(b.multiplier))
+                  .toDouble(),
           prefix: prefix ?? const MeasurementPrefix.unit(),
         );
 

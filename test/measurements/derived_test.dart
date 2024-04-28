@@ -85,7 +85,7 @@ void main() {
         final result = unit.toString();
 
         // then
-        expect(result, '2.0 mi/h');
+        expect(result, '2.0 mi⋅h⁻¹');
       });
       test('disparate non-si units default interpreter multiplication', () {
         // given
@@ -112,13 +112,13 @@ void main() {
       });
       test('square', () {
         // given
-        final unit = square(feet)(2, 3);
+        final unit = square(feet)(2, 3).withPrecisionOf(3);
 
         // when
         final result = unit.toString();
 
         // then
-        expect(result, '6.0 m⋅ft');
+        expect(result, '6.0 ft²');
       });
       test('ratio', () {
         // given
@@ -128,11 +128,31 @@ void main() {
         final result = unit.toString();
 
         // then
-        expect(result, '2.0 m/s');
+        expect(result, '2.0 m⋅s⁻¹');
       });
-      test('withDefaultUnit change', () {
+      test('withDefaultUnit no change', () {
         // given
-        final unit = product(meters, feet)(2, 3);
+        final unit = square(feet)(2, 3).withPrecisionOf(3);
+
+        // when
+        final result = unit.butAs(square(feet)).toString();
+
+        // then
+        expect(result, '6.0 ft²');
+      });
+      test('withDefaultUnit partial change', () {
+        // given
+        final unit = product(feet, feet)(2, 3).withPrecisionOf(3);
+
+        // when
+        final result = unit.butAs(product(inches, feet)).toString();
+
+        // then
+        expect(result, '72.0 in⋅ft');
+      });
+      test('withDefaultUnit full change', () {
+        // given
+        final unit = product(meters, feet)(2, 3).withPrecisionOf(3);
 
         // when
         final result = unit.butAs(product(feet, inches)).toString();
