@@ -232,33 +232,6 @@ class DerivedUnit2<
         prefix: prefix,
       );
 
-  static DerivedUnit2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>, D1, D2>
-      product<D1 extends Dimension, D2 extends Dimension>(
-    Unit<D1> a,
-    Unit<D2> b, {
-    String? name,
-    MeasurementPrefix? prefix,
-  }) =>
-          DerivedUnit2.from(
-            UnitNumerator(a),
-            UnitNumerator(b),
-            name: name,
-            prefix: prefix,
-          );
-
-  static DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
-      square<D extends Dimension>(
-    Unit<D> unit, {
-    String? name,
-    MeasurementPrefix? prefix,
-  }) =>
-          DerivedUnit2.from(
-            UnitNumerator(unit),
-            UnitNumerator(unit),
-            name: name ?? "${unit.toString()}²",
-            prefix: prefix,
-          );
-
   Measurement<Dimension2<M1, M2>> call(
     num a, [
     num? b,
@@ -292,9 +265,46 @@ class DerivedUnit2<
       );
 }
 
-final square = DerivedUnit2.square;
-final ratio = DerivedUnit2.ratio;
-final product = DerivedUnit2.product;
+DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
+    square<D extends Dimension>(
+  Unit<D> unit, {
+  String? name,
+  MeasurementPrefix? prefix,
+}) =>
+        DerivedUnit2.from(
+          UnitNumerator(unit),
+          UnitNumerator(unit),
+          name: name ?? "${unit.toString()}²",
+          prefix: prefix,
+        );
+
+DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1, D2>
+    ratio<D1 extends Dimension, D2 extends Dimension>(
+  Unit<D1> a,
+  Unit<D2> b, {
+  String? name,
+  MeasurementPrefix? prefix,
+}) =>
+        DerivedUnit2.from(
+          UnitNumerator(a),
+          UnitDenominator(b),
+          name: name,
+          prefix: prefix,
+        );
+
+DerivedUnit2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>, D1, D2>
+    product<D1 extends Dimension, D2 extends Dimension>(
+  Unit<D1> a,
+  Unit<D2> b, {
+  String? name,
+  MeasurementPrefix? prefix,
+}) =>
+        DerivedUnit2.from(
+          UnitNumerator(a),
+          UnitNumerator(b),
+          name: name,
+          prefix: prefix,
+        );
 
 class DerivedUnit3<
     M1 extends UnitModifier<Unit<D1>>,
@@ -320,20 +330,6 @@ class DerivedUnit3<
           unitMultiplier: a.multiplier * b.multiplier * c.multiplier,
           prefix: prefix ?? const MeasurementPrefix.unit(),
         );
-
-  static DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
-      UnitNumerator<Unit<D>>, D, D, D> cubic<D extends Dimension>(
-    Unit<D> unit, {
-    String? name,
-    MeasurementPrefix? prefix,
-  }) =>
-      DerivedUnit3.from(
-        UnitNumerator(unit),
-        UnitNumerator(unit),
-        UnitNumerator(unit),
-        name: name ?? "${unit.toString()}³",
-        prefix: prefix,
-      );
 
   DerivedUnit3<M1, M2, M3, D1, D2, D3> withPrefix(MeasurementPrefix prefix) =>
       DerivedUnit3(
@@ -371,4 +367,16 @@ class DerivedUnit3<
       );
 }
 
-final cubic = DerivedUnit3.cubic;
+DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
+    UnitNumerator<Unit<D>>, D, D, D> cubic<D extends Dimension>(
+  Unit<D> unit, {
+  String? name,
+  MeasurementPrefix? prefix,
+}) =>
+    DerivedUnit3.from(
+      UnitNumerator(unit),
+      UnitNumerator(unit),
+      UnitNumerator(unit),
+      name: name ?? "${unit.toString()}³",
+      prefix: prefix,
+    );

@@ -69,7 +69,7 @@ void main() {
       });
       test('disparate non-si units', () {
         // given
-        final unit = ratio(miles, hours)(6, 3);
+        final unit = ratio(miles, hours)(6, 3).withPrecisionOf(3);
 
         // when
         final result = unit.as(ratio(meters, seconds));
