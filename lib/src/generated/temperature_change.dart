@@ -42,7 +42,7 @@ class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
 
   static const TemperatureChangeUnit fahrenheit = TemperatureChangeUnit._(
     name: '°F',
-    unitMultiplier: 1.8,
+    unitMultiplier: 0.5555555555555556,
     prefix: f.MeasurementPrefix.unit(),
   );
 

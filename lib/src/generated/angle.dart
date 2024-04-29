@@ -36,31 +36,31 @@ class AngleUnit extends f.Unit<Angle> {
 
   static const AngleUnit radians = AngleUnit._(
     name: 'rad',
-    unitMultiplier: 6.283185307179586,
+    unitMultiplier: 0.15915494309189535,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const AngleUnit gradians = AngleUnit._(
     name: 'ᵍ',
-    unitMultiplier: 400.0,
+    unitMultiplier: 0.0025,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const AngleUnit degrees = AngleUnit._(
     name: '°',
-    unitMultiplier: 360.0,
+    unitMultiplier: 0.002777777777777778,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const AngleUnit arcMinutes = AngleUnit._(
     name: '′',
-    unitMultiplier: 21600.0,
+    unitMultiplier: 0.000046296296296296294,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const AngleUnit arcSeconds = AngleUnit._(
     name: '′',
-    unitMultiplier: 1296000.0,
+    unitMultiplier: 7.716049382716049e-7,
     prefix: f.MeasurementPrefix.unit(),
   );
 

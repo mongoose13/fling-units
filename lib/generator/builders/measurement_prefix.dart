@@ -28,7 +28,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
           ..fields.add(
             Field(
               (name) => name
-                ..name = "unitMultiplier"
+                ..name = "multiplier"
                 ..type = Reference("final double"),
             ),
           )
@@ -46,7 +46,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
                 ..requiredParameters.add(
                   Parameter(
                     (multiplier) => multiplier
-                      ..name = "unitMultiplier"
+                      ..name = "multiplier"
                       ..toThis = true,
                   ),
                 )
@@ -66,7 +66,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
               (unit) => unit
                 ..constant = true
                 ..name = "unit"
-                ..initializers.add(Code("unitMultiplier = 1.0"))
+                ..initializers.add(Code("multiplier = 1.0"))
                 ..initializers.add(Code("name = \"\"")),
             ),
           )
@@ -103,7 +103,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
                   ),
                 )
                 ..body = Code(
-                    "MeasurementPrefix(unitMultiplier * other.unitMultiplier)"),
+                    "MeasurementPrefix(multiplier * other.multiplier)"),
             ),
           )
           ..methods.add(
@@ -119,7 +119,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
                   ),
                 )
                 ..body = Code(
-                    "MeasurementPrefix(unitMultiplier / other.unitMultiplier)"),
+                    "MeasurementPrefix(multiplier / other.multiplier)"),
             ),
           ),
       ),

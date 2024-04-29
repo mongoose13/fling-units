@@ -159,7 +159,7 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..type = Reference(builder.unitName)
                   ..assignment = Code("${builder.unitName}._("
                       "name: '${builder.shortNameOf(unit)}', "
-                      "unitMultiplier: ${builder.multiplierOf(unit)}, "
+                      "unitMultiplier: ${1.0 / builder.multiplierOf(unit)}, "
                       "prefix: f.MeasurementPrefix.unit(),"
                       ")"),
               ),

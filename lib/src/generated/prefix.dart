@@ -14,15 +14,15 @@ class MeasurementPrefix
         f.TemperatureChangePrefix,
         f.TimePrefix {
   const MeasurementPrefix(
-    this.unitMultiplier, {
+    this.multiplier, {
     this.name = "",
   });
 
   const MeasurementPrefix.unit()
-      : unitMultiplier = 1.0,
+      : multiplier = 1.0,
         name = "";
 
-  final double unitMultiplier;
+  final double multiplier;
 
   final String name;
 
@@ -33,8 +33,8 @@ class MeasurementPrefix
   toString() => name;
 
   operator *(MeasurementPrefix other) =>
-      MeasurementPrefix(unitMultiplier * other.unitMultiplier);
+      MeasurementPrefix(multiplier * other.multiplier);
 
   operator /(MeasurementPrefix other) =>
-      MeasurementPrefix(unitMultiplier / other.unitMultiplier);
+      MeasurementPrefix(multiplier / other.multiplier);
 }

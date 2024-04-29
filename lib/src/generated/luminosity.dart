@@ -33,13 +33,13 @@ class LuminosityUnit extends f.Unit<Luminosity> {
 
   static const LuminosityUnit candlepower = LuminosityUnit._(
     name: 'cp',
-    unitMultiplier: 1.0194,
+    unitMultiplier: 0.9809691975671964,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const LuminosityUnit hefnerkerze = LuminosityUnit._(
     name: 'HK',
-    unitMultiplier: 1.087,
+    unitMultiplier: 0.9199632014719411,
     prefix: f.MeasurementPrefix.unit(),
   );
 

@@ -36,31 +36,31 @@ class DistanceUnit extends f.Unit<Distance> {
 
   static const DistanceUnit miles = DistanceUnit._(
     name: 'mi',
-    unitMultiplier: 0.0006213712,
+    unitMultiplier: 1609.3439798947877,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const DistanceUnit yards = DistanceUnit._(
     name: 'yd',
-    unitMultiplier: 1.093613,
+    unitMultiplier: 0.914400249448388,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const DistanceUnit feet = DistanceUnit._(
     name: 'ft',
-    unitMultiplier: 3.28084,
+    unitMultiplier: 0.3047999902464003,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const DistanceUnit inches = DistanceUnit._(
     name: 'in',
-    unitMultiplier: 39.37008,
+    unitMultiplier: 0.025399999187200026,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const DistanceUnit nauticalMiles = DistanceUnit._(
     name: 'NM',
-    unitMultiplier: 0.000539956803456,
+    unitMultiplier: 1851.9999999990516,
     prefix: f.MeasurementPrefix.unit(),
   );
 

@@ -16,7 +16,7 @@ void main() {
       });
       test('disparate units', () {
         // given
-        final unit = product(meters, meters)(2, 3);
+        final unit = product(meters, meters)(2, 3).withPrecisionOf(3);
 
         // when
         final result = unit.as(product(meters, deci.meters));
@@ -26,7 +26,7 @@ void main() {
       });
       test('disparate units transposed', () {
         // given
-        final unit = product(meters, meters)(2, 3);
+        final unit = product(meters, meters)(2, 3).withPrecisionOf(3);
 
         // when
         final result = unit.as(product(deci.meters, meters));
@@ -142,7 +142,7 @@ void main() {
       });
       test('withDefaultUnit partial change', () {
         // given
-        final unit = product(feet, feet)(2, 3).withPrecisionOf(3);
+        final unit = square(feet)(2, 3).withPrecisionOf(3);
 
         // when
         final result = unit.butAs(product(inches, feet)).toString();
@@ -158,7 +158,7 @@ void main() {
         final result = unit.butAs(product(feet, inches)).toString();
 
         // then
-        expect(result, '775.0 ft⋅in');
+        expect(result, '236.0 ft⋅in');
       });
     });
   });

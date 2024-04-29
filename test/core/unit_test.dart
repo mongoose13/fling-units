@@ -53,10 +53,10 @@ void main() {
       });
       test("with prefix", () {
         // given
-        final unit = square(feet);
+        final unit = square(feet, prefix: deci);
 
         // when
-        final result = unit.withPrefix(deci).multiplier;
+        final result = unit.multiplier;
 
         // then
         expect(result, closeTo(1.076, 0.0005));
@@ -138,6 +138,8 @@ void main() {
       test("ratio from 1", () {
         // when
         final result = ratio(feet, deci.seconds).from(1);
+
+        expect(ratio(feet, deci.seconds)(1).as(ratio(feet, seconds)), 10);
 
         // then
         expect(result, closeTo(0.0305, 0.00005));

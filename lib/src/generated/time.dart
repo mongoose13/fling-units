@@ -34,19 +34,19 @@ class TimeUnit extends f.Unit<Time> {
 
   static const TimeUnit minutes = TimeUnit._(
     name: 'min',
-    unitMultiplier: 0.016666666666666666,
+    unitMultiplier: 60.0,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const TimeUnit hours = TimeUnit._(
     name: 'h',
-    unitMultiplier: 0.0002777777777777778,
+    unitMultiplier: 3600.0,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const TimeUnit days = TimeUnit._(
     name: 'd',
-    unitMultiplier: 0.000011574074074074073,
+    unitMultiplier: 86400.0,
     prefix: f.MeasurementPrefix.unit(),
   );
 

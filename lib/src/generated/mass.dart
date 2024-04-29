@@ -39,49 +39,49 @@ class MassUnit extends f.Unit<Mass> {
 
   static const MassUnit tonnes = MassUnit._(
     name: 't',
-    unitMultiplier: 0.000001,
+    unitMultiplier: 1000000.0,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const MassUnit atomicMassUnits = MassUnit._(
     name: 'u',
-    unitMultiplier: 6.022136651e+23,
+    unitMultiplier: 1.660540200186168e-24,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const MassUnit daltons = MassUnit._(
     name: 'Da',
-    unitMultiplier: 6.02214076208e+23,
+    unitMultiplier: 1.6605390666003093e-24,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const MassUnit electronRestMass = MassUnit._(
     name: 'me',
-    unitMultiplier: 1.09776910594e+27,
+    unitMultiplier: 9.109383699987785e-28,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const MassUnit longTons = MassUnit._(
     name: 't',
-    unitMultiplier: 9.842065276e-7,
+    unitMultiplier: 1016046.9088114186,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const MassUnit shortTons = MassUnit._(
     name: 'tn',
-    unitMultiplier: 0.0000011023,
+    unitMultiplier: 907194.0488070399,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const MassUnit pounds = MassUnit._(
     name: 'lb',
-    unitMultiplier: 0.0022046226,
+    unitMultiplier: 453.5923744952991,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const MassUnit ounces = MassUnit._(
     name: 'oz',
-    unitMultiplier: 0.0352739619,
+    unitMultiplier: 28.349523164847554,
     prefix: f.MeasurementPrefix.unit(),
   );
 

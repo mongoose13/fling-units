@@ -41,49 +41,49 @@ class PressureUnit extends f.Unit<Pressure> {
 
   static const PressureUnit bars = PressureUnit._(
     name: 'bar',
-    unitMultiplier: 0.00001,
+    unitMultiplier: 99999.99999999999,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const PressureUnit baryes = PressureUnit._(
     name: 'Ba',
-    unitMultiplier: 0.1,
+    unitMultiplier: 10.0,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const PressureUnit standardAtmospheres = PressureUnit._(
     name: 'atm',
-    unitMultiplier: 0.000009869232667160129,
+    unitMultiplier: 101325.0,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const PressureUnit technicalAtmospheres = PressureUnit._(
     name: 'at',
-    unitMultiplier: 98.0665,
+    unitMultiplier: 0.010197162129779282,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const PressureUnit mmHg = PressureUnit._(
     name: 'mmHg',
-    unitMultiplier: 0.0075006,
+    unitMultiplier: 133.32266751993174,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const PressureUnit inHg = PressureUnit._(
     name: 'inHg',
-    unitMultiplier: 3386.39,
+    unitMultiplier: 0.00029529971444517615,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const PressureUnit torr = PressureUnit._(
     name: 'Torr',
-    unitMultiplier: 133.32236842105263,
+    unitMultiplier: 0.007500616827041697,
     prefix: f.MeasurementPrefix.unit(),
   );
 
   static const PressureUnit psi = PressureUnit._(
     name: 'psi',
-    unitMultiplier: 6894.76,
+    unitMultiplier: 0.0001450376807894691,
     prefix: f.MeasurementPrefix.unit(),
   );
 

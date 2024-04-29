@@ -32,7 +32,7 @@ class QuantityUnit extends f.Unit<Quantity> {
 
   static const QuantityUnit moles = QuantityUnit._(
     name: 'mol',
-    unitMultiplier: 1.660539067e-24,
+    unitMultiplier: 6.022140760630475e+23,
     prefix: f.MeasurementPrefix.unit(),
   );
 

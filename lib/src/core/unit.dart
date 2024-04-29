@@ -47,8 +47,7 @@ abstract class Unit<T extends Dimension> {
   /// feet.of(3);               // 9.84...
   /// kilo.meters.of(1000);     // 1.0
   /// ```
-  double of(num siValue) =>
-      siValue.toDouble() * unitMultiplier / prefix.unitMultiplier;
+  double of(num siValue) => siValue / multiplier;
 
   /// Interprets the provided value as if it were of the configured unit,
   /// returning the base value.
@@ -60,8 +59,7 @@ abstract class Unit<T extends Dimension> {
   /// feet.from(1);             // 3.28...
   /// kilo.meters.from(1);      // 1000.0
   /// ```
-  double from(num value) =>
-      value.toDouble() / unitMultiplier * prefix.unitMultiplier;
+  double from(num value) => value * multiplier;
 
   /// The standardized short form name of the unit (e.g. "m" for meters).
   final String name;
@@ -73,7 +71,7 @@ abstract class Unit<T extends Dimension> {
   final MeasurementPrefix prefix;
 
   /// The total mutiplier for this unit.
-  double get multiplier => prefix.unitMultiplier * unitMultiplier;
+  double get multiplier => prefix.multiplier * unitMultiplier;
 }
 
 abstract class UnitModifier<U extends Unit> {
@@ -97,11 +95,12 @@ abstract class UnitModifier<U extends Unit> {
           ? value
           : 1.0 / value;
 
-  static num invertedTypeMultiplier<T extends UnitModifier>(num? value) => value == null
-      ? 1.0
-      : isNumerator<T>()
-          ? 1.0 / value
-          : value;
+  static num invertedTypeMultiplier<T extends UnitModifier>(num? value) =>
+      value == null
+          ? 1.0
+          : isNumerator<T>()
+              ? 1.0 / value
+              : value;
 }
 
 class UnitNumerator<U extends Unit> extends UnitModifier<U> {
@@ -112,6 +111,13 @@ class UnitNumerator<U extends Unit> extends UnitModifier<U> {
 
   @override
   String get opString => "*";
+
+  @override
+  bool operator ==(Object other) =>
+      other is UnitNumerator<U> && other.unit == unit;
+
+  @override
+  int get hashCode => 3 * unit.hashCode;
 }
 
 class UnitDenominator<U extends Unit> extends UnitModifier<U> {
@@ -125,6 +131,13 @@ class UnitDenominator<U extends Unit> extends UnitModifier<U> {
 
   @override
   String toString() => "${unit.toString()}⁻¹";
+
+  @override
+  bool operator ==(Object other) =>
+      other is UnitDenominator<U> && other.unit == unit;
+
+  @override
+  int get hashCode => 5 * unit.hashCode;
 }
 
 /// A [Unit] that rounds its results to `int`s.
@@ -140,13 +153,7 @@ abstract class RoundingUnit<T extends Dimension> extends Unit<T> {
   });
 
   @override
-  double of(num siValue) =>
-      (siValue.toDouble() * unitMultiplier / prefix.unitMultiplier)
-          .roundToDouble();
-
-  @override
-  double from(num value) =>
-      value.toDouble() / unitMultiplier * prefix.unitMultiplier;
+  double of(num siValue) => (siValue.toDouble() * multiplier).roundToDouble();
 }
 
 class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
@@ -231,26 +238,11 @@ class DerivedUnit2<
   }) : this._(
           name: name ??
               (a == b ? "${a.toString()}²" : "${a.toString()}⋅${b.toString()}"),
-          unitMultiplier: 
-              (UnitModifier.invertedTypeMultiplier(a.multiplier) *
-                      UnitModifier.invertedTypeMultiplier(b.multiplier))
-                  .toDouble(),
+          unitMultiplier: (UnitModifier.invertedTypeMultiplier(a.multiplier) *
+                  UnitModifier.invertedTypeMultiplier(b.multiplier))
+              .toDouble(),
           prefix: prefix ?? const MeasurementPrefix.unit(),
         );
-
-  static DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1,
-      D2> ratio<D1 extends Dimension, D2 extends Dimension>(
-    Unit<D1> a,
-    Unit<D2> b, {
-    String? name,
-    MeasurementPrefix? prefix,
-  }) =>
-      DerivedUnit2.from(
-        UnitNumerator(a),
-        UnitDenominator(b),
-        name: name,
-        prefix: prefix,
-      );
 
   Measurement<Dimension2<M1, M2>> call(
     num a, [
@@ -294,7 +286,7 @@ DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
         DerivedUnit2.from(
           UnitNumerator(unit),
           UnitNumerator(unit),
-          name: name ?? "${unit.toString()}²",
+          name: name,
           prefix: prefix,
         );
 
