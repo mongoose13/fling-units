@@ -166,34 +166,24 @@ class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
     required super.prefix,
   }) : _multiplier = UnitModifier.isNumerator<M>();
 
-  DerivedUnit1.from(
+  DerivedUnit1._from(
     M measurement, {
     String? name,
     MeasurementPrefix? prefix,
   }) : this._(
           name: name ?? measurement.toString(),
-          unitMultiplier:
-              UnitModifier.typeMultiplier(measurement.multiplier).toDouble(),
+          unitMultiplier: measurement.multiplier,
           prefix: prefix ?? const MeasurementPrefix.unit(),
         );
-
-  static DerivedUnit1<UnitDenominator<Unit<D>>, D> inverse<D extends Dimension>(
-    Unit<D> unit, {
-    String? name,
-    double? unitMultiplier,
-  }) =>
-      DerivedUnit1.from(
-        UnitDenominator(unit),
-        name: name ?? "${unit.toString()}⁻¹",
-      );
 
   Measurement<Dimension1<M>> call(
     num a, [
     Precision precision = Precision.max,
   ]) =>
       DerivedMeasurement(
-        magnitude: UnitModifier.typeMultiplier<M>(a),
+        magnitude: a,
         defaultUnit: this,
+        precision: precision,
       );
 
   Measurement<Dimension1<M>> using<X extends Measurement<D>>(
@@ -204,6 +194,7 @@ class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
       magnitude:
           (_multiplier ? measurement.si : 1.0 / measurement.si) / multiplier,
       defaultUnit: this,
+      precision: precision,
     );
   }
 
@@ -212,7 +203,22 @@ class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
         unitMultiplier: unitMultiplier,
         prefix: prefix,
       );
+
+  @override
+  bool operator ==(Object other) => other is DerivedUnit1<M, D>;
+
+  @override
+  int get hashCode => M.hashCode * D.hashCode;
 }
+
+DerivedUnit1<UnitDenominator<Unit<D>>, D> inverse<D extends Dimension>(
+  Unit<D> unit, {
+  String? name,
+}) =>
+    DerivedUnit1._from(
+      UnitDenominator(unit),
+      name: name,
+    );
 
 class DerivedUnit2<
     M1 extends UnitModifier<Unit<D1>>,
@@ -230,7 +236,7 @@ class DerivedUnit2<
           UnitModifier.isNumerator<M2>(),
         ];
 
-  DerivedUnit2.from(
+  DerivedUnit2._from(
     M1 a,
     M2 b, {
     String? name,
@@ -253,6 +259,7 @@ class DerivedUnit2<
         magnitude: UnitModifier.typeMultiplier<M1>(a) *
             UnitModifier.typeMultiplier<M2>(b),
         defaultUnit: this,
+        precision: precision,
       );
 
   Measurement<Dimension2<M1, M2>>
@@ -283,7 +290,7 @@ DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2.from(
+        DerivedUnit2._from(
           UnitNumerator(unit),
           UnitNumerator(unit),
           name: name,
@@ -297,7 +304,7 @@ DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1, D2>
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2.from(
+        DerivedUnit2._from(
           UnitNumerator(a),
           UnitDenominator(b),
           name: name,
@@ -311,7 +318,7 @@ DerivedUnit2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>, D1, D2>
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2.from(
+        DerivedUnit2._from(
           UnitNumerator(a),
           UnitNumerator(b),
           name: name,
