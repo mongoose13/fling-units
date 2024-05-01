@@ -94,13 +94,6 @@ abstract class UnitModifier<U extends Unit> {
       : isNumerator<T>()
           ? value
           : 1.0 / value;
-
-  static num invertedTypeMultiplier<T extends UnitModifier>(num? value) =>
-      value == null
-          ? 1.0
-          : isNumerator<T>()
-              ? 1.0 / value
-              : value;
 }
 
 class UnitNumerator<U extends Unit> extends UnitModifier<U> {
@@ -158,29 +151,27 @@ abstract class RoundingUnit<T extends Dimension> extends Unit<T> {
 
 class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
     extends Unit<Dimension1<M>> {
-  final bool _multiplier;
-
   DerivedUnit1._({
     required super.name,
     required super.unitMultiplier,
     required super.prefix,
-  }) : _multiplier = UnitModifier.isNumerator<M>();
+  });
 
   DerivedUnit1._from(
-    M measurement, {
+    M modifier, {
     String? name,
-    MeasurementPrefix? prefix,
+    MeasurementPrefix prefix = const MeasurementPrefix.unit(),
   }) : this._(
-          name: name ?? measurement.toString(),
-          unitMultiplier: measurement.multiplier,
-          prefix: prefix ?? const MeasurementPrefix.unit(),
+          name: name ?? modifier.toString(),
+          unitMultiplier: modifier.multiplier,
+          prefix: prefix,
         );
 
   Measurement<Dimension1<M>> call(
     num a, [
     Precision precision = Precision.max,
   ]) =>
-      DerivedMeasurement(
+      Measurement(
         magnitude: a,
         defaultUnit: this,
         precision: precision,
@@ -190,9 +181,8 @@ class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
     X measurement, {
     Precision precision = Precision.max,
   }) {
-    return DerivedMeasurement(
-      magnitude:
-          (_multiplier ? measurement.si : 1.0 / measurement.si) / multiplier,
+    return Measurement(
+      magnitude: UnitModifier.typeMultiplier<M>(measurement.si) * multiplier,
       defaultUnit: this,
       precision: precision,
     );
@@ -225,41 +215,34 @@ class DerivedUnit2<
     M2 extends UnitModifier<Unit<D2>>,
     D1 extends Dimension,
     D2 extends Dimension> extends Unit<Dimension2<M1, M2>> {
-  final List<bool> _multipliers;
-
   DerivedUnit2._({
     required super.name,
     required super.unitMultiplier,
     required super.prefix,
-  }) : _multipliers = [
-          UnitModifier.isNumerator<M1>(),
-          UnitModifier.isNumerator<M2>(),
-        ];
+  });
 
-  DerivedUnit2._from(
+  DerivedUnit2.from(
     M1 a,
     M2 b, {
     String? name,
     MeasurementPrefix? prefix,
-  }) : this._(
+  }) : super(
           name: name ??
               (a == b ? "${a.toString()}²" : "${a.toString()}⋅${b.toString()}"),
-          unitMultiplier: (UnitModifier.invertedTypeMultiplier(a.multiplier) *
-                  UnitModifier.invertedTypeMultiplier(b.multiplier))
-              .toDouble(),
+          unitMultiplier: a.multiplier * b.multiplier,
           prefix: prefix ?? const MeasurementPrefix.unit(),
         );
 
   Measurement<Dimension2<M1, M2>> call(
     num a, [
     num? b,
-    Precision precision = Precision.max,
   ]) =>
-      DerivedMeasurement(
-        magnitude: UnitModifier.typeMultiplier<M1>(a) *
-            UnitModifier.typeMultiplier<M2>(b),
+      Measurement(
+        magnitude: b == null
+            ? a
+            : UnitModifier.typeMultiplier<M1>(a) *
+                UnitModifier.typeMultiplier<M2>(b),
         defaultUnit: this,
-        precision: precision,
       );
 
   Measurement<Dimension2<M1, M2>>
@@ -268,9 +251,9 @@ class DerivedUnit2<
     X2 b, {
     Precision precision = Precision.max,
   }) {
-    return DerivedMeasurement(
-      magnitude: (_multipliers[0] ? a.si : 1.0 / a.si) *
-          (_multipliers[1] ? b.si : 1.0 / b.si) /
+    return Measurement(
+      magnitude: UnitModifier.typeMultiplier<M1>(a.si) *
+          UnitModifier.typeMultiplier<M2>(b.si) *
           multiplier,
       defaultUnit: this,
     );
@@ -290,7 +273,7 @@ DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2._from(
+        DerivedUnit2.from(
           UnitNumerator(unit),
           UnitNumerator(unit),
           name: name,
@@ -304,7 +287,7 @@ DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1, D2>
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2._from(
+        DerivedUnit2.from(
           UnitNumerator(a),
           UnitDenominator(b),
           name: name,
@@ -318,7 +301,7 @@ DerivedUnit2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>, D1, D2>
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2._from(
+        DerivedUnit2.from(
           UnitNumerator(a),
           UnitNumerator(b),
           name: name,
@@ -363,12 +346,12 @@ class DerivedUnit3<
     num? c,
     Precision precision = Precision.max,
   ]) =>
-      DerivedMeasurement(
-        magnitude: (M1.runtimeType == UnitNumerator ? a : 1.0 / a) *
-            (b != null
-                ? (M2.runtimeType == UnitNumerator ? b : 1.0 / b)
-                : 1.0) *
-            (c != null ? (M3.runtimeType == UnitNumerator ? c : 1.0 / c) : 1.0),
+      Measurement(
+        magnitude: b == null
+            ? a
+            : UnitModifier.typeMultiplier(a) *
+                UnitModifier.typeMultiplier(b) *
+                UnitModifier.typeMultiplier(c),
         defaultUnit: this,
       );
 
@@ -380,7 +363,7 @@ class DerivedUnit3<
     Precision precision = Precision.max,
   }) =>
       // TODO: magnitude calculation
-      DerivedMeasurement(
+      Measurement(
         magnitude: (a.si * b.si * c.si) / multiplier,
         defaultUnit: this,
       );

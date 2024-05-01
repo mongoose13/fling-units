@@ -1,7 +1,7 @@
 part of "library.dart";
 
 /// Base class for any type of measurement.
-abstract class Measurement<T extends Dimension>
+class Measurement<T extends Dimension>
     implements Comparable<Measurement<T>> {
   /// Creates a base measurement.
   const Measurement({
@@ -55,7 +55,12 @@ abstract class Measurement<T extends Dimension>
     double magnitude,
     Unit<T> defaultUnit,
     Precision precision,
-  );
+  ) =>
+      Measurement(
+        magnitude: magnitude,
+        defaultUnit: defaultUnit,
+        precision: precision,
+      );
 
   /// The default unit for this measurement.
   ///

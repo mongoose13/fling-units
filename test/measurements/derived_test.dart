@@ -26,6 +26,7 @@ void main() {
           expect(result, "cs⁻¹");
         });
       });
+
       group('call', () {
         test('keeps default units', () {
           // given
@@ -75,105 +76,163 @@ void main() {
           final measurement = unit(2.4, Precision(3));
 
           // then
-          expect(measurement.as(inverse(seconds)), 0.04);
+          expect(measurement.as(inverse(hours)), 144.0);
+        });
+      });
+
+      group('using', () {
+        test('keeps the same default unit', () {
+          // given
+          final unit = inverse(seconds);
+
+          // when
+          final result = unit.using(2.minutes);
+
+          // then
+          expect(result.defaultUnit, unit);
+        });
+        test('sets correct default value', () {
+          // given
+          final unit = inverse(seconds);
+
+          // when
+          final result = unit.using(2.deci.minutes).withPrecisionOf(3);
+
+          // then
+          expect(result.defaultValue, 0.0833);
         });
       });
     });
 
     group('double', () {
-      group('multiply', () {
-        test('same units', () {
+      group('call', () {
+        test('keeps default units', () {
           // given
-          final unit = product(meters, meters)(2, 3);
+          final unit = product(meters, meters);
 
           // when
-          final result = unit.as(product(meters, meters));
+          final result = unit(2, 3).withPrecisionOf(3);
 
           // then
-          expect(result, 6.0);
+          expect(result.defaultUnit, unit);
         });
-        test('disparate units', () {
+        test('keeps default value', () {
           // given
-          final unit = product(meters, meters)(2, 3).withPrecisionOf(3);
+          final unit = product(meters, meters);
 
           // when
-          final result = unit.as(product(meters, deci.meters));
+          final result = unit(2, 3).withPrecisionOf(3);
 
           // then
-          expect(result, 60.0);
+          expect(result.defaultValue, 6.0);
         });
-        test('disparate units transposed', () {
+        test('keeps precision', () {
           // given
-          final unit = product(meters, meters)(2, 3).withPrecisionOf(3);
+          final unit = product(meters, meters);
 
           // when
-          final result = unit.as(product(deci.meters, meters));
+          final result = unit(2, 3).withPrecisionOf(3);
 
           // then
-          expect(result, 60.0);
+          expect(result.precision, 3);
         });
       });
 
-      group('divide', () {
-        test('same units', () {
-          // given
-          final unit = ratio(meters, meters)(6, 3);
+      group('as', () {
+        group('product', () {
+          test('same units', () {
+            // given
+            final unit = product(meters, meters)(2, 3);
 
-          // when
-          final result = unit.as(ratio(meters, meters));
+            // when
+            final result = unit.as(product(meters, meters));
 
-          // then
-          expect(result, 2.0);
+            // then
+            expect(result, 6.0);
+          });
+          test('disparate units', () {
+            // given
+            final unit = product(meters, meters)(2, 3).withPrecisionOf(3);
+
+            // when
+            final result = unit.as(product(meters, deci.meters));
+
+            // then
+            expect(result, 60.0);
+          });
+          test('disparate units transposed', () {
+            // given
+            final unit = product(meters, meters)(2, 3).withPrecisionOf(3);
+
+            // when
+            final result = unit.as(product(deci.meters, meters));
+
+            // then
+            expect(result, 60.0);
+          });
         });
-        test('disparate units', () {
-          // given
-          final unit = ratio(meters, meters)(6, 3);
 
-          // when
-          final result = unit.as(ratio(meters, deci.meters));
+        group('ratio', () {
+          test('same units', () {
+            // given
+            final unit = ratio(meters, meters)(6, 3);
 
-          // then
-          expect(result, 0.2);
-        });
-        test('disparate units transposed', () {
-          // given
-          final unit = ratio(meters, meters)(6, 3);
+            // when
+            final result = unit.as(ratio(meters, meters));
 
-          // when
-          final result = unit.as(ratio(deci.meters, meters));
+            // then
+            expect(result, 2.0);
+          });
+          test('disparate units', () {
+            // given
+            final unit = ratio(meters, meters)(6, 3);
 
-          // then
-          expect(result, 20.0);
-        });
-        test('disparate non-si units', () {
-          // given
-          final unit = ratio(miles, hours)(6, 3).withPrecisionOf(3);
+            // when
+            final result = unit.as(ratio(meters, deci.meters));
 
-          // when
-          final result = unit.as(ratio(meters, seconds));
+            // then
+            expect(result, 0.2);
+          });
+          test('disparate units transposed', () {
+            // given
+            final unit = ratio(meters, meters)(6, 3);
 
-          // then
-          expect(result, 0.894);
-        });
-        test('disparate non-si units default interpreter division', () {
-          // given
-          final unit = ratio(miles, hours)(6, 3);
+            // when
+            final result = unit.as(ratio(deci.meters, meters));
 
-          // when
-          final result = unit.toString();
+            // then
+            expect(result, 20.0);
+          });
+          test('disparate non-si units', () {
+            // given
+            final unit = ratio(miles, hours)(6, 3).withPrecisionOf(3);
 
-          // then
-          expect(result, '2.0 mi⋅h⁻¹');
-        });
-        test('disparate non-si units default interpreter multiplication', () {
-          // given
-          final unit = product(miles, hours)(6, 3);
+            // when
+            final result = unit.as(ratio(meters, seconds));
 
-          // when
-          final result = unit.toString();
+            // then
+            expect(result, 0.894);
+          });
+          test('disparate non-si units default interpreter division', () {
+            // given
+            final unit = ratio(miles, hours)(6, 3);
 
-          // then
-          expect(result, '18.0 mi⋅h');
+            // when
+            final result = unit.toString();
+
+            // then
+            expect(result, '2.0 mi⋅h⁻¹');
+          });
+          test('disparate non-si units default interpreter multiplication', () {
+            // given
+            final unit = product(miles, hours)(6, 3);
+
+            // when
+            final result = unit.toString();
+
+            // then
+            expect(result, '18.0 mi⋅h');
+          });
         });
       });
 
@@ -218,7 +277,7 @@ void main() {
           // then
           expect(result, "cm²");
         });
-        test('withDefaultUnit no change', () {
+        test('butAs no change', () {
           // given
           final unit = square(feet)(2, 3).withPrecisionOf(3);
 
@@ -228,7 +287,7 @@ void main() {
           // then
           expect(result, '6.0 ft²');
         });
-        test('withDefaultUnit partial change', () {
+        test('butAs partial change', () {
           // given
           final unit = square(feet)(2, 3).withPrecisionOf(3);
 
@@ -238,7 +297,7 @@ void main() {
           // then
           expect(result, '72.0 in⋅ft');
         });
-        test('withDefaultUnit full change', () {
+        test('butAs full change', () {
           // given
           final unit = product(meters, feet)(2, 3).withPrecisionOf(3);
 
@@ -248,7 +307,7 @@ void main() {
           // then
           expect(result, '236.0 ft⋅in');
         });
-        test('withDefaultUnit full change and initial prefixes', () {
+        test('butAs full change and initial prefixes', () {
           // given
           final unit =
               product(centi.meters, deka.feet)(2, 3).withPrecisionOf(3);
@@ -259,7 +318,7 @@ void main() {
           // then
           expect(result, '23.6 ft⋅in');
         });
-        test('withDefaultUnit full change and full prefixes', () {
+        test('butAs full change and full prefixes', () {
           // given
           final unit =
               product(centi.meters, deka.feet)(2, 3).withPrecisionOf(3);
@@ -270,6 +329,122 @@ void main() {
 
           // then
           expect(result, '236000.0 mft⋅din');
+        });
+      });
+
+      group('using', () {
+        test('keeps the same default unit', () {
+          // given
+          final unit = ratio(meters, seconds);
+
+          // when
+          final result = unit.using(3.feet, 1.minutes);
+
+          // then
+          expect(result.defaultUnit, unit);
+        });
+        test('sets correct default value', () {
+          // given
+          final unit = ratio(meters, seconds);
+
+          // when
+          final result = unit.using(3.feet, 2.deci.minutes).withPrecisionOf(3);
+
+          // then
+          expect(result.defaultValue, 0.0762);
+        });
+      });
+    });
+
+    group('triple', () {
+      group('cubic', () {
+        group('toString', () {
+          test('symbol', () {
+            // given
+            final unit = cubic(inches);
+
+            // when
+            final result = unit.toString();
+
+            // then
+            expect(result, "in³");
+          });
+        });
+
+        group('as', () {
+          test('from SI to SI', () {
+            // given
+            final measurement = cubic(meters)(3).withPrecisionOf(3);
+
+            // when
+            final result = measurement.as(cubic(meters));
+
+            // then
+            expect(result, 3.0);
+          });
+          test('from SI to other', () {
+            // given
+            final measurement = cubic(meters)(2).withPrecisionOf(3);
+
+            // when
+            final result = measurement.as(cubic(feet));
+
+            // then
+            expect(result, 70.6);
+          });
+          test('from other to SI', () {
+            // given
+            final measurement = cubic(inches)(144).withPrecisionOf(3);
+
+            // when
+            final result = measurement.as(cubic(meters));
+
+            // then
+            expect(result, 0.00236);
+          });
+          test('from other to other', () {
+            // given
+            final measurement = cubic(inches)(144).withPrecisionOf(3);
+
+            // when
+            final result = measurement.as(cubic(feet));
+
+            // then
+            expect(result, 0.0833);
+          });
+          test('from other to other with prefix', () {
+            // given
+            final measurement = cubic(deka.inches)(3).withPrecisionOf(3);
+
+            // when
+            final result = measurement.as(cubic(centi.feet));
+
+            // then
+            expect(result, 1.74e6);
+          });
+        });
+      });
+
+      group('using', () {
+        test('keeps the same default unit', () {
+          // given
+          final unit = cubic(meters);
+
+          // when
+          final result = unit.using(3.feet, 1.yards, 4.inches);
+
+          // then
+          expect(result.defaultUnit, unit);
+        });
+        test('sets correct default value', () {
+          // given
+          final unit = cubic(meters);
+
+          // when
+          final result = unit.using(3.feet, 1.yards, 4.inches).withPrecisionOf(3);
+
+          // then
+          expect(result.defaultValue, 0.085);
         });
       });
     });
