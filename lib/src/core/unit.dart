@@ -265,6 +265,16 @@ class DerivedUnit2<
         unitMultiplier: unitMultiplier,
         prefix: prefix,
       );
+
+  @override
+  operator ==(Object other) =>
+      other is DerivedUnit2<M1, M2, D1, D2> &&
+      other.unitMultiplier == unitMultiplier &&
+      other.prefix == prefix &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * prefix.hashCode * name.hashCode;
 }
 
 DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
@@ -367,6 +377,16 @@ class DerivedUnit3<
         magnitude: (a.si * b.si * c.si) / multiplier,
         defaultUnit: this,
       );
+
+  @override
+  bool operator ==(Object other) =>
+      other is DerivedUnit3<M1, M2, M3, D1, D2, D3> &&
+      other.unitMultiplier == unitMultiplier &&
+      other.prefix == prefix &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * prefix.hashCode * name.hashCode;
 }
 
 DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
@@ -382,3 +402,13 @@ DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
       name: name ?? "${unit.toString()}³",
       prefix: prefix,
     );
+
+extension DerivedNumExtension on num {
+  Measurement<Dimension2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>>>
+      square<D extends Dimension>(Unit<D> unit) => f.square(unit)(this);
+
+  Measurement<
+      Dimension3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
+          UnitNumerator<Unit<D>>>> cubic<D extends Dimension>(Unit<D> unit) =>
+      f.cubic(unit)(this);
+}
