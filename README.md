@@ -13,26 +13,6 @@ measurements to keep your code simple!
 
 ## Overview
 
-Sick of having to worry about unit conversions in your code? Don't want to worry about mixing up parameters with numeric types?
-
-```dart
-double calculateVelocityInKiloMetersPerHour(double meters, double seconds) {
-  return meters * 1000 / (seconds * 60 * 60);
-}
-
-final minutes = 3.5;
-final miles = 4.8;
-final kph = calculateVelocityInKiloMetersPerHour(minutes / 60.0, miles * 0.007); // oops, wrong order!
-```
-
-Try the simple, type-safe approach instead! You don't need conversion methods - you can operate on the measurements themselves and convert to numeric types only when you know which specific units you need.
-
-```dart
-var myTime = 3.5.minutes;
-var myDistance = 4.8.miles;
-final kph = myDistance.per(myTime).asPair(kilo.meters, hours);
-```
-
 We designed **fling_units** to simplify working with any measurement unit within
 a code base by abstracting measurements to basic types that can be "interpreted"
 into any valid unit of that type, all in a type-safe way. This means you will
@@ -74,14 +54,15 @@ us know how we can improve **fling_units** by creating an issue!
 
 ## Usage
 
-Create an instance of the dimension type you want to measure:
+Create a measurement using any standard unit:
 
 ```dart
 void main() {
-  // you can use metric prefixes with any unit
-  Distance distanceToSeattle = kilo.meters(246);
-  Distance distanceToTheMoon = Distance.sum([miles(238900), feet(42), inches(6.3)]);
-  Mass massOfTheMoon = yocto.grams(73.5);
+  // extensions on `num` make instantiating a measurement easy
+  Measurement<Mass> massOfTheMoon = (73.5).yocto.grams;
+
+  // you can also build a measurement as the sum of parts
+  Measurement<Distance> distanceToTheMoon = sum([miles(238900), feet(42), inches(6.3)]);
 }
 ```
 
@@ -89,8 +70,7 @@ Convert to any other measurement type within that dimension:
 
 ```dart
 void main() {
-  double distanceToSeattleInMiles = distanceToSeattle.as(miles);
-  double distanceToSeattleInHectoInches = distanceToSeattle.as(hecto.inches);
+  double distanceToTheMoonInMiles = distanceToTheMoon.as(miles);
   double massOfTheMoonInShortTons = massOfTheMoon.as(shortTons);
 }
 ```

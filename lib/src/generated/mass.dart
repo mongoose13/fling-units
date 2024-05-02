@@ -135,11 +135,6 @@ class MassMeasurement extends f.Measurement<Mass> {
 
   const MassMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  MassMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Mass> siUnit = grams;
 
   @override

@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final charge = LuminosityMeasurement.sum([
+        final charge = sum([
           candela(2.1),
           candela(5.0),
           candlepower(3.0),

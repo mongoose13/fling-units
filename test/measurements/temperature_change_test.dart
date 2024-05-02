@@ -90,7 +90,8 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = TemperatureChangeMeasurement.negativeInfinite(fahrenheit);
+        final interpreter =
+            TemperatureChangeMeasurement.negativeInfinite(fahrenheit);
 
         // when
         final result = interpreter.toString();
@@ -103,7 +104,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final temperature = TemperatureChangeMeasurement.sum([
+        final temperature = sum([
           kelvin(1),
           celcius(2),
           fahrenheit(3),

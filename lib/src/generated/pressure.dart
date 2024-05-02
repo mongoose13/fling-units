@@ -137,11 +137,6 @@ class PressureMeasurement extends f.Measurement<Pressure> {
 
   const PressureMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  PressureMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Pressure> siUnit = pascals;
 
   @override

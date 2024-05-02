@@ -1,8 +1,7 @@
 part of "library.dart";
 
 /// Base class for any type of measurement.
-class Measurement<T extends Dimension>
-    implements Comparable<Measurement<T>> {
+class Measurement<T extends Dimension> implements Comparable<Measurement<T>> {
   /// Creates a base measurement.
   const Measurement({
     required num magnitude,
@@ -255,3 +254,9 @@ class Measurement<T extends Dimension>
   /// The precision of this measurement.
   final Precision precisionData;
 }
+
+Measurement<D> sum<D extends Dimension>(
+  Iterable<Measurement<D>> parts, {
+  Precision precision = Precision.max,
+}) =>
+    Measurement.sum(parts, precision: precision);

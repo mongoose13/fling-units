@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final time = TimeMeasurement.sum([
+        final time = sum([
           seconds(1),
           deci.seconds(2),
           hecto.seconds(3),

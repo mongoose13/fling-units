@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final measurement = DistanceMeasurement.sum(
+        final measurement = sum(
           [
             kilo.meters(1),
             hecto.meters(2),

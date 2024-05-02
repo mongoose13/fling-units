@@ -132,26 +132,6 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..initializers.add(Code("super.nan()")),
             ),
           )
-          ..constructors.add(
-            Constructor(
-              (sum) => sum
-                ..name = "sum"
-                ..requiredParameters.add(
-                  Parameter((parts) => parts
-                    ..name = "parts"
-                    ..toSuper = true),
-                )
-                ..optionalParameters.add(
-                  Parameter(
-                    (precision) => precision
-                      ..named = true
-                      ..name = "precision"
-                      ..toSuper = true,
-                  ),
-                )
-                ..initializers.add(Code("super.sum()")),
-            ),
-          )
           ..methods.add(
             Method(
               (construct) => construct

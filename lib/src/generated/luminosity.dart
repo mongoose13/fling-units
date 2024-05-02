@@ -94,11 +94,6 @@ class LuminosityMeasurement extends f.Measurement<Luminosity> {
 
   const LuminosityMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  LuminosityMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Luminosity> siUnit = candela;
 
   @override

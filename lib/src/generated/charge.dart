@@ -79,11 +79,6 @@ class ChargeMeasurement extends f.Measurement<Charge> {
 
   const ChargeMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  ChargeMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Charge> siUnit = amperes;
 
   @override

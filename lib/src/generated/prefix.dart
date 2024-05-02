@@ -5,14 +5,14 @@ part of 'package:fling_units/src/core/library.dart';
 class MeasurementPrefix
     with
         f.AnglePrefix,
-        f.ChargePrefix,
-        f.DistancePrefix,
-        f.LuminosityPrefix,
-        f.MassPrefix,
-        f.PressurePrefix,
+        f.TimePrefix,
         f.QuantityPrefix,
+        f.MassPrefix,
+        f.DistancePrefix,
+        f.ChargePrefix,
         f.TemperatureChangePrefix,
-        f.TimePrefix {
+        f.PressurePrefix,
+        f.LuminosityPrefix {
   const MeasurementPrefix(
     this.multiplier, {
     this.name = "",

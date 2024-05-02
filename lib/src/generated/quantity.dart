@@ -86,11 +86,6 @@ class QuantityMeasurement extends f.Measurement<Quantity> {
 
   const QuantityMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  QuantityMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Quantity> siUnit = units;
 
   @override

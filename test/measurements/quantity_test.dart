@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final quantity = QuantityMeasurement.sum([
+        final quantity = sum([
           moles(2.1),
           units(5e23),
           moles(0.3),

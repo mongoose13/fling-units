@@ -100,11 +100,6 @@ class TimeMeasurement extends f.Measurement<Time> {
 
   const TimeMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  TimeMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Time> siUnit = seconds;
 
   @override

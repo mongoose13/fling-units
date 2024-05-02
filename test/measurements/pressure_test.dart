@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds up component parts', () {
         // given
-        final measurement = PressureMeasurement.sum([
+        final measurement = sum([
           pascals(2),
           bars(1),
           standardAtmospheres(0.5),

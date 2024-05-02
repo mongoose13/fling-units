@@ -23,3 +23,8 @@ task "verify".to_sym do
   execute "dart analyze"
   execute "pana ."
 end
+
+desc "Run the example program"
+task "example".to_sym do
+  execute "dart ./example/lib/example.dart"
+end

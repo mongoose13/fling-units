@@ -97,11 +97,6 @@ class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
 
   const TemperatureChangeMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  TemperatureChangeMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<TemperatureChange> siUnit = kelvin;
 
   @override

@@ -6,15 +6,12 @@ void main() {
   // You may use any of several construction methods.
   // Include the precision of your measurement for best results!
   var distanceToTheMoon = kilo.meters(382500, precision: Precision(4));
-  var distanceToSeattle = DistanceMeasurement.sum(
-    [
-      miles(123),
-      yards(15),
-      feet(2),
-      inches(4),
-    ],
-    precision: Precision(3),
-  );
+  var distanceToSeattle = sum([
+    miles(123),
+    yards(15),
+    feet(2),
+    inches(4),
+  ]);
   var bodyTemperature = Temperature.ofFahrenheit(93.4);
 
   // Want syntactic sugar? Any measurement can be created from a number using
@@ -116,10 +113,12 @@ void main() {
 
   // You can also build a measurement using existing measurements of the correct
   // component types.
-  final mySpeed = milesPerHour.using(
-    distanceToSeattle,
-    2.hours,
-  ).withPrecisionOf(3);
+  final mySpeed = milesPerHour
+      .using(
+        distanceToSeattle,
+        2.hours,
+      )
+      .withPrecisionOf(3);
   print("I'm going $mySpeed");
 
   // Then, interpret the derived unit in any combination of component units.
@@ -143,4 +142,10 @@ void main() {
       " ${ratio(pounds, inches).using(massOfMyHand, sizeOfMyHand)}");
 
   // Have fun!
+  // extensions on `num` make instantiating a measurement easy
+  Measurement<Mass> massOfTheMoon = (73.5).yocto.grams;
+
+  // you can also build a measurement as the sum of parts
+  final distanceToTheModon = sum([miles(238900), feet(42), inches(6.3), 4.seconds]);
+  print(distanceToTheModon);
 }

@@ -114,11 +114,6 @@ class AngleMeasurement extends f.Measurement<Angle> {
 
   const AngleMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  AngleMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Angle> siUnit = turns;
 
   @override

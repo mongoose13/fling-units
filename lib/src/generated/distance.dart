@@ -114,11 +114,6 @@ class DistanceMeasurement extends f.Measurement<Distance> {
 
   const DistanceMeasurement.nan([super.unit = siUnit]) : super.nan();
 
-  DistanceMeasurement.sum(
-    super.parts, {
-    super.precision,
-  }) : super.sum();
-
   static const f.Unit<Distance> siUnit = meters;
 
   @override
