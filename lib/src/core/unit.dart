@@ -404,8 +404,21 @@ DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
     );
 
 extension DerivedNumExtension on num {
+  Measurement<Dimension1<UnitDenominator<Unit<D>>>>
+      inverse<D extends Dimension>(Unit<D> unit) => f.inverse(unit)(this);
+
   Measurement<Dimension2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>>>
       square<D extends Dimension>(Unit<D> unit) => f.square(unit)(this);
+
+  Measurement<Dimension2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>>>
+      product<D1 extends Dimension, D2 extends Dimension>(
+              Unit<D1> first, Unit<D2> second) =>
+          f.product(first, second)(this);
+
+  Measurement<Dimension2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>>>
+      ratio<D1 extends Dimension, D2 extends Dimension>(
+              Unit<D1> numerator, Unit<D2> denominator) =>
+          f.ratio(numerator, denominator)(this);
 
   Measurement<
       Dimension3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,

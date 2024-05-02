@@ -57,49 +57,52 @@ us know how we can improve **fling_units** by creating an issue!
 Create a measurement using any standard unit:
 
 ```dart
-void main() {
-  // extensions on `num` make instantiating a measurement easy
+  // extensions on `num` make instantiating a measurement feel natural
   Measurement<Mass> massOfTheMoon = (73.5).yocto.grams;
 
-  // you can also build a measurement as the sum of parts
+  double timeInHours = 3.4;
+  Measurement<Time> travelTime = timeInHours.hours;
+
+  // you can also build a measurement by "calling" a unit or building a sum of parts
+  Measurement<Charge> energyProduction = milli.amperes(123.4);
   Measurement<Distance> distanceToTheMoon = sum([miles(238900), feet(42), inches(6.3)]);
-}
 ```
 
-Convert to any other measurement type within that dimension:
+Convert measurements to any other measurement type within that dimension easily:
 
 ```dart
-void main() {
+  Measurement<Distance> distanceToTheMoonAsMiles = distanceToTheMoon.butAs(miles);
+  Measurement<Mass> massOfTheMoonAsShortTons = massOfTheMoon.butAs(shortTons);
+```
+
+You can read the `double` value of any measurement using any unit in the same dimension:
+
+```dart
   double distanceToTheMoonInMiles = distanceToTheMoon.as(miles);
   double massOfTheMoonInShortTons = massOfTheMoon.as(shortTons);
-}
 ```
 
 Perform basic arithmetic:
 
 ```dart
-void main() {
   // multiplication
-  Distance distanceToSeattleAndBack = distanceToSeattle * 2;
+  Measurement<Distance> distanceToTheMoonAndBack = distanceToTheMoon * 2;
 
   // addition
-  Distance distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
+  Measurement<Distance> distanceToTheMoon = distanceToUpperAtmosphere + distanceFromAtmosphereToMoon;
 
   // support for infinite measurements
-  Distance distanceToTheEndsOfTheUniverse = Distance.infinite();
+  Measurement<Distance> distanceToTheEndsOfTheUniverse = DistanceMeasurement.infinite();
 
   // compare measurements within the same dimension
   bool useTheCar = distanceToTravel >= miles(1.5);
-}
 ```
 
-Built-in ordering:
+All measurements have built-in ordering within their dimension:
 
 ```dart
-void main() {
-  [Distance.zero(), Distance.infinite(), meters(3), feet(3), yards(-2)].sort();
+  [DistanceMeasurement.zero(), DistanceMeasurement.infinite(), meters(3), feet(3), yards(-2)].sort();
   // produces [yards(-2), zero(), feet(3), meters(3), infinite()]
-}
 ```
 
 Abstract away the specific units your code needs by passing around the
@@ -107,46 +110,37 @@ encapsulated types. It doesn't matter which units different parts of your code
 require; you can combine them seamlessly:
 
 ```dart
-Distance computeTotalDistanceWithWiggleRoom(final Distance targetDistance) {
+Measurement<Distance> computeTotalDistanceWithWiggleRoom(Measurement<Distance> targetDistance) {
   return targetDistance + meters(3.0);
 }
 ```
 
-The more common derived units, e.g. *Area* and *Volume*, have full support:
+You can create derived units (with all the features you'd expect) from existing units:
 
 ```dart
-void main() {
-  Area myBackYardSize = Area.of(feet(100), feet(70));
-  double myBackYardSizeInSquareInches = myBackYardSize.asArea(
-      Area.square(inches));
+  // create a derived unit from any existing units:
+  var milesPerGallon = ratio(miles, gallons);
 
-  Area yourBackYardSize = Area.square(meters)(100);
-  bool offerToHostSummerBarbecue = myBackYardSize > yourBackYardSize;
-}
-```
+  // instantiate measurements using the new unit the same way you would any other unit:
+  var stateRequiredFuelEconomy = milesPerGallon(20);
 
-You can create your own basic derived units (with all the basic features you'd
-expect) from existing units:
+  // you can also instantiate a measurement by providing the component parts of the measurement:
+  var fuelEconomy = milesPerGallon.using(kilo.meters(100), liters(6));
 
-```dart
-void main() {
-  var fuelEconomy = kilo.meters(100).per(liters(6));
-  double milesPerGallon = fuelEconomy.as(miles, gallons);
-
-  var stateRequiredFuelEconomy = inches(24).per(teaspoons(2));
+  // measurements created this way have all the features of any other measurement, such as comparison operators:
   bool switchCars = fuelEconomy < stateRequiredFuelEconomy;
-}
+
+  // extensions on num exist for the derived unit helper methods, too (inverse, ratio, product, square, cubic):
+  var frequency = 2000.inverse(seconds);
 ```
 
 Ensure type safety at compile time:
 
 ```dart
-void main() {
   // none of these lines will compile!
   var nonsense = miles(123) + grams(18);
   var impossible = meters(3).as(celcius);
   var silliness = grams(5) < seconds(3);
-}
 ```
 
 Express the certainty in your measurements by setting a precision. Conversions
@@ -154,36 +148,22 @@ will automatically provide appropriate significant digits. Set the precision
 when you create the measurement, or later on:
 
 ```dart
-void main() {
   var myHeight = meters(1.5, precision: Precision(2));
   var myHeightInInches = myHeight.as(inches); // 59.0
   
   var myWeight = kilo.grams(61.234);
   var myPreciseWeight = myWeight.withPrecisionOf(3); // 61.2
-}
 ```
 
 Use the `equals` method for less restrictive equality checks that read more naturally,
 even if their precisions differ:
 
 ```dart
-void main() {
   var massOfMyPetRock = 500.grams.withPrecisionOf(3);
   var anotherWayToWriteIt = (0.5).kilo.grams.withPrecisionOf(1);
 
   massOfMyPetRock == anotherWayToWriteIt; // false
   massOfMyPetRock.equals(anotherWayToWriteIt); // true
-}
-```
-
-Extensions allow you to define measurements from any number for a more natural
-syntax:
-
-```dart
-void main() {
-  var distanceToTheStore = 3.kilo.meters;
-  var distanceToYourHouse = 2.5.miles;
-}
 ```
 
 Measurements and units alike produce sensible `toString()` output to facilitate debugging:
@@ -192,7 +172,7 @@ Measurements and units alike produce sensible `toString()` output to facilitate 
 void main() {
   print(3.miles); // "3.0 mi"
   print(kilo.meters); // "km"
-  print(4.miles.per(2.hours)); // "2.0 mi/h"
+  print(ratio(miles, hours)(2.0)); // "2.0 mi⋅h⁻¹"
 }
 ```
 

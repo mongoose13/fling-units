@@ -142,10 +142,10 @@ void main() {
       " ${ratio(pounds, inches).using(massOfMyHand, sizeOfMyHand)}");
 
   // Have fun!
-  // extensions on `num` make instantiating a measurement easy
-  Measurement<Mass> massOfTheMoon = (73.5).yocto.grams;
+  var massOfMyPetRock = 500.grams.withPrecisionOf(3);
+  var anotherWayToWriteIt = (0.5).kilo.grams.withPrecisionOf(1);
 
-  // you can also build a measurement as the sum of parts
-  final distanceToTheModon = sum([miles(238900), feet(42), inches(6.3), 4.seconds]);
-  print(distanceToTheModon);
+  print(massOfMyPetRock == anotherWayToWriteIt); // false
+  print(massOfMyPetRock.equals(anotherWayToWriteIt)); // true
+  print(ratio(miles, hours)(2.0)); // "2.0 mi⋅h⁻¹"
 }
