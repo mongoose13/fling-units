@@ -87,9 +87,9 @@ class MassUnit extends f.Unit<Mass> {
 
   f.Measurement<Mass> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      MassMeasurement(magnitude, this, precision);
+      MassMeasurement(magnitude, this, f.Precision(precision));
 
   MassUnit withPrefix(
     f.MeasurementPrefix prefix, {

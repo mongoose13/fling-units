@@ -60,7 +60,7 @@
 /// mitigates some rounding errors in the implementation of the language itself.
 ///
 /// ```dart
-/// Distance.miles(3.0, precision: Precision(2)).kilometers; // 4.8, not 4.82803...
+/// Distance.miles(3.0, precision: 2).kilometers; // 4.8, not 4.82803...
 /// ```
 library fling_units;
 

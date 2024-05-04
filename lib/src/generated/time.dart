@@ -52,9 +52,9 @@ class TimeUnit extends f.Unit<Time> {
 
   f.Measurement<Time> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      TimeMeasurement(magnitude, this, precision);
+      TimeMeasurement(magnitude, this, f.Precision(precision));
 
   TimeUnit withPrefix(
     f.MeasurementPrefix prefix, {

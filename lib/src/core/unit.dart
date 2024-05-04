@@ -18,23 +18,13 @@ part of "library.dart";
 /// [Unit]s, but instead pass them to the appropriate
 /// [Measurement] instances for interpretation (typically via the
 /// [Measurement.as] method).
-abstract class Unit<T extends Dimension> {
+abstract class Unit<D extends Dimension> {
   /// Constructs a [Unit].
   const Unit({
     required this.name,
     required this.unitMultiplier,
     required this.prefix,
   });
-
-  /*
-  /// Creates a new unit, replacing this unit's prefix with the specified prefix.
-  Unit<T> withPrefix(MeasurementPrefix prefix);
-
-  /// Creates a measurement based on the value and the configured multiplier.
-  Measurement<T> call(
-    List<num> magnitudes, {
-    Precision precision = Precision.max,
-  });*/
 
   @override
   String toString() => '$prefix$name';
@@ -167,24 +157,19 @@ class DerivedUnit1<M extends UnitModifier<Unit<D>>, D extends Dimension>
           prefix: prefix,
         );
 
-  Measurement<Dimension1<M>> call(
-    num a, [
-    Precision precision = Precision.max,
-  ]) =>
-      Measurement(
+  Measurement<Dimension1<M>> call(num a) => Measurement(
         magnitude: a,
         defaultUnit: this,
-        precision: precision,
       );
 
   Measurement<Dimension1<M>> using<X extends Measurement<D>>(
     X measurement, {
-    Precision precision = Precision.max,
+    int precision = Precision.maximumPrecision,
   }) {
     return Measurement(
       magnitude: UnitModifier.typeMultiplier<M>(measurement.si) * multiplier,
       defaultUnit: this,
-      precision: precision,
+      precision: Precision(precision),
     );
   }
 
@@ -249,13 +234,14 @@ class DerivedUnit2<
       using<X1 extends Measurement<D1>, X2 extends Measurement<D2>>(
     X1 a,
     X2 b, {
-    Precision precision = Precision.max,
+    int precision = Precision.maximumPrecision,
   }) {
     return Measurement(
       magnitude: UnitModifier.typeMultiplier<M1>(a.si) *
           UnitModifier.typeMultiplier<M2>(b.si) *
           multiplier,
       defaultUnit: this,
+      precision: Precision(precision),
     );
   }
 
@@ -305,7 +291,7 @@ DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1, D2>
         );
 
 DerivedUnit2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>, D1, D2>
-    product<D1 extends Dimension, D2 extends Dimension>(
+    product2<D1 extends Dimension, D2 extends Dimension>(
   Unit<D1> a,
   Unit<D2> b, {
   String? name,
@@ -336,11 +322,13 @@ class DerivedUnit3<
     M2 b,
     M3 c, {
     String? name,
-    MeasurementPrefix? prefix,
+    super.prefix = const MeasurementPrefix.unit(),
   }) : super(
-          name: name ?? "${a.toString()}⋅${b.toString()}⋅${c.toString()}",
+          name: name ??
+              (a == b && a == c
+                  ? "${a.toString()}³"
+                  : "${a.toString()}⋅${b.toString()}⋅${c.toString()}"),
           unitMultiplier: a.multiplier * b.multiplier * c.multiplier,
-          prefix: prefix ?? const MeasurementPrefix.unit(),
         );
 
   DerivedUnit3<M1, M2, M3, D1, D2, D3> withPrefix(MeasurementPrefix prefix) =>
@@ -354,7 +342,6 @@ class DerivedUnit3<
     num a, [
     num? b,
     num? c,
-    Precision precision = Precision.max,
   ]) =>
       Measurement(
         magnitude: b == null
@@ -370,12 +357,15 @@ class DerivedUnit3<
     X1 a,
     X2 b,
     X3 c, {
-    Precision precision = Precision.max,
+    int precision = Precision.maximumPrecision,
   }) =>
-      // TODO: magnitude calculation
       Measurement(
-        magnitude: (a.si * b.si * c.si) / multiplier,
+        magnitude: UnitModifier.typeMultiplier<M1>(a.si) *
+            UnitModifier.typeMultiplier<M2>(b.si) *
+            UnitModifier.typeMultiplier<M3>(c.si) *
+            multiplier,
         defaultUnit: this,
+        precision: Precision(precision),
       );
 
   @override
@@ -393,13 +383,29 @@ DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
     UnitNumerator<Unit<D>>, D, D, D> cubic<D extends Dimension>(
   Unit<D> unit, {
   String? name,
-  MeasurementPrefix? prefix,
+  MeasurementPrefix prefix = const MeasurementPrefix.unit(),
 }) =>
     DerivedUnit3.from(
       UnitNumerator(unit),
       UnitNumerator(unit),
       UnitNumerator(unit),
-      name: name ?? "${unit.toString()}³",
+      name: name,
+      prefix: prefix,
+    );
+
+DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
+    UnitNumerator<Unit<D>>, D, D, D> product3<D extends Dimension>(
+  Unit<D> a,
+  Unit<D> b,
+  Unit<D> c, {
+  String? name,
+  MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+}) =>
+    DerivedUnit3.from(
+      UnitNumerator(a),
+      UnitNumerator(b),
+      UnitNumerator(c),
+      name: name,
       prefix: prefix,
     );
 
@@ -413,7 +419,7 @@ extension DerivedNumExtension on num {
   Measurement<Dimension2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>>>
       product<D1 extends Dimension, D2 extends Dimension>(
               Unit<D1> first, Unit<D2> second) =>
-          f.product(first, second)(this);
+          f.product2(first, second)(this);
 
   Measurement<Dimension2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>>>
       ratio<D1 extends Dimension, D2 extends Dimension>(

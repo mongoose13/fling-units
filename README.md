@@ -148,19 +148,19 @@ will automatically provide appropriate significant digits. Set the precision
 when you create the measurement, or later on:
 
 ```dart
-  var myHeight = meters(1.5, precision: Precision(2));
+  var myHeight = meters(1.5, precision: 2);
   var myHeightInInches = myHeight.as(inches); // 59.0
   
   var myWeight = kilo.grams(61.234);
-  var myPreciseWeight = myWeight.withPrecisionOf(3); // 61.2
+  var myPreciseWeight = myWeight.withPrecision(3); // 61.2
 ```
 
 Use the `equals` method for less restrictive equality checks that read more naturally,
 even if their precisions differ:
 
 ```dart
-  var massOfMyPetRock = 500.grams.withPrecisionOf(3);
-  var anotherWayToWriteIt = (0.5).kilo.grams.withPrecisionOf(1);
+  var massOfMyPetRock = 500.grams.withPrecision(3);
+  var anotherWayToWriteIt = (0.5).kilo.grams.withPrecision(1);
 
   massOfMyPetRock == anotherWayToWriteIt; // false
   massOfMyPetRock.equals(anotherWayToWriteIt); // true
@@ -234,7 +234,7 @@ Work with any unit:
 
 ### Area Units
 
-- any Distance unit x any other Distance unit
+- [any Distance unit] x [any Distance unit]
 
 ### Volume Units
 
@@ -248,6 +248,7 @@ Work with any unit:
 - gallon (Imperial / US)
 - cubic foot
 - cubic inch
+- [any Distance unit] x [any Distance unit] x [any Distance unit]
 
 ### Temperature Units
 

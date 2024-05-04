@@ -108,7 +108,7 @@ void main() {
           candela(5.0),
           candlepower(3.0),
           hefnerkerze(1.2),
-        ], precision: Precision(8));
+        ], precision: 8);
 
         // when
         final result = charge.as(candela);
@@ -121,7 +121,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final charge = candela(1.234, precision: Precision(8));
+        final charge = candela(1.234, precision: 8);
 
         // when
         final result = charge.as(candlepower);
@@ -134,7 +134,7 @@ void main() {
     group('candela', () {
       test('converts to base', () {
         // given
-        final charge = candela(1.234, precision: Precision(5));
+        final charge = candela(1.234, precision: 5);
 
         // when
         final result = charge.as(candela);
@@ -144,7 +144,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final charge = milli.candela(1.234e3, precision: Precision(5));
+        final charge = milli.candela(1.234e3, precision: 5);
 
         // when
         final result = charge.as(candela);
@@ -156,7 +156,7 @@ void main() {
     group('candlepower', () {
       test('converts to base', () {
         // given
-        final charge = candlepower(1.234, precision: Precision(5));
+        final charge = candlepower(1.234, precision: 5);
 
         // when
         final result = charge.as(candela);
@@ -166,7 +166,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final charge = milli.candlepower(1.234e3, precision: Precision(5));
+        final charge = milli.candlepower(1.234e3, precision: 5);
 
         // when
         final result = charge.as(candela);
@@ -178,7 +178,7 @@ void main() {
     group('hefnerkerze', () {
       test('converts to base', () {
         // given
-        final charge = hefnerkerze(1.234, precision: Precision(5));
+        final charge = hefnerkerze(1.234, precision: 5);
 
         // when
         final result = charge.as(candela);
@@ -188,7 +188,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final charge = milli.hefnerkerze(1.234e3, precision: Precision(5));
+        final charge = milli.hefnerkerze(1.234e3, precision: 5);
 
         // when
         final result = charge.as(candela);
@@ -221,7 +221,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = candlepower(3.4).withPrecisionOf(3);
+        final measurement = candlepower(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -231,7 +231,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.candlepower(3.4).withPrecisionOf(3);
+        final measurement = milli.candlepower(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -241,7 +241,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.candlepower.withPrecisionOf(3);
+        final measurement = 3.4.milli.candlepower.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -251,17 +251,17 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.candlepower(23.45).withPrecisionOf(3);
+        final measurement = deci.candlepower(23.45).withPrecision(3);
 
         // when
-        final result = measurement.withPrecisionOf(2).toString();
+        final result = measurement.withPrecision(2).toString();
 
         // then
         expect(result, '23.0 dcp');
       });
       test('modified units', () {
         // given
-        final measurement = deci.candlepower(23.45).withPrecisionOf(3);
+        final measurement = deci.candlepower(23.45).withPrecision(3);
 
         // when
         final result = measurement.butAs(milli.hefnerkerze).toString();

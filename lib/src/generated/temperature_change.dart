@@ -48,9 +48,9 @@ class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
 
   f.Measurement<TemperatureChange> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      TemperatureChangeMeasurement(magnitude, this, precision);
+      TemperatureChangeMeasurement(magnitude, this, f.Precision(precision));
 
   TemperatureChangeUnit withPrefix(
     f.MeasurementPrefix prefix, {

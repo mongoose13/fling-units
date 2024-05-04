@@ -14,7 +14,7 @@ void main() {
         test('zero with custom default interpreter', () {
           // given
           final interpreter =
-              Temperature.absoluteZero(fahrenheit).withPrecisionOf(5);
+              Temperature.absoluteZero(fahrenheit).withPrecision(5);
 
           // when
           final result = interpreter.toString();
@@ -51,8 +51,7 @@ void main() {
           expect(result.asKelvin, 293.15);
         });
         test('fahrenheit', () {
-          final result =
-              Temperature.ofFahrenheit(70.0, precision: Precision(5));
+          final result = Temperature.ofFahrenheit(70.0, precision: 5);
 
           expect(result.asKelvin, 294.26);
         });
@@ -262,8 +261,8 @@ void main() {
       });
       test('precision is maintained', () {
         // given
-        final temperature = Temperature.ofKelvin(123, precision: Precision(3));
-        final change = kelvin(32, precision: Precision(2));
+        final temperature = Temperature.ofKelvin(123, precision: 3);
+        final change = kelvin(32, precision: 2);
 
         // when
         final result = temperature + change;
@@ -273,9 +272,8 @@ void main() {
       });
       test('precision is recalculated below the decimal', () {
         // given
-        final temperature =
-            Temperature.ofKelvin(123.45, precision: Precision(5));
-        final change = kelvin(987.65, precision: Precision(5));
+        final temperature = Temperature.ofKelvin(123.45, precision: 5);
+        final change = kelvin(987.65, precision: 5);
 
         // when
         final result = temperature + change;
@@ -337,8 +335,8 @@ void main() {
       });
       test('precision is maintained', () {
         // given
-        final temperature = Temperature.ofKelvin(123, precision: Precision(3));
-        final change = kelvin(32, precision: Precision(2));
+        final temperature = Temperature.ofKelvin(123, precision: 3);
+        final change = kelvin(32, precision: 2);
 
         // when
         final result = temperature - change;
@@ -348,9 +346,8 @@ void main() {
       });
       test('precision is recalculated below the decimal', () {
         // given
-        final temperature =
-            Temperature.ofKelvin(123.45, precision: Precision(5));
-        final change = kelvin(24.65, precision: Precision(4));
+        final temperature = Temperature.ofKelvin(123.45, precision: 5);
+        final change = kelvin(24.65, precision: 4);
 
         // when
         final result = temperature - change;
@@ -390,7 +387,7 @@ void main() {
     group('toString', () {
       test('maintains units', () {
         // given
-        final measurement = Temperature.ofFahrenheit(3.4).withPrecisionOf(3);
+        final measurement = Temperature.ofFahrenheit(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -400,7 +397,7 @@ void main() {
       });
       test('extension maintains units K', () {
         // given
-        final measurement = 3.4.ofKelvin.withPrecisionOf(3);
+        final measurement = 3.4.ofKelvin.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -410,7 +407,7 @@ void main() {
       });
       test('extension maintains units F', () {
         // given
-        final measurement = 3.4.ofFahrenheit.withPrecisionOf(3);
+        final measurement = 3.4.ofFahrenheit.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -420,7 +417,7 @@ void main() {
       });
       test('extension maintains units C', () {
         // given
-        final measurement = 3.4.ofCelcius.withPrecisionOf(3);
+        final measurement = 3.4.ofCelcius.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -430,7 +427,7 @@ void main() {
       });
       test('modified units', () {
         // given
-        final measurement = 3.4.ofFahrenheit.withPrecisionOf(3);
+        final measurement = 3.4.ofFahrenheit.withPrecision(3);
 
         // when
         final result = measurement.withDefaultUnit(celcius).toString();

@@ -66,9 +66,9 @@ class DistanceUnit extends f.Unit<Distance> {
 
   f.Measurement<Distance> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      DistanceMeasurement(magnitude, this, precision);
+      DistanceMeasurement(magnitude, this, f.Precision(precision));
 
   DistanceUnit withPrefix(
     f.MeasurementPrefix prefix, {

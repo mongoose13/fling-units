@@ -66,9 +66,9 @@ class AngleUnit extends f.Unit<Angle> {
 
   f.Measurement<Angle> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      AngleMeasurement(magnitude, this, precision);
+      AngleMeasurement(magnitude, this, f.Precision(precision));
 
   AngleUnit withPrefix(
     f.MeasurementPrefix prefix, {

@@ -33,7 +33,7 @@ void main() {
       });
       test("product", () {
         // given
-        final unit = product(feet, inches);
+        final unit = product2(feet, inches);
 
         // when
         final result = unit.multiplier;
@@ -79,14 +79,14 @@ void main() {
       });
       test("product of 1", () {
         // when
-        final result = product(feet, inches).of(1.0);
+        final result = product2(feet, inches).of(1.0);
 
         // then
         expect(result, closeTo(129.2, 0.05));
       });
       test("product of several", () {
         // when
-        final result = product(feet, inches).of(3.0);
+        final result = product2(feet, inches).of(3.0);
 
         // then
         expect(result, closeTo(387.5, 0.05));
@@ -123,14 +123,14 @@ void main() {
       });
       test("product from 1", () {
         // when
-        final result = product(feet, inches).from(1);
+        final result = product2(feet, inches).from(1);
 
         // then
         expect(result, closeTo(0.00774, 0.000005));
       });
       test("product from several", () {
         // when
-        final result = product(feet, inches).from(10);
+        final result = product2(feet, inches).from(10);
 
         // then
         expect(result, closeTo(0.0774, 0.00005));

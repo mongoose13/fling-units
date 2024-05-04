@@ -38,9 +38,9 @@ class QuantityUnit extends f.Unit<Quantity> {
 
   f.Measurement<Quantity> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      QuantityMeasurement(magnitude, this, precision);
+      QuantityMeasurement(magnitude, this, f.Precision(precision));
 
   QuantityUnit withPrefix(
     f.MeasurementPrefix prefix, {

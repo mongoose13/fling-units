@@ -14,8 +14,8 @@ part of "library.dart";
 /// different precision, even if their measured values are the same.
 ///
 /// ```dart
-/// Distance.meters(3.14159, precision: Precision(3)) ==
-///   Distance.meters(3.14159, precision: Precision(5)); // evaluates to false
+/// Distance.meters(3.14159, precision: 3) ==
+///   Distance.meters(3.14159, precision: 5); // evaluates to false
 /// ```
 class Precision {
   /// The highest precision allowed.
@@ -44,9 +44,8 @@ class Precision {
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
-  Precision.combine(Iterable<Precision> precisions)
+  Precision.combine(Iterable<int> precisions)
       : this(precisions
-            .map((item) => item.precision)
             .reduce((current, element) => math.min(current, element)));
 
   /// Combines two [Precision]s per the "addition rule".
@@ -55,17 +54,16 @@ class Precision {
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
-  static Precision addition<T extends Dimension>(
-      Measurement<T> a, Measurement<T> b) {
+  static int addition<T extends Dimension>(Measurement<T> a, Measurement<T> b) {
     if (a.isInfinite || b.isInfinite) {
-      return Precision.max;
+      return Precision.maximumPrecision;
     }
     final precisionA = digitsAfterDecimal(a);
     final precisionB = digitsAfterDecimal(b);
     final beforeDecimal = digitsBeforeDecimal(a._preciseSI() + b._preciseSI());
     int afterPrecision = math.min(
         beforeDecimal + math.min(precisionA, precisionB), maximumPrecision);
-    return Precision(afterPrecision);
+    return afterPrecision;
   }
 
   /// Calculates the number of significant digits after the decimal point.
@@ -75,7 +73,7 @@ class Precision {
   ///
   /// ```dart
   /// digitsAfterDecimal(meters(1.2345));                           // 4
-  /// digitsAfterDecimal(meters(1.2345, precision: Precision(3)));  // 2
+  /// digitsAfterDecimal(meters(1.2345, precision: 3));  // 2
   /// ```
   static int digitsAfterDecimal(Measurement measurement) {
     if (measurement.isInfinite || measurement.isNaN) {
@@ -102,9 +100,6 @@ class Precision {
 
   /// Interprets the specified number according to this Precision.
   double apply(num value) => double.parse(value.toStringAsPrecision(precision));
-
-  /// Alias for [apply].
-  double withPrecision(num value) => apply(value);
 
   @override
   bool operator ==(Object other) =>

@@ -89,9 +89,9 @@ class PressureUnit extends f.Unit<Pressure> {
 
   f.Measurement<Pressure> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      PressureMeasurement(magnitude, this, precision);
+      PressureMeasurement(magnitude, this, f.Precision(precision));
 
   PressureUnit withPrefix(
     f.MeasurementPrefix prefix, {

@@ -52,7 +52,7 @@ void main() {
         final measurement = 3.1.milli.mmHg;
 
         // when
-        final result = measurement.withPrecisionOf(3).as(mmHg);
+        final result = measurement.withPrecision(3).as(mmHg);
 
         // then
         expect(result, 3.1e-3);

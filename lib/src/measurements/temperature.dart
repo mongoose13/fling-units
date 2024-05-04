@@ -40,7 +40,7 @@ class Temperature implements Comparable<Temperature> {
   /// Constructs a [Temperature] from a Kelvin amount.
   Temperature.ofKelvin(
     num amount, {
-    Precision precision = Precision.max,
+    int precision = Precision.maximumPrecision,
   }) : this._(
           amount,
           precision,
@@ -50,13 +50,13 @@ class Temperature implements Comparable<Temperature> {
   /// Constructs a [Temperature] from a degree Celcius amount.
   Temperature.ofCelcius(
     num amount, {
-    Precision precision = Precision.max,
+    int precision = Precision.maximumPrecision,
   }) : this._(celcius.from(amount) - _celciusOffset, precision, celcius);
 
   /// Constructs a [Temperature] from a degree Fahrenheit amount.
   Temperature.ofFahrenheit(
     num amount, {
-    Precision precision = Precision.max,
+    int precision = Precision.maximumPrecision,
   }) : this._(
           fahrenheit.from(amount - _fahrenheitOffset) - _celciusOffset,
           precision,
@@ -66,10 +66,10 @@ class Temperature implements Comparable<Temperature> {
   /// Constructs a [Temperature] with all custom parameters.
   Temperature._(
     num kelvin,
-    Precision precision,
+    int precision,
     Unit<TemperatureChange> defaultUnit,
   )   : _kelvin = kelvin,
-        _precision = precision,
+        _precision = Precision(precision),
         _defaultUnit = defaultUnit {
     if (_kelvin.isNegative) {
       throw ArgumentError('Temperatures cannot go below 0 Kelvin: $_kelvin');
@@ -131,7 +131,7 @@ class Temperature implements Comparable<Temperature> {
   Temperature operator +(Measurement<TemperatureChange> change) =>
       Temperature.ofKelvin(_kelvin + change.si,
           precision: Precision.addition(
-              kelvin(_kelvin, precision: _precision), change));
+              kelvin(_kelvin, precision: _precision.precision), change));
 
   /// Creates a [Temperature] representing the application of a [Temperature]
   /// and the opposite of a [TemperatureChange].
@@ -144,7 +144,7 @@ class Temperature implements Comparable<Temperature> {
   Temperature operator -(Measurement<TemperatureChange> change) =>
       Temperature.ofKelvin(_kelvin - change.si,
           precision: Precision.addition(
-              kelvin(_kelvin, precision: _precision), -change));
+              kelvin(_kelvin, precision: _precision.precision), -change));
 
   /// Returns the difference between this and another [Temperature].
   ///
@@ -152,23 +152,20 @@ class Temperature implements Comparable<Temperature> {
   /// the other [Temperature].
   Measurement<TemperatureChange> difference(Temperature other) =>
       kelvin(_kelvin - other._kelvin,
-          precision: Precision.addition(kelvin(_kelvin, precision: _precision),
-              kelvin(other._kelvin, precision: other._precision)));
+          precision: Precision.addition(
+                  kelvin(_kelvin, precision: _precision.precision),
+                  kelvin(other._kelvin, precision: other._precision.precision))
+              );
 
   /// Constructs a new measurement equivalent to this one but with a different
   /// [Precision].
-  Temperature withPrecision(Precision precision) =>
+  Temperature withPrecision(int precision) =>
       Temperature._(_kelvin, precision, _defaultUnit);
-
-  /// Constructs a new measurement equivalent to this one but with a different
-  /// precision (significant digits).
-  Temperature withPrecisionOf(int precision) =>
-      withPrecision(Precision(precision));
 
   /// Constructs a new measurement equivalent to this one but with a different
   /// default measurement unit.
   Temperature withDefaultUnit(Unit<TemperatureChange> interpreter) =>
-      Temperature._(_kelvin, _precision, interpreter);
+      Temperature._(_kelvin, _precision.precision, interpreter);
 
   @override
   String toString() => '${_as(_defaultUnit)} $_defaultUnit';

@@ -45,9 +45,9 @@ class LuminosityUnit extends f.Unit<Luminosity> {
 
   f.Measurement<Luminosity> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      LuminosityMeasurement(magnitude, this, precision);
+      LuminosityMeasurement(magnitude, this, f.Precision(precision));
 
   LuminosityUnit withPrefix(
     f.MeasurementPrefix prefix, {

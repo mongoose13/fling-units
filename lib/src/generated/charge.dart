@@ -31,9 +31,9 @@ class ChargeUnit extends f.Unit<Charge> {
 
   f.Measurement<Charge> call(
     num magnitude, {
-    f.Precision precision = f.Precision.max,
+    int precision = f.Precision.maximumPrecision,
   }) =>
-      ChargeMeasurement(magnitude, this, precision);
+      ChargeMeasurement(magnitude, this, f.Precision(precision));
 
   ChargeUnit withPrefix(
     f.MeasurementPrefix prefix, {

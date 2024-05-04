@@ -51,12 +51,12 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   (precision) => precision
                     ..named = true
                     ..name = "precision"
-                    ..type = Reference("f.Precision")
-                    ..defaultTo = Code("f.Precision.max"),
+                    ..type = Reference("int")
+                    ..defaultTo = Code("f.Precision.maximumPrecision"),
                 ))
                 ..lambda = true
                 ..body = Code(
-                    "${builder.measurementName}(magnitude, this, precision)"),
+                    "${builder.measurementName}(magnitude, this, f.Precision(precision))"),
             ))
             ..methods.add(
               Method(
