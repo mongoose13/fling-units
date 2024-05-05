@@ -1,5 +1,4 @@
 import "package:fling_units/fling_units.dart";
-import "package:fling_units/src/core/library.dart";
 
 void main() {
   // Create an instance of the measurement you care about.

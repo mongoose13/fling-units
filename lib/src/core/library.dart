@@ -5,6 +5,9 @@ import "package:fling_units/src/generated/library.dart";
 
 part "dimension.dart";
 part "unit.dart";
+part "unit1.dart";
+part "unit2.dart";
+part "unit3.dart";
 part "measurement.dart";
 part "precision.dart";
 part "../measurements/frequency.dart";
