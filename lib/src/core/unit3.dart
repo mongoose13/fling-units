@@ -2,9 +2,9 @@ part of "library.dart";
 
 /// A derived [Unit] that has three components.
 class DerivedUnit3<
-    P1 extends UnitPosition<Unit<D1>>,
-    P2 extends UnitPosition<Unit<D2>>,
-    P3 extends UnitPosition<Unit<D3>>,
+    P1 extends UnitPosition<D1>,
+    P2 extends UnitPosition<D2>,
+    P3 extends UnitPosition<D3>,
     D1 extends Dimension,
     D2 extends Dimension,
     D3 extends Dimension> extends Unit<Dimension3<P1, P2, P3>> {
@@ -62,17 +62,17 @@ class DerivedUnit3<
   /// // creates a "cubic meter" measurement that is 3 feet wide by 2 feet long by 1 foot high
   /// cubic(meters).using(3.feet, 2.feet, 1.feet);
   /// ```
-  Measurement<Dimension3<P1, P2, P3>> using<X1 extends Measurement<D1>,
-          X2 extends Measurement<D2>, X3 extends Measurement<D2>>(
-    X1 a,
-    X2 b,
-    X3 c, {
+  Measurement<Dimension3<P1, P2, P3>> using<M1 extends Measurement<D1>,
+          M2 extends Measurement<D2>, M3 extends Measurement<D2>>(
+    M1 first,
+    M2 second,
+    M3 third, {
     int precision = Precision.maximumPrecision,
   }) =>
       Measurement(
-        magnitude: UnitPosition.typeMultiplier<P1>(a.si) *
-            UnitPosition.typeMultiplier<P2>(b.si) *
-            UnitPosition.typeMultiplier<P3>(c.si) *
+        magnitude: UnitPosition.typeMultiplier<P1>(first.si) *
+            UnitPosition.typeMultiplier<P2>(second.si) *
+            UnitPosition.typeMultiplier<P3>(third.si) /
             multiplier,
         defaultUnit: this,
         precision: Precision(precision),
@@ -111,19 +111,19 @@ class DerivedUnit3<
 /// ```dart
 /// final cubicFeet = cubic(feet);
 /// ```
-DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
-    UnitNumerator<Unit<D>>, D, D, D> cubic<D extends Dimension>(
+DerivedUnit3<UnitNumerator<D>, UnitNumerator<D>, UnitNumerator<D>, D, D, D>
+    cubic<D extends Dimension>(
   Unit<D> unit, {
   String? name,
   MeasurementPrefix prefix = const MeasurementPrefix.unit(),
 }) =>
-    product3(
-      unit,
-      unit,
-      unit,
-      name: name,
-      prefix: prefix,
-    );
+        product3(
+          unit,
+          unit,
+          unit,
+          name: name,
+          prefix: prefix,
+        );
 
 /// Creates a derived [Unit] that is the product of the provided [Unit]s.
 ///
@@ -131,8 +131,8 @@ DerivedUnit3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
 /// // In case you ever needed this...
 /// final footMeterMiles = product3(feet, meters, miles);
 /// ```
-DerivedUnit3<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>,
-        UnitNumerator<Unit<D3>>, D1, D2, D3>
+DerivedUnit3<UnitNumerator<D1>, UnitNumerator<D2>, UnitNumerator<D3>, D1, D2,
+        D3>
     product3<D1 extends Dimension, D2 extends Dimension, D3 extends Dimension>(
   Unit<D1> a,
   Unit<D2> b,
@@ -155,10 +155,8 @@ extension Unit3Extension on num {
   /// ```dart
   /// var threeCubicFeet = 3.cubic(feet);
   /// ```
-  Measurement<
-      Dimension3<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>,
-          UnitNumerator<Unit<D>>>> cubic<D extends Dimension>(Unit<D> unit) =>
-      f.cubic(unit)(this);
+  Measurement<Dimension3<UnitNumerator<D>, UnitNumerator<D>, UnitNumerator<D>>>
+      cubic<D extends Dimension>(Unit<D> unit) => f.cubic(unit)(this);
 
   /// Creates a [Measurement] whose [Unit] is the product of the specified [Unit]s.
   ///
@@ -167,8 +165,7 @@ extension Unit3Extension on num {
   /// final threeFootMeterMiles = 3.product3(feet, meters, miles);
   /// ```
   Measurement<
-          Dimension3<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>,
-              UnitNumerator<Unit<D3>>>>
+          Dimension3<UnitNumerator<D1>, UnitNumerator<D2>, UnitNumerator<D3>>>
       product3<D1 extends Dimension, D2 extends Dimension,
               D3 extends Dimension>(
     Unit<D1> first,

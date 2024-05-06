@@ -58,7 +58,7 @@ void main() {
       test("both denominators", () {
         // given
         final unit =
-            DerivedUnit2.from(UnitDenominator(feet), UnitDenominator(minutes));
+            DerivedUnit2.build(UnitDenominator(feet), UnitDenominator(minutes));
 
         // when
         final result = unit.multiplier;

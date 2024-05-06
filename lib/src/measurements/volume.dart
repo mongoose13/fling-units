@@ -1,14 +1,12 @@
 part of "../core/library.dart";
 
-typedef _VolumeComponent = f.Unit<f.Distance>;
-
-typedef VolumeDimension = f.Dimension3<f.UnitNumerator<_VolumeComponent>,
-    f.UnitNumerator<_VolumeComponent>, f.UnitNumerator<_VolumeComponent>>;
+typedef VolumeDimension = f.Dimension3<f.UnitNumerator<f.Distance>,
+    f.UnitNumerator<f.Distance>, f.UnitNumerator<f.Distance>>;
 
 typedef VolumeUnit = f.DerivedUnit3<
-    UnitNumerator<_VolumeComponent>,
-    UnitNumerator<_VolumeComponent>,
-    UnitNumerator<_VolumeComponent>,
+    UnitNumerator<f.Distance>,
+    UnitNumerator<f.Distance>,
+    UnitNumerator<f.Distance>,
     f.Distance,
     f.Distance,
     f.Distance>;

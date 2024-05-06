@@ -65,9 +65,9 @@ abstract class Unit<D extends Dimension> {
 }
 
 /// Represents the position of a unit in a derived unit equation.
-abstract class UnitPosition<U extends Unit> {
+abstract class UnitPosition<D extends Dimension> {
   /// The positioned unit.
-  final U unit;
+  final Unit<D> unit;
 
   /// Constructor.
   UnitPosition(this.unit);
@@ -95,7 +95,7 @@ abstract class UnitPosition<U extends Unit> {
 }
 
 /// Represents a unit in the numerator of a derived unit equation.
-class UnitNumerator<U extends Unit> extends UnitPosition<U> {
+class UnitNumerator<D extends Dimension> extends UnitPosition<D> {
   UnitNumerator(super.unit);
 
   @override
@@ -103,14 +103,14 @@ class UnitNumerator<U extends Unit> extends UnitPosition<U> {
 
   @override
   bool operator ==(Object other) =>
-      other is UnitNumerator<U> && other.unit == unit;
+      other is UnitNumerator<D> && other.unit == unit;
 
   @override
   int get hashCode => 3 * unit.hashCode;
 }
 
 /// Represents a unit in the denominator of a derived unit equation.
-class UnitDenominator<U extends Unit> extends UnitPosition<U> {
+class UnitDenominator<D extends Dimension> extends UnitPosition<D> {
   UnitDenominator(super.unit);
 
   @override
@@ -121,7 +121,7 @@ class UnitDenominator<U extends Unit> extends UnitPosition<U> {
 
   @override
   bool operator ==(Object other) =>
-      other is UnitDenominator<U> && other.unit == unit;
+      other is UnitDenominator<D> && other.unit == unit;
 
   @override
   int get hashCode => 5 * unit.hashCode;

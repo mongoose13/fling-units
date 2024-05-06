@@ -2,8 +2,8 @@ part of "library.dart";
 
 /// A derived [Unit] that has two components.
 class DerivedUnit2<
-    P1 extends UnitPosition<Unit<D1>>,
-    P2 extends UnitPosition<Unit<D2>>,
+    P1 extends UnitPosition<D1>,
+    P2 extends UnitPosition<D2>,
     D1 extends Dimension,
     D2 extends Dimension> extends Unit<Dimension2<P1, P2>> {
   /// Constructor.
@@ -14,17 +14,22 @@ class DerivedUnit2<
   });
 
   /// Constructor using a pair of [UnitPosition]s.
-  DerivedUnit2.from(
-    P1 a,
-    P2 b, {
+  static DerivedUnit2<P1, P2, D1, D2> build<
+          P1 extends UnitPosition<D1>,
+          P2 extends UnitPosition<D2>,
+          D1 extends Dimension,
+          D2 extends Dimension>(
+    P1 first,
+    P2 second, {
     String? name,
     MeasurementPrefix? prefix,
-  }) : super(
-          name: name ??
-              (a == b ? "${a.toString()}²" : "${a.toString()}⋅${b.toString()}"),
-          unitMultiplier: a.multiplier * b.multiplier,
-          prefix: prefix ?? const MeasurementPrefix.unit(),
-        );
+  }) =>
+      DerivedUnit2._(
+        name: name ??
+            (first == second ? "${first.toString()}²" : "${first.toString()}⋅${second.toString()}"),
+        unitMultiplier: first.multiplier * second.multiplier,
+        prefix: prefix ?? const MeasurementPrefix.unit(),
+      );
 
   /// Instantiates a [Measurement] using this [Unit] and the provided magnitude(s).
   ///
@@ -102,7 +107,7 @@ class DerivedUnit2<
 /// ```dart
 /// final squareFeet = square(feet);
 /// ```
-DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
+DerivedUnit2<UnitNumerator<D>, UnitNumerator<D>, D, D>
     square<D extends Dimension>(
   Unit<D> unit, {
   String? name,
@@ -115,14 +120,14 @@ DerivedUnit2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>, D, D>
 /// ```dart
 /// final milesPerHour = ratio(miles, hours);
 /// ```
-DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1, D2>
+DerivedUnit2<UnitNumerator<D1>, UnitDenominator<D2>, D1, D2>
     ratio<D1 extends Dimension, D2 extends Dimension>(
   Unit<D1> a,
   Unit<D2> b, {
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2.from(
+        DerivedUnit2.build(
           UnitNumerator(a),
           UnitDenominator(b),
           name: name,
@@ -134,14 +139,14 @@ DerivedUnit2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>, D1, D2>
 /// ```dart
 /// final coulombs = product2(seconds, amperes);
 /// ```
-DerivedUnit2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>, D1, D2>
+DerivedUnit2<UnitNumerator<D1>, UnitNumerator<D2>, D1, D2>
     product2<D1 extends Dimension, D2 extends Dimension>(
   Unit<D1> a,
   Unit<D2> b, {
   String? name,
   MeasurementPrefix? prefix,
 }) =>
-        DerivedUnit2.from(
+        DerivedUnit2.build(
           UnitNumerator(a),
           UnitNumerator(b),
           name: name,
@@ -155,7 +160,7 @@ extension Unit2Extension on num {
   /// ```dart
   /// var threeSquareFeet = 3.square(feet);
   /// ```
-  Measurement<Dimension2<UnitNumerator<Unit<D>>, UnitNumerator<Unit<D>>>>
+  Measurement<Dimension2<UnitNumerator<D>, UnitNumerator<D>>>
       square<D extends Dimension>(Unit<D> unit) => f.square(unit)(this);
 
   /// Creates a [Measurement] whose [Unit] is the product of the specified [Unit]s.
@@ -163,7 +168,7 @@ extension Unit2Extension on num {
   /// ```dart
   /// var threeFootPounds = 3.product2(feet, pounds);
   /// ```
-  Measurement<Dimension2<UnitNumerator<Unit<D1>>, UnitNumerator<Unit<D2>>>>
+  Measurement<Dimension2<UnitNumerator<D1>, UnitNumerator<D2>>>
       product2<D1 extends Dimension, D2 extends Dimension>(
               Unit<D1> first, Unit<D2> second) =>
           f.product2(first, second)(this);
@@ -173,7 +178,7 @@ extension Unit2Extension on num {
   /// ```dart
   /// var threeMilesPerHour = 3.ratio(miles, hours);
   /// ```
-  Measurement<Dimension2<UnitNumerator<Unit<D1>>, UnitDenominator<Unit<D2>>>>
+  Measurement<Dimension2<UnitNumerator<D1>, UnitDenominator<D2>>>
       ratio<D1 extends Dimension, D2 extends Dimension>(
               Unit<D1> numerator, Unit<D2> denominator) =>
           f.ratio(numerator, denominator)(this);

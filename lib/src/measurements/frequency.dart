@@ -1,6 +1,6 @@
 part of "../core/library.dart";
 
-typedef _FrequencyComponent = UnitDenominator<Unit<Time>>;
+typedef _FrequencyComponent = UnitDenominator<Time>;
 
 typedef FrequencyUnit = f.DerivedUnit1<_FrequencyComponent, Time>;
 
