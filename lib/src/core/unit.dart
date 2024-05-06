@@ -82,14 +82,14 @@ abstract class UnitPosition<U extends Unit> {
   double get multiplier;
 
   /// Returns whether the generic argument provided is a numerator.
-  static bool isNumerator<T extends UnitPosition>() =>
-      <T>[] is List<UnitNumerator>;
+  static bool isNumerator<P extends UnitPosition>() =>
+      <P>[] is List<UnitNumerator>;
 
   /// Returns the multiplier for the provided number using the generic argument
   /// to determine where the number should be positioned.
-  static num typeMultiplier<T extends UnitPosition>(num? value) => value == null
+  static num typeMultiplier<P extends UnitPosition>(num? value) => value == null
       ? 1.0
-      : isNumerator<T>()
+      : isNumerator<P>()
           ? value
           : 1.0 / value;
 }
@@ -131,7 +131,7 @@ class UnitDenominator<U extends Unit> extends UnitPosition<U> {
 ///
 /// This is useful for measurements that should not be represented fractionally,
 /// e.g. the number of items in a collection.
-abstract class RoundingUnit<T extends Dimension> extends Unit<T> {
+abstract class RoundingUnit<D extends Dimension> extends Unit<D> {
   /// Constructs a [RoundingUnit].
   const RoundingUnit._({
     required super.name,

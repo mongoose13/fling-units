@@ -40,12 +40,12 @@ class DerivedUnit1<P extends UnitPosition<Unit<D>>, D extends Dimension>
   /// // Creates a "meters" measurement that is the equivalent of 3 feet.
   /// meters.using(3.feet);
   /// ```
-  Measurement<Dimension1<P>> using<X extends Measurement<D>>(
-    X measurement, {
+  Measurement<Dimension1<P>> using<M extends Measurement<D>>(
+    M measurement, {
     int precision = Precision.maximumPrecision,
   }) {
     return Measurement(
-      magnitude: UnitPosition.typeMultiplier<P>(measurement.si) * multiplier,
+      magnitude: UnitPosition.typeMultiplier<P>(measurement.si) / multiplier,
       defaultUnit: this,
       precision: Precision(precision),
     );

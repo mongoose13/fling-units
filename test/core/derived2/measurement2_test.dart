@@ -3,7 +3,24 @@ import 'package:fling_units/fling_units.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group("DerivedUnit2", () {
+  group("DerivedMeasurement2", () {
+    group("num extension", () {
+      test("uses correct default unit", () {
+        // given
+        final measurement = 3.square(milli.feet);
+
+        // then
+        expect(measurement.defaultUnit, square(milli.feet));
+      });
+      test("uses correct default value", () {
+        // given
+        final measurement = 3.square(feet);
+
+        // then
+        expect(measurement.defaultValue, 3.0);
+      });
+    });
+
     group("si", () {
       test("square", () {
         // given

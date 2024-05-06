@@ -7,13 +7,10 @@ abstract class Dimension {}
 // to scale this up infinitely
 //----------------------------------------------------------------\\
 
-class Dimension1<A extends UnitPosition> extends Dimension {}
+class Dimension1<P extends UnitPosition> extends Dimension {}
 
-class Dimension2<A extends UnitPosition, B extends UnitPosition>
+class Dimension2<P1 extends UnitPosition, P2 extends UnitPosition>
     extends Dimension {}
 
-typedef Ratio<A extends Dimension, B extends Dimension>
-    = Dimension2<UnitNumerator<Unit<A>>, UnitDenominator<Unit<B>>>;
-
-class Dimension3<A extends UnitPosition, B extends UnitPosition,
-    C extends UnitPosition> extends Dimension {}
+class Dimension3<P1 extends UnitPosition, P2 extends UnitPosition,
+    P3 extends UnitPosition> extends Dimension {}

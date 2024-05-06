@@ -2,10 +2,10 @@ part of "library.dart";
 
 /// A derived [Unit] that has two components.
 class DerivedUnit2<
-    M1 extends UnitPosition<Unit<D1>>,
-    M2 extends UnitPosition<Unit<D2>>,
+    P1 extends UnitPosition<Unit<D1>>,
+    P2 extends UnitPosition<Unit<D2>>,
     D1 extends Dimension,
-    D2 extends Dimension> extends Unit<Dimension2<M1, M2>> {
+    D2 extends Dimension> extends Unit<Dimension2<P1, P2>> {
   /// Constructor.
   DerivedUnit2._({
     required super.name,
@@ -15,8 +15,8 @@ class DerivedUnit2<
 
   /// Constructor using a pair of [UnitPosition]s.
   DerivedUnit2.from(
-    M1 a,
-    M2 b, {
+    P1 a,
+    P2 b, {
     String? name,
     MeasurementPrefix? prefix,
   }) : super(
@@ -35,15 +35,15 @@ class DerivedUnit2<
   /// // Creates a "square foot" measurement representing 2 feet by 3 feet.
   /// square(feet)(2, 3);
   /// ```
-  Measurement<Dimension2<M1, M2>> call(
+  Measurement<Dimension2<P1, P2>> call(
     num a, [
     num? b,
   ]) =>
       Measurement(
         magnitude: b == null
             ? a
-            : UnitPosition.typeMultiplier<M1>(a) *
-                UnitPosition.typeMultiplier<M2>(b),
+            : UnitPosition.typeMultiplier<P1>(a) *
+                UnitPosition.typeMultiplier<P2>(b),
         defaultUnit: this,
       );
 
@@ -54,15 +54,15 @@ class DerivedUnit2<
   /// // Creates a "square meter" measurement that is 3 feet wide by 2 feet long
   /// square(meters).using(3.feet, 2.feet);
   /// ```
-  Measurement<Dimension2<M1, M2>>
-      using<X1 extends Measurement<D1>, X2 extends Measurement<D2>>(
-    X1 a,
-    X2 b, {
+  Measurement<Dimension2<P1, P2>>
+      using<M1 extends Measurement<D1>, M2 extends Measurement<D2>>(
+    M1 first,
+    M2 second, {
     int precision = Precision.maximumPrecision,
   }) {
     return Measurement(
-      magnitude: UnitPosition.typeMultiplier<M1>(a.si) *
-          UnitPosition.typeMultiplier<M2>(b.si) /
+      magnitude: UnitPosition.typeMultiplier<P1>(first.si) *
+          UnitPosition.typeMultiplier<P2>(second.si) /
           multiplier,
       defaultUnit: this,
       precision: Precision(precision),
@@ -77,7 +77,7 @@ class DerivedUnit2<
   /// final milliMeters = meters.withPrefix(milli);
   /// final centiMeters = milliMeters.withPrefix(centi);
   /// ```
-  DerivedUnit2<M1, M2, D1, D2> withPrefix(MeasurementPrefix prefix) =>
+  DerivedUnit2<P1, P2, D1, D2> withPrefix(MeasurementPrefix prefix) =>
       DerivedUnit2._(
         name: name,
         unitMultiplier: unitMultiplier,
@@ -86,7 +86,7 @@ class DerivedUnit2<
 
   @override
   operator ==(Object other) =>
-      other is DerivedUnit2<M1, M2, D1, D2> &&
+      other is DerivedUnit2<P1, P2, D1, D2> &&
       other.unitMultiplier == unitMultiplier &&
       other.prefix == prefix &&
       other.name == name;
