@@ -169,10 +169,10 @@ void main() {
 
         // when
         final result =
-            unit.using(1.meters, 1.seconds, 1.grams).withPrecision(3);
+            unit.using(5.centi.meters, 2.liters, 120.seconds).withPrecision(3);
 
         // then
-        expect(result.toString(), "1.0 m⋅s⁻¹⋅g");
+        expect(result.toString(), "0.433 in⋅gal⁻¹⋅min");
       });
     });
   });
