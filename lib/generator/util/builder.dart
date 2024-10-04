@@ -36,7 +36,7 @@ class FlingBuilder {
   final _buffer = StringBuffer();
 
   void add(Spec spec) => _buffer.writeln(spec.accept(_emitter).toString());
-  void addAll(Iterable<Spec> specs) => specs.forEach((spec) => add(spec));
+  void addAll(Iterable<Spec> specs) => specs.forEach(add);
 
   void write(String line) => _buffer.writeln(line);
 
