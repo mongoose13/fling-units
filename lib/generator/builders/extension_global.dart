@@ -92,7 +92,8 @@ prevents all but the first usage (the one we want) demonstrated above."""
                       ..lambda = true
                       ..type = MethodType.getter
                       ..name = pair.unit.name
-                      ..returns = Reference("Measurement<f.${pair.measurement}>")
+                      ..returns =
+                          Reference("Measurement<f.${pair.measurement}>")
                       ..body = Code(
                           "f.${pair.measurement}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
                   ),

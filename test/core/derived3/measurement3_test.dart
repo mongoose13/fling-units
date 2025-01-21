@@ -91,7 +91,7 @@ void main() {
       });
       test("product", () {
         // given
-        final measurement = product3(feet, feet,feet)(35.3).withPrecision(3);
+        final measurement = product3(feet, feet, feet)(35.3).withPrecision(3);
 
         // when
         final result = measurement.butAs(cubic(meters));

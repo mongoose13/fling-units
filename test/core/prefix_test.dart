@@ -15,8 +15,7 @@ void main() {
     });
     test('applies correct precision', () {
       // given
-      final measurement =
-          MeasurementPrefix(0.5).meters(1234.5, precision: 3);
+      final measurement = MeasurementPrefix(0.5).meters(1234.5, precision: 3);
 
       // when
       final result = measurement.as(meters);
@@ -29,8 +28,7 @@ void main() {
   group('meters', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).meters(5.5, precision: 2);
+      final measurement = MeasurementPrefix(3).meters(5.5, precision: 2);
 
       // when
       final result = measurement.as(meters);
@@ -42,8 +40,7 @@ void main() {
   group('grams', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).grams(5.5, precision: 2);
+      final measurement = MeasurementPrefix(3).grams(5.5, precision: 2);
 
       // when
       final result = measurement.as(grams);
@@ -55,8 +52,7 @@ void main() {
   group('kelvin', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).kelvin(5.5, precision: 2);
+      final measurement = MeasurementPrefix(3).kelvin(5.5, precision: 2);
 
       // when
       final result = measurement.as(kelvin);
@@ -68,8 +64,7 @@ void main() {
   group('seconds', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).seconds(5.5, precision: 2);
+      final measurement = MeasurementPrefix(3).seconds(5.5, precision: 2);
 
       // when
       final result = measurement.as(seconds);

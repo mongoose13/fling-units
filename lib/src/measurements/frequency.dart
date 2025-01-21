@@ -4,8 +4,7 @@ typedef _FrequencyComponent = UnitDenominator<Time>;
 
 typedef FrequencyUnit = f.DerivedUnit1<_FrequencyComponent, Time>;
 
-typedef FrequencyMeasurement
-    = f.Measurement<Dimension1<_FrequencyComponent>>;
+typedef FrequencyMeasurement = f.Measurement<Dimension1<_FrequencyComponent>>;
 
 final FrequencyUnit hertz = f.inverse(seconds, name: "Hz");
 

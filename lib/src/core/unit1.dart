@@ -3,7 +3,6 @@ part of "library.dart";
 /// A derived [Unit] that has a single component.
 class DerivedUnit1<P extends UnitPosition<D>, D extends Dimension>
     extends Unit<Dimension1<P>> {
-
   // Constructor.
   DerivedUnit1._({
     required super.name,
@@ -93,6 +92,7 @@ extension Unit1Extension on num {
   /// ```dart
   /// var threeHertz = 3.inverse(seconds);
   /// ```
-  Measurement<Dimension1<UnitDenominator<D>>>
-      inverse<D extends Dimension>(Unit<D> unit) => f.inverse(unit)(this);
+  Measurement<Dimension1<UnitDenominator<D>>> inverse<D extends Dimension>(
+          Unit<D> unit) =>
+      f.inverse(unit)(this);
 }

@@ -153,9 +153,8 @@ class Temperature implements Comparable<Temperature> {
   Measurement<TemperatureChange> difference(Temperature other) =>
       kelvin(_kelvin - other._kelvin,
           precision: Precision.addition(
-                  kelvin(_kelvin, precision: _precision.precision),
-                  kelvin(other._kelvin, precision: other._precision.precision))
-              );
+              kelvin(_kelvin, precision: _precision.precision),
+              kelvin(other._kelvin, precision: other._precision.precision)));
 
   /// Constructs a new measurement equivalent to this one but with a different
   /// [Precision].

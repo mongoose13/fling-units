@@ -52,5 +52,6 @@ extension TimeExtension on TimeMeasurement {
   /// Constructs a [Duration] based on this.
   ///
   /// Note that any granularity below microseconds will be lost.
-  Duration get asDuration => Duration(microseconds: as(f.micro.seconds).toInt());
+  Duration get asDuration =>
+      Duration(microseconds: as(f.micro.seconds).toInt());
 }

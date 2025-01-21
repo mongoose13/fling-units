@@ -26,7 +26,9 @@ class DerivedUnit2<
   }) =>
       DerivedUnit2._(
         name: name ??
-            (first == second ? "${first.toString()}²" : "${first.toString()}⋅${second.toString()}"),
+            (first == second
+                ? "${first.toString()}²"
+                : "${first.toString()}⋅${second.toString()}"),
         unitMultiplier: first.multiplier * second.multiplier,
         prefix: prefix ?? const MeasurementPrefix.unit(),
       );

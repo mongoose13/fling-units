@@ -102,8 +102,8 @@ class MeasurementPrefixGenerator implements FlingGenerator {
                       ..type = Reference("MeasurementPrefix"),
                   ),
                 )
-                ..body = Code(
-                    "MeasurementPrefix(multiplier * other.multiplier)"),
+                ..body =
+                    Code("MeasurementPrefix(multiplier * other.multiplier)"),
             ),
           )
           ..methods.add(
@@ -118,8 +118,8 @@ class MeasurementPrefixGenerator implements FlingGenerator {
                       ..type = Reference("MeasurementPrefix"),
                   ),
                 )
-                ..body = Code(
-                    "MeasurementPrefix(multiplier / other.multiplier)"),
+                ..body =
+                    Code("MeasurementPrefix(multiplier / other.multiplier)"),
             ),
           ),
       ),
