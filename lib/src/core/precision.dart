@@ -107,7 +107,7 @@ class Precision {
   double withPrecision(num value) => apply(value);
 
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       other is Precision && other.precision == precision;
 
   @override

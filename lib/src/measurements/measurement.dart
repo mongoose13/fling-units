@@ -105,7 +105,7 @@ abstract class Measurement<T extends Measurement<T>> implements Comparable<T> {
   }
 
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is Measurement<T> &&
           si == other.si &&

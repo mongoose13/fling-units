@@ -110,7 +110,7 @@ class Temperature implements Comparable<Temperature> {
   int get precision => _precision.precision;
 
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       other is Temperature &&
       other._kelvin == _kelvin &&
       other._precision == _precision;
