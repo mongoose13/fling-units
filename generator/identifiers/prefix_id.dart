@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:build/build.dart';
-import 'package:fling_units/generator/util/annotations.dart';
+import 'package:fling_units/src/core/annotations.dart';
 import 'package:source_gen/source_gen.dart';
 
 Builder prefixIdentifierBuilder(BuilderOptions options) {

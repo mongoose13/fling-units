@@ -1,6 +1,6 @@
 import "dart:math" as math;
 
-import 'package:fling_units/generator/util/annotations.dart';
+import 'package:fling_units/src/core/annotations.dart';
 
 import 'package:fling_units/fling_units.dart' as f;
 

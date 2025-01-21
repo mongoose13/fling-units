@@ -1,6 +1,6 @@
 library;
 
-export "util/annotations.dart";
+export "../lib/src/core/annotations.dart";
 export "util/builder.dart";
 
 export "builders/extension_global.dart";

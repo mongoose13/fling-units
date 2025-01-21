@@ -12,18 +12,7 @@ void main() {
               UnitNumerator(seconds), UnitDenominator(grams));
 
           // then
-          // this should compile:
-          // TODO: find a way to test whether this can compile in a test
           unit(1).as(ratio(seconds, grams));
-        });
-        test("invalid", () {
-          // given
-          final unit = DerivedUnit2.build(
-              UnitNumerator(seconds), UnitDenominator(grams));
-
-          // then
-          // this should not compile:
-          //unit(1).as(ratio(seconds, meters));
         });
       });
       group("using", () {

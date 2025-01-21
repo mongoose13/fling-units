@@ -1,5 +1,5 @@
 import "package:fling_units/fling_units.dart";
-import "package:fling_units/generator/generator.dart";
+import 'package:fling_units/src/core/annotations.dart';
 
 part "../generated/si.dart";
 

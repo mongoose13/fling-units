@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:fling_units/generator/builders/base.dart';
+import 'base.dart';
 
 import '../util/builder.dart';
 

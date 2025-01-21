@@ -5,7 +5,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'annotations.dart';
+import 'package:fling_units/src/core/annotations.dart';
 
 class UnitDetails {
   final String name;

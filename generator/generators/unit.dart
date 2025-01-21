@@ -3,7 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import '../util/annotations.dart';
+import 'package:fling_units/src/core/annotations.dart';
 import '../util/builder.dart';
 
 Builder interpreterBuilder(BuilderOptions options) {
