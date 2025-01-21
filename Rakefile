@@ -17,14 +17,3 @@ task "gen:clean".to_sym do
   silent "rm -rf lib/src/generated"
   silent "rm -rf lib/src/library.dart"
 end
-
-desc "Validate all linters and style checkers"
-task "verify".to_sym do
-  execute "dart analyze"
-  execute "pana ."
-end
-
-desc "Run the example program"
-task "example".to_sym do
-  execute "dart ./example/lib/example.dart"
-end

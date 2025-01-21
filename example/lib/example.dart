@@ -64,7 +64,7 @@ void main() {
   //------------------------------------------------//
 
   // Inherent ordering of items allows sorting lists with the built-in methods.
-  var distances = <Measurement<Distance>>[
+  var distances = [
     inches(1, precision: 3),
     centi.meters(1, precision: 3),
     DistanceMeasurement.zero(),

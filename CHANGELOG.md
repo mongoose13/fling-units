@@ -3,6 +3,8 @@ Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
 ## [Unreleased]
+
+## [2.2.7]
 ### Changed
 - Support for const constructors on all units
 
@@ -227,6 +229,7 @@ types you need to work with from the rest of your code.
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/mongoose13/fling-units/commits/
+[2.2.6]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.7
 [2.2.6]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.6
 [2.2.5]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.5
 [2.2.4]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.4
