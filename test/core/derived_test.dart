@@ -30,6 +30,9 @@ void main() {
           final unit = DerivedUnit2.build(
             UnitNumerator(seconds),
             UnitDenominator(grams),
+            // Uncomment these two to enable strict type checking
+            // d1: Time(),
+            // d2: Mass(),
           );
 
           // TODO: Why does this compile?!?

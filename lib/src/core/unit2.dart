@@ -21,6 +21,8 @@ class DerivedUnit2<
           D2 extends Dimension>(
     P1 first,
     P2 second, {
+    D1? d1,
+    D2? d2,
     String? name,
     MeasurementPrefix? prefix,
   }) =>
