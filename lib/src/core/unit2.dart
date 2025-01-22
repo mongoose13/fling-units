@@ -61,7 +61,7 @@ class DerivedUnit2<
   /// // Creates a "square meter" measurement that is 3 feet wide by 2 feet long
   /// square(meters).using(3.feet, 2.feet);
   /// ```
-  Measurement<Dimension2<P1, P2>>
+  Measurement<Dimension2<UnitPosition<D1>, UnitPosition<D2>>>
       using<M1 extends Measurement<D1>, M2 extends Measurement<D2>>(
     M1 first,
     M2 second, {

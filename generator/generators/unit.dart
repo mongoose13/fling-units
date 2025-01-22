@@ -27,7 +27,12 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
       Class(
         (dimension) => dimension
           ..name = builder.dimensionName
-          ..extend = builder.dimensionType,
+          ..extend = builder.dimensionType
+          ..constructors.add(
+            Constructor(
+              (constructor) => constructor..constant = true,
+            ),
+          ),
       ),
     );
     builder.add(
