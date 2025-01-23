@@ -120,6 +120,13 @@ void main() {
         // then
         expect(result, closeTo(65.6, 5e-2));
       });
+      test("using per method", () {
+        // when
+        final result = centi.feet.per.deci.second.of(2.0);
+
+        // then
+        expect(result, closeTo(65.6, 5e-2));
+      });
     });
     group("from", () {
       test("square from 1", () {
