@@ -113,11 +113,15 @@ void main() {
       .using(distanceToSeattle, usGallons(2.4));
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
   print("I get $fuelConsumption");
+
   // Interpret the derived unit in any combination of component units.
   print("${fuelConsumption.as(ratio(miles, liters))} mpl");
-  print("${fuelConsumption.as(ratio(kilo.meters, liters))} kpl");
-  print("${fuelConsumption.as(ratio(kilo.meters, usGallons))} kpg");
+  // Syntactic sugar for unit definitions makes it easy to quickly define the unit you want
+  // using "per" or "by".
+  // TODO print("${fuelConsumption.as(centi.meters.per.milli.liter)} cm/ml");
+  // TODO print(feet.by.pounds);
 
+  // Define your own units!
   var coulombs = ratio(seconds, amperes, name: "coulombs");
   var energyProduction = coulombs(3.14159);
   print("My invention generates $energyProduction!");

@@ -115,3 +115,70 @@ extension VolumeMeasurementPrefix on MeasurementPrefix {
   VolumeUnit get usGallons => f.usGallons.withPrefix(prefix);
   VolumeUnit get usLegalCups => f.usLegalCups.withPrefix(prefix);
 }
+
+extension VolumePer<N extends Unit<D>, D extends Dimension> on UnitPer<N, D> {
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get liter => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(liters));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get teaspoon => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(teaspoons));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get tablespoon => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(tablespoons));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get fluidOunce => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(fluidOunces));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get cup => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(cups));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get pint => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(pints));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get quart => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(quarts));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get gallon => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(gallons));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usTeaspoon => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usTeaspoons));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usTablespoon => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usTablespoons));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usFluidOunce => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usFluidOunces));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usCup => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usCups));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usPint => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usPints));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usQuart => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usQuarts));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usGallon => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usGallons));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usLegalCup => f.DerivedUnit2.build(
+          f.UnitNumerator(numerator), f.UnitDenominator(usLegalCups));
+}
