@@ -24,7 +24,9 @@ extension NumExtensionPressure on num {
 // UnitGenerator
 // **************************************************************************
 
-class Pressure extends f.Dimension {}
+class Pressure extends f.Dimension {
+  const Pressure();
+}
 
 class PressureUnit extends f.Unit<Pressure> {
   const PressureUnit._({
@@ -111,6 +113,9 @@ class PressureUnit extends f.Unit<Pressure> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<PressureUnit, Pressure> get per => f.UnitPer(this);
 }
 
 // **************************************************************************

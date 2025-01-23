@@ -19,7 +19,9 @@ extension NumExtensionDistance on num {
 // UnitGenerator
 // **************************************************************************
 
-class Distance extends f.Dimension {}
+class Distance extends f.Dimension {
+  const Distance();
+}
 
 class DistanceUnit extends f.Unit<Distance> {
   const DistanceUnit._({
@@ -88,6 +90,9 @@ class DistanceUnit extends f.Unit<Distance> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<DistanceUnit, Distance> get per => f.UnitPer(this);
 }
 
 // **************************************************************************

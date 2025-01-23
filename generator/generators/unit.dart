@@ -122,6 +122,19 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                   ..body = Code("unitMultiplier.hashCode * name.hashCode"),
               ),
             )
+            ..methods.add(
+              Method(
+                (per) => per
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..returns = Reference(
+                      "f.UnitPer<${builder.unitName}, ${builder.dimensionName}>")
+                  ..name = "per"
+                  ..body = Code("f.UnitPer(this)")
+                  ..docs.add(
+                      "/// Creates a derived unit builder with this as the numerator."),
+              ),
+            )
             ..constructors.add(
               Constructor((constructor) => constructor
                 ..constant = true

@@ -56,6 +56,12 @@ builders:
     build_extensions: {".measurement": ["lib/src/generated/extension.dart"]}
     build_to: source
     required_inputs: [".measurement"]
+  per:
+    import: "generator/generator.dart"
+    builder_factories: ["perGlobalBuilder"]
+    build_extensions: {".measurement": ["lib/src/generated/per.dart"]}
+    build_to: source
+    required_inputs: [".measurement"]
 
 targets:
   $default:
@@ -104,6 +110,10 @@ targets:
           generate_for:
             - lib/src/measurements/*.dart
       fling_units|num_extension:
+        options:
+          generate_for:
+            - lib/src/measurements/*.dart
+      fling_units|per:
         options:
           generate_for:
             - lib/src/measurements/*.dart

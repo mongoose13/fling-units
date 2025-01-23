@@ -22,10 +22,17 @@ class MeasurementIdentifierBuilder extends Builder {
       final unitChecker = TypeChecker.fromRuntime(UnitConfig);
       buildStep.writeAsString(
           buildStep.inputId.changeExtension(".measurements"),
-          measurements
-              .map((measurement) =>
-                  "${measurement.annotation.read("shortName").stringValue},${measurement.element.children.where((child) => unitChecker.hasAnnotationOfExact(child)).map((element) => element.name).join(",")}")
-              .join("\n"));
+          measurements.map((measurement) {
+            final measurementName =
+                measurement.annotation.read("shortName").stringValue;
+            final unitElements = measurement.element.children
+                .where((child) => unitChecker.hasAnnotationOfExact(child));
+            final annotations = unitElements.map((element) => (
+                  element: element,
+                  annotation: unitChecker.firstAnnotationOfExact(element)
+                ));
+            return "$measurementName,${annotations.map((pair) => "${pair.element.name};${pair.annotation?.getField("singularName")?.toStringValue()}").join(",")}";
+          }).join("\n"));
     }
   }
 

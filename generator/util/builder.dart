@@ -75,9 +75,9 @@ class FlingStandaloneBuilder extends FlingBuilder {
         name: pair.line.first,
         asset: pair.asset,
         units: pair.line.skip(1).map(
-              (name) => UnitDetails(
-                name: name,
-                singularName: name, // TODO: implement
+              (names) => UnitDetails(
+                name: names.split(";").first,
+                singularName: names.split(";").last,
               ),
             ),
       ),

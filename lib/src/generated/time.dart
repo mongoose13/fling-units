@@ -17,7 +17,9 @@ extension NumExtensionTime on num {
 // UnitGenerator
 // **************************************************************************
 
-class Time extends f.Dimension {}
+class Time extends f.Dimension {
+  const Time();
+}
 
 class TimeUnit extends f.Unit<Time> {
   const TimeUnit._({
@@ -74,6 +76,9 @@ class TimeUnit extends f.Unit<Time> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<TimeUnit, Time> get per => f.UnitPer(this);
 }
 
 // **************************************************************************

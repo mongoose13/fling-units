@@ -19,7 +19,9 @@ extension NumExtensionTemperatureChange on num {
 // UnitGenerator
 // **************************************************************************
 
-class TemperatureChange extends f.Dimension {}
+class TemperatureChange extends f.Dimension {
+  const TemperatureChange();
+}
 
 class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
   const TemperatureChangeUnit._({
@@ -70,6 +72,10 @@ class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<TemperatureChangeUnit, TemperatureChange> get per =>
+      f.UnitPer(this);
 }
 
 // **************************************************************************

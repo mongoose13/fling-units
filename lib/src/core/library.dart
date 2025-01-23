@@ -14,4 +14,5 @@ part "../measurements/frequency.dart";
 part "../measurements/volume.dart";
 
 part "package:fling_units/src/generated/extension.dart";
+part "package:fling_units/src/generated/per.dart";
 part "package:fling_units/src/generated/prefix.dart";

@@ -19,7 +19,9 @@ extension NumExtensionAngle on num {
 // UnitGenerator
 // **************************************************************************
 
-class Angle extends f.Dimension {}
+class Angle extends f.Dimension {
+  const Angle();
+}
 
 class AngleUnit extends f.Unit<Angle> {
   const AngleUnit._({
@@ -88,6 +90,9 @@ class AngleUnit extends f.Unit<Angle> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<AngleUnit, Angle> get per => f.UnitPer(this);
 }
 
 // **************************************************************************

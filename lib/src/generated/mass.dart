@@ -22,7 +22,9 @@ extension NumExtensionMass on num {
 // UnitGenerator
 // **************************************************************************
 
-class Mass extends f.Dimension {}
+class Mass extends f.Dimension {
+  const Mass();
+}
 
 class MassUnit extends f.Unit<Mass> {
   const MassUnit._({
@@ -109,6 +111,9 @@ class MassUnit extends f.Unit<Mass> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<MassUnit, Mass> get per => f.UnitPer(this);
 }
 
 // **************************************************************************

@@ -14,7 +14,9 @@ extension NumExtensionCharge on num {
 // UnitGenerator
 // **************************************************************************
 
-class Charge extends f.Dimension {}
+class Charge extends f.Dimension {
+  const Charge();
+}
 
 class ChargeUnit extends f.Unit<Charge> {
   const ChargeUnit._({
@@ -53,6 +55,9 @@ class ChargeUnit extends f.Unit<Charge> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<ChargeUnit, Charge> get per => f.UnitPer(this);
 }
 
 // **************************************************************************

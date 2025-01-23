@@ -15,7 +15,9 @@ extension NumExtensionQuantity on num {
 // UnitGenerator
 // **************************************************************************
 
-class Quantity extends f.Dimension {}
+class Quantity extends f.Dimension {
+  const Quantity();
+}
 
 class QuantityUnit extends f.Unit<Quantity> {
   const QuantityUnit._({
@@ -60,6 +62,9 @@ class QuantityUnit extends f.Unit<Quantity> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<QuantityUnit, Quantity> get per => f.UnitPer(this);
 }
 
 // **************************************************************************

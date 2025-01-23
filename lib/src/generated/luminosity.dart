@@ -16,7 +16,9 @@ extension NumExtensionLuminosity on num {
 // UnitGenerator
 // **************************************************************************
 
-class Luminosity extends f.Dimension {}
+class Luminosity extends f.Dimension {
+  const Luminosity();
+}
 
 class LuminosityUnit extends f.Unit<Luminosity> {
   const LuminosityUnit._({
@@ -67,6 +69,9 @@ class LuminosityUnit extends f.Unit<Luminosity> {
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<LuminosityUnit, Luminosity> get per => f.UnitPer(this);
 }
 
 // **************************************************************************
