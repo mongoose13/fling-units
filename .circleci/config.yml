@@ -64,6 +64,7 @@ jobs:
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    parallelism: 4
     steps:
       - dependencies:
           shell: "/bin/bash -eo pipefail"
@@ -85,6 +86,7 @@ jobs:
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    parallelism: 4
     steps:
       - dependencies:
           shell: "/bin/bash -eo pipefail"
