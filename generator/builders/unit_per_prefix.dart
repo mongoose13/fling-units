@@ -6,14 +6,14 @@ import 'base.dart';
 
 import '../util/builder.dart';
 
-Builder perGlobalBuilder(BuilderOptions options) {
+Builder prefixedUnitPerBuilder(BuilderOptions options) {
   return FlingBuilderBase(
-    "per",
-    GlobalPerGenerator(),
+    "prefix_unit_per",
+    PrefixedUnitPerGenerator(),
   );
 }
 
-class GlobalPerGenerator implements FlingGenerator {
+class PrefixedUnitPerGenerator implements FlingGenerator {
   @override
   Future<void> generate(FlingStandaloneBuilder builder) async {
     final measurements = await builder.measurements;
@@ -22,16 +22,26 @@ class GlobalPerGenerator implements FlingGenerator {
     builder.add(
       Class(
         (measurement) => measurement
-          ..name = "UnitPer"
-          ..types.addAll([
-            Reference("N extends f.Unit<D>"),
-            Reference("D extends f.Dimension")
-          ])
+          ..name = "PrefixedUnitPer"
+          ..types.addAll(
+            [
+              Reference("N extends f.Unit<D>"),
+              Reference("D extends f.Dimension"),
+            ],
+          )
           ..fields.add(
             Field(
               (numerator) => numerator
                 ..name = "numerator"
                 ..type = Reference("N")
+                ..modifier = FieldModifier.final$,
+            ),
+          )
+          ..fields.add(
+            Field(
+              (prefix) => prefix
+                ..name = "prefix"
+                ..type = Reference("MeasurementPrefix")
                 ..modifier = FieldModifier.final$,
             ),
           )
@@ -42,6 +52,16 @@ class GlobalPerGenerator implements FlingGenerator {
                   Parameter(
                     (numerator) => numerator
                       ..name = "numerator"
+                      ..toThis = true,
+                  ),
+                )
+                ..optionalParameters.add(
+                  Parameter(
+                    (prefix) => prefix
+                      ..name = "prefix"
+                      ..named = true
+                      ..type = Reference("MeasurementPrefix")
+                      ..defaultTo = Code("const MeasurementPrefix.unit()")
                       ..toThis = true,
                   ),
                 ),
@@ -64,7 +84,7 @@ class GlobalPerGenerator implements FlingGenerator {
                       ..returns = Reference(
                           "f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.${pair.measurement.name}>, D, f.${pair.measurement.name}>")
                       ..body = Code(
-                          "f.DerivedUnit2.build(f.UnitNumerator(numerator), f.UnitDenominator(f.${pair.unit.name}),)"),
+                          "f.DerivedUnit2.build(f.UnitNumerator(numerator), f.UnitDenominator(prefix.${pair.unit.name}),)"),
                   ),
                 ),
           ),

@@ -2,79 +2,84 @@
 
 part of 'package:fling_units/src/core/library.dart';
 
-class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
-  UnitPer(this.numerator);
+class PrefixedUnitPer<N extends f.Unit<D>, D extends f.Dimension> {
+  PrefixedUnitPer(
+    this.numerator, {
+    MeasurementPrefix this.prefix = const MeasurementPrefix.unit(),
+  });
 
   final N numerator;
+
+  final MeasurementPrefix prefix;
 
   /// Creates a derived unit with [turns] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Angle>, D, f.Angle>
       get turn => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.turns),
+            f.UnitDenominator(prefix.turns),
           );
 
   /// Creates a derived unit with [radians] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Angle>, D, f.Angle>
       get radian => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.radians),
+            f.UnitDenominator(prefix.radians),
           );
 
   /// Creates a derived unit with [gradians] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Angle>, D, f.Angle>
       get gradian => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.gradians),
+            f.UnitDenominator(prefix.gradians),
           );
 
   /// Creates a derived unit with [degrees] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Angle>, D, f.Angle>
       get degree => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.degrees),
+            f.UnitDenominator(prefix.degrees),
           );
 
   /// Creates a derived unit with [arcMinutes] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Angle>, D, f.Angle>
       get arcMinute => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.arcMinutes),
+            f.UnitDenominator(prefix.arcMinutes),
           );
 
   /// Creates a derived unit with [arcSeconds] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Angle>, D, f.Angle>
       get arcSecond => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.arcSeconds),
+            f.UnitDenominator(prefix.arcSeconds),
           );
 
   /// Creates a derived unit with [seconds] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
       get second => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.seconds),
+            f.UnitDenominator(prefix.seconds),
           );
 
   /// Creates a derived unit with [minutes] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
       get minute => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.minutes),
+            f.UnitDenominator(prefix.minutes),
           );
 
   /// Creates a derived unit with [hours] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
       get hour => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.hours),
+            f.UnitDenominator(prefix.hours),
           );
 
   /// Creates a derived unit with [days] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
       get day => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.days),
+            f.UnitDenominator(prefix.days),
           );
 
   /// Creates a derived unit with [units] as the denominator.
@@ -82,7 +87,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Quantity>, D, f.Quantity>
       get unit => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.units),
+            f.UnitDenominator(prefix.units),
           );
 
   /// Creates a derived unit with [moles] as the denominator.
@@ -90,70 +95,70 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Quantity>, D, f.Quantity>
       get mole => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.moles),
+            f.UnitDenominator(prefix.moles),
           );
 
   /// Creates a derived unit with [grams] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get gram => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.grams),
+            f.UnitDenominator(prefix.grams),
           );
 
   /// Creates a derived unit with [tonnes] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get tonne => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.tonnes),
+            f.UnitDenominator(prefix.tonnes),
           );
 
   /// Creates a derived unit with [atomicMassUnits] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get atomicMassUnit => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.atomicMassUnits),
+            f.UnitDenominator(prefix.atomicMassUnits),
           );
 
   /// Creates a derived unit with [daltons] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get dalton => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.daltons),
+            f.UnitDenominator(prefix.daltons),
           );
 
   /// Creates a derived unit with [electronRestMass] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get electronRestMass => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.electronRestMass),
+            f.UnitDenominator(prefix.electronRestMass),
           );
 
   /// Creates a derived unit with [longTons] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get longTon => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.longTons),
+            f.UnitDenominator(prefix.longTons),
           );
 
   /// Creates a derived unit with [shortTons] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get shortTon => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.shortTons),
+            f.UnitDenominator(prefix.shortTons),
           );
 
   /// Creates a derived unit with [pounds] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get pound => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.pounds),
+            f.UnitDenominator(prefix.pounds),
           );
 
   /// Creates a derived unit with [ounces] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>, D, f.Mass>
       get ounce => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.ounces),
+            f.UnitDenominator(prefix.ounces),
           );
 
   /// Creates a derived unit with [meters] as the denominator.
@@ -161,7 +166,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Distance>, D, f.Distance>
       get meter => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.meters),
+            f.UnitDenominator(prefix.meters),
           );
 
   /// Creates a derived unit with [miles] as the denominator.
@@ -169,7 +174,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Distance>, D, f.Distance>
       get mile => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.miles),
+            f.UnitDenominator(prefix.miles),
           );
 
   /// Creates a derived unit with [yards] as the denominator.
@@ -177,7 +182,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Distance>, D, f.Distance>
       get yard => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.yards),
+            f.UnitDenominator(prefix.yards),
           );
 
   /// Creates a derived unit with [feet] as the denominator.
@@ -185,7 +190,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Distance>, D, f.Distance>
       get foot => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.feet),
+            f.UnitDenominator(prefix.feet),
           );
 
   /// Creates a derived unit with [inches] as the denominator.
@@ -193,7 +198,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Distance>, D, f.Distance>
       get inch => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.inches),
+            f.UnitDenominator(prefix.inches),
           );
 
   /// Creates a derived unit with [nauticalMiles] as the denominator.
@@ -201,14 +206,14 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Distance>, D, f.Distance>
       get nauticalMile => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.nauticalMiles),
+            f.UnitDenominator(prefix.nauticalMiles),
           );
 
   /// Creates a derived unit with [amperes] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Charge>, D, f.Charge>
       get ampere => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.amperes),
+            f.UnitDenominator(prefix.amperes),
           );
 
   /// Creates a derived unit with [kelvin] as the denominator.
@@ -216,7 +221,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
       get kelvin => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.kelvin),
+            f.UnitDenominator(prefix.kelvin),
           );
 
   /// Creates a derived unit with [celcius] as the denominator.
@@ -224,7 +229,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
       get celcius => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.celcius),
+            f.UnitDenominator(prefix.celcius),
           );
 
   /// Creates a derived unit with [fahrenheit] as the denominator.
@@ -232,7 +237,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
       get fahrenheit => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.fahrenheit),
+            f.UnitDenominator(prefix.fahrenheit),
           );
 
   /// Creates a derived unit with [pascals] as the denominator.
@@ -240,7 +245,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get pascal => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.pascals),
+            f.UnitDenominator(prefix.pascals),
           );
 
   /// Creates a derived unit with [bars] as the denominator.
@@ -248,7 +253,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get bar => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.bars),
+            f.UnitDenominator(prefix.bars),
           );
 
   /// Creates a derived unit with [baryes] as the denominator.
@@ -256,7 +261,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get barye => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.baryes),
+            f.UnitDenominator(prefix.baryes),
           );
 
   /// Creates a derived unit with [standardAtmospheres] as the denominator.
@@ -264,7 +269,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get standardAtmosphere => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.standardAtmospheres),
+            f.UnitDenominator(prefix.standardAtmospheres),
           );
 
   /// Creates a derived unit with [technicalAtmospheres] as the denominator.
@@ -272,7 +277,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get technicalAtmosphere => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.technicalAtmospheres),
+            f.UnitDenominator(prefix.technicalAtmospheres),
           );
 
   /// Creates a derived unit with [mmHg] as the denominator.
@@ -280,7 +285,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get mmHg => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.mmHg),
+            f.UnitDenominator(prefix.mmHg),
           );
 
   /// Creates a derived unit with [inHg] as the denominator.
@@ -288,7 +293,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get inHg => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.inHg),
+            f.UnitDenominator(prefix.inHg),
           );
 
   /// Creates a derived unit with [torr] as the denominator.
@@ -296,7 +301,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get torr => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.torr),
+            f.UnitDenominator(prefix.torr),
           );
 
   /// Creates a derived unit with [psi] as the denominator.
@@ -304,7 +309,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Pressure>, D, f.Pressure>
       get psi => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.psi),
+            f.UnitDenominator(prefix.psi),
           );
 
   /// Creates a derived unit with [candela] as the denominator.
@@ -312,7 +317,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
       get candela => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.candela),
+            f.UnitDenominator(prefix.candela),
           );
 
   /// Creates a derived unit with [candlepower] as the denominator.
@@ -320,7 +325,7 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
       get candlepower => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.candlepower),
+            f.UnitDenominator(prefix.candlepower),
           );
 
   /// Creates a derived unit with [hefnerkerze] as the denominator.
@@ -328,6 +333,6 @@ class UnitPer<N extends f.Unit<D>, D extends f.Dimension> {
           f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
       get hefnerkerze => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(f.hefnerkerze),
+            f.UnitDenominator(prefix.hefnerkerze),
           );
 }

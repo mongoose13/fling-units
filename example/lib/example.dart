@@ -118,7 +118,7 @@ void main() {
   print("${fuelConsumption.as(ratio(miles, liters))} mpl");
   // Syntactic sugar for unit definitions makes it easy to quickly define the unit you want
   // using "per" or "by".
-  // TODO print("${fuelConsumption.as(centi.meters.per.milli.liter)} cm/ml");
+  print("${fuelConsumption.as(centi.meters.per.milli.liter)} cm/ml");
   // TODO print(feet.by.pounds);
 
   // Define your own units!

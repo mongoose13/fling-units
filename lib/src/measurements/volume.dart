@@ -116,7 +116,8 @@ extension VolumeMeasurementPrefix on MeasurementPrefix {
   VolumeUnit get usLegalCups => f.usLegalCups.withPrefix(prefix);
 }
 
-extension VolumePer<N extends Unit<D>, D extends Dimension> on UnitPer<N, D> {
+extension VolumePer<N extends Unit<D>, D extends Dimension>
+    on PrefixedUnitPer<N, D> {
   f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
           VolumeDimension>
       get liter => f.DerivedUnit2.build(

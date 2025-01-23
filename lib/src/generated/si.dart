@@ -131,3 +131,86 @@ extension NumExtensionPrefixPrefixes on num {
   NumExtension get ronna => NumExtension(_ronna, this);
   NumExtension get quetta => NumExtension(_quetta, this);
 }
+
+// **************************************************************************
+// UnitPerGenerator
+// **************************************************************************
+
+class UnitPer<N extends Unit<D>, D extends Dimension>
+    extends PrefixedUnitPer<N, D> {
+  UnitPer(super.numerator);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get quecto =>
+      PrefixedUnitPer(numerator, prefix: _quecto);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get ronto => PrefixedUnitPer(numerator, prefix: _ronto);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get yocto => PrefixedUnitPer(numerator, prefix: _yocto);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get zepto => PrefixedUnitPer(numerator, prefix: _zepto);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get atto => PrefixedUnitPer(numerator, prefix: _atto);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get femto => PrefixedUnitPer(numerator, prefix: _femto);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get pico => PrefixedUnitPer(numerator, prefix: _pico);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get nano => PrefixedUnitPer(numerator, prefix: _nano);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get micro => PrefixedUnitPer(numerator, prefix: _micro);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get milli => PrefixedUnitPer(numerator, prefix: _milli);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get centi => PrefixedUnitPer(numerator, prefix: _centi);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get deci => PrefixedUnitPer(numerator, prefix: _deci);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get deka => PrefixedUnitPer(numerator, prefix: _deka);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get hecto => PrefixedUnitPer(numerator, prefix: _hecto);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get kilo => PrefixedUnitPer(numerator, prefix: _kilo);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get mega => PrefixedUnitPer(numerator, prefix: _mega);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get giga => PrefixedUnitPer(numerator, prefix: _giga);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get tera => PrefixedUnitPer(numerator, prefix: _tera);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get peta => PrefixedUnitPer(numerator, prefix: _peta);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get exa => PrefixedUnitPer(numerator, prefix: _exa);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get zetta => PrefixedUnitPer(numerator, prefix: _zetta);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get yotta => PrefixedUnitPer(numerator, prefix: _yotta);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get ronna => PrefixedUnitPer(numerator, prefix: _ronna);
+
+  /// Establishes a prefix for the derived unit being constructed.
+  PrefixedUnitPer<N, D> get quetta =>
+      PrefixedUnitPer(numerator, prefix: _quetta);
+}
