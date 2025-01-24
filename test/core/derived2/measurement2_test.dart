@@ -143,5 +143,20 @@ void main() {
         expect(result.defaultUnit, square(feet));
       });
     });
+
+    group("over", () {
+      test("combines two units properly", () {
+        // given
+        final distance = 6.miles;
+        final time = 2.hours;
+
+        // when
+        final derived = distance.over(time);
+
+        // then
+        expect(derived.defaultUnit, miles.per.hour);
+        expect(derived.defaultValue, 3.0);
+      });
+    });
   });
 }

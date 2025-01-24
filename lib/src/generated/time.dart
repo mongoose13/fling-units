@@ -115,7 +115,14 @@ class TimeMeasurement extends f.Measurement<Time> {
   ) =>
       TimeMeasurement(magnitude, defaultUnit, precision);
 
+  /// Creates a derived measurement of a derived unit consisting of this measurement'sunit in the numerator and the specified unit in the denominator, with this measurement'sdefault value as the default value of the resulting derived unit.
   f.MeasurementPer<TimeMeasurement, Time> get per => f.MeasurementPer(this);
+
+  /// Creates a derived measurement representing the ratio of this and another measurement.
+  f.Measurement<f.Dimension2<f.UnitNumerator<Time>, f.UnitDenominator<D>>>
+      over<D extends f.Dimension>(f.Measurement<D> denominator) =>
+          f.ratio<Time, D>(defaultUnit, denominator.defaultUnit)(
+              defaultValue, denominator.defaultValue);
 }
 
 // **************************************************************************

@@ -150,7 +150,14 @@ class MassMeasurement extends f.Measurement<Mass> {
   ) =>
       MassMeasurement(magnitude, defaultUnit, precision);
 
+  /// Creates a derived measurement of a derived unit consisting of this measurement'sunit in the numerator and the specified unit in the denominator, with this measurement'sdefault value as the default value of the resulting derived unit.
   f.MeasurementPer<MassMeasurement, Mass> get per => f.MeasurementPer(this);
+
+  /// Creates a derived measurement representing the ratio of this and another measurement.
+  f.Measurement<f.Dimension2<f.UnitNumerator<Mass>, f.UnitDenominator<D>>>
+      over<D extends f.Dimension>(f.Measurement<D> denominator) =>
+          f.ratio<Mass, D>(defaultUnit, denominator.defaultUnit)(
+              defaultValue, denominator.defaultValue);
 }
 
 // **************************************************************************

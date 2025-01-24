@@ -116,7 +116,7 @@ extension VolumeMeasurementPrefix on MeasurementPrefix {
   VolumeUnit get usLegalCups => f.usLegalCups.withPrefix(prefix);
 }
 
-extension VolumePer<N extends Unit<D>, D extends Dimension>
+extension VolumeUnitPer<N extends Unit<D>, D extends Dimension>
     on PrefixedUnitPer<N, D> {
   f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
           VolumeDimension>
@@ -182,4 +182,67 @@ extension VolumePer<N extends Unit<D>, D extends Dimension>
           VolumeDimension>
       get usLegalCup => f.DerivedUnit2.build(
           f.UnitNumerator(numerator), f.UnitDenominator(usLegalCups));
+}
+
+extension VolumeMeasurementPer<N extends Measurement<D>, D extends Dimension>
+    on PrefixedMeasurementPer<N, D> {
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get liter => ratio(numerator.defaultUnit, liters)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get teaspoon =>
+          ratio(numerator.defaultUnit, teaspoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get tablespoon =>
+          ratio(numerator.defaultUnit, tablespoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get fluidOunce =>
+          ratio(numerator.defaultUnit, fluidOunces)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get cup => ratio(numerator.defaultUnit, cups)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get pint => ratio(numerator.defaultUnit, pints)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get quart => ratio(numerator.defaultUnit, quarts)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get gallon =>
+          ratio(numerator.defaultUnit, gallons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usTeaspoon =>
+          ratio(numerator.defaultUnit, usTeaspoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usTablespoon =>
+          ratio(numerator.defaultUnit, usTablespoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usFluidOunce =>
+          ratio(numerator.defaultUnit, usFluidOunces)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usCup => ratio(numerator.defaultUnit, usCups)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usPint =>
+          ratio(numerator.defaultUnit, usPints)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usQuart =>
+          ratio(numerator.defaultUnit, usQuarts)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usGallon =>
+          ratio(numerator.defaultUnit, usGallons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usLegalCup =>
+          ratio(numerator.defaultUnit, usLegalCups)(numerator.defaultValue);
 }

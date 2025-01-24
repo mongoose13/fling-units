@@ -160,4 +160,5 @@ void main() {
       "\nMy hand will always have a linear density of ${ratio(pounds, inches).using(massOfMyHand, sizeOfMyHand).withPrecision(2)}.");
 
   // Have fun!
+  print(100.miles.over(2.hours));
 }

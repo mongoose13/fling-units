@@ -166,12 +166,38 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
           ..methods.add(
             Method(
               (per) => per
+                ..docs.add(
+                    "/// Creates a derived measurement of a derived unit consisting of this measurement's"
+                    "unit in the numerator and the specified unit in the denominator, with this measurement's"
+                    "default value as the default value of the resulting derived unit.")
                 ..name = "per"
                 ..lambda = true
                 ..type = MethodType.getter
                 ..returns = Reference(
                     "f.MeasurementPer<${builder.measurementName}, ${builder.dimensionName}>")
                 ..body = Code("f.MeasurementPer(this)"),
+            ),
+          )
+          ..methods.add(
+            Method(
+              (per) => per
+                ..docs.add(
+                    "/// Creates a derived measurement representing the ratio of this and another measurement.")
+                ..name = "over"
+                ..lambda = true
+                ..types.add(Reference("D extends f.Dimension"))
+                ..requiredParameters.add(
+                  Parameter(
+                    (denominator) => denominator
+                      ..name = "denominator"
+                      ..type = Reference("f.Measurement<D>"),
+                  ),
+                )
+                ..returns = Reference(
+                    "f.Measurement<f.Dimension2<f.UnitNumerator<${builder.dimensionName}>, f.UnitDenominator<D>>>")
+                ..body = Code(
+                    "f.ratio<${builder.dimensionName}, D>(defaultUnit, denominator.defaultUnit)"
+                    "(defaultValue, denominator.defaultValue)"),
             ),
           ),
       ),
