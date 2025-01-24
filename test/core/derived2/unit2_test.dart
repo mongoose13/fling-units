@@ -322,21 +322,21 @@ void main() {
         final unit = meters.dot.ounces;
 
         // then
-        expect(unit.multiplier, closeTo(0.035, 0.0005));
+        expect(unit.multiplier, closeTo(28.3, 0.05));
       });
       test("multiplier for prefixed second", () {
         // given
-        final unit = meters.dot.deka.ounces;
+        final unit = meters.dot.deci.ounces;
 
         // then
-        expect(unit.multiplier, closeTo(0.00353, 0.000005));
+        expect(unit.multiplier, closeTo(2.83, 0.005));
       });
       test("multiplier for prefixed everything", () {
         // given
-        final unit = kilo.feet.dot.deka.ounces;
+        final unit = deci.feet.dot.deka.ounces;
 
         // then
-        expect(unit.multiplier, closeTo(1.075, 0.0005));
+        expect(unit.multiplier, closeTo(8.64, 0.005));
       });
     });
   });
