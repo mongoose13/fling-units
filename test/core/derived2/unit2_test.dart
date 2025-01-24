@@ -224,6 +224,32 @@ void main() {
         // then
         expect(result.toString(), "18.0 in²");
       });
+      test("combines precision of existing measurements", () {
+        // given
+        final unit = square(inches);
+
+        // when
+        final result = unit.using(
+          0.25.meters.withPrecision(5),
+          0.5.meters.withPrecision(4),
+        );
+
+        // then
+        expect(result.toString(), "193.8 in²");
+      });
+      test("combines precision of one existing measurement", () {
+        // given
+        final unit = square(inches);
+
+        // when
+        final result = unit.using(
+          0.25.meters.withPrecision(5),
+          0.5.meters,
+        );
+
+        // then
+        expect(result.toString(), "193.75 in²");
+      });
     });
   });
 }
