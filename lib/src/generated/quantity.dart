@@ -7,8 +7,8 @@ part of '../measurements/quantity.dart';
 // **************************************************************************
 
 extension NumExtensionQuantity on num {
-  f.Measurement<Quantity> get units => QuantityUnit.units(this);
-  f.Measurement<Quantity> get moles => QuantityUnit.moles(this);
+  f.QuantityMeasurement get units => QuantityUnit.units(this);
+  f.QuantityMeasurement get moles => QuantityUnit.moles(this);
 }
 
 // **************************************************************************
@@ -38,7 +38,7 @@ class QuantityUnit extends f.Unit<Quantity> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Quantity> call(
+  f.QuantityMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -100,6 +100,9 @@ class QuantityMeasurement extends f.Measurement<Quantity> {
     f.Precision precision,
   ) =>
       QuantityMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<QuantityMeasurement, Quantity> get per =>
+      f.MeasurementPer(this);
 }
 
 // **************************************************************************

@@ -131,7 +131,7 @@ class FlingMeasurementBuilder extends FlingBuilder {
 
     unitExtends = Reference("f.Unit<$dimensionName>");
     unitType = Reference("f.Unit<$dimensionName>");
-    measurementType = Reference("f.Measurement<$dimensionName>");
+    measurementType = Reference("f.${dimensionName}Measurement");
 
     units = element.children
         .where((Element element) => checker.hasAnnotationOfExact(element));

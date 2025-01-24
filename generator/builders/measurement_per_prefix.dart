@@ -6,14 +6,14 @@ import 'base.dart';
 
 import '../util/builder.dart';
 
-Builder prefixedUnitPerBuilder(BuilderOptions options) {
+Builder prefixedMeasurementPerBuilder(BuilderOptions options) {
   return FlingBuilderBase(
-    "prefix_unit_per",
-    PrefixedUnitPerGenerator(),
+    "prefix_measurement_per",
+    PrefixedMeasurementPerGenerator(),
   );
 }
 
-class PrefixedUnitPerGenerator implements FlingGenerator {
+class PrefixedMeasurementPerGenerator implements FlingGenerator {
   @override
   Future<void> generate(FlingStandaloneBuilder builder) async {
     final measurements = await builder.measurements;
@@ -22,10 +22,10 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
     builder.add(
       Class(
         (measurement) => measurement
-          ..name = "PrefixedUnitPer"
+          ..name = "PrefixedMeasurementPer"
           ..types.addAll(
             [
-              Reference("N extends f.Unit<D>"),
+              Reference("N extends f.Measurement<D>"),
               Reference("D extends f.Dimension"),
             ],
           )
@@ -76,14 +76,14 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
                   (pair) => Method(
                     (method) => method
                       ..docs.add(
-                          "/// Creates a derived unit with [${pair.unit.name}] as the denominator.")
+                          "/// Creates a derived measurement with [${pair.unit.name}] as the denominator.")
                       ..lambda = true
                       ..type = MethodType.getter
                       ..name = pair.unit.singularName
                       ..returns = Reference(
-                          "f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.${pair.measurement.name}>, D, f.${pair.measurement.name}>")
+                          "f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.${pair.measurement.name}>>>")
                       ..body = Code(
-                          "f.DerivedUnit2.build(f.UnitNumerator(numerator), f.UnitDenominator(prefix.${pair.unit.name}),)"),
+                          "ratio(numerator.defaultUnit, f.${pair.unit.name})(numerator.defaultValue)"),
                   ),
                 ),
           ),

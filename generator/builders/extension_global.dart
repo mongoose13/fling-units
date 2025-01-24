@@ -82,7 +82,7 @@ prevents all but the first usage (the one we want) demonstrated above."""
             measurements
                 .expand((measurement) => [
                       for (final unit in measurement.units)
-                        (measurement: measurement.name, unit: unit)
+                        (measurement: measurement, unit: unit)
                     ])
                 .map(
                   (pair) => Method(
@@ -93,9 +93,9 @@ prevents all but the first usage (the one we want) demonstrated above."""
                       ..type = MethodType.getter
                       ..name = pair.unit.name
                       ..returns =
-                          Reference("Measurement<f.${pair.measurement}>")
+                          Reference("f.${pair.measurement.name}Measurement")
                       ..body = Code(
-                          "f.${pair.measurement}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
+                          "f.${pair.measurement.name}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
                   ),
                 ),
           ),

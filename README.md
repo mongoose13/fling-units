@@ -9,7 +9,7 @@ measurements to keep your code simple!
 [![Code Quality](https://img.shields.io/codacy/grade/749ee1e8ee2e4d26ab57b3256f422e9a?style=plastic)](https://www.codacy.com/bb/gelbermungo/fling-units/dashboard)
 [![Pub Version](https://img.shields.io/pub/v/fling_units?style=plastic)](https://pub.dev/packages/fling_units)
 
-<a href="https://www.buymeacoffee.com/mongoose" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px;width: 217px;" ></a>
+## If you are migrating from 2.x to 3.x, check the [migration guide](https://bitbucket.org/mongoose13/fling-units/wiki/Migration2to3) for advice
 
 ## Overview
 
@@ -119,7 +119,7 @@ You can create derived units (with all the features you'd expect) from existing 
 
 ```dart
   // create a derived unit from any existing units:
-  var milesPerGallon = ratio(miles, gallons);
+  var milesPerGallon = miles.per.gallon;
 
   // instantiate measurements using the new unit the same way you would any other unit:
   var stateRequiredFuelEconomy = milesPerGallon(20);
@@ -137,7 +137,7 @@ You can create derived units (with all the features you'd expect) from existing 
 Ensure type safety at compile time:
 
 ```dart
-  // none of these lines will compile!
+  // none of these lines will compile:
   var nonsense = miles(123) + grams(18);
   var impossible = meters(3).as(celcius);
   var silliness = grams(5) < seconds(3);

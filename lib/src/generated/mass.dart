@@ -7,15 +7,15 @@ part of '../measurements/mass.dart';
 // **************************************************************************
 
 extension NumExtensionMass on num {
-  f.Measurement<Mass> get grams => MassUnit.grams(this);
-  f.Measurement<Mass> get tonnes => MassUnit.tonnes(this);
-  f.Measurement<Mass> get atomicMassUnits => MassUnit.atomicMassUnits(this);
-  f.Measurement<Mass> get daltons => MassUnit.daltons(this);
-  f.Measurement<Mass> get electronRestMass => MassUnit.electronRestMass(this);
-  f.Measurement<Mass> get longTons => MassUnit.longTons(this);
-  f.Measurement<Mass> get shortTons => MassUnit.shortTons(this);
-  f.Measurement<Mass> get pounds => MassUnit.pounds(this);
-  f.Measurement<Mass> get ounces => MassUnit.ounces(this);
+  f.MassMeasurement get grams => MassUnit.grams(this);
+  f.MassMeasurement get tonnes => MassUnit.tonnes(this);
+  f.MassMeasurement get atomicMassUnits => MassUnit.atomicMassUnits(this);
+  f.MassMeasurement get daltons => MassUnit.daltons(this);
+  f.MassMeasurement get electronRestMass => MassUnit.electronRestMass(this);
+  f.MassMeasurement get longTons => MassUnit.longTons(this);
+  f.MassMeasurement get shortTons => MassUnit.shortTons(this);
+  f.MassMeasurement get pounds => MassUnit.pounds(this);
+  f.MassMeasurement get ounces => MassUnit.ounces(this);
 }
 
 // **************************************************************************
@@ -87,7 +87,7 @@ class MassUnit extends f.Unit<Mass> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Mass> call(
+  f.MassMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -149,6 +149,8 @@ class MassMeasurement extends f.Measurement<Mass> {
     f.Precision precision,
   ) =>
       MassMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<MassMeasurement, Mass> get per => f.MeasurementPer(this);
 }
 
 // **************************************************************************

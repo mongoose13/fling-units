@@ -93,6 +93,20 @@ class DerivedUnit2<
         prefix: prefix,
       );
 
+  /// Creates a new [Unit] that is identical to this [Unit] but with a different name.
+  ///
+  /// If this [Unit] already has a name, it is ignored in favor of the provided name.
+  ///
+  /// ```dart
+  /// final milliMeters = milli.meters.withName("millimeters");
+  /// ```
+  DerivedUnit2<P1, P2, D1, D2> withName(String name) =>
+      DerivedUnit2._(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
+
   @override
   operator ==(Object other) =>
       other is DerivedUnit2<P1, P2, D1, D2> &&

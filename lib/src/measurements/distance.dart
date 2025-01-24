@@ -1,6 +1,7 @@
 import 'package:fling_units/src/core/annotations.dart';
 
 import 'package:fling_units/fling_units.dart' as f;
+import 'package:fling_units/src/core/library.dart';
 
 part "../generated/distance.dart";
 

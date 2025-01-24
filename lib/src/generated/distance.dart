@@ -7,12 +7,12 @@ part of '../measurements/distance.dart';
 // **************************************************************************
 
 extension NumExtensionDistance on num {
-  f.Measurement<Distance> get meters => DistanceUnit.meters(this);
-  f.Measurement<Distance> get miles => DistanceUnit.miles(this);
-  f.Measurement<Distance> get yards => DistanceUnit.yards(this);
-  f.Measurement<Distance> get feet => DistanceUnit.feet(this);
-  f.Measurement<Distance> get inches => DistanceUnit.inches(this);
-  f.Measurement<Distance> get nauticalMiles => DistanceUnit.nauticalMiles(this);
+  f.DistanceMeasurement get meters => DistanceUnit.meters(this);
+  f.DistanceMeasurement get miles => DistanceUnit.miles(this);
+  f.DistanceMeasurement get yards => DistanceUnit.yards(this);
+  f.DistanceMeasurement get feet => DistanceUnit.feet(this);
+  f.DistanceMeasurement get inches => DistanceUnit.inches(this);
+  f.DistanceMeasurement get nauticalMiles => DistanceUnit.nauticalMiles(this);
 }
 
 // **************************************************************************
@@ -66,7 +66,7 @@ class DistanceUnit extends f.Unit<Distance> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Distance> call(
+  f.DistanceMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -128,6 +128,9 @@ class DistanceMeasurement extends f.Measurement<Distance> {
     f.Precision precision,
   ) =>
       DistanceMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<DistanceMeasurement, Distance> get per =>
+      f.MeasurementPer(this);
 }
 
 // **************************************************************************

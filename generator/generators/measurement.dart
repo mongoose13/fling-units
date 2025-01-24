@@ -27,7 +27,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
       Class(
         (measurement) => measurement
           ..name = builder.measurementName
-          ..extend = builder.measurementType
+          ..extend = Reference("f.Measurement<${builder.dimensionName}>")
           ..fields.add(
             Field(
               (siUnit) => siUnit
@@ -161,6 +161,17 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 )
                 ..body = Code(
                     "${builder.measurementName}(magnitude, defaultUnit, precision)"),
+            ),
+          )
+          ..methods.add(
+            Method(
+              (per) => per
+                ..name = "per"
+                ..lambda = true
+                ..type = MethodType.getter
+                ..returns = Reference(
+                    "f.MeasurementPer<${builder.measurementName}, ${builder.dimensionName}>")
+                ..body = Code("f.MeasurementPer(this)"),
             ),
           ),
       ),

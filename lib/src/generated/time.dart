@@ -7,10 +7,10 @@ part of '../measurements/time.dart';
 // **************************************************************************
 
 extension NumExtensionTime on num {
-  f.Measurement<Time> get seconds => TimeUnit.seconds(this);
-  f.Measurement<Time> get minutes => TimeUnit.minutes(this);
-  f.Measurement<Time> get hours => TimeUnit.hours(this);
-  f.Measurement<Time> get days => TimeUnit.days(this);
+  f.TimeMeasurement get seconds => TimeUnit.seconds(this);
+  f.TimeMeasurement get minutes => TimeUnit.minutes(this);
+  f.TimeMeasurement get hours => TimeUnit.hours(this);
+  f.TimeMeasurement get days => TimeUnit.days(this);
 }
 
 // **************************************************************************
@@ -52,7 +52,7 @@ class TimeUnit extends f.Unit<Time> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Time> call(
+  f.TimeMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -114,6 +114,8 @@ class TimeMeasurement extends f.Measurement<Time> {
     f.Precision precision,
   ) =>
       TimeMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<TimeMeasurement, Time> get per => f.MeasurementPer(this);
 }
 
 // **************************************************************************

@@ -7,9 +7,9 @@ part of '../measurements/luminosity.dart';
 // **************************************************************************
 
 extension NumExtensionLuminosity on num {
-  f.Measurement<Luminosity> get candela => LuminosityUnit.candela(this);
-  f.Measurement<Luminosity> get candlepower => LuminosityUnit.candlepower(this);
-  f.Measurement<Luminosity> get hefnerkerze => LuminosityUnit.hefnerkerze(this);
+  f.LuminosityMeasurement get candela => LuminosityUnit.candela(this);
+  f.LuminosityMeasurement get candlepower => LuminosityUnit.candlepower(this);
+  f.LuminosityMeasurement get hefnerkerze => LuminosityUnit.hefnerkerze(this);
 }
 
 // **************************************************************************
@@ -45,7 +45,7 @@ class LuminosityUnit extends f.Unit<Luminosity> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Luminosity> call(
+  f.LuminosityMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -108,6 +108,9 @@ class LuminosityMeasurement extends f.Measurement<Luminosity> {
     f.Precision precision,
   ) =>
       LuminosityMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<LuminosityMeasurement, Luminosity> get per =>
+      f.MeasurementPer(this);
 }
 
 // **************************************************************************

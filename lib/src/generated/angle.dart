@@ -7,12 +7,12 @@ part of '../measurements/angle.dart';
 // **************************************************************************
 
 extension NumExtensionAngle on num {
-  f.Measurement<Angle> get turns => AngleUnit.turns(this);
-  f.Measurement<Angle> get radians => AngleUnit.radians(this);
-  f.Measurement<Angle> get gradians => AngleUnit.gradians(this);
-  f.Measurement<Angle> get degrees => AngleUnit.degrees(this);
-  f.Measurement<Angle> get arcMinutes => AngleUnit.arcMinutes(this);
-  f.Measurement<Angle> get arcSeconds => AngleUnit.arcSeconds(this);
+  f.AngleMeasurement get turns => AngleUnit.turns(this);
+  f.AngleMeasurement get radians => AngleUnit.radians(this);
+  f.AngleMeasurement get gradians => AngleUnit.gradians(this);
+  f.AngleMeasurement get degrees => AngleUnit.degrees(this);
+  f.AngleMeasurement get arcMinutes => AngleUnit.arcMinutes(this);
+  f.AngleMeasurement get arcSeconds => AngleUnit.arcSeconds(this);
 }
 
 // **************************************************************************
@@ -66,7 +66,7 @@ class AngleUnit extends f.Unit<Angle> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Angle> call(
+  f.AngleMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -128,6 +128,8 @@ class AngleMeasurement extends f.Measurement<Angle> {
     f.Precision precision,
   ) =>
       AngleMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<AngleMeasurement, Angle> get per => f.MeasurementPer(this);
 }
 
 // **************************************************************************

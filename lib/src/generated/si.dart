@@ -3,6 +3,111 @@
 part of '../prefixes/si.dart';
 
 // **************************************************************************
+// MeasurementPerGenerator
+// **************************************************************************
+
+class MeasurementPer<N extends Measurement<D>, D extends Dimension>
+    extends PrefixedMeasurementPer<N, D> {
+  MeasurementPer(super.numerator);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get quecto =>
+      PrefixedMeasurementPer(numerator, prefix: _quecto);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get ronto =>
+      PrefixedMeasurementPer(numerator, prefix: _ronto);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get yocto =>
+      PrefixedMeasurementPer(numerator, prefix: _yocto);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get zepto =>
+      PrefixedMeasurementPer(numerator, prefix: _zepto);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get atto =>
+      PrefixedMeasurementPer(numerator, prefix: _atto);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get femto =>
+      PrefixedMeasurementPer(numerator, prefix: _femto);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get pico =>
+      PrefixedMeasurementPer(numerator, prefix: _pico);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get nano =>
+      PrefixedMeasurementPer(numerator, prefix: _nano);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get micro =>
+      PrefixedMeasurementPer(numerator, prefix: _micro);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get milli =>
+      PrefixedMeasurementPer(numerator, prefix: _milli);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get centi =>
+      PrefixedMeasurementPer(numerator, prefix: _centi);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get deci =>
+      PrefixedMeasurementPer(numerator, prefix: _deci);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get deka =>
+      PrefixedMeasurementPer(numerator, prefix: _deka);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get hecto =>
+      PrefixedMeasurementPer(numerator, prefix: _hecto);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get kilo =>
+      PrefixedMeasurementPer(numerator, prefix: _kilo);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get mega =>
+      PrefixedMeasurementPer(numerator, prefix: _mega);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get giga =>
+      PrefixedMeasurementPer(numerator, prefix: _giga);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get tera =>
+      PrefixedMeasurementPer(numerator, prefix: _tera);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get peta =>
+      PrefixedMeasurementPer(numerator, prefix: _peta);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get exa =>
+      PrefixedMeasurementPer(numerator, prefix: _exa);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get zetta =>
+      PrefixedMeasurementPer(numerator, prefix: _zetta);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get yotta =>
+      PrefixedMeasurementPer(numerator, prefix: _yotta);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get ronna =>
+      PrefixedMeasurementPer(numerator, prefix: _ronna);
+
+  /// Establishes a prefix for the derived measurement being constructed.
+  PrefixedMeasurementPer<N, D> get quetta =>
+      PrefixedMeasurementPer(numerator, prefix: _quetta);
+}
+
+// **************************************************************************
 // PrefixesGenerator
 // **************************************************************************
 

@@ -24,6 +24,11 @@ builders:
     builder_factories: ["unitPerBuilder"]
     build_extensions: {".dart": [".g.part"]}
     build_to: cache
+  measurement_per:
+    import: "generator/generator.dart"
+    builder_factories: ["measurementPerBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: cache
   extension:
     import: "generator/generator.dart"
     builder_factories: ["extensionBuilder"]
@@ -64,7 +69,13 @@ builders:
   prefix_unit_per:
     import: "generator/generator.dart"
     builder_factories: ["prefixedUnitPerBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/per.dart"]}
+    build_extensions: {".measurement": ["lib/src/generated/unit_per.dart"]}
+    build_to: source
+    required_inputs: [".measurement"]
+  prefix_measurement_per:
+    import: "generator/generator.dart"
+    builder_factories: ["prefixedMeasurementPerBuilder"]
+    build_extensions: {".measurement": ["lib/src/generated/measurement_per.dart"]}
     build_to: source
     required_inputs: [".measurement"]
 
@@ -76,6 +87,10 @@ targets:
           generate_for:
             - lib/src/prefixes/*.dart
       fling_units|unit_per:
+        options:
+          generate_for:
+            - lib/src/prefixes/*.dart
+      fling_units|measurement_per:
         options:
           generate_for:
             - lib/src/prefixes/*.dart
@@ -123,6 +138,10 @@ targets:
           generate_for:
             - lib/src/measurements/*.dart
       fling_units|prefix_unit_per:
+        options:
+          generate_for:
+            - lib/src/measurements/*.dart
+      fling_units|prefix_measurement_per:
         options:
           generate_for:
             - lib/src/measurements/*.dart

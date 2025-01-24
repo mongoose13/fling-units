@@ -7,17 +7,17 @@ part of '../measurements/pressure.dart';
 // **************************************************************************
 
 extension NumExtensionPressure on num {
-  f.Measurement<Pressure> get pascals => PressureUnit.pascals(this);
-  f.Measurement<Pressure> get bars => PressureUnit.bars(this);
-  f.Measurement<Pressure> get baryes => PressureUnit.baryes(this);
-  f.Measurement<Pressure> get standardAtmospheres =>
+  f.PressureMeasurement get pascals => PressureUnit.pascals(this);
+  f.PressureMeasurement get bars => PressureUnit.bars(this);
+  f.PressureMeasurement get baryes => PressureUnit.baryes(this);
+  f.PressureMeasurement get standardAtmospheres =>
       PressureUnit.standardAtmospheres(this);
-  f.Measurement<Pressure> get technicalAtmospheres =>
+  f.PressureMeasurement get technicalAtmospheres =>
       PressureUnit.technicalAtmospheres(this);
-  f.Measurement<Pressure> get mmHg => PressureUnit.mmHg(this);
-  f.Measurement<Pressure> get inHg => PressureUnit.inHg(this);
-  f.Measurement<Pressure> get torr => PressureUnit.torr(this);
-  f.Measurement<Pressure> get psi => PressureUnit.psi(this);
+  f.PressureMeasurement get mmHg => PressureUnit.mmHg(this);
+  f.PressureMeasurement get inHg => PressureUnit.inHg(this);
+  f.PressureMeasurement get torr => PressureUnit.torr(this);
+  f.PressureMeasurement get psi => PressureUnit.psi(this);
 }
 
 // **************************************************************************
@@ -89,7 +89,7 @@ class PressureUnit extends f.Unit<Pressure> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Pressure> call(
+  f.PressureMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -151,6 +151,9 @@ class PressureMeasurement extends f.Measurement<Pressure> {
     f.Precision precision,
   ) =>
       PressureMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<PressureMeasurement, Pressure> get per =>
+      f.MeasurementPer(this);
 }
 
 // **************************************************************************

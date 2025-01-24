@@ -15,9 +15,8 @@ void main() {
     precision: 3,
   );
   var bodyTemperature = Temperature.ofFahrenheit(93.4);
-  var depthsOfMyMind = Measurement.infinite(liters); // Volume.infinite();
-  var depthsOfMyPetRocksMind =
-      Measurement.zero(cubic(meters)); // Volume.zero();
+  var depthsOfMyMind = infinite(liters);
+  var depthsOfMyPetRocksMind = zero(cubic(meters));
 
   // Want syntactic sugar? Any measurement can be created from a number using
   // extensions. We recommend wrapping doubles in parenthesis for readability.
@@ -109,20 +108,20 @@ void main() {
 
   // Need a derived unit that isn't specifically implemented? Build it yourself!
   // You can also use the common derived units to create your masterpiece.
-  var fuelConsumption = ratio(miles, usGallons, name: "mpg")
-      .using(distanceToSeattle, usGallons(2.4));
+  var fuelUsed = 2.4.usGallons;
+  var fuelEconomy = miles.per.usGallon
+      .withName("mpg")
+      .using(distanceToSeattle, fuelUsed)
+      .withPrecision(3);
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
-  print("I get $fuelConsumption");
+  print("I get $fuelEconomy");
 
   // Interpret the derived unit in any combination of component units.
-  print("${fuelConsumption.as(ratio(miles, liters))} mpl");
-  // Syntactic sugar for unit definitions makes it easy to quickly define the unit you want
-  // using "per" or "by".
-  print("${fuelConsumption.as(centi.meters.per.milli.liter)} cm/ml");
-  // TODO print(feet.by.pounds);
+  print("${fuelEconomy.as(miles.per.liter)} mpl");
+  print("${fuelEconomy.as(centi.meters.per.milli.liter)} cm/ml");
 
-  // Define your own units!
-  var coulombs = ratio(seconds, amperes, name: "coulombs");
+  // Define your own units:
+  var coulombs = seconds.per.ampere.withName("coulombs");
   var energyProduction = coulombs(3.14159);
   print("My invention generates $energyProduction!");
 
@@ -139,12 +138,11 @@ void main() {
 
   // This is also true for derived units. The library will produce a default
   // unit name, but you can also supply your own.
-  final carSpeed = ratio(miles, hours).using(
-    100.miles.withPrecision(3),
-    1.hours.withPrecision(3),
-  );
+  final carSpeed = 100.miles.per.hour.withPrecision(3);
   print("\nMy car is going $carSpeed!");
-  final carSpeedAsFPM = carSpeed.butAs(ratio(feet, minutes));
+  print(
+      "My car is going ${carSpeed.butAs(inches.per.second.withName("inches/second"))}!");
+  final carSpeedAsFPM = carSpeed.butAs(feet.per.minute);
   print("My car is going $carSpeedAsFPM!");
   print(
       "My car is going ${carSpeedAsFPM.defaultValue} in ${carSpeedAsFPM.defaultUnit}!");

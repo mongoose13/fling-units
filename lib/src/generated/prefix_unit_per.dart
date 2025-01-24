@@ -5,7 +5,7 @@ part of 'package:fling_units/src/core/library.dart';
 class PrefixedUnitPer<N extends f.Unit<D>, D extends f.Dimension> {
   PrefixedUnitPer(
     this.numerator, {
-    MeasurementPrefix this.prefix = const MeasurementPrefix.unit(),
+    this.prefix = const MeasurementPrefix.unit(),
   });
 
   final N numerator;

@@ -7,11 +7,11 @@ part of '../measurements/temperature_change.dart';
 // **************************************************************************
 
 extension NumExtensionTemperatureChange on num {
-  f.Measurement<TemperatureChange> get kelvin =>
+  f.TemperatureChangeMeasurement get kelvin =>
       TemperatureChangeUnit.kelvin(this);
-  f.Measurement<TemperatureChange> get celcius =>
+  f.TemperatureChangeMeasurement get celcius =>
       TemperatureChangeUnit.celcius(this);
-  f.Measurement<TemperatureChange> get fahrenheit =>
+  f.TemperatureChangeMeasurement get fahrenheit =>
       TemperatureChangeUnit.fahrenheit(this);
 }
 
@@ -48,7 +48,7 @@ class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<TemperatureChange> call(
+  f.TemperatureChangeMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -112,6 +112,9 @@ class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
     f.Precision precision,
   ) =>
       TemperatureChangeMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<TemperatureChangeMeasurement, TemperatureChange> get per =>
+      f.MeasurementPer(this);
 }
 
 // **************************************************************************

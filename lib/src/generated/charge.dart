@@ -7,7 +7,7 @@ part of '../measurements/charge.dart';
 // **************************************************************************
 
 extension NumExtensionCharge on num {
-  f.Measurement<Charge> get amperes => ChargeUnit.amperes(this);
+  f.ChargeMeasurement get amperes => ChargeUnit.amperes(this);
 }
 
 // **************************************************************************
@@ -31,7 +31,7 @@ class ChargeUnit extends f.Unit<Charge> {
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.Measurement<Charge> call(
+  f.ChargeMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -93,6 +93,8 @@ class ChargeMeasurement extends f.Measurement<Charge> {
     f.Precision precision,
   ) =>
       ChargeMeasurement(magnitude, defaultUnit, precision);
+
+  f.MeasurementPer<ChargeMeasurement, Charge> get per => f.MeasurementPer(this);
 }
 
 // **************************************************************************
