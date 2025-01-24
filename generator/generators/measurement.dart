@@ -180,7 +180,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
           )
           ..methods.add(
             Method(
-              (per) => per
+              (over) => over
                 ..docs.add(
                     "/// Creates a derived measurement representing the ratio of this and another measurement.")
                 ..name = "over"
@@ -198,6 +198,28 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                 ..body = Code(
                     "f.ratio<${builder.dimensionName}, D>(defaultUnit, denominator.defaultUnit)"
                     "(defaultValue, denominator.defaultValue)"),
+            ),
+          )
+          ..methods.add(
+            Method(
+              (by) => by
+                ..docs.add(
+                    "/// Creates a derived measurement representing the product of this and another measurement.")
+                ..name = "by"
+                ..lambda = true
+                ..types.add(Reference("D extends f.Dimension"))
+                ..requiredParameters.add(
+                  Parameter(
+                    (term) => term
+                      ..name = "term"
+                      ..type = Reference("f.Measurement<D>"),
+                  ),
+                )
+                ..returns = Reference(
+                    "f.Measurement<f.Dimension2<f.UnitNumerator<${builder.dimensionName}>, f.UnitNumerator<D>>>")
+                ..body = Code(
+                    "f.product2<${builder.dimensionName}, D>(defaultUnit, term.defaultUnit)"
+                    "(defaultValue, term.defaultValue)"),
             ),
           ),
       ),

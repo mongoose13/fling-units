@@ -88,7 +88,7 @@ void main() {
   //------------------------------------------------//
 
   // Some of the more common derived units (e.g. Area) have full syntactic support.
-  var monitorSurfaceArea = square(inches)(800).withPrecision(4);
+  var monitorSurfaceArea = 14.inches.by(18.inches).withPrecision(4);
   print("\nMy monitor dimensions:");
   print("${monitorSurfaceArea.as(square(meters))} m²");
   print("${monitorSurfaceArea.as(square(centi.meters))} cm²");
@@ -160,5 +160,4 @@ void main() {
       "\nMy hand will always have a linear density of ${ratio(pounds, inches).using(massOfMyHand, sizeOfMyHand).withPrecision(2)}.");
 
   // Have fun!
-  print(100.miles.over(2.hours));
 }

@@ -123,6 +123,11 @@ class TimeMeasurement extends f.Measurement<Time> {
       over<D extends f.Dimension>(f.Measurement<D> denominator) =>
           f.ratio<Time, D>(defaultUnit, denominator.defaultUnit)(
               defaultValue, denominator.defaultValue);
+
+  /// Creates a derived measurement representing the product of this and another measurement.
+  f.Measurement<f.Dimension2<f.UnitNumerator<Time>, f.UnitNumerator<D>>>
+      by<D extends f.Dimension>(f.Measurement<D> term) => f.product2<Time, D>(
+          defaultUnit, term.defaultUnit)(defaultValue, term.defaultValue);
 }
 
 // **************************************************************************

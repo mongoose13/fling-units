@@ -137,6 +137,11 @@ class AngleMeasurement extends f.Measurement<Angle> {
       over<D extends f.Dimension>(f.Measurement<D> denominator) =>
           f.ratio<Angle, D>(defaultUnit, denominator.defaultUnit)(
               defaultValue, denominator.defaultValue);
+
+  /// Creates a derived measurement representing the product of this and another measurement.
+  f.Measurement<f.Dimension2<f.UnitNumerator<Angle>, f.UnitNumerator<D>>>
+      by<D extends f.Dimension>(f.Measurement<D> term) => f.product2<Angle, D>(
+          defaultUnit, term.defaultUnit)(defaultValue, term.defaultValue);
 }
 
 // **************************************************************************

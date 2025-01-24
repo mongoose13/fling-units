@@ -124,6 +124,13 @@ class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
       over<D extends f.Dimension>(f.Measurement<D> denominator) =>
           f.ratio<TemperatureChange, D>(defaultUnit, denominator.defaultUnit)(
               defaultValue, denominator.defaultValue);
+
+  /// Creates a derived measurement representing the product of this and another measurement.
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<TemperatureChange>, f.UnitNumerator<D>>>
+      by<D extends f.Dimension>(f.Measurement<D> term) =>
+          f.product2<TemperatureChange, D>(defaultUnit, term.defaultUnit)(
+              defaultValue, term.defaultValue);
 }
 
 // **************************************************************************

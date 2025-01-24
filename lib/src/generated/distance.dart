@@ -138,6 +138,12 @@ class DistanceMeasurement extends f.Measurement<Distance> {
       over<D extends f.Dimension>(f.Measurement<D> denominator) =>
           f.ratio<Distance, D>(defaultUnit, denominator.defaultUnit)(
               defaultValue, denominator.defaultValue);
+
+  /// Creates a derived measurement representing the product of this and another measurement.
+  f.Measurement<f.Dimension2<f.UnitNumerator<Distance>, f.UnitNumerator<D>>>
+      by<D extends f.Dimension>(f.Measurement<D> term) =>
+          f.product2<Distance, D>(defaultUnit, term.defaultUnit)(
+              defaultValue, term.defaultValue);
 }
 
 // **************************************************************************
