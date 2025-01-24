@@ -14,6 +14,12 @@ class DerivedUnit2<
   });
 
   /// Constructor using a pair of [UnitPosition]s.
+  ///
+  /// The optional [d1] and [d2] arguments are useful in defining the
+  /// most restrictive type possible for the result. This ensures static
+  /// analysis works as intended for derived types.
+  /// See [this StackOverflow question](https://stackoverflow.com/questions/79376837)
+  /// for details.
   static DerivedUnit2<P1, P2, D1, D2> build<
           P1 extends UnitPosition<D1>,
           P2 extends UnitPosition<D2>,
@@ -59,6 +65,9 @@ class DerivedUnit2<
   /// Creates a [Measurement] from this [Unit] using existing [Measurement]s of
   /// the same dimension.
   ///
+  /// If a new precision is not provided, the precision from the two component parts
+  /// are combined.
+  ///
   /// ```dart
   /// // Creates a "square meter" measurement that is 3 feet wide by 2 feet long
   /// square(meters).using(3.feet, 2.feet);
@@ -67,14 +76,16 @@ class DerivedUnit2<
       using<M1 extends Measurement<D1>, M2 extends Measurement<D2>>(
     M1 first,
     M2 second, {
-    int precision = Precision.maximumPrecision,
+    int? precision,
   }) {
     return Measurement(
       magnitude: UnitPosition.typeMultiplier<P1>(first.si) *
           UnitPosition.typeMultiplier<P2>(second.si) /
           multiplier,
       defaultUnit: this,
-      precision: Precision(precision),
+      precision: precision != null
+          ? Precision(precision)
+          : Precision.combine([first.precision, second.precision]),
     );
   }
 
@@ -100,8 +111,7 @@ class DerivedUnit2<
   /// ```dart
   /// final milliMeters = milli.meters.withName("millimeters");
   /// ```
-  DerivedUnit2<P1, P2, D1, D2> withName(String name) =>
-      DerivedUnit2._(
+  DerivedUnit2<P1, P2, D1, D2> withName(String name) => DerivedUnit2._(
         name: name,
         unitMultiplier: unitMultiplier,
         prefix: prefix,
