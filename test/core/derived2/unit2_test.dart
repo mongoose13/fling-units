@@ -251,5 +251,49 @@ void main() {
         expect(result.toString(), "193.75 in²");
       });
     });
+    group("per", () {
+      test("multiplier for SI", () {
+        // given
+        final unit = meters.per.gram;
+
+        // then
+        expect(unit.multiplier, 1.0);
+      });
+      test("multiplier for basic numerator", () {
+        // given
+        final unit = feet.per.gram;
+
+        // then
+        expect(unit.multiplier, closeTo(0.305, 0.0005));
+      });
+      test("multiplier for prefixed numerator", () {
+        // given
+        final unit = deka.feet.per.gram;
+
+        // then
+        expect(unit.multiplier, closeTo(3.048, 0.0005));
+      });
+      test("multiplier for basic denominator", () {
+        // given
+        final unit = meters.per.ounce;
+
+        // then
+        expect(unit.multiplier, closeTo(0.035, 0.0005));
+      });
+      test("multiplier for prefixed denominator", () {
+        // given
+        final unit = meters.per.deka.ounce;
+
+        // then
+        expect(unit.multiplier, closeTo(0.00353, 0.000005));
+      });
+      test("multiplier for prefixed everything", () {
+        // given
+        final unit = kilo.feet.per.deka.ounce;
+
+        // then
+        expect(unit.multiplier, closeTo(1.075, 0.0005));
+      });
+    });
   });
 }

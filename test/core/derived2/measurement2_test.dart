@@ -95,6 +95,56 @@ void main() {
         // then
         expect(result, 10.8);
       });
+      test("with prefix on destination numerator", () {
+        // given
+        final measurement = 4.miles.per.gallon.withPrecision(3);
+
+        // when
+        final result = measurement.as(kilo.meters.per.gallon);
+
+        // then
+        expect(result, 6.44);
+      });
+      test("with prefix on destination denominator", () {
+        // given
+        final measurement = 4.miles.per.ounce.withPrecision(3);
+
+        // when
+        final result = measurement.as(miles.per.deci.ounce);
+
+        // then
+        expect(result, 0.4);
+      });
+      test("with prefix on destination denominator on volume", () {
+        // given
+        final measurement = 4.miles.per.gallon.withPrecision(3);
+
+        // when
+        final result = measurement.as(miles.per.deci.gallon);
+
+        // then
+        expect(result, 0.4);
+      });
+      test("with prefixes on destination", () {
+        // given
+        final measurement = 4.miles.per.ounce.withPrecision(3);
+
+        // when
+        final result = measurement.as(deci.miles.per.deci.ounce);
+
+        // then
+        expect(result, 4.0);
+      });
+      test("with prefixes on destination on volume", () {
+        // given
+        final measurement = 4.miles.per.gallon.withPrecision(3);
+
+        // when
+        final result = measurement.as(deci.miles.per.deci.gallon);
+
+        // then
+        expect(result, 4.0);
+      });
     });
 
     group("butAs", () {
