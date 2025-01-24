@@ -65,6 +65,9 @@ class QuantityUnit extends f.Unit<Quantity> {
 
   /// Creates a derived unit builder with this as the numerator.
   f.UnitPer<QuantityUnit, Quantity> get per => f.UnitPer(this);
+
+  /// Creates a derived unit builder with this as the first unit in a product.
+  f.UnitDot<QuantityUnit, Quantity> get dot => f.UnitDot(this);
 }
 
 // **************************************************************************
@@ -104,6 +107,10 @@ class QuantityMeasurement extends f.Measurement<Quantity> {
   /// Creates a derived measurement of a derived unit consisting of this measurement'sunit in the numerator and the specified unit in the denominator, with this measurement'sdefault value as the default value of the resulting derived unit.
   f.MeasurementPer<QuantityMeasurement, Quantity> get per =>
       f.MeasurementPer(this);
+
+  /// Creates a derived measurement of a derived unit consisting of this measurement'sunit multiplied by the specified measurement's unit, with this measurement'sdefault value as the default value of the resulting derived unit.
+  f.MeasurementDot<QuantityMeasurement, Quantity> get dot =>
+      f.MeasurementDot(this);
 
   /// Creates a derived measurement representing the ratio of this and another measurement.
   f.Measurement<f.Dimension2<f.UnitNumerator<Quantity>, f.UnitDenominator<D>>>

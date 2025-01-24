@@ -295,5 +295,49 @@ void main() {
         expect(unit.multiplier, closeTo(1.075, 0.0005));
       });
     });
+    group("dot", () {
+      test("multiplier for SI", () {
+        // given
+        final unit = meters.dot.grams;
+
+        // then
+        expect(unit.multiplier, 1.0);
+      });
+      test("multiplier for basic first", () {
+        // given
+        final unit = feet.dot.grams;
+
+        // then
+        expect(unit.multiplier, closeTo(0.305, 0.0005));
+      });
+      test("multiplier for prefixed first", () {
+        // given
+        final unit = deka.feet.dot.grams;
+
+        // then
+        expect(unit.multiplier, closeTo(3.048, 0.0005));
+      });
+      test("multiplier for basic second", () {
+        // given
+        final unit = meters.dot.ounces;
+
+        // then
+        expect(unit.multiplier, closeTo(0.035, 0.0005));
+      });
+      test("multiplier for prefixed second", () {
+        // given
+        final unit = meters.dot.deka.ounces;
+
+        // then
+        expect(unit.multiplier, closeTo(0.00353, 0.000005));
+      });
+      test("multiplier for prefixed everything", () {
+        // given
+        final unit = kilo.feet.dot.deka.ounces;
+
+        // then
+        expect(unit.multiplier, closeTo(1.075, 0.0005));
+      });
+    });
   });
 }

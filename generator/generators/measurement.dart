@@ -180,6 +180,21 @@ class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
           )
           ..methods.add(
             Method(
+              (dot) => dot
+                ..docs.add(
+                    "/// Creates a derived measurement of a derived unit consisting of this measurement's"
+                    "unit multiplied by the specified measurement's unit, with this measurement's"
+                    "default value as the default value of the resulting derived unit.")
+                ..name = "dot"
+                ..lambda = true
+                ..type = MethodType.getter
+                ..returns = Reference(
+                    "f.MeasurementDot<${builder.measurementName}, ${builder.dimensionName}>")
+                ..body = Code("f.MeasurementDot(this)"),
+            ),
+          )
+          ..methods.add(
+            Method(
               (over) => over
                 ..docs.add(
                     "/// Creates a derived measurement representing the ratio of this and another measurement.")

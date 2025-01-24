@@ -72,6 +72,45 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
       ),
     );
 
+    builder.add(
+      Class(
+        (unitDot) => unitDot
+          ..name = "UnitDot"
+          ..types.addAll([
+            Reference("N extends Unit<D>"),
+            Reference("D extends Dimension"),
+          ])
+          ..extend = Reference("PrefixedUnitDot<N, D>")
+          ..constructors.add(
+            Constructor(
+              (constructor) => constructor
+                ..requiredParameters.add(
+                  Parameter(
+                    (first) => first
+                      ..name = "first"
+                      ..toSuper = true,
+                  ),
+                ),
+            ),
+          )
+          ..methods.addAll(
+            children.map(
+              (prefix) => Method(
+                (meth) => meth
+                  ..docs.add(
+                      "/// Establishes a prefix for the derived unit being constructed.")
+                  ..name = prefix.name
+                  ..returns = Reference("PrefixedUnitDot<N, D>")
+                  ..type = MethodType.getter
+                  ..lambda = true
+                  ..body =
+                      Code("PrefixedUnitDot(first, prefix: _${prefix.name})"),
+              ),
+            ),
+          ),
+      ),
+    );
+
     return builder.flush();
   }
 }

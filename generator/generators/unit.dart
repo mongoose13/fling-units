@@ -135,6 +135,19 @@ class UnitGenerator extends GeneratorForAnnotation<MeasurementConfig> {
                       "/// Creates a derived unit builder with this as the numerator."),
               ),
             )
+            ..methods.add(
+              Method(
+                (dot) => dot
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..returns = Reference(
+                      "f.UnitDot<${builder.unitName}, ${builder.dimensionName}>")
+                  ..name = "dot"
+                  ..body = Code("f.UnitDot(this)")
+                  ..docs.add(
+                      "/// Creates a derived unit builder with this as the first unit in a product."),
+              ),
+            )
             ..constructors.add(
               Constructor((constructor) => constructor
                 ..constant = true

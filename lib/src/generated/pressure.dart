@@ -116,6 +116,9 @@ class PressureUnit extends f.Unit<Pressure> {
 
   /// Creates a derived unit builder with this as the numerator.
   f.UnitPer<PressureUnit, Pressure> get per => f.UnitPer(this);
+
+  /// Creates a derived unit builder with this as the first unit in a product.
+  f.UnitDot<PressureUnit, Pressure> get dot => f.UnitDot(this);
 }
 
 // **************************************************************************
@@ -155,6 +158,10 @@ class PressureMeasurement extends f.Measurement<Pressure> {
   /// Creates a derived measurement of a derived unit consisting of this measurement'sunit in the numerator and the specified unit in the denominator, with this measurement'sdefault value as the default value of the resulting derived unit.
   f.MeasurementPer<PressureMeasurement, Pressure> get per =>
       f.MeasurementPer(this);
+
+  /// Creates a derived measurement of a derived unit consisting of this measurement'sunit multiplied by the specified measurement's unit, with this measurement'sdefault value as the default value of the resulting derived unit.
+  f.MeasurementDot<PressureMeasurement, Pressure> get dot =>
+      f.MeasurementDot(this);
 
   /// Creates a derived measurement representing the ratio of this and another measurement.
   f.Measurement<f.Dimension2<f.UnitNumerator<Pressure>, f.UnitDenominator<D>>>

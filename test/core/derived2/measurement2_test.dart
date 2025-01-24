@@ -208,5 +208,20 @@ void main() {
         expect(derived.defaultValue, 3.0);
       });
     });
+
+    group("by", () {
+      test("combines two units properly", () {
+        // given
+        final distance = 6.miles;
+        final time = 2.hours;
+
+        // when
+        final derived = distance.by(time);
+
+        // then
+        expect(derived.defaultUnit, miles.dot.hours);
+        expect(derived.defaultValue, 12.0);
+      });
+    });
   });
 }

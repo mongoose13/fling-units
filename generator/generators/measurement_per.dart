@@ -72,6 +72,44 @@ class MeasurementPerGenerator extends GeneratorForAnnotation<PrefixType> {
           ),
       ),
     );
+    builder.add(
+      Class(
+        (measurementDot) => measurementDot
+          ..name = "MeasurementDot"
+          ..types.addAll([
+            Reference("N extends Measurement<D>"),
+            Reference("D extends Dimension"),
+          ])
+          ..extend = Reference("PrefixedMeasurementDot<N, D>")
+          ..constructors.add(
+            Constructor(
+              (constructor) => constructor
+                ..requiredParameters.add(
+                  Parameter(
+                    (first) => first
+                      ..name = "first"
+                      ..toSuper = true,
+                  ),
+                ),
+            ),
+          )
+          ..methods.addAll(
+            children.map(
+              (prefix) => Method(
+                (meth) => meth
+                  ..docs.add(
+                      "/// Establishes a prefix for the derived measurement being constructed.")
+                  ..name = prefix.name
+                  ..returns = Reference("PrefixedMeasurementDot<N, D>")
+                  ..type = MethodType.getter
+                  ..lambda = true
+                  ..body = Code(
+                      "PrefixedMeasurementDot(first, prefix: _${prefix.name})"),
+              ),
+            ),
+          ),
+      ),
+    );
 
     return builder.flush();
   }

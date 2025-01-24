@@ -2,7 +2,13 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
-## [Unreleased]
+## [3.0.0]
+### Changed
+- See the [2.x-3.x migration guide] for details
+- Derived units are standalone objects
+- Syntactic sugar for many operations
+- Static methods are globally accessible
+- Confusing classes renamed to match standard vernacular
 
 ## [2.2.7]
 ### Changed
@@ -229,7 +235,8 @@ types you need to work with from the rest of your code.
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/mongoose13/fling-units/commits/
-[2.2.6]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.7
+[3.0.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/3.0.0
+[2.2.7]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.7
 [2.2.6]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.6
 [2.2.5]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.5
 [2.2.4]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.4
@@ -260,3 +267,5 @@ types you need to work with from the rest of your code.
 [0.2.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.2.0
 [0.1.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.1.0
 [0.0.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.0.1
+
+[2.x-3.x migration guide]: https://bitbucket.org/mongoose13/fling-units/wiki/Migration2to3
