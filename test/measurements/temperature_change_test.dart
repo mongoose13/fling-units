@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 temperature', () {
         // given
-        final temperature = TemperatureChange.zero();
+        final temperature = TemperatureChangeMeasurement.zero();
 
         // when
         final result = temperature.as(kelvin);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final temperature = TemperatureChange.zero();
+        final temperature = TemperatureChangeMeasurement.zero();
 
         // when
         final result = temperature.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = TemperatureChange.zero(fahrenheit);
+        final interpreter = TemperatureChangeMeasurement.zero(fahrenheit);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite temperature', () {
         // given
-        final temperature = TemperatureChange.infinite();
+        final temperature = TemperatureChangeMeasurement.infinite();
 
         // when
         final result = temperature.as(kelvin);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final temperature = TemperatureChange.infinite();
+        final temperature = TemperatureChangeMeasurement.infinite();
 
         // when
         final result = temperature.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = TemperatureChange.infinite(fahrenheit);
+        final interpreter = TemperatureChangeMeasurement.infinite(fahrenheit);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative mass', () {
         // given
-        final temperature = TemperatureChange.negativeInfinite();
+        final temperature = TemperatureChangeMeasurement.negativeInfinite();
 
         // when
         final result = temperature.as(kelvin);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final temperature = TemperatureChange.negativeInfinite();
+        final temperature = TemperatureChangeMeasurement.negativeInfinite();
 
         // when
         final result = temperature.precision;
@@ -90,7 +90,8 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = TemperatureChange.negativeInfinite(fahrenheit);
+        final interpreter =
+            TemperatureChangeMeasurement.negativeInfinite(fahrenheit);
 
         // when
         final result = interpreter.toString();
@@ -103,11 +104,11 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final temperature = TemperatureChange.sum([
+        final temperature = sum([
           kelvin(1),
           celcius(2),
           fahrenheit(3),
-        ], precision: Precision(5));
+        ], precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -120,7 +121,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final temperature = kelvin(1.23456, precision: Precision(8));
+        final temperature = kelvin(1.23456, precision: 8);
 
         // when
         final result = temperature.as(fahrenheit);
@@ -133,7 +134,7 @@ void main() {
     group('kelvin', () {
       test('converts to base', () {
         // given
-        final temperature = kelvin(1.234, precision: Precision(5));
+        final temperature = kelvin(1.234, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -143,7 +144,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final temperature = milli.kelvin(1234.0, precision: Precision(5));
+        final temperature = milli.kelvin(1234.0, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -155,7 +156,7 @@ void main() {
     group('celcius', () {
       test('converts to base', () {
         // given
-        final temperature = celcius(1.234, precision: Precision(5));
+        final temperature = celcius(1.234, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -165,7 +166,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final temperature = milli.celcius(1234.0, precision: Precision(5));
+        final temperature = milli.celcius(1234.0, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -177,7 +178,7 @@ void main() {
     group('fahrenheit', () {
       test('converts to base', () {
         // given
-        final temperature = fahrenheit(1.234, precision: Precision(5));
+        final temperature = fahrenheit(1.234, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -187,7 +188,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final temperature = milli.fahrenheit(1234.0, precision: Precision(5));
+        final temperature = milli.fahrenheit(1234.0, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -220,7 +221,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = fahrenheit(3.4).withPrecisionOf(3);
+        final measurement = fahrenheit(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -230,7 +231,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.fahrenheit(3.4).withPrecisionOf(3);
+        final measurement = milli.fahrenheit(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -240,7 +241,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.fahrenheit.withPrecisionOf(3);
+        final measurement = 3.4.milli.fahrenheit.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -250,20 +251,20 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.fahrenheit(23.45).withPrecisionOf(3);
+        final measurement = deci.fahrenheit(23.45).withPrecision(3);
 
         // when
-        final result = measurement.withPrecisionOf(2).toString();
+        final result = measurement.withPrecision(2).toString();
 
         // then
         expect(result, '23.0 d°F');
       });
       test('modified units', () {
         // given
-        final measurement = deci.fahrenheit(23.45).withPrecisionOf(3);
+        final measurement = deci.fahrenheit(23.45).withPrecision(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.celcius).toString();
+        final result = measurement.butAs(milli.celcius).toString();
 
         // then
         expect(result, '1300.0 m°C');

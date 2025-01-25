@@ -60,32 +60,14 @@
 /// mitigates some rounding errors in the implementation of the language itself.
 ///
 /// ```dart
-/// Distance.miles(3.0, precision: Precision(2)).kilometers; // 4.8, not 4.82803...
+/// Distance.miles(3.0, precision: 2).kilometers; // 4.8, not 4.82803...
 /// ```
-library fling_units;
+library;
 
-// imports
-import 'dart:math' as math;
+export "src/generated/library.dart";
 
-// parts
-part 'src/core/interpreter.dart';
-part 'src/core/precision.dart';
-part 'src/core/prefix.dart';
-part 'src/core/visitor.dart';
-part 'src/extensions/extender.dart';
-part 'src/extensions/extension.dart';
-part 'src/measurements/angle.dart';
-part 'src/measurements/area.dart';
-part 'src/measurements/charge.dart';
-part 'src/measurements/derived.dart';
-part 'src/measurements/distance.dart';
-part 'src/measurements/frequency.dart';
-part 'src/measurements/luminosity.dart';
-part 'src/measurements/mass.dart';
-part 'src/measurements/measurement.dart';
-part 'src/measurements/pressure.dart';
-part 'src/measurements/quantity.dart';
-part 'src/measurements/temperature.dart';
-part 'src/measurements/temperature_change.dart';
-part 'src/measurements/time.dart';
-part 'src/measurements/volume.dart';
+export "src/core/library.dart";
+
+export "src/measurements/temperature.dart";
+
+export "src/prefixes/si.dart";

@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 quantity', () {
         // given
-        final quantity = Quantity.zero();
+        final quantity = QuantityMeasurement.zero();
 
         // when
         final result = quantity.as(units);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final quantity = Quantity.zero();
+        final quantity = QuantityMeasurement.zero();
 
         // when
         final result = quantity.precision;
@@ -26,19 +26,19 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Quantity.zero(units);
+        final interpreter = QuantityMeasurement.zero(units);
 
         // when
         final result = interpreter.toString();
 
         // then
-        expect(result, '0.0 x');
+        expect(result, '0.0 units');
       });
     });
     group('infinity', () {
       test('has infinite quantity', () {
         // given
-        final quantity = Quantity.infinite();
+        final quantity = QuantityMeasurement.infinite();
 
         // when
         final result = quantity.as(units);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final quantity = Quantity.infinite();
+        final quantity = QuantityMeasurement.infinite();
 
         // when
         final result = quantity.precision;
@@ -58,19 +58,19 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Quantity.infinite(units);
+        final interpreter = QuantityMeasurement.infinite(units);
 
         // when
         final result = interpreter.toString();
 
         // then
-        expect(result, 'Infinity x');
+        expect(result, 'Infinity units');
       });
     });
     group('negativeInfinity', () {
       test('has infinite negative quantity', () {
         // given
-        final quantity = Quantity.negativeInfinite();
+        final quantity = QuantityMeasurement.negativeInfinite();
 
         // when
         final result = quantity.as(units);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final quantity = Quantity.negativeInfinite();
+        final quantity = QuantityMeasurement.negativeInfinite();
 
         // when
         final result = quantity.precision;
@@ -90,24 +90,24 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Quantity.negativeInfinite(units);
+        final interpreter = QuantityMeasurement.negativeInfinite(units);
 
         // when
         final result = interpreter.toString();
 
         // then
-        expect(result, '-Infinity x');
+        expect(result, '-Infinity units');
       });
     });
 
     group('sum', () {
       test('adds parts', () {
         // given
-        final quantity = Quantity.sum([
+        final quantity = sum([
           moles(2.1),
           units(5e23),
           moles(0.3),
-        ], precision: Precision(5));
+        ], precision: 5);
 
         // when
         final result = quantity.as(units);
@@ -120,7 +120,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final quantity = units(1.234e23, precision: Precision(8));
+        final quantity = units(1.234e23, precision: 8);
 
         // when
         final result = quantity.as(moles);
@@ -133,7 +133,7 @@ void main() {
     group('units', () {
       test('converts to base', () {
         // given
-        final quantity = units(1.234e23, precision: Precision(5));
+        final quantity = units(1.234e23, precision: 5);
 
         // when
         final result = quantity.as(moles);
@@ -143,8 +143,7 @@ void main() {
       });
       test('applies base prefix', () {
         // given
-        final quantity =
-            MeasurementPrefix.unit().units(1.234e23, precision: Precision(5));
+        final quantity = MeasurementPrefix.unit().units(1.234e23, precision: 5);
 
         // when
         final result = quantity.as(moles);
@@ -154,17 +153,17 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final quantity = milli.units(1234, precision: Precision(5));
+        final quantity = milli.units(1234, precision: 5);
 
         // when
         final result = quantity.as(units);
 
         // then
-        expect(result, 1);
+        expect(result, 1.234);
       });
       test('applies prefixes to conversions', () {
         // given
-        final quantity = milli.units(1.234e27, precision: Precision(5));
+        final quantity = milli.units(1.234e27, precision: 5);
 
         // when
         final result = quantity.as(moles);
@@ -172,29 +171,9 @@ void main() {
         // then
         expect(result, 2.0491);
       });
-      test('rounds up', () {
-        // given
-        final quantity = units(1.678, precision: Precision(5));
-
-        // when
-        final result = quantity.as(units);
-
-        // then
-        expect(result, 2);
-      });
-      test('rounds down', () {
-        // given
-        final quantity = units(1.456, precision: Precision(5));
-
-        // when
-        final result = quantity.as(units);
-
-        // then
-        expect(result, 1);
-      });
       test('maintains whole numbers', () {
         // given
-        final quantity = units(2, precision: Precision(5));
+        final quantity = units(2, precision: 5);
 
         // when
         final result = quantity.as(units);
@@ -206,7 +185,7 @@ void main() {
     group('moles', () {
       test('converts to base', () {
         // given
-        final quantity = moles(1.234, precision: Precision(5));
+        final quantity = moles(1.234, precision: 5);
 
         // when
         final result = quantity.as(moles);
@@ -216,7 +195,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final quantity = milli.moles(1.234e3, precision: Precision(5));
+        final quantity = milli.moles(1.234e3, precision: 5);
 
         // when
         final result = quantity.as(moles);
@@ -249,7 +228,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = moles(3.4).withPrecisionOf(3);
+        final measurement = moles(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -259,7 +238,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.moles(3.4).withPrecisionOf(3);
+        final measurement = milli.moles(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -269,7 +248,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.moles.withPrecisionOf(3);
+        final measurement = 3.4.milli.moles.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -279,23 +258,23 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.moles(23.45).withPrecisionOf(3);
+        final measurement = deci.moles(23.45).withPrecision(3);
 
         // when
-        final result = measurement.withPrecisionOf(2).toString();
+        final result = measurement.withPrecision(2).toString();
 
         // then
         expect(result, '23.0 dmol');
       });
       test('modified units', () {
         // given
-        final measurement = deci.moles(23.45).withPrecisionOf(3);
+        final measurement = deci.moles(23.45).withPrecision(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.units).toString();
+        final result = measurement.butAs(milli.units).toString();
 
         // then
-        expect(result, '1.41e+27 mx');
+        expect(result, '1.41e+27 munits');
       });
     });
   });

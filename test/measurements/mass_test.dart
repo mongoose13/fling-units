@@ -6,7 +6,7 @@ void main() {
     group('zero', () {
       test('has 0.0 mass', () {
         // given
-        final mass = Mass.zero();
+        final mass = MassMeasurement.zero();
 
         // when
         final result = mass.as(grams);
@@ -16,7 +16,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final mass = Mass.zero();
+        final mass = MassMeasurement.zero();
 
         // when
         final result = mass.precision;
@@ -26,7 +26,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Mass.zero(pounds);
+        final interpreter = MassMeasurement.zero(pounds);
 
         // when
         final result = interpreter.toString();
@@ -38,7 +38,7 @@ void main() {
     group('infinity', () {
       test('has infinite mass', () {
         // given
-        final mass = Mass.infinite();
+        final mass = MassMeasurement.infinite();
 
         // when
         final result = mass.as(grams);
@@ -48,7 +48,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final mass = Mass.infinite();
+        final mass = MassMeasurement.infinite();
 
         // when
         final result = mass.precision;
@@ -58,7 +58,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Mass.infinite(pounds);
+        final interpreter = MassMeasurement.infinite(pounds);
 
         // when
         final result = interpreter.toString();
@@ -70,7 +70,7 @@ void main() {
     group('negativeInfinity', () {
       test('has infinite negative mass', () {
         // given
-        final mass = Mass.negativeInfinite();
+        final mass = MassMeasurement.negativeInfinite();
 
         // when
         final result = mass.as(grams);
@@ -80,7 +80,7 @@ void main() {
       });
       test('has max precision', () {
         // given
-        final mass = Mass.negativeInfinite();
+        final mass = MassMeasurement.negativeInfinite();
 
         // when
         final result = mass.precision;
@@ -90,7 +90,7 @@ void main() {
       });
       test('with custom default interpreter', () {
         // given
-        final interpreter = Mass.negativeInfinite(pounds);
+        final interpreter = MassMeasurement.negativeInfinite(pounds);
 
         // when
         final result = interpreter.toString();
@@ -103,12 +103,12 @@ void main() {
     group('sum', () {
       test('adds up component parts', () {
         // given
-        final mass = Mass.sum([
+        final mass = sum([
           grams(1),
           kilo.grams(2),
           centi.grams(3),
           deci.grams(4),
-        ], precision: Precision(8));
+        ], precision: 8);
 
         // when
         final result = mass.as(grams);
@@ -121,7 +121,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final mass = grams(123.456, precision: Precision(8));
+        final mass = grams(123.456, precision: 8);
 
         // when
         final result = mass.as(pounds);
@@ -134,7 +134,7 @@ void main() {
     group('grams', () {
       test('converts to base', () {
         // given
-        final mass = grams(1234.0, precision: Precision(5));
+        final mass = grams(1234.0, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -144,7 +144,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.grams(1234.0, precision: Precision(5));
+        final mass = milli.grams(1234.0, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -156,7 +156,7 @@ void main() {
     group('atomicMassUnits', () {
       test('converts to base', () {
         // given
-        final mass = atomicMassUnits(1.234e24, precision: Precision(5));
+        final mass = atomicMassUnits(1.234e24, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -166,7 +166,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.atomicMassUnits(1.234e27, precision: Precision(5));
+        final mass = milli.atomicMassUnits(1.234e27, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -178,7 +178,7 @@ void main() {
     group('daltons', () {
       test('converts to base', () {
         // given
-        final mass = daltons(1.0, precision: Precision(5));
+        final mass = daltons(1.0, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -188,7 +188,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.daltons(1.0, precision: Precision(5));
+        final mass = milli.daltons(1.0, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -200,7 +200,7 @@ void main() {
     group('electronRestMass', () {
       test('converts to base', () {
         // given
-        final mass = electronRestMass(1.0, precision: Precision(5));
+        final mass = electronRestMass(1.0, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -210,7 +210,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.electronRestMass(1.0, precision: Precision(5));
+        final mass = milli.electronRestMass(1.0, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -222,7 +222,7 @@ void main() {
     group('tonnes', () {
       test('converts to base', () {
         // given
-        final mass = tonnes(1.234e-6, precision: Precision(5));
+        final mass = tonnes(1.234e-6, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -232,7 +232,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.tonnes(1.234e-3, precision: Precision(5));
+        final mass = milli.tonnes(1.234e-3, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -244,7 +244,7 @@ void main() {
     group('short tons', () {
       test('converts to base', () {
         // given
-        final mass = shortTons(1.234e-6, precision: Precision(5));
+        final mass = shortTons(1.234e-6, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -254,7 +254,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.shortTons(1.234e-3, precision: Precision(5));
+        final mass = milli.shortTons(1.234e-3, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -266,7 +266,7 @@ void main() {
     group('long tons', () {
       test('converts to base', () {
         // given
-        final mass = longTons(1.234e-6, precision: Precision(5));
+        final mass = longTons(1.234e-6, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -276,7 +276,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.longTons(1.234e-3, precision: Precision(5));
+        final mass = milli.longTons(1.234e-3, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -288,7 +288,7 @@ void main() {
     group('pounds', () {
       test('converts to base', () {
         // given
-        final mass = pounds(1.234, precision: Precision(5));
+        final mass = pounds(1.234, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -298,7 +298,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.pounds(1.234e3, precision: Precision(5));
+        final mass = milli.pounds(1.234e3, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -310,7 +310,7 @@ void main() {
     group('ounces', () {
       test('converts to base', () {
         // given
-        final mass = ounces(1.234, precision: Precision(5));
+        final mass = ounces(1.234, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -320,7 +320,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final mass = milli.ounces(1.234e3, precision: Precision(5));
+        final mass = milli.ounces(1.234e3, precision: 5);
 
         // when
         final result = mass.as(grams);
@@ -353,7 +353,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = pounds(3.4).withPrecisionOf(3);
+        final measurement = pounds(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -363,7 +363,7 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.pounds(3.4).withPrecisionOf(3);
+        final measurement = milli.pounds(3.4).withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -373,7 +373,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.pounds.withPrecisionOf(3);
+        final measurement = 3.4.milli.pounds.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -383,20 +383,20 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.pounds(23.45).withPrecisionOf(3);
+        final measurement = deci.pounds(23.45).withPrecision(3);
 
         // when
-        final result = measurement.withPrecisionOf(2).toString();
+        final result = measurement.withPrecision(2).toString();
 
         // then
         expect(result, '23.0 dlb');
       });
       test('modified units', () {
         // given
-        final measurement = deci.pounds(23.45).withPrecisionOf(3);
+        final measurement = deci.pounds(23.45).withPrecision(3);
 
         // when
-        final result = measurement.withDefaultUnit(milli.tonnes).toString();
+        final result = measurement.butAs(milli.tonnes).toString();
 
         // then
         expect(result, '1.06 mt');

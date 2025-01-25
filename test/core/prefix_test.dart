@@ -15,8 +15,7 @@ void main() {
     });
     test('applies correct precision', () {
       // given
-      final measurement =
-          MeasurementPrefix(0.5).meters(1234.5, precision: Precision(3));
+      final measurement = MeasurementPrefix(0.5).meters(1234.5, precision: 3);
 
       // when
       final result = measurement.as(meters);
@@ -29,8 +28,7 @@ void main() {
   group('meters', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).meters(5.5, precision: Precision(2));
+      final measurement = MeasurementPrefix(3).meters(5.5, precision: 2);
 
       // when
       final result = measurement.as(meters);
@@ -42,8 +40,7 @@ void main() {
   group('grams', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).grams(5.5, precision: Precision(2));
+      final measurement = MeasurementPrefix(3).grams(5.5, precision: 2);
 
       // when
       final result = measurement.as(grams);
@@ -55,8 +52,7 @@ void main() {
   group('kelvin', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).kelvin(5.5, precision: Precision(2));
+      final measurement = MeasurementPrefix(3).kelvin(5.5, precision: 2);
 
       // when
       final result = measurement.as(kelvin);
@@ -68,8 +64,7 @@ void main() {
   group('seconds', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).seconds(5.5, precision: Precision(2));
+      final measurement = MeasurementPrefix(3).seconds(5.5, precision: 2);
 
       // when
       final result = measurement.as(seconds);
@@ -81,11 +76,10 @@ void main() {
   group('liters', () {
     test('creates the correct measurement', () {
       // given
-      final measurement =
-          MeasurementPrefix(3).liters(5.5, precision: Precision(2));
+      final measurement = MeasurementPrefix(3).liters(5.5).withPrecision(2);
 
       // when
-      final result = measurement.asVolume(liters);
+      final result = measurement.as(liters);
 
       // then
       expect(result, 17.0);
@@ -95,7 +89,7 @@ void main() {
   group('standard prefixes', () {
     test('quetta', () {
       // given
-      final measurement = quetta.meters(1.234, precision: Precision(8));
+      final measurement = quetta.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -105,7 +99,7 @@ void main() {
     });
     test('ronna', () {
       // given
-      final measurement = ronna.meters(1.234, precision: Precision(8));
+      final measurement = ronna.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -115,7 +109,7 @@ void main() {
     });
     test('yotta', () {
       // given
-      final measurement = yotta.meters(1.234, precision: Precision(8));
+      final measurement = yotta.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -125,7 +119,7 @@ void main() {
     });
     test('zetta', () {
       // given
-      final measurement = zetta.meters(1.234, precision: Precision(8));
+      final measurement = zetta.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -135,7 +129,7 @@ void main() {
     });
     test('exa', () {
       // given
-      final measurement = exa.meters(1.234, precision: Precision(8));
+      final measurement = exa.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -145,7 +139,7 @@ void main() {
     });
     test('peta', () {
       // given
-      final measurement = peta.meters(1.234, precision: Precision(8));
+      final measurement = peta.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -155,7 +149,7 @@ void main() {
     });
     test('tera', () {
       // given
-      final measurement = tera.meters(1.234, precision: Precision(8));
+      final measurement = tera.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -165,7 +159,7 @@ void main() {
     });
     test('giga', () {
       // given
-      final measurement = giga.meters(1.234, precision: Precision(8));
+      final measurement = giga.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -175,7 +169,7 @@ void main() {
     });
     test('mega', () {
       // given
-      final measurement = mega.meters(1.234, precision: Precision(8));
+      final measurement = mega.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -185,7 +179,7 @@ void main() {
     });
     test('kilo', () {
       // given
-      final measurement = kilo.meters(1.234, precision: Precision(8));
+      final measurement = kilo.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -195,7 +189,7 @@ void main() {
     });
     test('hecto', () {
       // given
-      final measurement = hecto.meters(1.234, precision: Precision(8));
+      final measurement = hecto.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -205,7 +199,7 @@ void main() {
     });
     test('deka', () {
       // given
-      final measurement = deka.meters(1.234, precision: Precision(8));
+      final measurement = deka.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -215,7 +209,7 @@ void main() {
     });
     test('deci', () {
       // given
-      final measurement = deci.meters(1.234, precision: Precision(8));
+      final measurement = deci.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -225,7 +219,7 @@ void main() {
     });
     test('centi', () {
       // given
-      final measurement = centi.meters(1.234, precision: Precision(8));
+      final measurement = centi.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -235,7 +229,7 @@ void main() {
     });
     test('milli', () {
       // given
-      final measurement = milli.meters(1.234, precision: Precision(8));
+      final measurement = milli.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -245,7 +239,7 @@ void main() {
     });
     test('micro', () {
       // given
-      final measurement = micro.meters(1.234, precision: Precision(8));
+      final measurement = micro.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -255,7 +249,7 @@ void main() {
     });
     test('nano', () {
       // given
-      final measurement = nano.meters(1.234, precision: Precision(8));
+      final measurement = nano.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -265,7 +259,7 @@ void main() {
     });
     test('pico', () {
       // given
-      final measurement = pico.meters(1.234, precision: Precision(8));
+      final measurement = pico.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -275,7 +269,7 @@ void main() {
     });
     test('femto', () {
       // given
-      final measurement = femto.meters(1.234, precision: Precision(8));
+      final measurement = femto.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -285,7 +279,7 @@ void main() {
     });
     test('atto', () {
       // given
-      final measurement = atto.meters(1.234, precision: Precision(8));
+      final measurement = atto.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -295,7 +289,7 @@ void main() {
     });
     test('zepto', () {
       // given
-      final measurement = zepto.meters(1.234, precision: Precision(8));
+      final measurement = zepto.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -305,7 +299,7 @@ void main() {
     });
     test('yocto', () {
       // given
-      final measurement = yocto.meters(1.234, precision: Precision(8));
+      final measurement = yocto.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -315,7 +309,7 @@ void main() {
     });
     test('ronto', () {
       // given
-      final measurement = ronto.meters(1.234, precision: Precision(8));
+      final measurement = ronto.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);
@@ -325,7 +319,7 @@ void main() {
     });
     test('quecto', () {
       // given
-      final measurement = quecto.meters(1.234, precision: Precision(8));
+      final measurement = quecto.meters(1.234, precision: 8);
 
       // when
       final result = measurement.as(meters);

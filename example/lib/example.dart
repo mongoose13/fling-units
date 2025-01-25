@@ -4,19 +4,19 @@ void main() {
   // Create an instance of the measurement you care about.
   // You may use any of several construction methods.
   // Include the precision of your measurement for best results!
-  var distanceToTheMoon = kilo.meters(382500, precision: Precision(4));
-  var distanceToSeattle = Distance.sum(
+  var distanceToTheMoon = kilo.meters(382500, precision: 4);
+  var distanceToSeattle = sum<Distance>(
     [
       miles(123),
       yards(15),
       feet(2),
       inches(4),
     ],
-    precision: Precision(3),
+    precision: 3,
   );
   var bodyTemperature = Temperature.ofFahrenheit(93.4);
-  var depthsOfMyMind = Volume.infinite();
-  var depthsOfMyPetRocksMind = Volume.zero();
+  var depthsOfMyMind = infinite(liters);
+  var depthsOfMyPetRocksMind = zero(cubic(meters));
 
   // Want syntactic sugar? Any measurement can be created from a number using
   // extensions. We recommend wrapping doubles in parenthesis for readability.
@@ -29,16 +29,14 @@ void main() {
   // divide, truncating divide, or modulo divide.
   final distanceToSeattleAndBack = distanceToSeattle * 2;
   final distanceToSeattleIfYouForgotSomethingAtHome =
-      (distanceToSeattleAndBack + distanceToSeattle)
-          .withPrecisionOf(6);
+      (distanceToSeattleAndBack + distanceToSeattle).withPrecision(6);
 
   // You can also make use of the Precision class to ensure proper significant digits.
   final bucketMagnitudeDifference =
       Precision(3).apply(myBucketSize.compareMagnitude(yourBucketSize));
   final timesYourBucketFitsInMine = myBucketSize ~/ yourBucketSize;
-  final leftOverBucketVolume = (myBucketSize % yourBucketSize)
-      .withPrecisionOf(3)
-      .withDefaultUnit(liters);
+  final leftOverBucketVolume =
+      (myBucketSize % yourBucketSize).withPrecision(3).butAs(liters);
 
   //------------------------------------------------//
 
@@ -65,13 +63,13 @@ void main() {
   //------------------------------------------------//
 
   // Inherent ordering of items allows sorting lists with the built-in methods.
-  var distances = <Distance>[
-    inches(1, precision: Precision(3)),
-    centi.meters(1, precision: Precision(3)),
-    Distance.zero(),
-    miles(1, precision: Precision(3)),
-    feet(-1, precision: Precision(3)),
-    Distance.negativeInfinite(),
+  var distances = [
+    inches(1, precision: 3),
+    centi.meters(1, precision: 3),
+    DistanceMeasurement.zero(),
+    miles(1, precision: 3),
+    feet(-1, precision: 3),
+    DistanceMeasurement.negativeInfinite(),
   ];
   print("\nThese are all out of whack: $distances");
   distances.sort();
@@ -83,44 +81,49 @@ void main() {
   print(
       "\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.as(yards)} yards because I left my driving glasses at home.");
   print(
-      "I can fit ${depthsOfMyMind.asVolume(Volume.cubic(meters))} boxes of bananas in my mind.");
+      "I can fit ${depthsOfMyMind.as(cubic(meters))} boxes of bananas in my mind.");
   print(
-      "I can fit ${depthsOfMyPetRocksMind.asVolume(Volume.cubic(meters))} boxes of bananas in my pet rock's mind.");
+      "I can fit ${depthsOfMyPetRocksMind.as(cubic(meters))} boxes of bananas in my pet rock's mind.");
 
   //------------------------------------------------//
 
   // Some of the more common derived units (e.g. Area) have full syntactic support.
-  var monitorSurfaceArea = Area.square(inches)(800, precision: Precision(4));
+  var monitorSurfaceArea = 14.inches.by(18.inches).withPrecision(4);
   print("\nMy monitor dimensions:");
-  print("${monitorSurfaceArea.asArea(Area.square(meters))} m²");
-  print("${monitorSurfaceArea.asArea(Area.square(centi.meters))} cm²");
-  print("${monitorSurfaceArea.asArea(Area.square(inches))} in²");
-  print("${monitorSurfaceArea.as(inches, inches)} in² (alternate form)");
+  print("${monitorSurfaceArea.as(square(meters))} m²");
+  print("${monitorSurfaceArea.as(square(centi.meters))} cm²");
+  print("${monitorSurfaceArea.as(square(inches))} in²");
   print(
-      "${monitorSurfaceArea.as(inches, centi.meters)} in x cm (in case you ever needed that...)");
+      "${monitorSurfaceArea.as(product2(inches, centi.meters))} in x cm (in case you ever needed that...)");
 
   // You can also build them from their component parts.
-  var oneSquareInch = Area.of(
-    inches(1, precision: Precision(3)),
-    inches(1, precision: Precision(3)),
+  var oneSquareInch = square(inches).using(
+    inches(1, precision: 3),
+    inches(1, precision: 3),
   );
   print("\nOne square inch is "
-      "${oneSquareInch.asArea(Area.square(feet))} square feet.");
+      "${oneSquareInch.as(square(feet))} square feet");
 
   //------------------------------------------------//
 
-  // Need a derived unit that isn"t specifically implemented? Build it yourself!
+  // Need a derived unit that isn't specifically implemented? Build it yourself!
   // You can also use the common derived units to create your masterpiece.
-  var fuelConsumption = distanceToSeattle.per(usGallons(2.4));
+  var fuelUsed = 2.4.usGallons;
+  var fuelEconomy = miles.per.usGallon
+      .withName("mpg")
+      .using(distanceToSeattle, fuelUsed)
+      .withPrecision(3);
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
-  print("${fuelConsumption.as(miles, usGallons)} mpg");
-  // Interpret the derived unit in any combination of component units.
-  print("${fuelConsumption.as(miles, liters)} mpl");
-  print("${fuelConsumption.as(kilo.meters, liters)} kpl");
-  print("${fuelConsumption.as(kilo.meters, usGallons)} kpg");
+  print("I get $fuelEconomy");
 
-  var coulombs = seconds(4).by(amperes(8));
-  print("My invention generates $coulombs!");
+  // Interpret the derived unit in any combination of component units.
+  print("${fuelEconomy.as(miles.per.liter)} mpl");
+  print("${fuelEconomy.as(centi.meters.per.milli.liter)} cm/ml");
+
+  // This also lets you define derived units that are a product of two simpler units.
+  var coulombs = seconds.dot.amperes.withName("coulombs");
+  var energyProduction = coulombs(3.14159);
+  print("My invention generates $energyProduction!");
 
   //------------------------------------------------//
 
@@ -128,28 +131,21 @@ void main() {
   // the "standard" short form of the unit. Measurements will make use of that
   // in their own toString() methods using whichever unit was used to
   // instantiate them. You can also change the default unit later.
-  final goldAmount = 1234.milli.grams.withPrecisionOf(4);
+  final goldAmount = 1234.milli.grams.withPrecision(4);
   print("I have $goldAmount of gold!");
   print("I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!");
-  print("I have ${goldAmount.withDefaultUnit(ounces)} of gold!");
+  print("I have ${goldAmount.butAs(ounces)} of gold!");
 
   // This is also true for derived units. The library will produce a default
   // unit name, but you can also supply your own.
-  final carSpeed = DerivedMeasurement<Distance, Time>.divide(
-    100.miles.withPrecisionOf(3),
-    1.hours.withPrecisionOf(3),
-  );
+  final carSpeed = 100.miles.per.hour.withPrecision(3);
   print("\nMy car is going $carSpeed!");
-  final carVelocity = carSpeed.withDefaultUnit(DerivedMeasurementInterpreter(
-    feet,
-    minutes,
-    true,
-    MeasurementPrefix.unit(),
-    "feet per minute",
-  ));
-  print("My car is going $carVelocity!");
   print(
-      "My car is going ${carVelocity.defaultValue} in ${carVelocity.defaultInterpreter}!");
+      "My car is going ${carSpeed.butAs(inches.per.second.withName("inches/second"))}!");
+  final carSpeedAsFPM = carSpeed.butAs(feet.per.minute);
+  print("My car is going $carSpeedAsFPM!");
+  print(
+      "My car is going ${carSpeedAsFPM.defaultValue} in ${carSpeedAsFPM.defaultUnit}!");
 
   //------------------------------------------------//
 
@@ -158,10 +154,10 @@ void main() {
   // extensions or prefixes at this time, nor is it possible to create const
   // derived units at this time.
 
-  const sizeOfMyHand = Distance(5.0, inches);
-  const massOfMyHand = Mass(1.2, pounds);
+  const sizeOfMyHand = DistanceMeasurement(5.0, inches);
+  const massOfMyHand = MassMeasurement(1.2, pounds);
   print(
-      "\nMy hand will always have a linear density of ${DerivedMeasurement.divide(massOfMyHand, sizeOfMyHand)}.");
+      "\nMy hand will always have a linear density of ${ratio(pounds, inches).using(massOfMyHand, sizeOfMyHand).withPrecision(2)}.");
 
   // Have fun!
 }

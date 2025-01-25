@@ -1,135 +1,57 @@
-part of '../../fling_units.dart';
+import 'package:fling_units/src/core/annotations.dart';
 
-/// Interprets [Time] as a specific unit.
-class TimeInterpreter extends MeasurementInterpreter<Time> {
-  @override
-  Time call(num value, {Precision precision = Precision.max}) =>
-      Time(value, this, precision);
+import 'package:fling_units/fling_units.dart' as f;
 
-  /// Constructs a [TimeInterpreter].
-  const TimeInterpreter._(
-    super.name,
-    super.multiplier, [
-    super.prefix = const MeasurementPrefix.unit(),
-  ]) : super._();
+part "../generated/time.dart";
 
-  /// Produces a [TimeInterpreter] that is a multiple of this.
-  TimeInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      TimeInterpreter._(_name, _unitMultiplier, prefix);
+@DimensionConfig(shortName: "Time")
+enum TimeConfig {
+  @UnitConfig(
+    shortName: "s",
+    singularName: "second",
+    multiplier: 1e0,
+    isSI: true,
+  )
+  seconds,
 
-  /// The interpreter for seconds.
-  static const _seconds = TimeInterpreter._('s', 1e0);
+  @UnitConfig(
+    shortName: "min",
+    singularName: "minute",
+    multiplier: 1.0 / 60.0,
+  )
+  minutes,
 
-  /// The interpreter for minutes.
-  static const _minutes = TimeInterpreter._('min', 1.0 / 60.0);
+  @UnitConfig(
+    shortName: "h",
+    singularName: "hour",
+    multiplier: 1.0 / 60.0 / 60.0,
+  )
+  hours,
 
-  /// The interpreter for hours.
-  static const _hours = TimeInterpreter._('h', 1.0 / 60.0 / 60.0);
-
-  /// The interpreter for days.
-  static const _days = TimeInterpreter._('d', 1.0 / 60.0 / 60.0 / 24.0);
+  @UnitConfig(
+    shortName: "d",
+    singularName: "day",
+    multiplier: 1.0 / 60.0 / 60.0 / 24.0,
+  )
+  days;
 }
 
-/// The interpreter for seconds.
-const seconds = TimeInterpreter._seconds;
-
-/// The interpreter for minutes.
-const minutes = TimeInterpreter._minutes;
-
-/// The interpreter for hours.
-const hours = TimeInterpreter._hours;
-
-/// The interpreter for days.
-const days = TimeInterpreter._days;
-
-/// Applies a prefix to various time units.
-mixin TimePrefix {
-  /// The interpreter for seconds.
-  TimeInterpreter get seconds => TimeInterpreter._seconds._withPrefix(_prefix);
-
-  /// The interpreter for minutes.
-  TimeInterpreter get minutes => TimeInterpreter._minutes._withPrefix(_prefix);
-
-  /// The interpreter for hours.
-  TimeInterpreter get hours => TimeInterpreter._hours._withPrefix(_prefix);
-
-  /// The interpreter for days.
-  TimeInterpreter get days => TimeInterpreter._days._withPrefix(_prefix);
-
-  /// The prefix multiplier applied to this measurement.
-  MeasurementPrefix get _prefix;
-}
-
-/// Represents a duration of time.
-///
-/// This is fairly similar to the built-in [Duration] class, but brings
-/// additional granularity to the measurement. [Duration], for instance,
-/// operates only on integer values, with the smallest granularity being
-/// microseconds.
-///
-/// It is possible to convert to this class from [Duration] instances, or to
-/// create [Duration] instances from instances of this, so long as lossy
-/// conversions are acceptable, via the [Time.ofDuration] and [Time.asDuration]
-/// methods.
-class Time extends Measurement<Time> {
-  /// The SI unit associated with this measurement.
-  static const siUnit = seconds;
-
-  /// The time of duration zero.
-  const Time.zero([super.interpreter = siUnit]) : super.zero();
-
-  /// Infinite time.
-  const Time.infinite([super.interpreter = siUnit]) : super.infinite();
-
-  /// Infinite negative time.
-  const Time.negativeInfinite([super.interpreter = siUnit])
-      : super.negativeInfinite();
-
-  /// NaN (Not a Number) time.
-  const Time.nan([super.interpreter = siUnit]) : super.nan();
-
-  /// Constructs a [Time] representing the sum of any number of other [Time]s.
-  Time.sum(super.parts, {super.precision}) : super.sum();
-
+/*
+  This first method seems incorrect
+  - we are creating a Time in seconds from input in microseconds?
+  */
+extension TimeExtension on TimeMeasurement {
   /// Constructs a [Time] from a [Duration].
-  Time.ofDuration(
+  TimeMeasurement ofDuration(
     Duration duration, {
-    Precision precision = Precision.max,
-    MeasurementInterpreter<Time> interpreter = TimeInterpreter._seconds,
-  }) : this(duration.inMicroseconds, interpreter, precision);
+    f.Precision precision = f.Precision.max,
+    f.Unit<Time> interpreter = seconds,
+  }) =>
+      TimeMeasurement(duration.inMicroseconds, interpreter, precision);
 
   /// Constructs a [Duration] based on this.
   ///
   /// Note that any granularity below microseconds will be lost.
-  Duration get asDuration => Duration(microseconds: as(micro.seconds).toInt());
-
-  /// Interprets this using the specified units.
-  double as(MeasurementInterpreter<Time> interpreter) =>
-      _preciseOf(interpreter);
-
-  @override
-  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitTime(this);
-
-  /// Constructs a [Time].
-  const Time(
-    num seconds,
-    MeasurementInterpreter<Time> interpreter, [
-    Precision precision = Precision.max,
-  ]) : super(
-          amount: seconds,
-          precision: precision,
-          interpreter: interpreter,
-        );
-
-  @override
-  Time _construct(
-    double amount,
-    MeasurementInterpreter<Time>? interpreter,
-    Precision precision,
-  ) =>
-      Time(
-        amount,
-        interpreter ?? siUnit,
-        precision,
-      );
+  Duration get asDuration =>
+      Duration(microseconds: as(f.micro.seconds).toInt());
 }

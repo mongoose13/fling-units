@@ -1,284 +1,376 @@
-part of '../../fling_units.dart';
+part of "../core/library.dart";
 
-/// Interprets [Volume]s as specific units.
-class VolumeInterpreter extends MeasurementInterpreter<Volume> {
-  @override
-  Volume call(num value, {Precision precision = Precision.max}) =>
-      Volume(value, this, precision);
+typedef VolumeDimension = f.Dimension3<f.UnitNumerator<f.Distance>,
+    f.UnitNumerator<f.Distance>, f.UnitNumerator<f.Distance>>;
 
-  /// Constructs a [VolumeInterpreter] from any three [DistanceInterpreter]s.
-  VolumeInterpreter(
-    MeasurementInterpreter<Distance> a,
-    MeasurementInterpreter<Distance> b,
-    MeasurementInterpreter<Distance> c, {
-    String? name,
-  }) : this._unitless(a, b, c, name: name);
+typedef VolumeUnit = f.DerivedUnit3<
+    UnitNumerator<f.Distance>,
+    UnitNumerator<f.Distance>,
+    UnitNumerator<f.Distance>,
+    f.Distance,
+    f.Distance,
+    f.Distance>;
 
-  /// Constructs a [VolumeInterpreter] with potentially null interpreters.
-  VolumeInterpreter._unitless(
-    MeasurementInterpreter<Distance>? a,
-    MeasurementInterpreter<Distance>? b,
-    MeasurementInterpreter<Distance>? c, {
-    String? name,
-  }) : this._(
-            name ?? '${a?._name ?? 'X'}⋅${b?._name ?? 'X'}⋅${c?._name ?? 'X'}',
-            (a?._unitMultiplier ?? 1.0) *
-                (b?._unitMultiplier ?? 1.0) *
-                (c?._unitMultiplier ?? 1.0) /
-                (a?._prefix._multiplier ?? 1.0) /
-                (b?._prefix._multiplier ?? 1.0) /
-                (c?._prefix._multiplier ?? 1.0));
+typedef VolumeMeasurement = f.Measurement<VolumeDimension>;
 
-  /// Constructs a [VolumeInterpreter] that will cube a basic
-  /// [DistanceInterpreter].
-  VolumeInterpreter.cubed(
-    DistanceInterpreter a, {
-    String? name,
-  }) : this(a, a, a, name: name ?? '${a._name}³');
+final VolumeUnit liters = f.DerivedUnit3(name: "L", unitMultiplier: 1e3);
 
-  /// Constructs a [VolumeInterpreter].
-  const VolumeInterpreter._(
-    super.name,
-    super.cubicMeters, [
-    super.prefix = const MeasurementPrefix.unit(),
-  ]) : super._();
+final VolumeUnit teaspoons =
+    f.DerivedUnit3(name: "tsp", unitMultiplier: 168936);
 
-  /// Produces a [VolumeInterpreter] that is a multiple of this.
-  VolumeInterpreter _withPrefix(MeasurementPrefix prefix) =>
-      VolumeInterpreter._(_name, _unitMultiplier, prefix);
+final VolumeUnit tablespoons =
+    f.DerivedUnit3(name: "tbsp", unitMultiplier: 56312);
 
-  /// The interpreter for liters.
-  static const _liters = VolumeInterpreter._('L', 1e3);
+final VolumeUnit fluidOunces =
+    f.DerivedUnit3(name: "fl oz", unitMultiplier: 35195.1);
 
-  /// The interpreter for teaspoons.
-  static const _teaspoons = VolumeInterpreter._('tsp', 168936);
+final VolumeUnit cups = f.DerivedUnit3(name: "cup", unitMultiplier: 3519.51);
 
-  /// The interpreter for tablespoons.
-  static const _tablespoons = VolumeInterpreter._('tbsp', 56312);
+final VolumeUnit pints = f.DerivedUnit3(name: "pt", unitMultiplier: 1759.75);
 
-  /// The interpreter for fluid ounces.
-  static const _fluidOunces = VolumeInterpreter._('fl oz', 35195.1);
+final VolumeUnit quarts = f.DerivedUnit3(name: "qt", unitMultiplier: 879.877);
 
-  /// The interpreter for cups.
-  static const _cups = VolumeInterpreter._('cup', 3519.51);
+final VolumeUnit gallons = f.DerivedUnit3(name: "gal", unitMultiplier: 219.969);
 
-  /// The interpreter for pints.
-  static const _pints = VolumeInterpreter._('pt', 1759.75);
+final VolumeUnit usTeaspoons =
+    f.DerivedUnit3(name: "tsp", unitMultiplier: 202884);
 
-  /// The interpreter for quarts.
-  static const _quarts = VolumeInterpreter._('qt', 879.877);
+final VolumeUnit usTablespoons =
+    f.DerivedUnit3(name: "tbsp", unitMultiplier: 67628);
 
-  /// The interpreter for gallons.
-  static const _gallons = VolumeInterpreter._('gal', 219.969);
+final VolumeUnit usFluidOunces =
+    f.DerivedUnit3(name: "fl oz", unitMultiplier: 33814);
 
-  /// The interpreter for US teaspoons.
-  static const _usTeaspoons = VolumeInterpreter._('us tsp', 202884);
+final VolumeUnit usCups = f.DerivedUnit3(name: "cup", unitMultiplier: 4226.76);
 
-  /// The interpreter for US tablespoons.
-  static const _usTablespoons = VolumeInterpreter._('us tbsp', 67628);
+final VolumeUnit usPints = f.DerivedUnit3(name: "pt", unitMultiplier: 2113.38);
 
-  /// The interpreter for US fluid ounces.
-  static const _usFluidOunces = VolumeInterpreter._('us fl oz', 33814);
+final VolumeUnit usQuarts = f.DerivedUnit3(name: "qt", unitMultiplier: 1056.69);
 
-  /// The interpreter for US cups.
-  static const _usCups = VolumeInterpreter._('us cup', 4226.76);
+final VolumeUnit usGallons =
+    f.DerivedUnit3(name: "gal", unitMultiplier: 264.172);
 
-  /// The interpreter for US pints.
-  static const _usPints = VolumeInterpreter._('us pt', 2113.38);
+final VolumeUnit usLegalCups =
+    f.DerivedUnit3(name: "legal cup", unitMultiplier: 4166.67);
 
-  /// The interpreter for US quarts.
-  static const _usQuarts = VolumeInterpreter._('us qt', 1056.69);
-
-  /// The interpreter for US gallons.
-  static const _usGallons = VolumeInterpreter._('us gal', 264.172);
-
-  /// The interpreter for US legal cups.
-  static const _usLegalCups = VolumeInterpreter._('legal cup', 4166.67);
+extension VolumeExtensionNum on num {
+  VolumeMeasurement get liters => f.liters(this);
+  VolumeMeasurement get teaspoons => f.teaspoons(this);
+  VolumeMeasurement get tablespoons => f.tablespoons(this);
+  VolumeMeasurement get fluidOunces => f.fluidOunces(this);
+  VolumeMeasurement get cups => f.cups(this);
+  VolumeMeasurement get pints => f.pints(this);
+  VolumeMeasurement get quarts => f.quarts(this);
+  VolumeMeasurement get gallons => f.gallons(this);
+  VolumeMeasurement get usTeaspoons => f.usTeaspoons(this);
+  VolumeMeasurement get usTablespoons => f.usTablespoons(this);
+  VolumeMeasurement get usFluidOunces => f.usFluidOunces(this);
+  VolumeMeasurement get usCups => f.usCups(this);
+  VolumeMeasurement get usPints => f.usPints(this);
+  VolumeMeasurement get usQuarts => f.usQuarts(this);
+  VolumeMeasurement get usGallons => f.usGallons(this);
+  VolumeMeasurement get usLegalCups => f.usLegalCups(this);
 }
 
-/// The interpreter for liters.
-const liters = VolumeInterpreter._liters;
-
-/// The interpreter for teaspoons.
-const teaspoons = VolumeInterpreter._teaspoons;
-
-/// The interpreter for tablespoons.
-const tablespoons = VolumeInterpreter._tablespoons;
-
-/// The interpreter for fluid ounces.
-const fluidOunces = VolumeInterpreter._fluidOunces;
-
-/// The interpreter for cups.
-const cups = VolumeInterpreter._cups;
-
-/// The interpreter for pints.
-const pints = VolumeInterpreter._pints;
-
-/// The interpreter for quarts.
-const quarts = VolumeInterpreter._quarts;
-
-/// The interpreter for gallons.
-const gallons = VolumeInterpreter._gallons;
-
-/// The interpreter for US teaspoons.
-const usTeaspoons = VolumeInterpreter._usTeaspoons;
-
-/// The interpreter for US tablespoons.
-const usTablespoons = VolumeInterpreter._usTablespoons;
-
-/// The interpreter for US fluid ounces.
-const usFluidOunces = VolumeInterpreter._usFluidOunces;
-
-/// The interpreter for US cups.
-const usCups = VolumeInterpreter._usCups;
-
-/// The interpreter for US pints.
-const usPints = VolumeInterpreter._usPints;
-
-/// The interpreter for US quarts.
-const usQuarts = VolumeInterpreter._usQuarts;
-
-/// The interpreter for US gallons.
-const usGallons = VolumeInterpreter._usGallons;
-
-/// The interpreter for US legal cups.
-const usLegalCups = VolumeInterpreter._usLegalCups;
-
-/// Applies a prefix to various volume units.
-mixin VolumePrefix {
-  /// Applies this to a liter amount.
-  VolumeInterpreter get liters =>
-      VolumeInterpreter._liters._withPrefix(_prefix);
-
-  /// Applies this to a teaspoon amount.
-  VolumeInterpreter get teaspoons =>
-      VolumeInterpreter._teaspoons._withPrefix(_prefix);
-
-  /// Applies this to a tablespoon amount.
-  VolumeInterpreter get tablespoons =>
-      VolumeInterpreter._tablespoons._withPrefix(_prefix);
-
-  /// Applies this to a fluid ounce amount.
-  VolumeInterpreter get fluidOunces =>
-      VolumeInterpreter._fluidOunces._withPrefix(_prefix);
-
-  /// Applies this to a cup amount.
-  VolumeInterpreter get cups => VolumeInterpreter._cups._withPrefix(_prefix);
-
-  /// Applies this to a pint amount.
-  VolumeInterpreter get pints => VolumeInterpreter._pints._withPrefix(_prefix);
-
-  /// Applies this to a quart amount.
-  VolumeInterpreter get quarts =>
-      VolumeInterpreter._quarts._withPrefix(_prefix);
-
-  /// Applies this to a gallon amount.
-  VolumeInterpreter get gallons =>
-      VolumeInterpreter._gallons._withPrefix(_prefix);
-
-  /// Applies this to a US teaspoon amount.
-  VolumeInterpreter get usTeaspoons =>
-      VolumeInterpreter._usTeaspoons._withPrefix(_prefix);
-
-  /// Applies this to a US tablespoon amount.
-  VolumeInterpreter get usTablespoons =>
-      VolumeInterpreter._usTablespoons._withPrefix(_prefix);
-
-  /// Applies this to a US fluid ounce amount.
-  VolumeInterpreter get usFluidOunces =>
-      VolumeInterpreter._usFluidOunces._withPrefix(_prefix);
-
-  /// Applies this to a US cup amount.
-  VolumeInterpreter get usCups =>
-      VolumeInterpreter._usCups._withPrefix(_prefix);
-
-  /// Applies this to a US pint amount.
-  VolumeInterpreter get usPints =>
-      VolumeInterpreter._usPints._withPrefix(_prefix);
-
-  /// Applies this to a US quart amount.
-  VolumeInterpreter get usQuarts =>
-      VolumeInterpreter._usQuarts._withPrefix(_prefix);
-
-  /// Applies this to a US gallon amount.
-  VolumeInterpreter get usGallons =>
-      VolumeInterpreter._usGallons._withPrefix(_prefix);
-
-  /// Applies this to a US legal cup amount.
-  VolumeInterpreter get usLegalCups =>
-      VolumeInterpreter._usLegalCups._withPrefix(_prefix);
-
-  /// The prefix multiplier applied to this measurement.
-  MeasurementPrefix get _prefix;
+extension VolumeNumExtension on f.NumExtension {
+  VolumeMeasurement get liters => f.liters.withPrefix(_prefix)(_value);
+  VolumeMeasurement get teaspoons => f.teaspoons.withPrefix(_prefix)(_value);
+  VolumeMeasurement get tablespoons =>
+      f.tablespoons.withPrefix(_prefix)(_value);
+  VolumeMeasurement get fluidOunces =>
+      f.fluidOunces.withPrefix(_prefix)(_value);
+  VolumeMeasurement get cups => f.cups.withPrefix(_prefix)(_value);
+  VolumeMeasurement get pints => f.pints.withPrefix(_prefix)(_value);
+  VolumeMeasurement get quarts => f.quarts.withPrefix(_prefix)(_value);
+  VolumeMeasurement get gallons => f.gallons.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usTeaspoons =>
+      f.usTeaspoons.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usTablespoons =>
+      f.usTablespoons.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usFluidOunces =>
+      f.usFluidOunces.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usCups => f.usCups.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usPints => f.usPints.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usQuarts => f.usQuarts.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usGallons => f.usGallons.withPrefix(_prefix)(_value);
+  VolumeMeasurement get usLegalCups =>
+      f.usLegalCups.withPrefix(_prefix)(_value);
 }
 
-/// Represents a three-dimensional space.
-class Volume extends Measurement<Volume> {
-  /// The SI unit associated with this measurement.
-  static const siUnit = liters;
+extension VolumeMeasurementPrefix on MeasurementPrefix {
+  VolumeUnit get liters => f.liters.withPrefix(prefix);
+  VolumeUnit get teaspoons => f.teaspoons.withPrefix(prefix);
+  VolumeUnit get tablespoons => f.tablespoons.withPrefix(prefix);
+  VolumeUnit get fluidOunces => f.fluidOunces.withPrefix(prefix);
+  VolumeUnit get cups => f.cups.withPrefix(prefix);
+  VolumeUnit get pints => f.pints.withPrefix(prefix);
+  VolumeUnit get quarts => f.quarts.withPrefix(prefix);
+  VolumeUnit get gallons => f.gallons.withPrefix(prefix);
+  VolumeUnit get usTeaspoons => f.usTeaspoons.withPrefix(prefix);
+  VolumeUnit get usTablespoons => f.usTablespoons.withPrefix(prefix);
+  VolumeUnit get usFluidOunces => f.usFluidOunces.withPrefix(prefix);
+  VolumeUnit get usCups => f.usCups.withPrefix(prefix);
+  VolumeUnit get usPints => f.usPints.withPrefix(prefix);
+  VolumeUnit get usQuarts => f.usQuarts.withPrefix(prefix);
+  VolumeUnit get usGallons => f.usGallons.withPrefix(prefix);
+  VolumeUnit get usLegalCups => f.usLegalCups.withPrefix(prefix);
+}
 
-  /// Produces an interpreter for the cube of a provided unit.
-  static VolumeInterpreter cubic(DistanceInterpreter distanceInterpreter) =>
-      VolumeInterpreter.cubed(distanceInterpreter);
+extension VolumeUnitPer<N extends Unit<D>, D extends Dimension>
+    on PrefixedUnitPer<N, D> {
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get liter => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(liters.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get teaspoon => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(teaspoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get tablespoon => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(tablespoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get fluidOunce => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(fluidOunces.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get cup => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(cups.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get pint => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(pints.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get quart => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(quarts.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get gallon => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(gallons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usTeaspoon => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usTeaspoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usTablespoon => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usTablespoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usFluidOunce => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usFluidOunces.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usCup => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usCups.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usPint => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usPints.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usQuart => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usQuarts.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usGallon => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usGallons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitDenominator<VolumeDimension>, D,
+          VolumeDimension>
+      get usLegalCup => f.DerivedUnit2.build(f.UnitNumerator(numerator),
+          f.UnitDenominator(usLegalCups.withPrefix(prefix)));
+}
 
-  /// The volume of size zero.
-  const Volume.zero([super.interpreter = siUnit]) : super.zero();
+extension VolumeMeasurementPer<N extends Measurement<D>, D extends Dimension>
+    on PrefixedMeasurementPer<N, D> {
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get liter => ratio(numerator.defaultUnit, liters)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get teaspoon =>
+          ratio(numerator.defaultUnit, teaspoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get tablespoon =>
+          ratio(numerator.defaultUnit, tablespoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get fluidOunce =>
+          ratio(numerator.defaultUnit, fluidOunces)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get cup => ratio(numerator.defaultUnit, cups)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get pint => ratio(numerator.defaultUnit, pints)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get quart => ratio(numerator.defaultUnit, quarts)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get gallon =>
+          ratio(numerator.defaultUnit, gallons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usTeaspoon =>
+          ratio(numerator.defaultUnit, usTeaspoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usTablespoon =>
+          ratio(numerator.defaultUnit, usTablespoons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usFluidOunce =>
+          ratio(numerator.defaultUnit, usFluidOunces)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usCup => ratio(numerator.defaultUnit, usCups)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usPint =>
+          ratio(numerator.defaultUnit, usPints)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usQuart =>
+          ratio(numerator.defaultUnit, usQuarts)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usGallon =>
+          ratio(numerator.defaultUnit, usGallons)(numerator.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<VolumeDimension>>>
+      get usLegalCup =>
+          ratio(numerator.defaultUnit, usLegalCups)(numerator.defaultValue);
+}
 
-  /// Infinite volume.
-  const Volume.infinite([super.interpreter = siUnit]) : super.infinite();
+extension VolumeUnitDot<N extends Unit<D>, D extends Dimension>
+    on PrefixedUnitDot<N, D> {
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get liter => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(liters.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get teaspoon => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(teaspoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get tablespoon => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(tablespoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get fluidOunce => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(fluidOunces.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get cup => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(cups.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get pint => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(pints.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get quart => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(quarts.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get gallon => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(gallons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usTeaspoon => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(usTeaspoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usTablespoon => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(usTablespoons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usFluidOunce => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(usFluidOunces.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usCup => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(usCups.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usPint => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(usPints.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usQuart => f.DerivedUnit2.build(
+          f.UnitNumerator(first), f.UnitNumerator(usQuarts.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usGallon => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(usGallons.withPrefix(prefix)));
+  f.DerivedUnit2<UnitNumerator<D>, UnitNumerator<VolumeDimension>, D,
+          VolumeDimension>
+      get usLegalCup => f.DerivedUnit2.build(f.UnitNumerator(first),
+          f.UnitNumerator(usLegalCups.withPrefix(prefix)));
+}
 
-  /// Infinite negative volume.
-  const Volume.negativeInfinite([super.interpreter = siUnit])
-      : super.negativeInfinite();
-
-  /// NaN (Not a Number) volume.
-  const Volume.nan([super.interpreter = siUnit]) : super.nan();
-
-  /// Constructs a [Volume] representing the sum of any number of other
-  /// [Volume]s.
-  Volume.sum(super.parts, {super.precision}) : super.sum();
-
-  /// Constructs a [Volume] from three [Distance] measurements.
-  Volume.of(Distance a, Distance b, Distance c)
-      : this(
-          a.defaultValue * b.defaultValue * c.defaultValue,
-          VolumeInterpreter._unitless(
-              a.defaultInterpreter, b.defaultInterpreter, c.defaultInterpreter),
-          Precision.combine([a._precision, b._precision, c._precision]),
-        );
-
-  /// Interprets this in the specified units.
-  double as(DistanceInterpreter a, DistanceInterpreter b,
-          DistanceInterpreter c) =>
-      _precise(a._of(b._of(c._of(si))));
-
-  /// Interprets this in the specified volume unit.
-  double asVolume(MeasurementInterpreter<Volume> interpreter) =>
-      _preciseOf(interpreter);
-
-  @override
-  void acceptVisitor(MeasurementVisitor visitor) => visitor.visitVolume(this);
-
-  /// Constructs a [Volume].
-  const Volume(
-    num amount,
-    MeasurementInterpreter<Volume> interpreter, [
-    Precision precision = Precision.max,
-  ]) : super(
-          amount: amount,
-          precision: precision,
-          interpreter: interpreter,
-        );
-
-  @override
-  Volume _construct(
-    double amount,
-    MeasurementInterpreter<Volume>? interpreter,
-    Precision precision,
-  ) =>
-      Volume(
-        amount,
-        interpreter ?? siUnit,
-        precision,
-      );
+extension VolumeMeasurementDot<N extends Measurement<D>, D extends Dimension>
+    on PrefixedMeasurementDot<N, D> {
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get liter => product2(first.defaultUnit, liters)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get teaspoon =>
+          product2(first.defaultUnit, teaspoons)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get tablespoon =>
+          product2(first.defaultUnit, tablespoons)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get fluidOunce =>
+          product2(first.defaultUnit, fluidOunces)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get cup => product2(first.defaultUnit, cups)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get pint => product2(first.defaultUnit, pints)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get quart => product2(first.defaultUnit, quarts)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get gallon => product2(first.defaultUnit, gallons)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usTeaspoon =>
+          product2(first.defaultUnit, usTeaspoons)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usTablespoon =>
+          product2(first.defaultUnit, usTablespoons)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usFluidOunce =>
+          product2(first.defaultUnit, usFluidOunces)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usCup => product2(first.defaultUnit, usCups)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usPint => product2(first.defaultUnit, usPints)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usQuart => product2(first.defaultUnit, usQuarts)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usGallon =>
+          product2(first.defaultUnit, usGallons)(first.defaultValue);
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<VolumeDimension>>>
+      get usLegalCup =>
+          product2(first.defaultUnit, usLegalCups)(first.defaultValue);
 }
