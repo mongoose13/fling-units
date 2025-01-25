@@ -120,13 +120,8 @@ void main() {
   print("${fuelEconomy.as(miles.per.liter)} mpl");
   print("${fuelEconomy.as(centi.meters.per.milli.liter)} cm/ml");
 
-  // This also works for derived units that are a product of two simpler units.
-  var torque = pounds.dot.feet;
-  var myTorque = torque.using(3.kilo.grams, 2.meters).withPrecision(3);
-  print("I can apply $myTorque of torque with my trusty crowbar.");
-
-  // Define your own units:
-  var coulombs = seconds.per.ampere.withName("coulombs");
+  // This also lets you define derived units that are a product of two simpler units.
+  var coulombs = seconds.dot.amperes.withName("coulombs");
   var energyProduction = coulombs(3.14159);
   print("My invention generates $energyProduction!");
 
