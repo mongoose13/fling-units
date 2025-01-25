@@ -52,6 +52,10 @@ us know how we can improve **fling_units** by creating an issue!
   other design goals, but we will keep the library as small and unobtrusive as
   possible.
 
+## Further documentation
+
+For additional documentation, check the [project wiki](https://bitbucket.org/mongoose13/fling-units/wiki/browse/).
+
 ## Usage
 
 Create a measurement using any standard unit:
