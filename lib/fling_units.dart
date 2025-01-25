@@ -62,7 +62,7 @@
 /// ```dart
 /// Distance.miles(3.0, precision: 2).kilometers; // 4.8, not 4.82803...
 /// ```
-library fling_units;
+library;
 
 export "src/generated/library.dart";
 

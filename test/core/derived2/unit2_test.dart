@@ -351,8 +351,10 @@ void main() {
         // then
         expect(result.as(newtons), 1.0);
         expect(result.as(ratio(grams.dot.meters, square(seconds))), 1000.0);
-        expect(result.as(ratio(kilo.grams.dot.deka.meters, square(seconds))), 0.1);
-        expect(result.as(ratio(kilo.grams.dot.meters, square(minutes))), 3600.0);
+        expect(
+            result.as(ratio(kilo.grams.dot.deka.meters, square(seconds))), 0.1);
+        expect(
+            result.as(ratio(kilo.grams.dot.meters, square(minutes))), 3600.0);
       });
     });
   });
