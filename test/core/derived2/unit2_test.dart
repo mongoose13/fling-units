@@ -339,5 +339,21 @@ void main() {
         expect(unit.multiplier, closeTo(8.64, 0.005));
       });
     });
+
+    group("sample derived units", () {
+      test("newtons", () {
+        // given
+        final newtons = ratio(kilo.grams.dot.meters, square(seconds));
+
+        // when
+        final result = newtons(1);
+
+        // then
+        expect(result.as(newtons), 1.0);
+        expect(result.as(ratio(grams.dot.meters, square(seconds))), 1000.0);
+        expect(result.as(ratio(kilo.grams.dot.deka.meters, square(seconds))), 0.1);
+        expect(result.as(ratio(kilo.grams.dot.meters, square(minutes))), 3600.0);
+      });
+    });
   });
 }
