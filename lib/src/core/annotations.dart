@@ -1,7 +1,7 @@
-class MeasurementConfig {
+class DimensionConfig {
   final String shortName;
 
-  const MeasurementConfig({
+  const DimensionConfig({
     required this.shortName,
   });
 }

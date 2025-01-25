@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/pressure.dart";
 
-@MeasurementConfig(shortName: "Pressure")
+@DimensionConfig(shortName: "Pressure")
 enum PressureConfig {
   @UnitConfig(
     shortName: "Pa",

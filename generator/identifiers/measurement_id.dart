@@ -17,7 +17,7 @@ class MeasurementIdentifierBuilder extends Builder {
     if (!await resolver.isLibrary(buildStep.inputId)) return;
     final library = LibraryReader(await buildStep.inputLibrary);
     final measurements =
-        library.annotatedWithExact(TypeChecker.fromRuntime(MeasurementConfig));
+        library.annotatedWithExact(TypeChecker.fromRuntime(DimensionConfig));
     if (measurements.isNotEmpty) {
       final unitChecker = TypeChecker.fromRuntime(UnitConfig);
       buildStep.writeAsString(

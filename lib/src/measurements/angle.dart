@@ -6,7 +6,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/angle.dart";
 
-@MeasurementConfig(shortName: "Angle")
+@DimensionConfig(shortName: "Angle")
 enum AngleConfig {
   @UnitConfig(
     shortName: "turn",

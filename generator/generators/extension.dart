@@ -18,7 +18,7 @@ Builder extensionBuilder(BuilderOptions options) {
 /// a = 5.miles;
 /// b = (2.3).kilo.meters;
 /// ```
-class ExtensionGenerator extends GeneratorForAnnotation<MeasurementConfig> {
+class ExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
   final BuilderOptions builderOptions;
 
   ExtensionGenerator(this.builderOptions);

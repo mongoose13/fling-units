@@ -10,7 +10,7 @@ Builder measurementBuilder(BuilderOptions options) {
   return SharedPartBuilder([MeasurementGenerator(options)], 'measurement');
 }
 
-class MeasurementGenerator extends GeneratorForAnnotation<MeasurementConfig> {
+class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
   final BuilderOptions builderOptions;
 
   MeasurementGenerator(this.builderOptions);

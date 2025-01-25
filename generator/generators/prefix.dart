@@ -10,7 +10,7 @@ Builder prefixBuilder(BuilderOptions options) {
   return SharedPartBuilder([PrefixGenerator(options)], 'prefix');
 }
 
-class PrefixGenerator extends GeneratorForAnnotation<MeasurementConfig> {
+class PrefixGenerator extends GeneratorForAnnotation<DimensionConfig> {
   final BuilderOptions builderOptions;
 
   PrefixGenerator(this.builderOptions);
