@@ -3,6 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'package:fling_units/src/core/annotations.dart';
@@ -40,7 +41,8 @@ class FlingBuilder {
 
   void write(String line) => _buffer.writeln(line);
 
-  String flush() => DartFormatter().format(_buffer.toString());
+  String flush() => DartFormatter(languageVersion: Version(3, 0, 0))
+      .format(_buffer.toString());
 }
 
 class FlingPrefixBuilder extends FlingBuilder {
