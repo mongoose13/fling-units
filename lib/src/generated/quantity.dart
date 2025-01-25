@@ -85,6 +85,17 @@ class QuantityMeasurement extends f.Measurement<Quantity> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  QuantityMeasurement.sum(
+    Iterable<f.Measurement<Quantity>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const QuantityMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const QuantityMeasurement.infinite([super.unit = siUnit]) : super.infinite();
@@ -97,7 +108,7 @@ class QuantityMeasurement extends f.Measurement<Quantity> {
   static const f.Unit<Quantity> siUnit = units;
 
   @override
-  construct(
+  f.QuantityMeasurement construct(
     num magnitude,
     f.Unit<Quantity> defaultUnit,
     f.Precision precision,
@@ -123,6 +134,11 @@ class QuantityMeasurement extends f.Measurement<Quantity> {
       by<D extends f.Dimension>(f.Measurement<D> term) =>
           f.product2<Quantity, D>(defaultUnit, term.defaultUnit)(
               defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.QuantityMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

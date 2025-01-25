@@ -78,6 +78,17 @@ class ChargeMeasurement extends f.Measurement<Charge> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  ChargeMeasurement.sum(
+    Iterable<f.Measurement<Charge>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const ChargeMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const ChargeMeasurement.infinite([super.unit = siUnit]) : super.infinite();
@@ -90,7 +101,7 @@ class ChargeMeasurement extends f.Measurement<Charge> {
   static const f.Unit<Charge> siUnit = amperes;
 
   @override
-  construct(
+  f.ChargeMeasurement construct(
     num magnitude,
     f.Unit<Charge> defaultUnit,
     f.Precision precision,
@@ -113,6 +124,11 @@ class ChargeMeasurement extends f.Measurement<Charge> {
   f.Measurement<f.Dimension2<f.UnitNumerator<Charge>, f.UnitNumerator<D>>>
       by<D extends f.Dimension>(f.Measurement<D> term) => f.product2<Charge, D>(
           defaultUnit, term.defaultUnit)(defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.ChargeMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

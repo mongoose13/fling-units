@@ -136,6 +136,17 @@ class PressureMeasurement extends f.Measurement<Pressure> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  PressureMeasurement.sum(
+    Iterable<f.Measurement<Pressure>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const PressureMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const PressureMeasurement.infinite([super.unit = siUnit]) : super.infinite();
@@ -148,7 +159,7 @@ class PressureMeasurement extends f.Measurement<Pressure> {
   static const f.Unit<Pressure> siUnit = pascals;
 
   @override
-  construct(
+  f.PressureMeasurement construct(
     num magnitude,
     f.Unit<Pressure> defaultUnit,
     f.Precision precision,
@@ -174,6 +185,11 @@ class PressureMeasurement extends f.Measurement<Pressure> {
       by<D extends f.Dimension>(f.Measurement<D> term) =>
           f.product2<Pressure, D>(defaultUnit, term.defaultUnit)(
               defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.PressureMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

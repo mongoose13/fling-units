@@ -4,11 +4,10 @@ part of "library.dart";
 class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// Creates a base measurement.
   const Measurement({
-    required num magnitude,
+    required this.magnitude,
     required this.defaultUnit,
     Precision precision = Precision.max,
-  })  : _magnitude = magnitude,
-        precisionData = precision;
+  }) : precisionData = precision;
 
   /// Creates a measurement of magnitude zero.
   const Measurement.zero(Unit<D> defaultUnit)
@@ -74,30 +73,30 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// by the default [Unit].
   ///
   /// This is equivalent to `as(defaultUnit)`.
-  double get defaultValue => _precise(_magnitude);
+  double get defaultValue => _precise(magnitude);
 
   /// The measurement's value in the SI unit.
-  double get si => defaultUnit.from(_magnitude);
+  double get si => defaultUnit.from(magnitude);
 
   /// Returns `true` if this measurement is negative.
-  bool get isNegative => _magnitude.isNegative;
+  bool get isNegative => magnitude.isNegative;
 
   /// Returns `true` if this measurement is infinite (either positive or
   /// negative).
-  bool get isInfinite => _magnitude.isInfinite;
+  bool get isInfinite => magnitude.isInfinite;
 
   /// Returns `true` if this measurement is finite.
-  bool get isFinite => _magnitude.isFinite;
+  bool get isFinite => magnitude.isFinite;
 
   /// Returns `true` if this measurement cannot be expressed as a number.
-  bool get isNaN => _magnitude.isNaN;
+  bool get isNaN => magnitude.isNaN;
 
   /// Returns the number of digits of precision this measurement has.
   int get precision => precisionData.precision;
 
   /// Creates an equivalent measurement with the specified precision (significant digits).
   Measurement<D> withPrecision(int precision) =>
-      construct(_magnitude.toDouble(), defaultUnit, Precision(precision));
+      construct(magnitude.toDouble(), defaultUnit, Precision(precision));
 
   /// Returns whether two measurements are functionally identical.
   ///
@@ -249,7 +248,7 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
       construct(unit.of(si), unit, precisionData);
 
   /// The value of this measurement in the default unit.
-  final num _magnitude;
+  final num magnitude;
 
   /// The precision of this measurement.
   final Precision precisionData;

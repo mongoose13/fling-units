@@ -97,6 +97,17 @@ class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  TemperatureChangeMeasurement.sum(
+    Iterable<f.Measurement<TemperatureChange>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const TemperatureChangeMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const TemperatureChangeMeasurement.infinite([super.unit = siUnit])
@@ -110,7 +121,7 @@ class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
   static const f.Unit<TemperatureChange> siUnit = kelvin;
 
   @override
-  construct(
+  f.TemperatureChangeMeasurement construct(
     num magnitude,
     f.Unit<TemperatureChange> defaultUnit,
     f.Precision precision,
@@ -139,6 +150,11 @@ class TemperatureChangeMeasurement extends f.Measurement<TemperatureChange> {
       by<D extends f.Dimension>(f.Measurement<D> term) =>
           f.product2<TemperatureChange, D>(defaultUnit, term.defaultUnit)(
               defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.TemperatureChangeMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

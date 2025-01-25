@@ -70,6 +70,39 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
           )
           ..constructors.add(
             Constructor(
+              (sum) => sum
+                ..docs.add(
+                    "/// Creates a measurement that is the sum of several measurements.")
+                ..name = "sum"
+                ..requiredParameters.add(
+                  Parameter(
+                    (parts) => parts
+                      ..name = "parts"
+                      ..type = Reference(
+                          "Iterable<f.Measurement<${builder.dimensionName}>>"),
+                  ),
+                )
+                ..optionalParameters.add(
+                  Parameter(
+                    (precision) => precision
+                      ..name = "precision"
+                      ..type = Reference("int")
+                      ..defaultTo = Code("f.Precision.maximumPrecision")
+                      ..named = true,
+                  ),
+                )
+                ..initializers.add(
+                  Code("super("
+                      "magnitude: parts.first.defaultUnit.of(parts.fold("
+                      "0.0, (previousValue, element) => previousValue + element.si)),"
+                      "precision: f.Precision(precision),"
+                      "defaultUnit: parts.first.defaultUnit,"
+                      ")"),
+                ),
+            ),
+          )
+          ..constructors.add(
+            Constructor(
               (zero) => zero
                 ..constant = true
                 ..name = "zero"
@@ -138,6 +171,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                 ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
                 ..lambda = true
                 ..name = "construct"
+                ..returns = builder.measurementType
                 ..requiredParameters.add(
                   Parameter(
                     (magnitude) => magnitude
@@ -235,6 +269,26 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                 ..body = Code(
                     "f.product2<${builder.dimensionName}, D>(defaultUnit, term.defaultUnit)"
                     "(defaultValue, term.defaultValue)"),
+            ),
+          )
+          ..methods.add(
+            Method(
+              (withPrecision) => withPrecision
+                ..docs.add(
+                    "/// Creates an equivalent measurement with the specified precision (significant digits).")
+                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
+                ..name = "withPrecision"
+                ..returns = builder.measurementType
+                ..requiredParameters.add(
+                  Parameter(
+                    (precision) => precision
+                      ..name = "precision"
+                      ..type = Reference("int"),
+                  ),
+                )
+                ..lambda = true
+                ..body = Code(
+                    "construct(magnitude.toDouble(), defaultUnit, f.Precision(precision))"),
             ),
           ),
       ),

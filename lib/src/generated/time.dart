@@ -99,6 +99,17 @@ class TimeMeasurement extends f.Measurement<Time> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  TimeMeasurement.sum(
+    Iterable<f.Measurement<Time>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const TimeMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const TimeMeasurement.infinite([super.unit = siUnit]) : super.infinite();
@@ -111,7 +122,7 @@ class TimeMeasurement extends f.Measurement<Time> {
   static const f.Unit<Time> siUnit = seconds;
 
   @override
-  construct(
+  f.TimeMeasurement construct(
     num magnitude,
     f.Unit<Time> defaultUnit,
     f.Precision precision,
@@ -134,6 +145,11 @@ class TimeMeasurement extends f.Measurement<Time> {
   f.Measurement<f.Dimension2<f.UnitNumerator<Time>, f.UnitNumerator<D>>>
       by<D extends f.Dimension>(f.Measurement<D> term) => f.product2<Time, D>(
           defaultUnit, term.defaultUnit)(defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.TimeMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

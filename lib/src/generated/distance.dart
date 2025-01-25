@@ -113,6 +113,17 @@ class DistanceMeasurement extends f.Measurement<Distance> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  DistanceMeasurement.sum(
+    Iterable<f.Measurement<Distance>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const DistanceMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const DistanceMeasurement.infinite([super.unit = siUnit]) : super.infinite();
@@ -125,7 +136,7 @@ class DistanceMeasurement extends f.Measurement<Distance> {
   static const f.Unit<Distance> siUnit = meters;
 
   @override
-  construct(
+  f.DistanceMeasurement construct(
     num magnitude,
     f.Unit<Distance> defaultUnit,
     f.Precision precision,
@@ -151,6 +162,11 @@ class DistanceMeasurement extends f.Measurement<Distance> {
       by<D extends f.Dimension>(f.Measurement<D> term) =>
           f.product2<Distance, D>(defaultUnit, term.defaultUnit)(
               defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.DistanceMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

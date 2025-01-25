@@ -53,6 +53,7 @@ class DerivedUnit2<
   Measurement<Dimension2<P1, P2>> call(
     num a, [
     num? b,
+    Precision? precision,
   ]) =>
       Measurement(
         magnitude: b == null
@@ -60,6 +61,7 @@ class DerivedUnit2<
             : UnitPosition.typeMultiplier<P1>(a) *
                 UnitPosition.typeMultiplier<P2>(b),
         defaultUnit: this,
+        precision: precision ?? Precision.max,
       );
 
   /// Creates a [Measurement] from this [Unit] using existing [Measurement]s of

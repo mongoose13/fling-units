@@ -45,6 +45,7 @@ class DerivedUnit3<
     num a, [
     num? b,
     num? c,
+    Precision? precision,
   ]) =>
       Measurement(
         magnitude: b == null
@@ -53,6 +54,7 @@ class DerivedUnit3<
                 UnitPosition.typeMultiplier(b) *
                 UnitPosition.typeMultiplier(c),
         defaultUnit: this,
+        precision: precision ?? Precision.max,
       );
 
   /// Creates a [Measurement] from this [Unit] using existing [Measurement]s of

@@ -113,6 +113,17 @@ class AngleMeasurement extends f.Measurement<Angle> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  AngleMeasurement.sum(
+    Iterable<f.Measurement<Angle>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const AngleMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const AngleMeasurement.infinite([super.unit = siUnit]) : super.infinite();
@@ -125,7 +136,7 @@ class AngleMeasurement extends f.Measurement<Angle> {
   static const f.Unit<Angle> siUnit = turns;
 
   @override
-  construct(
+  f.AngleMeasurement construct(
     num magnitude,
     f.Unit<Angle> defaultUnit,
     f.Precision precision,
@@ -148,6 +159,11 @@ class AngleMeasurement extends f.Measurement<Angle> {
   f.Measurement<f.Dimension2<f.UnitNumerator<Angle>, f.UnitNumerator<D>>>
       by<D extends f.Dimension>(f.Measurement<D> term) => f.product2<Angle, D>(
           defaultUnit, term.defaultUnit)(defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.AngleMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

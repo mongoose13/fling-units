@@ -134,6 +134,17 @@ class MassMeasurement extends f.Measurement<Mass> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  MassMeasurement.sum(
+    Iterable<f.Measurement<Mass>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const MassMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const MassMeasurement.infinite([super.unit = siUnit]) : super.infinite();
@@ -146,7 +157,7 @@ class MassMeasurement extends f.Measurement<Mass> {
   static const f.Unit<Mass> siUnit = grams;
 
   @override
-  construct(
+  f.MassMeasurement construct(
     num magnitude,
     f.Unit<Mass> defaultUnit,
     f.Precision precision,
@@ -169,6 +180,11 @@ class MassMeasurement extends f.Measurement<Mass> {
   f.Measurement<f.Dimension2<f.UnitNumerator<Mass>, f.UnitNumerator<D>>>
       by<D extends f.Dimension>(f.Measurement<D> term) => f.product2<Mass, D>(
           defaultUnit, term.defaultUnit)(defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.MassMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************

@@ -92,6 +92,17 @@ class LuminosityMeasurement extends f.Measurement<Luminosity> {
           defaultUnit: defaultUnit,
         );
 
+  /// Creates a measurement that is the sum of several measurements.
+  LuminosityMeasurement.sum(
+    Iterable<f.Measurement<Luminosity>> parts, {
+    int precision = f.Precision.maximumPrecision,
+  }) : super(
+          magnitude: parts.first.defaultUnit.of(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+          defaultUnit: parts.first.defaultUnit,
+        );
+
   const LuminosityMeasurement.zero([super.unit = siUnit]) : super.zero();
 
   const LuminosityMeasurement.infinite([super.unit = siUnit])
@@ -105,7 +116,7 @@ class LuminosityMeasurement extends f.Measurement<Luminosity> {
   static const f.Unit<Luminosity> siUnit = candela;
 
   @override
-  construct(
+  f.LuminosityMeasurement construct(
     num magnitude,
     f.Unit<Luminosity> defaultUnit,
     f.Precision precision,
@@ -131,6 +142,11 @@ class LuminosityMeasurement extends f.Measurement<Luminosity> {
       by<D extends f.Dimension>(f.Measurement<D> term) =>
           f.product2<Luminosity, D>(defaultUnit, term.defaultUnit)(
               defaultValue, term.defaultValue);
+
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  @override
+  f.LuminosityMeasurement withPrecision(int precision) =>
+      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
 }
 
 // **************************************************************************
