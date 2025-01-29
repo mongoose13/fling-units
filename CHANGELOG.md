@@ -2,6 +2,10 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [3.0.1]
+### Added
+- Hashtags for the package in pub.dev
+
 ## [3.0.0]
 ### Changed
 - See the [2.x-3.x migration guide] for details
@@ -235,6 +239,7 @@ types you need to work with from the rest of your code.
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/mongoose13/fling-units/commits/
+[3.0.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/3.0.1
 [3.0.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/3.0.0
 [2.2.7]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.7
 [2.2.6]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.6
