@@ -2,6 +2,11 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [Unreleased]
+### Added
+- Hashtag #convert
+- Funding link to PayPal
+
 ## [3.0.1]
 ### Added
 - Hashtags for the package in pub.dev

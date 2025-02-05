@@ -4,7 +4,10 @@ version: 3.0.1
 homepage: https://bitbucket.org/mongoose13/fling-units/wiki/Home
 repository: https://bitbucket.org/mongoose13/fling-units/src
 issue_tracker: https://bitbucket.org/mongoose13/fling-units/issues
+funding:
+  - https://www.paypal.com/paypalme/BruceSantier
 topics:
+  - convert
   - converter
   - tool
   - unit-converter
