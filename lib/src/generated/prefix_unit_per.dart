@@ -54,48 +54,28 @@ class PrefixedUnitPer<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitDenominator(prefix.arcSeconds),
           );
 
-  /// Creates a derived unit with [seconds] as the denominator.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
-      get second => f.DerivedUnit2.build(
-            f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.seconds),
-          );
-
-  /// Creates a derived unit with [minutes] as the denominator.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
-      get minute => f.DerivedUnit2.build(
-            f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.minutes),
-          );
-
-  /// Creates a derived unit with [hours] as the denominator.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
-      get hour => f.DerivedUnit2.build(
-            f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.hours),
-          );
-
-  /// Creates a derived unit with [days] as the denominator.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
-      get day => f.DerivedUnit2.build(
-            f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.days),
-          );
-
-  /// Creates a derived unit with [units] as the denominator.
+  /// Creates a derived unit with [candela] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.Quantity>, D, f.Quantity>
-      get unit => f.DerivedUnit2.build(
+          f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
+      get candela => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.units),
+            f.UnitDenominator(prefix.candela),
           );
 
-  /// Creates a derived unit with [moles] as the denominator.
+  /// Creates a derived unit with [candlepower] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.Quantity>, D, f.Quantity>
-      get mole => f.DerivedUnit2.build(
+          f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
+      get candlepower => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.moles),
+            f.UnitDenominator(prefix.candlepower),
+          );
+
+  /// Creates a derived unit with [hefnerkerze] as the denominator.
+  f.DerivedUnit2<f.UnitNumerator<D>,
+          f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
+      get hefnerkerze => f.DerivedUnit2.build(
+            f.UnitNumerator(numerator),
+            f.UnitDenominator(prefix.hefnerkerze),
           );
 
   /// Creates a derived unit with [grams] as the denominator.
@@ -161,6 +141,34 @@ class PrefixedUnitPer<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitDenominator(prefix.ounces),
           );
 
+  /// Creates a derived unit with [seconds] as the denominator.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
+      get second => f.DerivedUnit2.build(
+            f.UnitNumerator(numerator),
+            f.UnitDenominator(prefix.seconds),
+          );
+
+  /// Creates a derived unit with [minutes] as the denominator.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
+      get minute => f.DerivedUnit2.build(
+            f.UnitNumerator(numerator),
+            f.UnitDenominator(prefix.minutes),
+          );
+
+  /// Creates a derived unit with [hours] as the denominator.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
+      get hour => f.DerivedUnit2.build(
+            f.UnitNumerator(numerator),
+            f.UnitDenominator(prefix.hours),
+          );
+
+  /// Creates a derived unit with [days] as the denominator.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>, D, f.Time>
+      get day => f.DerivedUnit2.build(
+            f.UnitNumerator(numerator),
+            f.UnitDenominator(prefix.days),
+          );
+
   /// Creates a derived unit with [meters] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>,
           f.UnitDenominator<f.Distance>, D, f.Distance>
@@ -209,35 +217,20 @@ class PrefixedUnitPer<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitDenominator(prefix.nauticalMiles),
           );
 
-  /// Creates a derived unit with [amperes] as the denominator.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Charge>, D, f.Charge>
-      get ampere => f.DerivedUnit2.build(
+  /// Creates a derived unit with [units] as the denominator.
+  f.DerivedUnit2<f.UnitNumerator<D>,
+          f.UnitDenominator<f.Quantity>, D, f.Quantity>
+      get unit => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.amperes),
+            f.UnitDenominator(prefix.units),
           );
 
-  /// Creates a derived unit with [kelvin] as the denominator.
+  /// Creates a derived unit with [moles] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
-      get kelvin => f.DerivedUnit2.build(
+          f.UnitDenominator<f.Quantity>, D, f.Quantity>
+      get mole => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.kelvin),
-          );
-
-  /// Creates a derived unit with [celcius] as the denominator.
-  f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
-      get celcius => f.DerivedUnit2.build(
-            f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.celcius),
-          );
-
-  /// Creates a derived unit with [fahrenheit] as the denominator.
-  f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
-      get fahrenheit => f.DerivedUnit2.build(
-            f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.fahrenheit),
+            f.UnitDenominator(prefix.moles),
           );
 
   /// Creates a derived unit with [pascals] as the denominator.
@@ -312,28 +305,35 @@ class PrefixedUnitPer<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitDenominator(prefix.psi),
           );
 
-  /// Creates a derived unit with [candela] as the denominator.
+  /// Creates a derived unit with [kelvin] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
-      get candela => f.DerivedUnit2.build(
+          f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
+      get kelvin => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.candela),
+            f.UnitDenominator(prefix.kelvin),
           );
 
-  /// Creates a derived unit with [candlepower] as the denominator.
+  /// Creates a derived unit with [celcius] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
-      get candlepower => f.DerivedUnit2.build(
+          f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
+      get celcius => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.candlepower),
+            f.UnitDenominator(prefix.celcius),
           );
 
-  /// Creates a derived unit with [hefnerkerze] as the denominator.
+  /// Creates a derived unit with [fahrenheit] as the denominator.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.Luminosity>, D, f.Luminosity>
-      get hefnerkerze => f.DerivedUnit2.build(
+          f.UnitDenominator<f.TemperatureChange>, D, f.TemperatureChange>
+      get fahrenheit => f.DerivedUnit2.build(
             f.UnitNumerator(numerator),
-            f.UnitDenominator(prefix.hefnerkerze),
+            f.UnitDenominator(prefix.fahrenheit),
+          );
+
+  /// Creates a derived unit with [amperes] as the denominator.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.Charge>, D, f.Charge>
+      get ampere => f.DerivedUnit2.build(
+            f.UnitNumerator(numerator),
+            f.UnitDenominator(prefix.amperes),
           );
 }
 
@@ -389,46 +389,28 @@ class PrefixedUnitDot<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitNumerator(prefix.arcSeconds),
           );
 
-  /// Creates a derived unit with [seconds] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
-      get seconds => f.DerivedUnit2.build(
+  /// Creates a derived unit with [candela] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>,
+          f.UnitNumerator<f.Luminosity>, D, f.Luminosity>
+      get candela => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.seconds),
+            f.UnitNumerator(prefix.candela),
           );
 
-  /// Creates a derived unit with [minutes] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
-      get minutes => f.DerivedUnit2.build(
+  /// Creates a derived unit with [candlepower] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>,
+          f.UnitNumerator<f.Luminosity>, D, f.Luminosity>
+      get candlepower => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.minutes),
+            f.UnitNumerator(prefix.candlepower),
           );
 
-  /// Creates a derived unit with [hours] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
-      get hours => f.DerivedUnit2.build(
+  /// Creates a derived unit with [hefnerkerze] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>,
+          f.UnitNumerator<f.Luminosity>, D, f.Luminosity>
+      get hefnerkerze => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.hours),
-          );
-
-  /// Creates a derived unit with [days] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
-      get days => f.DerivedUnit2.build(
-            f.UnitNumerator(first),
-            f.UnitNumerator(prefix.days),
-          );
-
-  /// Creates a derived unit with [units] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>, D, f.Quantity>
-      get units => f.DerivedUnit2.build(
-            f.UnitNumerator(first),
-            f.UnitNumerator(prefix.units),
-          );
-
-  /// Creates a derived unit with [moles] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>, D, f.Quantity>
-      get moles => f.DerivedUnit2.build(
-            f.UnitNumerator(first),
-            f.UnitNumerator(prefix.moles),
+            f.UnitNumerator(prefix.hefnerkerze),
           );
 
   /// Creates a derived unit with [grams] as the second unit in a product.
@@ -494,6 +476,34 @@ class PrefixedUnitDot<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitNumerator(prefix.ounces),
           );
 
+  /// Creates a derived unit with [seconds] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
+      get seconds => f.DerivedUnit2.build(
+            f.UnitNumerator(first),
+            f.UnitNumerator(prefix.seconds),
+          );
+
+  /// Creates a derived unit with [minutes] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
+      get minutes => f.DerivedUnit2.build(
+            f.UnitNumerator(first),
+            f.UnitNumerator(prefix.minutes),
+          );
+
+  /// Creates a derived unit with [hours] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
+      get hours => f.DerivedUnit2.build(
+            f.UnitNumerator(first),
+            f.UnitNumerator(prefix.hours),
+          );
+
+  /// Creates a derived unit with [days] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>, D, f.Time>
+      get days => f.DerivedUnit2.build(
+            f.UnitNumerator(first),
+            f.UnitNumerator(prefix.days),
+          );
+
   /// Creates a derived unit with [meters] as the second unit in a product.
   f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Distance>, D, f.Distance>
       get meters => f.DerivedUnit2.build(
@@ -536,35 +546,18 @@ class PrefixedUnitDot<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitNumerator(prefix.nauticalMiles),
           );
 
-  /// Creates a derived unit with [amperes] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Charge>, D, f.Charge>
-      get amperes => f.DerivedUnit2.build(
+  /// Creates a derived unit with [units] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>, D, f.Quantity>
+      get units => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.amperes),
+            f.UnitNumerator(prefix.units),
           );
 
-  /// Creates a derived unit with [kelvin] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitNumerator<f.TemperatureChange>, D, f.TemperatureChange>
-      get kelvin => f.DerivedUnit2.build(
+  /// Creates a derived unit with [moles] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>, D, f.Quantity>
+      get moles => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.kelvin),
-          );
-
-  /// Creates a derived unit with [celcius] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitNumerator<f.TemperatureChange>, D, f.TemperatureChange>
-      get celcius => f.DerivedUnit2.build(
-            f.UnitNumerator(first),
-            f.UnitNumerator(prefix.celcius),
-          );
-
-  /// Creates a derived unit with [fahrenheit] as the second unit in a product.
-  f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitNumerator<f.TemperatureChange>, D, f.TemperatureChange>
-      get fahrenheit => f.DerivedUnit2.build(
-            f.UnitNumerator(first),
-            f.UnitNumerator(prefix.fahrenheit),
+            f.UnitNumerator(prefix.moles),
           );
 
   /// Creates a derived unit with [pascals] as the second unit in a product.
@@ -630,27 +623,34 @@ class PrefixedUnitDot<N extends f.Unit<D>, D extends f.Dimension> {
             f.UnitNumerator(prefix.psi),
           );
 
-  /// Creates a derived unit with [candela] as the second unit in a product.
+  /// Creates a derived unit with [kelvin] as the second unit in a product.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitNumerator<f.Luminosity>, D, f.Luminosity>
-      get candela => f.DerivedUnit2.build(
+          f.UnitNumerator<f.TemperatureChange>, D, f.TemperatureChange>
+      get kelvin => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.candela),
+            f.UnitNumerator(prefix.kelvin),
           );
 
-  /// Creates a derived unit with [candlepower] as the second unit in a product.
+  /// Creates a derived unit with [celcius] as the second unit in a product.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitNumerator<f.Luminosity>, D, f.Luminosity>
-      get candlepower => f.DerivedUnit2.build(
+          f.UnitNumerator<f.TemperatureChange>, D, f.TemperatureChange>
+      get celcius => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.candlepower),
+            f.UnitNumerator(prefix.celcius),
           );
 
-  /// Creates a derived unit with [hefnerkerze] as the second unit in a product.
+  /// Creates a derived unit with [fahrenheit] as the second unit in a product.
   f.DerivedUnit2<f.UnitNumerator<D>,
-          f.UnitNumerator<f.Luminosity>, D, f.Luminosity>
-      get hefnerkerze => f.DerivedUnit2.build(
+          f.UnitNumerator<f.TemperatureChange>, D, f.TemperatureChange>
+      get fahrenheit => f.DerivedUnit2.build(
             f.UnitNumerator(first),
-            f.UnitNumerator(prefix.hefnerkerze),
+            f.UnitNumerator(prefix.fahrenheit),
+          );
+
+  /// Creates a derived unit with [amperes] as the second unit in a product.
+  f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.Charge>, D, f.Charge>
+      get amperes => f.DerivedUnit2.build(
+            f.UnitNumerator(first),
+            f.UnitNumerator(prefix.amperes),
           );
 }

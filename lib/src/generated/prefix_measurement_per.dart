@@ -42,31 +42,23 @@ class PrefixedMeasurementPer<N extends f.Measurement<D>,
       get arcSecond =>
           ratio(numerator.defaultUnit, f.arcSeconds)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [seconds] as the denominator.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
-      get second =>
-          ratio(numerator.defaultUnit, f.seconds)(numerator.defaultValue);
+  /// Creates a derived measurement with [candela] as the denominator.
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Luminosity>>>
+      get candela =>
+          ratio(numerator.defaultUnit, f.candela)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [minutes] as the denominator.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
-      get minute =>
-          ratio(numerator.defaultUnit, f.minutes)(numerator.defaultValue);
+  /// Creates a derived measurement with [candlepower] as the denominator.
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Luminosity>>>
+      get candlepower =>
+          ratio(numerator.defaultUnit, f.candlepower)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [hours] as the denominator.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
-      get hour => ratio(numerator.defaultUnit, f.hours)(numerator.defaultValue);
-
-  /// Creates a derived measurement with [days] as the denominator.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
-      get day => ratio(numerator.defaultUnit, f.days)(numerator.defaultValue);
-
-  /// Creates a derived measurement with [units] as the denominator.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Quantity>>>
-      get unit => ratio(numerator.defaultUnit, f.units)(numerator.defaultValue);
-
-  /// Creates a derived measurement with [moles] as the denominator.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Quantity>>>
-      get mole => ratio(numerator.defaultUnit, f.moles)(numerator.defaultValue);
+  /// Creates a derived measurement with [hefnerkerze] as the denominator.
+  f.Measurement<
+          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Luminosity>>>
+      get hefnerkerze =>
+          ratio(numerator.defaultUnit, f.hefnerkerze)(numerator.defaultValue);
 
   /// Creates a derived measurement with [grams] as the denominator.
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Mass>>>
@@ -112,6 +104,24 @@ class PrefixedMeasurementPer<N extends f.Measurement<D>,
       get ounce =>
           ratio(numerator.defaultUnit, f.ounces)(numerator.defaultValue);
 
+  /// Creates a derived measurement with [seconds] as the denominator.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
+      get second =>
+          ratio(numerator.defaultUnit, f.seconds)(numerator.defaultValue);
+
+  /// Creates a derived measurement with [minutes] as the denominator.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
+      get minute =>
+          ratio(numerator.defaultUnit, f.minutes)(numerator.defaultValue);
+
+  /// Creates a derived measurement with [hours] as the denominator.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
+      get hour => ratio(numerator.defaultUnit, f.hours)(numerator.defaultValue);
+
+  /// Creates a derived measurement with [days] as the denominator.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Time>>>
+      get day => ratio(numerator.defaultUnit, f.days)(numerator.defaultValue);
+
   /// Creates a derived measurement with [meters] as the denominator.
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Distance>>>
       get meter =>
@@ -139,28 +149,13 @@ class PrefixedMeasurementPer<N extends f.Measurement<D>,
       get nauticalMile =>
           ratio(numerator.defaultUnit, f.nauticalMiles)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [amperes] as the denominator.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Charge>>>
-      get ampere =>
-          ratio(numerator.defaultUnit, f.amperes)(numerator.defaultValue);
+  /// Creates a derived measurement with [units] as the denominator.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Quantity>>>
+      get unit => ratio(numerator.defaultUnit, f.units)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [kelvin] as the denominator.
-  f.Measurement<
-      f.Dimension2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.TemperatureChange>>> get kelvin =>
-      ratio(numerator.defaultUnit, f.kelvin)(numerator.defaultValue);
-
-  /// Creates a derived measurement with [celcius] as the denominator.
-  f.Measurement<
-      f.Dimension2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.TemperatureChange>>> get celcius =>
-      ratio(numerator.defaultUnit, f.celcius)(numerator.defaultValue);
-
-  /// Creates a derived measurement with [fahrenheit] as the denominator.
-  f.Measurement<
-      f.Dimension2<f.UnitNumerator<D>,
-          f.UnitDenominator<f.TemperatureChange>>> get fahrenheit =>
-      ratio(numerator.defaultUnit, f.fahrenheit)(numerator.defaultValue);
+  /// Creates a derived measurement with [moles] as the denominator.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Quantity>>>
+      get mole => ratio(numerator.defaultUnit, f.moles)(numerator.defaultValue);
 
   /// Creates a derived measurement with [pascals] as the denominator.
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Pressure>>>
@@ -203,23 +198,28 @@ class PrefixedMeasurementPer<N extends f.Measurement<D>,
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Pressure>>>
       get psi => ratio(numerator.defaultUnit, f.psi)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [candela] as the denominator.
+  /// Creates a derived measurement with [kelvin] as the denominator.
   f.Measurement<
-          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Luminosity>>>
-      get candela =>
-          ratio(numerator.defaultUnit, f.candela)(numerator.defaultValue);
+      f.Dimension2<f.UnitNumerator<D>,
+          f.UnitDenominator<f.TemperatureChange>>> get kelvin =>
+      ratio(numerator.defaultUnit, f.kelvin)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [candlepower] as the denominator.
+  /// Creates a derived measurement with [celcius] as the denominator.
   f.Measurement<
-          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Luminosity>>>
-      get candlepower =>
-          ratio(numerator.defaultUnit, f.candlepower)(numerator.defaultValue);
+      f.Dimension2<f.UnitNumerator<D>,
+          f.UnitDenominator<f.TemperatureChange>>> get celcius =>
+      ratio(numerator.defaultUnit, f.celcius)(numerator.defaultValue);
 
-  /// Creates a derived measurement with [hefnerkerze] as the denominator.
+  /// Creates a derived measurement with [fahrenheit] as the denominator.
   f.Measurement<
-          f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Luminosity>>>
-      get hefnerkerze =>
-          ratio(numerator.defaultUnit, f.hefnerkerze)(numerator.defaultValue);
+      f.Dimension2<f.UnitNumerator<D>,
+          f.UnitDenominator<f.TemperatureChange>>> get fahrenheit =>
+      ratio(numerator.defaultUnit, f.fahrenheit)(numerator.defaultValue);
+
+  /// Creates a derived measurement with [amperes] as the denominator.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.Charge>>>
+      get ampere =>
+          ratio(numerator.defaultUnit, f.amperes)(numerator.defaultValue);
 }
 
 class PrefixedMeasurementDot<N extends f.Measurement<D>,
@@ -260,29 +260,19 @@ class PrefixedMeasurementDot<N extends f.Measurement<D>,
       get arcSeconds =>
           product2(first.defaultUnit, f.arcSeconds)(first.defaultValue);
 
-  /// Creates a derived measurement with [seconds] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
-      get seconds => product2(first.defaultUnit, f.seconds)(first.defaultValue);
+  /// Creates a derived measurement with [candela] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Luminosity>>>
+      get candela => product2(first.defaultUnit, f.candela)(first.defaultValue);
 
-  /// Creates a derived measurement with [minutes] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
-      get minutes => product2(first.defaultUnit, f.minutes)(first.defaultValue);
+  /// Creates a derived measurement with [candlepower] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Luminosity>>>
+      get candlepower =>
+          product2(first.defaultUnit, f.candlepower)(first.defaultValue);
 
-  /// Creates a derived measurement with [hours] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
-      get hours => product2(first.defaultUnit, f.hours)(first.defaultValue);
-
-  /// Creates a derived measurement with [days] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
-      get days => product2(first.defaultUnit, f.days)(first.defaultValue);
-
-  /// Creates a derived measurement with [units] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>>>
-      get units => product2(first.defaultUnit, f.units)(first.defaultValue);
-
-  /// Creates a derived measurement with [moles] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>>>
-      get moles => product2(first.defaultUnit, f.moles)(first.defaultValue);
+  /// Creates a derived measurement with [hefnerkerze] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Luminosity>>>
+      get hefnerkerze =>
+          product2(first.defaultUnit, f.hefnerkerze)(first.defaultValue);
 
   /// Creates a derived measurement with [grams] as the second unit in a product.
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Mass>>>
@@ -324,6 +314,22 @@ class PrefixedMeasurementDot<N extends f.Measurement<D>,
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Mass>>>
       get ounces => product2(first.defaultUnit, f.ounces)(first.defaultValue);
 
+  /// Creates a derived measurement with [seconds] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
+      get seconds => product2(first.defaultUnit, f.seconds)(first.defaultValue);
+
+  /// Creates a derived measurement with [minutes] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
+      get minutes => product2(first.defaultUnit, f.minutes)(first.defaultValue);
+
+  /// Creates a derived measurement with [hours] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
+      get hours => product2(first.defaultUnit, f.hours)(first.defaultValue);
+
+  /// Creates a derived measurement with [days] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Time>>>
+      get days => product2(first.defaultUnit, f.days)(first.defaultValue);
+
   /// Creates a derived measurement with [meters] as the second unit in a product.
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Distance>>>
       get meters => product2(first.defaultUnit, f.meters)(first.defaultValue);
@@ -349,28 +355,13 @@ class PrefixedMeasurementDot<N extends f.Measurement<D>,
       get nauticalMiles =>
           product2(first.defaultUnit, f.nauticalMiles)(first.defaultValue);
 
-  /// Creates a derived measurement with [amperes] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Charge>>>
-      get amperes => product2(first.defaultUnit, f.amperes)(first.defaultValue);
+  /// Creates a derived measurement with [units] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>>>
+      get units => product2(first.defaultUnit, f.units)(first.defaultValue);
 
-  /// Creates a derived measurement with [kelvin] as the second unit in a product.
-  f.Measurement<
-          f
-          .Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.TemperatureChange>>>
-      get kelvin => product2(first.defaultUnit, f.kelvin)(first.defaultValue);
-
-  /// Creates a derived measurement with [celcius] as the second unit in a product.
-  f.Measurement<
-          f
-          .Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.TemperatureChange>>>
-      get celcius => product2(first.defaultUnit, f.celcius)(first.defaultValue);
-
-  /// Creates a derived measurement with [fahrenheit] as the second unit in a product.
-  f.Measurement<
-          f
-          .Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.TemperatureChange>>>
-      get fahrenheit =>
-          product2(first.defaultUnit, f.fahrenheit)(first.defaultValue);
+  /// Creates a derived measurement with [moles] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Quantity>>>
+      get moles => product2(first.defaultUnit, f.moles)(first.defaultValue);
 
   /// Creates a derived measurement with [pascals] as the second unit in a product.
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Pressure>>>
@@ -410,17 +401,26 @@ class PrefixedMeasurementDot<N extends f.Measurement<D>,
   f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Pressure>>>
       get psi => product2(first.defaultUnit, f.psi)(first.defaultValue);
 
-  /// Creates a derived measurement with [candela] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Luminosity>>>
-      get candela => product2(first.defaultUnit, f.candela)(first.defaultValue);
+  /// Creates a derived measurement with [kelvin] as the second unit in a product.
+  f.Measurement<
+          f
+          .Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.TemperatureChange>>>
+      get kelvin => product2(first.defaultUnit, f.kelvin)(first.defaultValue);
 
-  /// Creates a derived measurement with [candlepower] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Luminosity>>>
-      get candlepower =>
-          product2(first.defaultUnit, f.candlepower)(first.defaultValue);
+  /// Creates a derived measurement with [celcius] as the second unit in a product.
+  f.Measurement<
+          f
+          .Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.TemperatureChange>>>
+      get celcius => product2(first.defaultUnit, f.celcius)(first.defaultValue);
 
-  /// Creates a derived measurement with [hefnerkerze] as the second unit in a product.
-  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Luminosity>>>
-      get hefnerkerze =>
-          product2(first.defaultUnit, f.hefnerkerze)(first.defaultValue);
+  /// Creates a derived measurement with [fahrenheit] as the second unit in a product.
+  f.Measurement<
+          f
+          .Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.TemperatureChange>>>
+      get fahrenheit =>
+          product2(first.defaultUnit, f.fahrenheit)(first.defaultValue);
+
+  /// Creates a derived measurement with [amperes] as the second unit in a product.
+  f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.Charge>>>
+      get amperes => product2(first.defaultUnit, f.amperes)(first.defaultValue);
 }
