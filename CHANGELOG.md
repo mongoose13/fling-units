@@ -3,7 +3,7 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
-## [Unreleased]
+## [3.0.2]
 
 ### Added
 
@@ -338,39 +338,40 @@ types you need to work with from the rest of your code.
 
 - Initial package setup
 
-[Unreleased]: https://bitbucket.org/mongoose13/fling-units/commits/
-[3.0.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/3.0.1
-[3.0.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/3.0.0
-[2.2.7]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.7
-[2.2.6]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.6
-[2.2.5]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.5
-[2.2.4]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.4
-[2.2.3]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.3
-[2.2.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.2
-[2.2.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.1
-[2.2.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.2.0
-[2.1.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.1.1
-[2.1.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.1.0
-[2.0.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.0.2
-[2.0.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.0.1
-[2.0.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/2.0.0
-[1.4.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/1.4.1
-[1.4.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/1.4.0
-[1.3.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/1.3.0
-[1.2.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/1.2.0
-[1.1.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/1.1.2
-[1.1.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v1.1.1
-[1.1.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v1.1.0
-[1.0.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v1.0.1
-[1.0.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v1.0.0
-[0.4.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.4.1
-[0.4.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.4.0
-[0.3.2]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.3.2
-[0.3.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.3.1
-[0.3.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.3.0
-[0.2.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.2.1
-[0.2.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.2.0
-[0.1.0]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.1.0
-[0.0.1]: https://bitbucket.org/mongoose13/fling-units/commits/tag/v0.0.1
+[Unreleased]: https://bitbucket.org/mongoose-oss/fling-units/commits/
+[3.0.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.2
+[3.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.1
+[3.0.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.0
+[2.2.7]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.7
+[2.2.6]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.6
+[2.2.5]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.5
+[2.2.4]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.4
+[2.2.3]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.3
+[2.2.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.2
+[2.2.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.1
+[2.2.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.0
+[2.1.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.1.1
+[2.1.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.1.0
+[2.0.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.0.2
+[2.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.0.1
+[2.0.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.0.0
+[1.4.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.4.1
+[1.4.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.4.0
+[1.3.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.3.0
+[1.2.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.2.0
+[1.1.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.1.2
+[1.1.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.1.1
+[1.1.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.1.0
+[1.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.0.1
+[1.0.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.0.0
+[0.4.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.4.1
+[0.4.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.4.0
+[0.3.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.3.2
+[0.3.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.3.1
+[0.3.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.3.0
+[0.2.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.2.1
+[0.2.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.2.0
+[0.1.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.1.0
+[0.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.0.1
 
-[2.x-3.x migration guide]: https://bitbucket.org/mongoose13/fling-units/wiki/Migration2to3
+[2.x-3.x migration guide]: https://bitbucket.org/mongoose-oss/fling-units/wiki/Migration2to3
