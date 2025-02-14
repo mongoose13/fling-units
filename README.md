@@ -5,8 +5,8 @@
 A type safe Dart library for unit conversion. Pass around fully abstracted
 measurements to keep your code simple!
 
-[![Build Status](https://img.shields.io/circleci/build/bitbucket/mongoose13/fling-units)](https://app.circleci.com/pipelines/bitbucket/mongoose13/fling-units?branch=master&filter=all)
-[![Code Quality](https://img.shields.io/codacy/grade/749ee1e8ee2e4d26ab57b3256f422e9a?style=plastic)](https://www.codacy.com/bb/gelbermungo/fling-units/dashboard)
+[![Build Status](https://img.shields.io/circleci/build/bitbucket/mongoose-oss/fling-units)](https://app.circleci.com/pipelines/bitbucket/mongoose-oss/fling-units)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/397a576a0c2144439f2901bd6f933be4)](https://app.codacy.com/bb/mongoose-oss/fling-units/dashboard?utm_source=bb&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Pub Version](https://img.shields.io/pub/v/fling_units?style=plastic)](https://pub.dev/packages/fling_units)
 
 ## Version 3.x changes a lot of things! If you are migrating from 2.x to 3.x, check the [migration guide](https://bitbucket.org/mongoose13/fling-units/wiki/Migration2to3) for advice.

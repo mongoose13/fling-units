@@ -12,7 +12,7 @@ types you need to work with from the rest of your code.
 
 ### Changed
 
-- Update links to new Atlassian site
+- Update links to new Atlassian site in readme and project spec
 - Use makefile instead of Rake
 
 ## [3.0.1]
