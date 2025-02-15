@@ -41,11 +41,12 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   Measurement.sum(
     Iterable<Measurement<D>> parts, {
     int precision = Precision.maximumPrecision,
+    required Unit<D> defaultUnit,
   }) : this(
-          magnitude: parts.first.defaultUnit.of(parts.fold(
+          magnitude: defaultUnit.of(parts.fold(
               0.0, (previousValue, element) => previousValue + element.si)),
           precision: Precision(precision),
-          defaultUnit: parts.first.defaultUnit,
+          defaultUnit: defaultUnit,
         );
 
   /// Constructs a new measurement.
@@ -159,14 +160,14 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
 
   /// Returns a measurement equivalent to the sum of two others.
   Measurement<D> operator +(Measurement<D> other) => construct(
-        si + other.si,
+        defaultUnit.of(si + other.si),
         defaultUnit,
         Precision(Precision.addition(this, other)),
       );
 
   /// Returns a measurement equivalent to the difference between two others.
   Measurement<D> operator -(Measurement<D> other) => construct(
-        si - other.si,
+        defaultUnit.of(si - other.si),
         defaultUnit,
         Precision(Precision.addition(this, -other)),
       );
@@ -254,11 +255,29 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   final Precision precisionData;
 }
 
+/// Creates a measurement that is the sum of several other measurements of the same dimension.
+///
+/// This must be called with a non-empty set of measurements. To create an empty measurement,
+/// use [zero] instead.
+///
+/// If not provided, the default unit of the new measurement will be same as the first component
+/// measurement's unit.
 Measurement<D> sum<D extends Dimension>(
   Iterable<Measurement<D>> parts, {
   int precision = Precision.maximumPrecision,
+  Unit<D>? defaultUnit,
 }) =>
-    Measurement.sum(parts, precision: precision);
+    parts.isNotEmpty
+        ? Measurement.sum(
+            parts,
+            precision: precision,
+            defaultUnit: defaultUnit ?? parts.first.defaultUnit,
+          )
+        : throw ArgumentError.value(
+            parts,
+            "parts",
+            "You must include at least one measurement",
+          );
 
 Measurement<D> zero<D extends Dimension>(Unit<D> defaultUnit) =>
     Measurement.zero(defaultUnit);
