@@ -157,7 +157,7 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
 
   /// Returns a measurement representing the opposite of this.
   Measurement<D> operator -() =>
-      construct(defaultUnit.of(-si), defaultUnit, precisionData);
+      construct(-magnitude.toDouble(), defaultUnit, precisionData);
 
   /// Returns a measurement equivalent to the sum of two others.
   Measurement<D> operator +(Measurement<D> other) => construct(
@@ -175,11 +175,11 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
 
   /// Returns a measurement equivalent to a multiple of this.
   Measurement<D> operator *(num multiplier) =>
-      construct(defaultUnit.of(si * multiplier), defaultUnit, precisionData);
+      construct(magnitude * multiplier.toDouble(), defaultUnit, precisionData);
 
   /// Returns a measurement equivalent to a fraction of this.
   Measurement<D> operator /(num divisor) =>
-      construct(defaultUnit.of(si / divisor), defaultUnit, precisionData);
+      construct(magnitude / divisor.toDouble(), defaultUnit, precisionData);
 
   /// Returns the Euclidean remainder of the division between two measurements.
   ///
