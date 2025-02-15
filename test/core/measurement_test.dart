@@ -212,5 +212,19 @@ void main() {
         expect(result.defaultValue, closeTo(1.92, 0.0005));
       });
     });
+
+    group("negation", () {
+      test("maintains unit and correctness", () {
+        // given
+        final measurement = 3.centi.meters;
+
+        // when
+        final result = -measurement;
+
+        // then
+        expect(result.defaultUnit, centi.meters);
+        expect(result.defaultValue, closeTo(-3.0, 0.0005));
+      });
+    });
   });
 }

@@ -156,7 +156,8 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   int compareTo(Measurement<D> other) => si.compareTo(other.si);
 
   /// Returns a measurement representing the opposite of this.
-  Measurement<D> operator -() => construct(-si, defaultUnit, precisionData);
+  Measurement<D> operator -() =>
+      construct(defaultUnit.of(-si), defaultUnit, precisionData);
 
   /// Returns a measurement equivalent to the sum of two others.
   Measurement<D> operator +(Measurement<D> other) => construct(
