@@ -157,5 +157,60 @@ void main() {
         expect(result.defaultValue, closeTo(0.92, 0.0005));
       });
     });
+
+    group("multiplication", () {
+      test("maintains unit and correctness", () {
+        // given
+        final measurement = 3.centi.meters;
+
+        // when
+        final result = measurement * 3.0;
+
+        // then
+        expect(result.defaultUnit, centi.meters);
+        expect(result.defaultValue, closeTo(9.0, 0.005));
+      });
+    });
+
+    group("division", () {
+      test("maintains unit and correctness", () {
+        // given
+        final measurement = 3.centi.meters;
+
+        // when
+        final result = measurement / 3.0;
+
+        // then
+        expect(result.defaultUnit, centi.meters);
+        expect(result.defaultValue, closeTo(1.0, 0.005));
+      });
+    });
+
+    group("truncating division", () {
+      test("different units", () {
+        // given
+        final measurement = 7.centi.meters;
+
+        // when
+        final result = measurement ~/ 1.inches;
+
+        // then
+        expect(result, 2);
+      });
+    });
+
+    group("remainder division", () {
+      test("different units", () {
+        // given
+        final measurement = 7.centi.meters;
+
+        // when
+        final result = measurement % 1.inches;
+
+        // then
+        expect(result.defaultUnit, centi.meters);
+        expect(result.defaultValue, closeTo(1.92, 0.0005));
+      });
+    });
   });
 }

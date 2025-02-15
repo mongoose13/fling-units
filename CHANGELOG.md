@@ -7,7 +7,7 @@ types you need to work with from the rest of your code.
 
 ### Fixed
 
-- Addition and subtraction of measurements yielded incorrect results
+- Basic arithmetic operators on measurements yielded incorrect results
 
 ## [3.0.2]
 
