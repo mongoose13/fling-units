@@ -259,7 +259,7 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
 /// Creates a measurement that is the sum of several other measurements of the same dimension.
 ///
 /// This must be called with a non-empty set of measurements. To create an empty measurement,
-/// use [zero] instead.
+/// use `<unit>(0)` or `0.<unit>` instead.
 ///
 /// If not provided, the default unit of the new measurement will be same as the first component
 /// measurement's unit.
@@ -280,14 +280,19 @@ Measurement<D> sum<D extends Dimension>(
             "You must include at least one measurement",
           );
 
+@Deprecated("Use `<unit>(0)` or `0.<unit>`")
 Measurement<D> zero<D extends Dimension>(Unit<D> defaultUnit) =>
     Measurement.zero(defaultUnit);
 
+@Deprecated("Use `<unit>(double.infinity)` or `double.infinity.<unit>`")
 Measurement<D> infinite<D extends Dimension>(Unit<D> defaultUnit) =>
     Measurement.infinite(defaultUnit);
 
+@Deprecated(
+    "Use `<unit>(double.negativeInfinity)` or `double.negativeInfinity.<unit>`")
 Measurement<D> negativeInfinite<D extends Dimension>(Unit<D> defaultUnit) =>
     Measurement.negativeInfinite(defaultUnit);
 
+@Deprecated("Use `<unit>(double.nan)` or `double.nan.<unit>`")
 Measurement<D> nan<D extends Dimension>(Unit<D> defaultUnit) =>
     Measurement.nan(defaultUnit);

@@ -15,8 +15,8 @@ void main() {
     precision: 3,
   );
   var bodyTemperature = Temperature.ofFahrenheit(93.4);
-  var depthsOfMyMind = infinite(liters);
-  var depthsOfMyPetRocksMind = zero(cubic(meters));
+  var depthsOfMyMind = double.infinity.liters;
+  var depthsOfMyPetRocksMind = 0.cubic(meters);
 
   // Want syntactic sugar? Any measurement can be created from a number using
   // extensions. We recommend wrapping doubles in parenthesis for readability.
