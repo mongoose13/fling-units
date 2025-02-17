@@ -9,7 +9,7 @@ measurements to keep your code simple!
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/397a576a0c2144439f2901bd6f933be4)](https://app.codacy.com/bb/mongoose-oss/fling-units/dashboard?utm_source=bb&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Pub Version](https://img.shields.io/pub/v/fling_units?style=plastic)](https://pub.dev/packages/fling_units)
 
-## Version 3.x changes a lot of things! If you are migrating from 2.x to 3.x, check the [migration guide](https://bitbucket.org/mongoose13/fling-units/wiki/Migration2to3) for advice.
+## Version 3.x changes a lot of things! If you are migrating from 2.x to 3.x, check the [migration guide](https://fling-units-demo.web.app/migration_2to3.html) for advice.
 
 ## Overview
 

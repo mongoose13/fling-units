@@ -9,6 +9,10 @@ types you need to work with from the rest of your code.
 
 - Deprecated the special measurement constructors
 
+### Changed
+
+- Updated the migration guide link
+
 ## [3.0.3]
 
 ### Fixed
