@@ -361,6 +361,7 @@ types you need to work with from the rest of your code.
 - Initial package setup
 
 [Unreleased]: https://bitbucket.org/mongoose-oss/fling-units/commits/
+[3.0.5]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.5
 [3.0.4]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.4
 [3.0.3]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.3
 [3.0.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.2
