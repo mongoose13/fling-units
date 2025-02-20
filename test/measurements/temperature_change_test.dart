@@ -106,7 +106,7 @@ void main() {
         // given
         final temperature = sum([
           kelvin(1),
-          celcius(2),
+          celsius(2),
           fahrenheit(3),
         ], precision: 5);
 
@@ -264,7 +264,7 @@ void main() {
         final measurement = deci.fahrenheit(23.45).withPrecision(3);
 
         // when
-        final result = measurement.butAs(milli.celcius).toString();
+        final result = measurement.butAs(milli.celsius).toString();
 
         // then
         expect(result, '1300.0 m°C');
