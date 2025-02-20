@@ -3,6 +3,12 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [Unreleased]
+
+### Changed
+
+- Enable strict type checking in analyzer
+
 ## [3.0.5]
 
 ### Changed

@@ -3,11 +3,8 @@
 # see https://pub.dev/packages/lints.
 include: package:lints/recommended.yaml
 
-# Uncomment to specify additional rules.
-# linter:
-#   rules:
-#     - camel_case_types
-
 analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true

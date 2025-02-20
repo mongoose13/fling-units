@@ -95,6 +95,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
               (multiply) => multiply
                 ..lambda = true
                 ..name = "operator *"
+                ..returns = Reference("MeasurementPrefix")
                 ..requiredParameters.add(
                   Parameter(
                     (other) => other
@@ -111,6 +112,7 @@ class MeasurementPrefixGenerator implements FlingGenerator {
               (divide) => divide
                 ..lambda = true
                 ..name = "operator /"
+                ..returns = Reference("MeasurementPrefix")
                 ..requiredParameters.add(
                   Parameter(
                     (other) => other
