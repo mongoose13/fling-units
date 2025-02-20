@@ -11,6 +11,8 @@ extension NumExtensionTemperatureChange on num {
       TemperatureChangeUnit.kelvin(this);
   f.TemperatureChangeMeasurement get celcius =>
       TemperatureChangeUnit.celcius(this);
+  f.TemperatureChangeMeasurement get celsius =>
+      TemperatureChangeUnit.celsius(this);
   f.TemperatureChangeMeasurement get fahrenheit =>
       TemperatureChangeUnit.fahrenheit(this);
 }
@@ -37,6 +39,12 @@ class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
   );
 
   static const TemperatureChangeUnit celcius = TemperatureChangeUnit._(
+    name: '°C',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
+
+  static const TemperatureChangeUnit celsius = TemperatureChangeUnit._(
     name: '°C',
     unitMultiplier: 1.0,
     prefix: f.MeasurementPrefix.unit(),
@@ -167,6 +175,8 @@ mixin TemperatureChangePrefix {
       TemperatureChangeUnit.kelvin.withPrefix(prefix);
   TemperatureChangeUnit get celcius =>
       TemperatureChangeUnit.celcius.withPrefix(prefix);
+  TemperatureChangeUnit get celsius =>
+      TemperatureChangeUnit.celsius.withPrefix(prefix);
   TemperatureChangeUnit get fahrenheit =>
       TemperatureChangeUnit.fahrenheit.withPrefix(prefix);
 }
@@ -178,5 +188,7 @@ mixin TemperatureChangePrefix {
 const TemperatureChangeUnit kelvin = TemperatureChangeUnit.kelvin;
 
 const TemperatureChangeUnit celcius = TemperatureChangeUnit.celcius;
+
+const TemperatureChangeUnit celsius = TemperatureChangeUnit.celsius;
 
 const TemperatureChangeUnit fahrenheit = TemperatureChangeUnit.fahrenheit;
