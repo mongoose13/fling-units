@@ -89,7 +89,7 @@ class Temperature implements Comparable<Temperature> {
   /// Interprets this as degrees Celcius.
   @Deprecated('Use [asCelsius]')
   double get asCelcius =>
-      _precision.apply(celcius.of(_kelvin) + _celsiusOffset);
+      _precision.apply(celsius.of(_kelvin) + _celsiusOffset);
 
   /// Interprets this as degrees Celsius.
   double get asCelsius =>
@@ -216,6 +216,6 @@ extension NumExtensionTemperature on num {
   Temperature get ofKelvin => Temperature.ofKelvin(this);
   Temperature get ofFahrenheit => Temperature.ofFahrenheit(this);
   @Deprecated('Use [ofCelsius]')
-  Temperature get ofCelcius => Temperature.ofCelcius(this);
+  Temperature get ofCelcius => Temperature.ofCelsius(this);
   Temperature get ofCelsius => Temperature.ofCelsius(this);
 }
