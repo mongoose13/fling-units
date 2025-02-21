@@ -146,7 +146,7 @@ Ensure type safety at compile time:
 ```dart
   // none of these lines will compile:
   var nonsense = miles(123) + grams(18);
-  var impossible = meters(3).as(celcius);
+  var impossible = meters(3).as(celsius);
   var silliness = grams(5) < seconds(3);
 ```
 
@@ -260,7 +260,7 @@ Work with any unit:
 ### Temperature Units
 
 - kelvin
-- celcius
+- celsius
 - fahrenheit
 
 ### Time units

@@ -48,17 +48,24 @@ class Temperature implements Comparable<Temperature> {
         );
 
   /// Constructs a [Temperature] from a degree Celcius amount.
+  @Deprecated('Use [ofCelsius]')
   Temperature.ofCelcius(
     num amount, {
     int precision = Precision.maximumPrecision,
-  }) : this._(celcius.from(amount) - _celciusOffset, precision, celcius);
+  }) : this._(celsius.from(amount) - _celsiusOffset, precision, celsius);
+
+  /// Constructs a [Temperature] from a degree Celsius amount.
+  Temperature.ofCelsius(
+    num amount, {
+    int precision = Precision.maximumPrecision,
+  }) : this._(celsius.from(amount) - _celsiusOffset, precision, celsius);
 
   /// Constructs a [Temperature] from a degree Fahrenheit amount.
   Temperature.ofFahrenheit(
     num amount, {
     int precision = Precision.maximumPrecision,
   }) : this._(
-          fahrenheit.from(amount - _fahrenheitOffset) - _celciusOffset,
+          fahrenheit.from(amount - _fahrenheitOffset) - _celsiusOffset,
           precision,
           fahrenheit,
         );
@@ -80,12 +87,17 @@ class Temperature implements Comparable<Temperature> {
   double get asKelvin => _precision.apply(_kelvin);
 
   /// Interprets this as degrees Celcius.
+  @Deprecated('Use [asCelsius]')
   double get asCelcius =>
-      _precision.apply(celcius.of(_kelvin) + _celciusOffset);
+      _precision.apply(celsius.of(_kelvin) + _celsiusOffset);
+
+  /// Interprets this as degrees Celsius.
+  double get asCelsius =>
+      _precision.apply(celsius.of(_kelvin) + _celsiusOffset);
 
   /// Interprets this as degrees Fahrenheit.
   double get asFahrenheit => _precision
-      .apply(fahrenheit.of(_kelvin + _celciusOffset) + _fahrenheitOffset);
+      .apply(fahrenheit.of(_kelvin + _celsiusOffset) + _fahrenheitOffset);
 
   /// Returns `true` if this is finite.
   bool get isFinite => _kelvin.isFinite;
@@ -171,8 +183,8 @@ class Temperature implements Comparable<Temperature> {
 
   /// Evaluates the measurement using a different unit.
   double _as(Unit<TemperatureChange> interpreter) {
-    if (interpreter == celcius) {
-      return asCelcius;
+    if (interpreter == celsius) {
+      return asCelsius;
     } else if (interpreter == fahrenheit) {
       return asFahrenheit;
     } else {
@@ -180,10 +192,10 @@ class Temperature implements Comparable<Temperature> {
     }
   }
 
-  /// The offset required for conversions from Kelvin to Celcius.
-  static final double _celciusOffset = -273.15;
+  /// The offset required for conversions from Kelvin to Celsius.
+  static final double _celsiusOffset = -273.15;
 
-  /// The offset required for conversions from Fahrenheit to Celcius.
+  /// The offset required for conversions from Fahrenheit to Celsius.
   static final double _fahrenheitOffset = 32.0;
 
   /// The measurement, in Kelvin.
@@ -203,5 +215,7 @@ mixin TemperatureVisitorMixin {
 extension NumExtensionTemperature on num {
   Temperature get ofKelvin => Temperature.ofKelvin(this);
   Temperature get ofFahrenheit => Temperature.ofFahrenheit(this);
-  Temperature get ofCelcius => Temperature.ofCelcius(this);
+  @Deprecated('Use [ofCelsius]')
+  Temperature get ofCelcius => Temperature.ofCelsius(this);
+  Temperature get ofCelsius => Temperature.ofCelsius(this);
 }

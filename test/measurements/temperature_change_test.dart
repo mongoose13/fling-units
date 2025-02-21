@@ -106,7 +106,7 @@ void main() {
         // given
         final temperature = sum([
           kelvin(1),
-          celcius(2),
+          celsius(2),
           fahrenheit(3),
         ], precision: 5);
 
@@ -153,10 +153,10 @@ void main() {
         expect(result, 1.234);
       });
     });
-    group('celcius', () {
+    group('celsius', () {
       test('converts to base', () {
         // given
-        final temperature = celcius(1.234, precision: 5);
+        final temperature = celsius(1.234, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -166,7 +166,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final temperature = milli.celcius(1234.0, precision: 5);
+        final temperature = milli.celsius(1234.0, precision: 5);
 
         // when
         final result = temperature.as(kelvin);
@@ -264,7 +264,7 @@ void main() {
         final measurement = deci.fahrenheit(23.45).withPrecision(3);
 
         // when
-        final result = measurement.butAs(milli.celcius).toString();
+        final result = measurement.butAs(milli.celsius).toString();
 
         // then
         expect(result, '1300.0 m°C');

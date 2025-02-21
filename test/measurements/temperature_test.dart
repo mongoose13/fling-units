@@ -45,8 +45,8 @@ void main() {
 
           expect(result.asKelvin, 290);
         });
-        test('celcius', () {
-          final result = Temperature.ofCelcius(20.0);
+        test('celsius', () {
+          final result = Temperature.ofCelsius(20.0);
 
           expect(result.asKelvin, 293.15);
         });
@@ -142,24 +142,24 @@ void main() {
         });
         test('Different units', () {
           expect(Temperature.ofKelvin(123.39999999999998),
-              Temperature.ofCelcius(-149.75));
+              Temperature.ofCelsius(-149.75));
           expect(Temperature.ofKelvin(123.39999999999998).hashCode,
-              Temperature.ofCelcius(-149.75).hashCode);
+              Temperature.ofCelsius(-149.75).hashCode);
           expect(
               Temperature.ofKelvin(123.39999999999998) ==
-                  Temperature.ofCelcius(-149.75),
+                  Temperature.ofCelsius(-149.75),
               true);
           expect(
               Temperature.ofKelvin(123.39999999999998) !=
-                  Temperature.ofCelcius(-149.75),
+                  Temperature.ofCelsius(-149.75),
               false);
           expect(
               Temperature.ofKelvin(123.39999999999998) ==
-                  Temperature.ofCelcius(123.4),
+                  Temperature.ofCelsius(123.4),
               false);
           expect(
               Temperature.ofKelvin(123.39999999999998) !=
-                  Temperature.ofCelcius(123.4),
+                  Temperature.ofCelsius(123.4),
               true);
         });
       },
@@ -217,10 +217,10 @@ void main() {
           Temperature.ofKelvin(1),
           Temperature.infinite(),
           Temperature.ofFahrenheit(300),
-          Temperature.ofCelcius(3),
+          Temperature.ofCelsius(3),
           Temperature.absoluteZero(),
           Temperature.ofFahrenheit(3),
-          Temperature.ofCelcius(-2),
+          Temperature.ofCelsius(-2),
         ];
         result.sort();
 
@@ -228,8 +228,8 @@ void main() {
           Temperature.absoluteZero(),
           Temperature.ofKelvin(1),
           Temperature.ofFahrenheit(3),
-          Temperature.ofCelcius(-2),
-          Temperature.ofCelcius(3),
+          Temperature.ofCelsius(-2),
+          Temperature.ofCelsius(3),
           Temperature.ofFahrenheit(300),
           Temperature.infinite(),
         ]);
@@ -417,7 +417,7 @@ void main() {
       });
       test('extension maintains units C', () {
         // given
-        final measurement = 3.4.ofCelcius.withPrecision(3);
+        final measurement = 3.4.ofCelsius.withPrecision(3);
 
         // when
         final result = measurement.toString();
@@ -430,7 +430,7 @@ void main() {
         final measurement = 3.4.ofFahrenheit.withPrecision(3);
 
         // when
-        final result = measurement.withDefaultUnit(celcius).toString();
+        final result = measurement.withDefaultUnit(celsius).toString();
 
         // then
         expect(result, '-15.9 °C');
