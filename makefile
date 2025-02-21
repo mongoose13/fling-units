@@ -14,3 +14,10 @@ test:
 .PHONY: example
 example:
 	dart run example/lib/example.dart
+
+~/.pub-cache/bin/pana:
+	dart pub global activate pana
+
+.PHONY: pana
+pana: ~/.pub-cache/bin/pana
+	~/.pub-cache/bin/pana --exit-code-threshold 0

@@ -52,27 +52,17 @@ class NumExtension {
   f.AngleMeasurement get arcSeconds =>
       f.AngleUnit.arcSeconds.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) seconds measurement.
-  f.TimeMeasurement get seconds =>
-      f.TimeUnit.seconds.withPrefix(_prefix)(_value);
+  /// Creates a(n) candela measurement.
+  f.LuminosityMeasurement get candela =>
+      f.LuminosityUnit.candela.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) minutes measurement.
-  f.TimeMeasurement get minutes =>
-      f.TimeUnit.minutes.withPrefix(_prefix)(_value);
+  /// Creates a(n) candlepower measurement.
+  f.LuminosityMeasurement get candlepower =>
+      f.LuminosityUnit.candlepower.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) hours measurement.
-  f.TimeMeasurement get hours => f.TimeUnit.hours.withPrefix(_prefix)(_value);
-
-  /// Creates a(n) days measurement.
-  f.TimeMeasurement get days => f.TimeUnit.days.withPrefix(_prefix)(_value);
-
-  /// Creates a(n) units measurement.
-  f.QuantityMeasurement get units =>
-      f.QuantityUnit.units.withPrefix(_prefix)(_value);
-
-  /// Creates a(n) moles measurement.
-  f.QuantityMeasurement get moles =>
-      f.QuantityUnit.moles.withPrefix(_prefix)(_value);
+  /// Creates a(n) hefnerkerze measurement.
+  f.LuminosityMeasurement get hefnerkerze =>
+      f.LuminosityUnit.hefnerkerze.withPrefix(_prefix)(_value);
 
   /// Creates a(n) grams measurement.
   f.MassMeasurement get grams => f.MassUnit.grams.withPrefix(_prefix)(_value);
@@ -106,6 +96,20 @@ class NumExtension {
   /// Creates a(n) ounces measurement.
   f.MassMeasurement get ounces => f.MassUnit.ounces.withPrefix(_prefix)(_value);
 
+  /// Creates a(n) seconds measurement.
+  f.TimeMeasurement get seconds =>
+      f.TimeUnit.seconds.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) minutes measurement.
+  f.TimeMeasurement get minutes =>
+      f.TimeUnit.minutes.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) hours measurement.
+  f.TimeMeasurement get hours => f.TimeUnit.hours.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) days measurement.
+  f.TimeMeasurement get days => f.TimeUnit.days.withPrefix(_prefix)(_value);
+
   /// Creates a(n) meters measurement.
   f.DistanceMeasurement get meters =>
       f.DistanceUnit.meters.withPrefix(_prefix)(_value);
@@ -130,25 +134,13 @@ class NumExtension {
   f.DistanceMeasurement get nauticalMiles =>
       f.DistanceUnit.nauticalMiles.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) amperes measurement.
-  f.ChargeMeasurement get amperes =>
-      f.ChargeUnit.amperes.withPrefix(_prefix)(_value);
+  /// Creates a(n) units measurement.
+  f.QuantityMeasurement get units =>
+      f.QuantityUnit.units.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) kelvin measurement.
-  f.TemperatureChangeMeasurement get kelvin =>
-      f.TemperatureChangeUnit.kelvin.withPrefix(_prefix)(_value);
-
-  /// Creates a(n) celcius measurement.
-  f.TemperatureChangeMeasurement get celcius =>
-      f.TemperatureChangeUnit.celcius.withPrefix(_prefix)(_value);
-
-  /// Creates a(n) celsius measurement.
-  f.TemperatureChangeMeasurement get celsius =>
-      f.TemperatureChangeUnit.celsius.withPrefix(_prefix)(_value);
-
-  /// Creates a(n) fahrenheit measurement.
-  f.TemperatureChangeMeasurement get fahrenheit =>
-      f.TemperatureChangeUnit.fahrenheit.withPrefix(_prefix)(_value);
+  /// Creates a(n) moles measurement.
+  f.QuantityMeasurement get moles =>
+      f.QuantityUnit.moles.withPrefix(_prefix)(_value);
 
   /// Creates a(n) pascals measurement.
   f.PressureMeasurement get pascals =>
@@ -186,15 +178,23 @@ class NumExtension {
   f.PressureMeasurement get psi =>
       f.PressureUnit.psi.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) candela measurement.
-  f.LuminosityMeasurement get candela =>
-      f.LuminosityUnit.candela.withPrefix(_prefix)(_value);
+  /// Creates a(n) kelvin measurement.
+  f.TemperatureChangeMeasurement get kelvin =>
+      f.TemperatureChangeUnit.kelvin.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) candlepower measurement.
-  f.LuminosityMeasurement get candlepower =>
-      f.LuminosityUnit.candlepower.withPrefix(_prefix)(_value);
+  /// Creates a(n) celcius measurement.
+  f.TemperatureChangeMeasurement get celcius =>
+      f.TemperatureChangeUnit.celcius.withPrefix(_prefix)(_value);
 
-  /// Creates a(n) hefnerkerze measurement.
-  f.LuminosityMeasurement get hefnerkerze =>
-      f.LuminosityUnit.hefnerkerze.withPrefix(_prefix)(_value);
+  /// Creates a(n) celsius measurement.
+  f.TemperatureChangeMeasurement get celsius =>
+      f.TemperatureChangeUnit.celsius.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) fahrenheit measurement.
+  f.TemperatureChangeMeasurement get fahrenheit =>
+      f.TemperatureChangeUnit.fahrenheit.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) amperes measurement.
+  f.ChargeMeasurement get amperes =>
+      f.ChargeUnit.amperes.withPrefix(_prefix)(_value);
 }
