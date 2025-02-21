@@ -52,7 +52,7 @@ class Temperature implements Comparable<Temperature> {
   Temperature.ofCelcius(
     num amount, {
     int precision = Precision.maximumPrecision,
-  }) : this._(celsius.from(amount) - _celsiusOffset, precision, celsius);
+  }) : this.ofCelsius(amount, precision: precision);
 
   /// Constructs a [Temperature] from a degree Celsius amount.
   Temperature.ofCelsius(
@@ -88,8 +88,7 @@ class Temperature implements Comparable<Temperature> {
 
   /// Interprets this as degrees Celcius.
   @Deprecated('Use [asCelsius]')
-  double get asCelcius =>
-      _precision.apply(celsius.of(_kelvin) + _celsiusOffset);
+  double get asCelcius => asCelsius;
 
   /// Interprets this as degrees Celsius.
   double get asCelsius =>
@@ -216,6 +215,6 @@ extension NumExtensionTemperature on num {
   Temperature get ofKelvin => Temperature.ofKelvin(this);
   Temperature get ofFahrenheit => Temperature.ofFahrenheit(this);
   @Deprecated('Use [ofCelsius]')
-  Temperature get ofCelcius => Temperature.ofCelsius(this);
+  Temperature get ofCelcius => ofCelsius;
   Temperature get ofCelsius => Temperature.ofCelsius(this);
 }
