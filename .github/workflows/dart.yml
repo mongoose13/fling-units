@@ -15,17 +15,8 @@ jobs:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
-      - name: Install dependencies
-        run: dart pub get
+      - name: Run all tests
+        run: make test
 
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
-
-      - name: Analyze project source
-        run: dart analyze --fatal-infos
-
-      - name: Run tests
-        run: dart test
-
-      - name: Run pana
-        run: dart pub global activate pana && ~/.pub-cache/bin/pana . --no-warning --exit-code-threshold 0
+      - name: Validate code quality
+        run: make pana
