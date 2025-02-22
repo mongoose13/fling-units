@@ -9,6 +9,10 @@ types you need to work with from the rest of your code.
 
 - Improved makefile targets
 
+### Added
+
+- CONTRIBUTING documentation
+
 ## [3.0.6]
 
 ### Changed
