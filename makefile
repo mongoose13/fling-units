@@ -2,25 +2,23 @@ deps := pubspec.lock
 built := lib/src/generated
 pana := ~/.pub-cache/bin/pana
 
-build: $(built)
-
 $(built): $(deps)
 	dart run build_runner build
 
 .PHONY: clean
 clean:
-	rm -rf --interactive=never $(built) $(deps) lib/src/library.dart
+	rm -rf --interactive=never $(built) $(deps)
 
 .PHONY: test
-test: build
+test: $(built)
 	dart test
 
 .PHONY: example
-example: build
+example: $(built)
 	dart run example/lib/example.dart
 
 .PHONY: pana
-pana: $(pana) build
+pana: $(pana) $(built)
 	$(pana) . --no-warning --exit-code-threshold 0
 
 # Tool-based outputs

@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,8 +15,14 @@ jobs:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
+      - name: Perform a clean build
+        run: make clean
+
       - name: Run all tests
         run: make test
+
+      - name: Run the example
+        run: make example
 
       - name: Validate code quality
         run: make pana
