@@ -18,7 +18,7 @@ types you need to work with from the rest of your code.
 ### Changed
 
 - Enable strict type checking in analyzer
-- Renamed Celcius to Celsius (correct spelling) per https://github.com/mongoose13/fling-units/issues/2
+- Renamed Celcius to Celsius (correct spelling) per [#2](https://github.com/mongoose13/fling-units/issues/2)
 
 ## [3.0.5]
 
