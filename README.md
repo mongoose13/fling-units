@@ -54,7 +54,7 @@ us know how we can improve **fling_units** by creating an issue!
 
 ## Further documentation
 
-For additional documentation, check the [project wiki](https://bitbucket.org/mongoose13/fling-units/wiki/browse/).
+For additional documentation, check the [project wiki](https://github.com/mongoose13/fling-units/wiki).
 
 ## Usage
 
