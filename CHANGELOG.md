@@ -5,7 +5,9 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
-None (yet).
+### Changed
+
+- Improved makefile targets
 
 ## [3.0.6]
 
