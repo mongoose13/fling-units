@@ -7,7 +7,7 @@ types you need to work with from the rest of your code.
 
 ### Changed
 
-- Improved makefile targets
+- Improved makefile targets and automated build steps
 
 ### Added
 
@@ -18,7 +18,7 @@ types you need to work with from the rest of your code.
 ### Changed
 
 - Enable strict type checking in analyzer
-- Renamed Celcius to Celsius (correct spelling) per [#2](https://github.com/mongoose13/fling-units/issues/2)
+- Renamed Celcius to Celsius (correct spelling) per [Issue #2](https://github.com/mongoose13/fling-units/issues/2)
 
 ## [3.0.5]
 
@@ -377,44 +377,44 @@ types you need to work with from the rest of your code.
 
 - Initial package setup
 
-[Unreleased]: https://bitbucket.org/mongoose-oss/fling-units/commits/
-[3.0.6]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.6
-[3.0.5]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.5
-[3.0.4]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.4
-[3.0.3]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.3
-[3.0.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.2
-[3.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.1
-[3.0.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/3.0.0
-[2.2.7]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.7
-[2.2.6]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.6
-[2.2.5]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.5
-[2.2.4]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.4
-[2.2.3]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.3
-[2.2.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.2
-[2.2.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.1
-[2.2.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.2.0
-[2.1.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.1.1
-[2.1.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.1.0
-[2.0.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.0.2
-[2.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.0.1
-[2.0.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/2.0.0
-[1.4.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.4.1
-[1.4.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.4.0
-[1.3.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.3.0
-[1.2.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.2.0
-[1.1.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/1.1.2
-[1.1.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.1.1
-[1.1.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.1.0
-[1.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.0.1
-[1.0.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v1.0.0
-[0.4.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.4.1
-[0.4.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.4.0
-[0.3.2]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.3.2
-[0.3.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.3.1
-[0.3.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.3.0
-[0.2.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.2.1
-[0.2.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.2.0
-[0.1.0]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.1.0
-[0.0.1]: https://bitbucket.org/mongoose-oss/fling-units/commits/tag/v0.0.1
+[Unreleased]: https://github.com/mongoose13/fling-units/compare/v3.0.6...HEAD
+[3.0.6]: https://github.com/mongoose13/fling-units/compare/v3.0.5...v3.0.6
+[3.0.5]: https://github.com/mongoose13/fling-units/compare/v3.0.4...v3.0.5
+[3.0.4]: https://github.com/mongoose13/fling-units/compare/v3.0.3...v3.0.4
+[3.0.3]: https://github.com/mongoose13/fling-units/compare/v3.0.2...v3.0.3
+[3.0.2]: https://github.com/mongoose13/fling-units/compare/v3.0.1...v3.0.2
+[3.0.1]: https://github.com/mongoose13/fling-units/compare/v3.0.0...v3.0.1
+[3.0.0]: https://github.com/mongoose13/fling-units/compare/v2.2.7...v3.0.0
+[2.2.7]: https://github.com/mongoose13/fling-units/compare/v2.2.6...v2.2.7
+[2.2.6]: https://github.com/mongoose13/fling-units/compare/v2.2.5...v2.2.6
+[2.2.5]: https://github.com/mongoose13/fling-units/compare/v2.2.4...v2.2.5
+[2.2.4]: https://github.com/mongoose13/fling-units/compare/v2.2.3...v2.2.4
+[2.2.3]: https://github.com/mongoose13/fling-units/compare/v2.2.2...v2.2.3
+[2.2.2]: https://github.com/mongoose13/fling-units/compare/v2.2.1...v2.2.2
+[2.2.1]: https://github.com/mongoose13/fling-units/compare/v2.2.0...v2.2.1
+[2.2.0]: https://github.com/mongoose13/fling-units/compare/v2.1.1...v2.2.0
+[2.1.1]: https://github.com/mongoose13/fling-units/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/mongoose13/fling-units/compare/v2.0.2...v2.1.0
+[2.0.2]: https://github.com/mongoose13/fling-units/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/mongoose13/fling-units/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/mongoose13/fling-units/compare/v1.4.1...v2.0.0
+[1.4.1]: https://github.com/mongoose13/fling-units/compare/v1.4.0...v1.4.1
+[1.4.0]: https://github.com/mongoose13/fling-units/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/mongoose13/fling-units/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/mongoose13/fling-units/compare/v1.1.2...v1.2.0
+[1.1.2]: https://github.com/mongoose13/fling-units/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/mongoose13/fling-units/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/mongoose13/fling-units/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/mongoose13/fling-units/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/mongoose13/fling-units/compare/v0.4.1...v1.0.0
+[0.4.1]: https://github.com/mongoose13/fling-units/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/mongoose13/fling-units/compare/v0.3.2...v0.4.0
+[0.3.2]: https://github.com/mongoose13/fling-units/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/mongoose13/fling-units/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/mongoose13/fling-units/compare/v0.2.1...v0.3.0
+[0.2.1]: https://github.com/mongoose13/fling-units/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/mongoose13/fling-units/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/mongoose13/fling-units/compare/v0.0.1...v0.1.0
+[0.0.1]: https://github.com/mongoose13/fling-units/tree/v0.0.1
 
-[2.x-3.x migration guide]: https://bitbucket.org/mongoose-oss/fling-units/wiki/Migration2to3
+[2.x-3.x migration guide]: https://github.com/mongoose13/fling-units/wiki/Migration-Guide-2.x-to-3.x
