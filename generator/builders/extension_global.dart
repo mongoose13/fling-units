@@ -84,6 +84,7 @@ prevents all but the first usage (the one we want) demonstrated above."""
                       for (final unit in measurement.units)
                         (measurement: measurement, unit: unit)
                     ])
+                .where((pair) => pair.unit.isVisible)
                 .map(
                   (pair) => Method(
                     (method) => method

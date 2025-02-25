@@ -11,10 +11,12 @@ import 'package:fling_units/src/core/annotations.dart';
 class UnitDetails {
   final String name;
   final String singularName;
+  final bool isVisible;
 
   UnitDetails({
     required this.name,
     required this.singularName,
+    required this.isVisible,
   });
 }
 
@@ -77,11 +79,15 @@ class FlingStandaloneBuilder extends FlingBuilder {
         name: pair.line.first,
         asset: pair.asset,
         units: pair.line.skip(1).map(
-              (names) => UnitDetails(
-                name: names.split(";").first,
-                singularName: names.split(";").last,
-              ),
-            ),
+          (names) {
+            final components = names.split(";");
+            return UnitDetails(
+              name: components[0],
+              singularName: components[1],
+              isVisible: bool.parse(components[2]),
+            );
+          },
+        ),
       ),
     );
   }
@@ -150,17 +156,39 @@ class FlingMeasurementBuilder extends FlingBuilder {
     );
   }
 
-  String shortNameOf(Element unit) =>
-      checker
+  String displayNameOf(Element unit) => switch (isVisible(unit)) {
+        true => unit.displayName,
+        false => "_${unit.displayName}",
+      };
+
+  String shortNameOf(Element unit) => switch (checker
           .firstAnnotationOfExact(unit)
           ?.getField('shortName')
-          ?.toStringValue() ??
-      "X";
+          ?.toStringValue()) {
+        String shortName => shortName,
+        dynamic value => throw ArgumentError.value(
+            value,
+            "shortName",
+            "short name must be a String",
+          ),
+      };
 
-  double multiplierOf(Element unit) =>
-      checker
+  double multiplierOf(Element unit) => switch (checker
           .firstAnnotationOfExact(unit)
           ?.getField('multiplier')
-          ?.toDoubleValue() ??
-      1e0;
+          ?.toDoubleValue()) {
+        double multiplier => multiplier,
+        dynamic value => throw ArgumentError.value(
+            value,
+            "multiplier",
+            "multiplier must be a double",
+          ),
+      };
+
+  bool isVisible(Element unit) =>
+      checker
+          .firstAnnotationOfExact(unit)
+          ?.getField('isVisible')
+          ?.toBoolValue() ??
+      true;
 }

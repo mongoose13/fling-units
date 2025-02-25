@@ -186,7 +186,7 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                 (field) => field
                   ..static = true
                   ..modifier = FieldModifier.constant
-                  ..name = unit.displayName
+                  ..name = builder.displayNameOf(unit)
                   ..type = Reference(builder.unitName)
                   ..assignment = Code("${builder.unitName}._("
                       "name: '${builder.shortNameOf(unit)}', "

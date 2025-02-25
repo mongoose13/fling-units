@@ -31,7 +31,10 @@ class MeasurementIdentifierBuilder extends Builder {
                   element: element,
                   annotation: unitChecker.firstAnnotationOfExact(element)
                 ));
-            return "$measurementName,${annotations.map((pair) => "${pair.element.name};${pair.annotation?.getField("singularName")?.toStringValue()}").join(",")}";
+            return "$measurementName,"
+                "${annotations.map((pair) => "${pair.element.name};"
+                    "${pair.annotation?.getField("singularName")?.toStringValue()};"
+                    "${pair.annotation?.getField("isVisible")?.toBoolValue()}").join(",")}";
           }).join("\n"));
     }
   }

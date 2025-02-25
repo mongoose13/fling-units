@@ -38,7 +38,7 @@ class PrefixGenerator extends GeneratorForAnnotation<DimensionConfig> {
             );
           final units = element.children
               .where((Element element) => element.metadata.isNotEmpty);
-          for (final unit in units) {
+          for (final unit in units.where(builder.isVisible)) {
             final name = unit.displayName;
             prefix.methods.add(
               Method(

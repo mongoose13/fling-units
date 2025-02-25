@@ -73,6 +73,7 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
                       for (final unit in measurement.units)
                         (measurement: measurement, unit: unit)
                     ])
+                .where((pair) => pair.unit.isVisible)
                 .map(
                   (pair) => Method(
                     (method) => method
@@ -143,6 +144,7 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
                       for (final unit in measurement.units)
                         (measurement: measurement, unit: unit)
                     ])
+                .where((pair) => pair.unit.isVisible)
                 .map(
                   (pair) => Method(
                     (method) => method

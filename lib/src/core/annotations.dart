@@ -11,12 +11,14 @@ class UnitConfig {
   final String shortName;
   final String singularName;
   final double multiplier;
+  final bool isVisible;
 
   const UnitConfig({
     this.isSI = false,
     required this.shortName,
     required this.singularName,
     required this.multiplier,
+    this.isVisible = true,
   });
 }
 

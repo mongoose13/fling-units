@@ -35,7 +35,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                 ..modifier = FieldModifier.constant
                 ..name = 'siUnit'
                 ..type = builder.unitType
-                ..assignment = Code(builder.siUnit.displayName),
+                ..assignment = Code(builder.displayNameOf(builder.siUnit)),
             ),
           )
           ..constructors.add(
