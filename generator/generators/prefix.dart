@@ -24,18 +24,11 @@ class PrefixGenerator extends GeneratorForAnnotation<DimensionConfig> {
     final builder = FlingMeasurementBuilder(element, annotation);
 
     builder.add(
-      Mixin(
+      Extension(
         (prefix) {
           prefix
             ..name = builder.prefixName
-            ..methods.add(
-              Method(
-                (prefix) => prefix
-                  ..name = "prefix"
-                  ..type = MethodType.getter
-                  ..returns = Reference("f.MeasurementPrefix"),
-              ),
-            );
+            ..on = Reference("f.MeasurementPrefix");
           final units = element.children
               .where((Element element) => element.metadata.isNotEmpty);
           for (final unit in units.where(builder.isVisible)) {
@@ -47,7 +40,7 @@ class PrefixGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..name = name
                   ..type = MethodType.getter
                   ..returns = Reference(builder.unitName)
-                  ..body = Code("${builder.unitName}.$name.withPrefix(prefix)"),
+                  ..body = Code("${builder.unitName}.$name.withPrefix(this)"),
               ),
             );
           }

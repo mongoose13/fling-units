@@ -39,12 +39,6 @@ builders:
     builder_factories: ["unitBuilder"]
     build_extensions: {".dart": [".g.part"]}
     build_to: cache
-  measurement_prefix:
-    import: "generator/generator.dart"
-    builder_factories: ["measurementPrefixBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/prefix.dart"]}
-    build_to: source
-    required_inputs: [".measurement"]
   measurement_id:
     import: "generator/generator.dart"
     builder_factories: ["measurementIdentifierBuilder"]

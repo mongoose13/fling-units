@@ -181,8 +181,4 @@ void main() {
       "\nMy hand will always have a linear density of ${pounds.per.inch.using(massOfMyHand, sizeOfMyHand.inverted).withPrecision(2)}.");
 
   // Have fun!
-  print(3.centi.hertz.butAs(hertz));
-  print(3.deka.hertz.butAs(rpm));
-  print(3.deka.hertz.butAs(hertz));
-  print(3.hertz.butAs(rpm));
 }
