@@ -7,7 +7,11 @@ $(built): $(deps)
 
 .PHONY: clean
 clean:
-	rm -rf --interactive=never $(built) $(deps)
+	rm -rf --interactive=never $(built)
+
+.PHONY: reset
+reset:
+	rm -rf --interactive=never $(deps)
 
 .PHONY: test
 test: $(built)
@@ -24,6 +28,7 @@ pana: $(pana) $(built)
 # Tool-based outputs
 $(deps): pubspec.yaml
 	dart pub get
+	rm -rf --interactive=never $(built)
 
 $(pana):
 	dart pub global activate pana

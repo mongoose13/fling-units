@@ -7,7 +7,7 @@ void main() {
     group("constructors", () {
       test("zero", () {
         // given
-        final measurement = Measurement.zero(meters);
+        final measurement = DistanceMeasurement.zero();
 
         // then
         expect(measurement.isInfinite, false);
@@ -18,7 +18,7 @@ void main() {
       });
       test("infinite", () {
         // given
-        final measurement = Measurement.infinite(meters);
+        final measurement = DistanceMeasurement.infinite();
 
         // then
         expect(measurement.isInfinite, true);
@@ -29,7 +29,7 @@ void main() {
       });
       test("negativeInfinite", () {
         // given
-        final measurement = Measurement.negativeInfinite(meters);
+        final measurement = DistanceMeasurement.negativeInfinite();
 
         // then
         expect(measurement.isInfinite, true);
@@ -40,7 +40,7 @@ void main() {
       });
       test("nan", () {
         // given
-        final measurement = Measurement.nan(meters);
+        final measurement = DistanceMeasurement.nan();
 
         // then
         expect(measurement.isInfinite, false);
@@ -117,7 +117,7 @@ void main() {
     group("sum", () {
       test("different units", () {
         // given
-        final measurement = sum([2.centi.meters, 3.inches]);
+        final measurement = DistanceMeasurement.sum([2.centi.meters, 3.inches]);
 
         // then
         expect(measurement.defaultUnit, centi.meters);
@@ -125,7 +125,8 @@ void main() {
       });
       test("specify a default unit", () {
         // given
-        final measurement = sum([2.centi.meters, 3.inches], defaultUnit: feet);
+        final measurement = DistanceMeasurement.sum([2.centi.meters, 3.inches],
+            defaultUnit: feet);
 
         // then
         expect(measurement.defaultUnit, feet);

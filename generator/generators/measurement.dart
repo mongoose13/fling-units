@@ -23,276 +23,468 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
   ) {
     final builder = FlingMeasurementBuilder(element, annotation);
 
-    builder.add(
-      Class(
-        (measurement) => measurement
-          ..name = builder.measurementName
-          ..extend = Reference("f.Measurement<${builder.dimensionName}>")
-          ..fields.add(
-            Field(
-              (siUnit) => siUnit
-                ..static = true
-                ..modifier = FieldModifier.constant
-                ..name = 'siUnit'
-                ..type = builder.unitType
-                ..assignment = Code(builder.displayNameOf(builder.siUnit)),
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (constructor) => constructor
-                ..constant = true
-                ..requiredParameters.add(
-                  Parameter(
-                    (magnitude) => magnitude
-                      ..name = "magnitude"
-                      ..type = Reference("num"),
+    for (final isInverted in [false, true]) {
+      final siUnit = builder.siUnit;
+      final dimensionName = isInverted
+          ? "Inverted${builder.dimensionName}"
+          : builder.dimensionName;
+      final invertedDimensionName = isInverted
+          ? builder.dimensionName
+          : "Inverted${builder.dimensionName}";
+      final unitName = "${dimensionName}Unit";
+      final measurementName = "${dimensionName}Measurement";
+      final invertedMeasurementName = "${invertedDimensionName}Measurement";
+      final measurementType = Reference(measurementName);
+      builder.add(
+        Class(
+          (measurement) => measurement
+            ..name = measurementName
+            ..extend = Reference(
+                "f.Measurement<$dimensionName, $invertedDimensionName>")
+            ..fields.add(
+              Field(
+                (si) => si
+                  ..static = true
+                  ..modifier = FieldModifier.constant
+                  ..name = 'siUnit'
+                  ..type = Reference(unitName)
+                  ..assignment = Code(switch (isInverted) {
+                    false => builder.displayNameOf(siUnit),
+                    true =>
+                      "$unitName._(name: \"${builder.siUnit}⁻¹\", unitMultiplier: 1.0)",
+                  }),
+              ),
+            )
+            ..fields.add(
+              Field(
+                (defaultUnit) => defaultUnit
+                  ..docs.add("""/// The default unit for this measurement.
+                                ///
+                                /// Operations that require a unit conversion, but are not provided one (e.g.
+                                /// [toString]) will make use of this unit.
+                                ///
+                                /// By default, this is set as the unit used to create the measurement. It can
+                                /// be changed using [butAs].""")
+                  ..modifier = FieldModifier.final$
+                  ..name = 'defaultUnit'
+                  ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
+                  ..type = Reference(unitName),
+              ),
+            )
+            ..constructors.add(
+              Constructor(
+                (constructor) => constructor
+                  ..constant = true
+                  ..requiredParameters.add(
+                    Parameter(
+                      (magnitude) => magnitude
+                        ..docs.add(
+                            "/// The magnitude of the measurement as a multiple of the measurement's [defaultUnit].")
+                        ..name = "magnitude"
+                        ..type = Reference("num"),
+                    ),
+                  )
+                  ..requiredParameters.add(
+                    Parameter(
+                      (defaultUnit) => defaultUnit
+                        ..docs.add(
+                            "/// The [Unit] in which the measurement was made.")
+                        ..name = "defaultUnit"
+                        ..toThis = true,
+                    ),
+                  )
+                  ..optionalParameters.add(
+                    Parameter(
+                      (precision) => precision
+                        ..name = "precision"
+                        ..type = Reference("f.Precision")
+                        ..defaultTo = Code("f.Precision.max"),
+                    ),
+                  )
+                  ..initializers.add(Code(
+                      "super(magnitude: magnitude, precision: precision,)")),
+              ),
+            )
+            ..constructors.add(
+              Constructor(
+                (sum) => sum
+                  ..docs.add(
+                      "/// Creates a measurement that is the sum of several measurements.")
+                  ..name = "sum"
+                  ..requiredParameters.add(
+                    Parameter(
+                      (parts) => parts
+                        ..name = "parts"
+                        ..type = Reference("Iterable<f.$measurementName>"),
+                    ),
+                  )
+                  ..optionalParameters.addAll(
+                    [
+                      Parameter(
+                        (precision) => precision
+                          ..name = "precision"
+                          ..type = Reference("int")
+                          ..defaultTo = Code("f.Precision.maximumPrecision")
+                          ..named = true,
+                      ),
+                      Parameter(
+                        (defaultUnit) => defaultUnit
+                          ..name = "defaultUnit"
+                          ..type = Reference("$unitName?")
+                          ..named = true,
+                      ),
+                    ],
+                  )
+                  ..initializers.add(
+                    Code("defaultUnit = defaultUnit ?? parts.first.defaultUnit,"
+                        "super("
+                        "magnitude: (defaultUnit ?? parts.first.defaultUnit).fromSI(parts.fold("
+                        "0.0, (previousValue, element) => previousValue + element.si)),"
+                        "precision: f.Precision(precision),"
+                        ")"),
                   ),
-                )
-                ..requiredParameters.add(
-                  Parameter(
-                    (defaultUnit) => defaultUnit
-                      ..name = "defaultUnit"
-                      ..type = builder.unitType,
-                  ),
-                )
-                ..optionalParameters.add(
-                  Parameter(
-                    (precision) => precision
-                      ..name = "precision"
-                      ..type = Reference("f.Precision")
-                      ..defaultTo = Code("f.Precision.max"),
-                  ),
-                )
-                ..initializers.add(Code(
-                    "super(magnitude: magnitude, precision: precision, defaultUnit: defaultUnit,)")),
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (sum) => sum
-                ..docs.add(
-                    "/// Creates a measurement that is the sum of several measurements.")
-                ..name = "sum"
-                ..requiredParameters.add(
-                  Parameter(
-                    (parts) => parts
-                      ..name = "parts"
-                      ..type = Reference(
-                          "Iterable<f.Measurement<${builder.dimensionName}>>"),
-                  ),
-                )
-                ..optionalParameters.add(
-                  Parameter(
-                    (precision) => precision
-                      ..name = "precision"
-                      ..type = Reference("int")
-                      ..defaultTo = Code("f.Precision.maximumPrecision")
-                      ..named = true,
-                  ),
-                )
-                ..initializers.add(
-                  Code("super("
-                      "magnitude: parts.first.defaultUnit.of(parts.fold("
-                      "0.0, (previousValue, element) => previousValue + element.si)),"
-                      "precision: f.Precision(precision),"
-                      "defaultUnit: parts.first.defaultUnit,"
-                      ")"),
-                ),
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (zero) => zero
-                ..constant = true
-                ..name = "zero"
-                ..optionalParameters.add(
-                  Parameter(
-                    (unit) => unit
-                      ..name = "unit"
-                      ..toSuper = true
-                      ..defaultTo = Code("siUnit"),
-                  ),
-                )
-                ..initializers.add(Code("super.zero()")),
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (infinite) => infinite
-                ..constant = true
-                ..name = "infinite"
-                ..optionalParameters.add(
-                  Parameter(
-                    (unit) => unit
-                      ..name = "unit"
-                      ..toSuper = true
-                      ..defaultTo = Code("siUnit"),
-                  ),
-                )
-                ..initializers.add(Code("super.infinite()")),
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (negativeInfinite) => negativeInfinite
-                ..constant = true
-                ..name = "negativeInfinite"
-                ..optionalParameters.add(
-                  Parameter(
-                    (unit) => unit
-                      ..name = "unit"
-                      ..toSuper = true
-                      ..defaultTo = Code("siUnit"),
-                  ),
-                )
-                ..initializers.add(Code("super.negativeInfinite()")),
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (nan) => nan
-                ..constant = true
-                ..name = "nan"
-                ..optionalParameters.add(
-                  Parameter(
-                    (unit) => unit
-                      ..name = "unit"
-                      ..toSuper = true
-                      ..defaultTo = Code("siUnit"),
-                  ),
-                )
-                ..initializers.add(Code("super.nan()")),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (construct) => construct
-                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-                ..lambda = true
-                ..name = "construct"
-                ..returns = builder.measurementType
-                ..requiredParameters.add(
-                  Parameter(
-                    (magnitude) => magnitude
-                      ..name = "magnitude"
-                      ..type = Reference("num"),
-                  ),
-                )
-                ..requiredParameters.add(
-                  Parameter(
-                    (defaultUnit) => defaultUnit
-                      ..name = "defaultUnit"
-                      ..type = builder.unitType,
-                  ),
-                )
-                ..requiredParameters.add(
-                  Parameter(
-                    (precision) => precision
-                      ..name = "precision"
-                      ..type = Reference("f.Precision"),
-                  ),
-                )
-                ..body = Code(
-                    "${builder.measurementName}(magnitude, defaultUnit, precision)"),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (per) => per
-                ..docs.add(
-                    "/// Creates a derived measurement of a derived unit consisting of this measurement's"
-                    "unit in the numerator and the specified unit in the denominator, with this measurement's"
-                    "default value as the default value of the resulting derived unit.")
-                ..name = "per"
-                ..lambda = true
-                ..type = MethodType.getter
-                ..returns = Reference(
-                    "f.MeasurementPer<${builder.measurementName}, ${builder.dimensionName}>")
-                ..body = Code("f.MeasurementPer(this)"),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (dot) => dot
-                ..docs.add(
-                    "/// Creates a derived measurement of a derived unit consisting of this measurement's"
-                    "unit multiplied by the specified measurement's unit, with this measurement's"
-                    "default value as the default value of the resulting derived unit.")
-                ..name = "dot"
-                ..lambda = true
-                ..type = MethodType.getter
-                ..returns = Reference(
-                    "f.MeasurementDot<${builder.measurementName}, ${builder.dimensionName}>")
-                ..body = Code("f.MeasurementDot(this)"),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (over) => over
-                ..docs.add(
-                    "/// Creates a derived measurement representing the ratio of this and another measurement.")
-                ..name = "over"
-                ..lambda = true
-                ..types.add(Reference("D extends f.Dimension"))
-                ..requiredParameters.add(
-                  Parameter(
-                    (denominator) => denominator
-                      ..name = "denominator"
-                      ..type = Reference("f.Measurement<D>"),
-                  ),
-                )
-                ..returns = Reference(
-                    "f.Measurement<f.Dimension2<f.UnitNumerator<${builder.dimensionName}>, f.UnitDenominator<D>>>")
-                ..body = Code(
-                    "f.ratio<${builder.dimensionName}, D>(defaultUnit, denominator.defaultUnit)"
-                    "(defaultValue, denominator.defaultValue)"),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (by) => by
-                ..docs.add(
-                    "/// Creates a derived measurement representing the product of this and another measurement.")
-                ..name = "by"
-                ..lambda = true
-                ..types.add(Reference("D extends f.Dimension"))
-                ..requiredParameters.add(
-                  Parameter(
-                    (term) => term
-                      ..name = "term"
-                      ..type = Reference("f.Measurement<D>"),
-                  ),
-                )
-                ..returns = Reference(
-                    "f.Measurement<f.Dimension2<f.UnitNumerator<${builder.dimensionName}>, f.UnitNumerator<D>>>")
-                ..body = Code(
-                    "f.product2<${builder.dimensionName}, D>(defaultUnit, term.defaultUnit)"
-                    "(defaultValue, term.defaultValue)"),
-            ),
-          )
-          ..methods.add(
-            Method(
-              (withPrecision) => withPrecision
-                ..docs.add(
-                    "/// Creates an equivalent measurement with the specified precision (significant digits).")
-                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-                ..name = "withPrecision"
-                ..returns = builder.measurementType
-                ..requiredParameters.add(
-                  Parameter(
+              ),
+            )
+            ..constructors.add(
+              Constructor(
+                (zero) => zero
+                  ..constant = true
+                  ..name = "zero"
+                  ..optionalParameters.add(
+                    Parameter(
+                      (unit) => unit
+                        ..name = "defaultUnit"
+                        ..toThis = true
+                        ..defaultTo = Code("siUnit"),
+                    ),
+                  )
+                  ..initializers.add(Code("super.zero()")),
+              ),
+            )
+            ..constructors.add(
+              Constructor(
+                (infinite) => infinite
+                  ..constant = true
+                  ..name = "infinite"
+                  ..optionalParameters.add(
+                    Parameter(
+                      (unit) => unit
+                        ..name = "defaultUnit"
+                        ..toThis = true
+                        ..defaultTo = Code("siUnit"),
+                    ),
+                  )
+                  ..initializers.add(Code("super.infinite()")),
+              ),
+            )
+            ..constructors.add(
+              Constructor(
+                (negativeInfinite) => negativeInfinite
+                  ..constant = true
+                  ..name = "negativeInfinite"
+                  ..optionalParameters.add(
+                    Parameter(
+                      (unit) => unit
+                        ..name = "defaultUnit"
+                        ..toThis = true
+                        ..defaultTo = Code("siUnit"),
+                    ),
+                  )
+                  ..initializers.add(Code("super.negativeInfinite()")),
+              ),
+            )
+            ..constructors.add(
+              Constructor(
+                (nan) => nan
+                  ..constant = true
+                  ..name = "nan"
+                  ..optionalParameters.add(
+                    Parameter(
+                      (unit) => unit
+                        ..name = "defaultUnit"
+                        ..toThis = true
+                        ..defaultTo = Code("siUnit"),
+                    ),
+                  )
+                  ..initializers.add(Code("super.nan()")),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (withPrecision) => withPrecision
+                  ..docs.add(
+                      "/// Creates an equivalent measurement with the specified precision (significant digits).")
+                  ..name = "withPrecision"
+                  ..lambda = true
+                  ..requiredParameters.add(Parameter(
                     (precision) => precision
                       ..name = "precision"
                       ..type = Reference("int"),
+                  ))
+                  ..returns = measurementType
+                  ..body = Code(
+                      "$measurementName(magnitude.toDouble(), defaultUnit, f.Precision(precision))"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (negate) => negate
+                  ..docs.add(
+                      "/// Returns a measurement representing the opposite magnitude of this.")
+                  ..name = "operator -"
+                  ..lambda = true
+                  ..returns = measurementType
+                  ..body = Code(
+                      "$measurementName(-magnitude.toDouble(), defaultUnit, precisionData)"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (add) => add
+                  ..docs.add(
+                      "/// Returns a measurement equivalent to the sum of this and another measurement of the same dimension.")
+                  ..name = "operator +"
+                  ..lambda = true
+                  ..requiredParameters.add(
+                    Parameter(
+                      (other) => other
+                        ..name = "other"
+                        ..type = measurementType,
+                    ),
+                  )
+                  ..returns = measurementType
+                  ..body = Code(
+                      "$measurementName(defaultUnit.fromSI(si + other.si), defaultUnit, f.Precision(f.Precision.addition(this, other)))"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (add) => add
+                  ..docs.add(
+                      "/// Returns a measurement equivalent to the difference between this and another measurement of the same dimension.")
+                  ..name = "operator -"
+                  ..lambda = true
+                  ..requiredParameters.add(
+                    Parameter((other) => other
+                      ..name = "other"
+                      ..type = measurementType),
+                  )
+                  ..returns = measurementType
+                  ..body = Code(
+                      "$measurementName(defaultUnit.fromSI(si - other.si), defaultUnit, f.Precision(f.Precision.addition(this, -other)))"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (multiply) => multiply
+                  ..docs.add(
+                      "/// Returns a measurement equivalent to a multiple of this.")
+                  ..name = "operator *"
+                  ..lambda = true
+                  ..returns = measurementType
+                  ..requiredParameters.add(
+                    Parameter(
+                      (multiplier) => multiplier
+                        ..name = "multiplier"
+                        ..type = Reference("num"),
+                    ),
+                  )
+                  ..body = Code(
+                      "$measurementName(magnitude * multiplier.toDouble(), defaultUnit, precisionData)"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (divide) => divide
+                  ..docs.add(
+                      "/// Returns a measurement equivalent to a fraction of this.")
+                  ..name = "operator /"
+                  ..lambda = true
+                  ..returns = measurementType
+                  ..requiredParameters.add(
+                    Parameter(
+                      (divisor) => divisor
+                        ..name = "divisor"
+                        ..type = Reference("num"),
+                    ),
+                  )
+                  ..body = Code(
+                      "$measurementName(magnitude / divisor.toDouble(), defaultUnit, precisionData)"),
+              ),
+            )
+            ..methods.add(
+              Method((euclid) => euclid
+                ..docs.add(
+                    """/// Returns the Euclidean remainder of the division between two measurements.
+                     ///
+                     /// For example:
+                     /// ```dart
+                     /// feet(2) % inches(7); // 3 inches
+                     /// inches(7) % feet(2); // 7 inches
+                     /// ```
+                     ///
+                     /// For the purposes of this function, a negative divisor is treated identically
+                     /// to its positive counterpart, and thus the operation always produces a positive
+                     /// result. This is consistent with the way Dart handles the modulo operator.
+                     /// For example:
+                     /// ```dart
+                     /// feet(2) % inches(-7); // 3 inches
+                     /// feet(-2) % inches(7); // 4 inches
+                     /// feet(-2) % inches(-7); // 4 inches
+                     /// ```
+                     ///
+                     /// If the divisor is zero or the dividend is infinite, the result is always NaN.""")
+                ..name = "operator %"
+                ..lambda = true
+                ..requiredParameters.add(
+                  Parameter(
+                    (other) => other
+                      ..name = "other"
+                      ..type = measurementType,
                   ),
                 )
-                ..lambda = true
+                ..returns = measurementType
                 ..body = Code(
-                    "construct(magnitude.toDouble(), defaultUnit, f.Precision(precision))"),
+                    "$measurementName(defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue), defaultUnit, f.Precision.combine([precision, other.precision]),)")),
+            )
+            ..methods.add(
+              Method(
+                (butAs) => butAs
+                  ..docs.add(
+                      "/// Creates a new measurement equivalent to this one but with a different default unit.")
+                  ..name = "butAs"
+                  ..returns = measurementType
+                  ..lambda = true
+                  ..requiredParameters.add(
+                    Parameter(
+                      (unit) => unit
+                        ..name = "unit"
+                        ..type = Reference(unitName),
+                    ),
+                  )
+                  ..body = Code(
+                      "$measurementName(unit.fromSI(si), unit, precisionData)"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (as) => as
+                  ..docs.add(
+                      "/// Converts the default value of this measurement to the specified unit.")
+                  ..name = "as"
+                  ..requiredParameters.add(
+                    Parameter(
+                      (unit) => unit
+                        ..name = "unit"
+                        ..type = Reference(unitName),
+                    ),
+                  )
+                  ..returns = Reference("double")
+                  ..lambda = true
+                  ..body = Code("precisionData.apply(unit.fromSI(si))"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (inverted) => inverted
+                  ..docs.add(
+                      """/// Creates a measurement that is the inverse of this measurement.
+                       ///
+                       /// For example:
+                       /// ```dart
+                       /// final hertz = 3.seconds.inverted; // 1/3 Hz
+                       /// ```""")
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..name = "inverted"
+                  ..returns = Reference(invertedMeasurementName)
+                  ..body = Code(
+                      "$invertedMeasurementName(magnitude, defaultUnit.inverted, precisionData,)"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (per) => per
+                  ..docs.add(
+                      """/// Creates a derived measurement of a derived unit consisting of this measurement's
+                       /// unit in the numerator and the specified unit in the denominator, with this measurement's
+                       /// default value as the default value of the resulting derived unit.""")
+                  ..name = "per"
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..returns = Reference(
+                      "f.MeasurementPer<$measurementName, $dimensionName, $invertedDimensionName>")
+                  ..body = Code("f.MeasurementPer(this)"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (dot) => dot
+                  ..docs.add(
+                      """/// Creates a derived measurement of a derived unit consisting of this measurement's
+                       /// unit multiplied by the specified measurement's unit, with this measurement's
+                       /// default value as the default value of the resulting derived unit.""")
+                  ..name = "dot"
+                  ..lambda = true
+                  ..type = MethodType.getter
+                  ..returns = Reference(
+                      "f.MeasurementDot<$measurementName, $dimensionName, $invertedDimensionName>")
+                  ..body = Code("f.MeasurementDot(this)"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (by) => by
+                  ..docs.add(
+                      "/// Creates a derived measurement representing the ratio of this and another measurement.")
+                  ..name = "over"
+                  ..lambda = true
+                  ..types.addAll([
+                    Reference("D extends f.Dimension"),
+                    Reference("I extends f.Dimension")
+                  ])
+                  ..requiredParameters.add(
+                    Parameter(
+                      (term) => term
+                        ..name = "term"
+                        ..type = Reference("f.Measurement<D, I>"),
+                    ),
+                  )
+                  ..returns = Reference(
+                      "f.DerivedMeasurement2<$dimensionName, I, $invertedDimensionName, D>")
+                  ..body = Code(
+                      "f.DerivedUnit2.build(defaultUnit, term.defaultUnit.inverted)"
+                      "(defaultValue / term.defaultValue)"),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (by) => by
+                  ..docs.add(
+                      "/// Creates a derived measurement representing the product of this and another measurement.")
+                  ..name = "by"
+                  ..lambda = true
+                  ..types.addAll([
+                    Reference("D extends f.Dimension"),
+                    Reference("I extends f.Dimension")
+                  ])
+                  ..requiredParameters.add(
+                    Parameter(
+                      (term) => term
+                        ..name = "term"
+                        ..type = Reference("f.Measurement<D, I>"),
+                    ),
+                  )
+                  ..returns = Reference(
+                      "f.DerivedMeasurement2<$dimensionName, D, $invertedDimensionName, I>")
+                  ..body =
+                      Code("f.DerivedUnit2.build(defaultUnit, term.defaultUnit)"
+                          "(defaultValue * term.defaultValue)"),
+              ),
             ),
-          ),
-      ),
-    );
+        ),
+      );
+    }
 
     return builder.flush();
   }

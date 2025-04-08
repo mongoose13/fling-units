@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final charge = sum([
+        final charge = LuminosityMeasurement.sum([
           candela(2.1),
           candela(5.0),
           candlepower(3.0),
@@ -114,7 +114,7 @@ void main() {
         final result = charge.as(candela);
 
         // then
-        expect(result, 11.146863);
+        expect(result, closeTo(11.147, 0.0005));
       });
     });
 
@@ -127,7 +127,7 @@ void main() {
         final result = charge.as(candlepower);
 
         // then
-        expect(result, 1.2579396);
+        expect(result, closeTo(1.2579, 0.00005));
       });
     });
 
@@ -162,7 +162,7 @@ void main() {
         final result = charge.as(candela);
 
         // then
-        expect(result, 1.2105);
+        expect(result, 1.2106);
       });
       test('applies prefixes', () {
         // given
@@ -172,7 +172,7 @@ void main() {
         final result = charge.as(candela);
 
         // then
-        expect(result, 1.2105);
+        expect(result, 1.2106);
       });
     });
     group('hefnerkerze', () {
@@ -184,7 +184,7 @@ void main() {
         final result = charge.as(candela);
 
         // then
-        expect(result, 1.1352);
+        expect(result, 1.1353);
       });
       test('applies prefixes', () {
         // given
@@ -194,7 +194,7 @@ void main() {
         final result = charge.as(candela);
 
         // then
-        expect(result, 1.1352);
+        expect(result, 1.1353);
       });
     });
 

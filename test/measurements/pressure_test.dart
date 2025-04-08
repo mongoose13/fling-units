@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds up component parts', () {
         // given
-        final measurement = sum([
+        final measurement = PressureMeasurement.sum([
           pascals(2),
           bars(1),
           standardAtmospheres(0.5),
@@ -185,7 +185,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 1.234e4);
+        expect(result, 123.4);
       });
       test('applies prefixes', () {
         // given
@@ -195,7 +195,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 12.34);
+        expect(result, 0.1234);
       });
     });
 
@@ -231,7 +231,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 1.2583e-2);
+        expect(result, 1.2101e5);
       });
       test('applies prefixes', () {
         // given
@@ -241,7 +241,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 1.2583e-5);
+        expect(result, 121.01);
       });
     });
 
@@ -268,29 +268,6 @@ void main() {
       });
     });
 
-    group('inHg', () {
-      test('converts to base', () {
-        // given
-        final measurement = inHg(1.234, precision: 5);
-
-        // when
-        final result = measurement.as(pascals);
-
-        // then
-        expect(result, 3.644e-4);
-      });
-      test('applies prefixes', () {
-        // given
-        final measurement = milli.inHg(1.234, precision: 5);
-
-        // when
-        final result = measurement.as(pascals);
-
-        // then
-        expect(result, 3.644e-7);
-      });
-    });
-
     group('Torr', () {
       test('converts to base', () {
         // given
@@ -300,7 +277,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 9.2558e-3);
+        expect(result, 164.52);
       });
       test('applies prefixes', () {
         // given
@@ -310,7 +287,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 9.2558e-6);
+        expect(result, 0.16452);
       });
     });
 
@@ -323,7 +300,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 1.7898e-4);
+        expect(result, 8508.1);
       });
       test('applies prefixes', () {
         // given
@@ -333,7 +310,7 @@ void main() {
         final result = measurement.as(pascals);
 
         // then
-        expect(result, 1.7898e-7);
+        expect(result, 8.5081);
       });
     });
 

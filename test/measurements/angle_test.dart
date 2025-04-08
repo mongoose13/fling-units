@@ -167,7 +167,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final measurement = sum([
+        final measurement = AngleMeasurement.sum([
           degrees(2.1),
           arcMinutes(5.0),
           arcSeconds(0.3),

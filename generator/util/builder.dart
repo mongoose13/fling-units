@@ -115,7 +115,6 @@ class FlingMeasurementBuilder extends FlingBuilder {
   final checker = const TypeChecker.fromRuntime(UnitConfig);
 
   late final String dimensionName;
-  late final Reference dimensionType;
   late final String unitName;
   late final Reference unitExtends;
   late final Reference unitType;
@@ -131,7 +130,6 @@ class FlingMeasurementBuilder extends FlingBuilder {
     ConstantReader annotation,
   ) {
     dimensionName = annotation.read('shortName').stringValue;
-    dimensionType = Reference("f.Dimension");
 
     unitName = "${dimensionName}Unit";
     measurementName = "${dimensionName}Measurement";

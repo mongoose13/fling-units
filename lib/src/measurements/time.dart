@@ -17,21 +17,21 @@ enum TimeConfig {
   @UnitConfig(
     shortName: "min",
     singularName: "minute",
-    multiplier: 1.0 / 60.0,
+    multiplier: 60.0,
   )
   minutes,
 
   @UnitConfig(
     shortName: "h",
     singularName: "hour",
-    multiplier: 1.0 / 60.0 / 60.0,
+    multiplier: 60.0 * 60.0,
   )
   hours,
 
   @UnitConfig(
     shortName: "d",
     singularName: "day",
-    multiplier: 1.0 / 60.0 / 60.0 / 24.0,
+    multiplier: 60.0 * 60.0 * 24.0,
   )
   days;
 }
@@ -45,9 +45,9 @@ extension TimeExtension on TimeMeasurement {
   TimeMeasurement ofDuration(
     Duration duration, {
     f.Precision precision = f.Precision.max,
-    f.Unit<Time> interpreter = seconds,
+    f.TimeUnit unit = seconds,
   }) =>
-      TimeMeasurement(duration.inMicroseconds, interpreter, precision);
+      TimeMeasurement(duration.inMicroseconds, unit, precision);
 
   /// Constructs a [Duration] based on this.
   ///

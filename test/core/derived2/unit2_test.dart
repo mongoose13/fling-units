@@ -15,9 +15,9 @@ void main() {
         // then
         expect(result, closeTo(0.0929, 5e-5));
       });
-      test("product", () {
+      test("dot", () {
         // given
-        final unit = product2(feet, inches);
+        final unit = feet.dot.inches;
 
         // when
         final result = unit.multiplier;
@@ -25,9 +25,9 @@ void main() {
         // then
         expect(result, closeTo(7.74e-3, 5e-4));
       });
-      test("ratio", () {
+      test("per", () {
         // given
-        final unit = ratio(feet, deci.seconds);
+        final unit = feet.per.deci.second;
 
         // when
         final result = unit.multiplier;
@@ -58,8 +58,8 @@ void main() {
       test("both denominators", () {
         // given
         final unit = DerivedUnit2.build(
-          UnitDenominator(feet),
-          UnitDenominator(minutes),
+          feet.inverted,
+          minutes.inverted,
         );
 
         // when
@@ -73,56 +73,56 @@ void main() {
     group("of", () {
       test("square of 1", () {
         // when
-        final result = square(feet).of(1.0);
+        final result = square(feet).fromSI(1.0);
 
         // then
         expect(result, closeTo(10.76, 5e-3));
       });
       test("square of several", () {
         // when
-        final result = square(feet).of(3.0);
+        final result = square(feet).fromSI(3.0);
 
         // then
         expect(result, closeTo(32.3, 5e-2));
       });
       test("product of 1", () {
         // when
-        final result = product2(feet, inches).of(1.0);
+        final result = DerivedUnit2.build(feet, inches).fromSI(1.0);
 
         // then
         expect(result, closeTo(129.2, 5e-2));
       });
       test("product of several", () {
         // when
-        final result = product2(feet, inches).of(3.0);
+        final result = DerivedUnit2.build(feet, inches).fromSI(3.0);
 
         // then
         expect(result, closeTo(387.5, 5e-2));
       });
       test("ratio of 1", () {
         // when
-        final result = ratio(feet, deci.seconds).of(1.0);
+        final result = feet.per.deci.second.fromSI(1.0);
 
         // then
         expect(result, closeTo(0.328, 5e-4));
       });
       test("ratio of several", () {
         // when
-        final result = ratio(feet, deci.seconds).of(2.0);
+        final result = feet.per.deci.second.fromSI(2.0);
 
         // then
         expect(result, closeTo(0.656, 5e-4));
       });
       test("with a prefix", () {
         // when
-        final result = ratio(feet, deci.seconds).withPrefix(centi).of(2.0);
+        final result = feet.per.deci.second.withPrefix(centi).fromSI(2.0);
 
         // then
         expect(result, closeTo(65.6, 5e-2));
       });
       test("using per method", () {
         // when
-        final result = centi.feet.per.deci.second.of(2.0);
+        final result = centi.feet.per.deci.second.fromSI(2.0);
 
         // then
         expect(result, closeTo(65.6, 5e-2));
@@ -131,42 +131,42 @@ void main() {
     group("from", () {
       test("square from 1", () {
         // when
-        final result = square(feet).from(1);
+        final result = square(feet).toSI(1);
 
         // then
         expect(result, closeTo(0.0929, 5e-5));
       });
       test("square from several", () {
         // when
-        final result = square(feet).from(10);
+        final result = square(feet).toSI(10);
 
         // then
         expect(result, closeTo(0.929, 5e-4));
       });
       test("product from 1", () {
         // when
-        final result = product2(feet, inches).from(1);
+        final result = feet.dot.inches.toSI(1);
 
         // then
         expect(result, closeTo(0.00774, 0.000005));
       });
       test("product from several", () {
         // when
-        final result = product2(feet, inches).from(10);
+        final result = feet.dot.inches.toSI(10);
 
         // then
         expect(result, closeTo(0.0774, 5e-5));
       });
       test("ratio from 1", () {
         // when
-        final result = ratio(feet, deci.seconds).from(1);
+        final result = feet.per.deci.second.toSI(1);
 
         // then
         expect(result, closeTo(3.05, 5e-3));
       });
       test("ratio from several", () {
         // when
-        final result = ratio(feet, deci.seconds).from(10);
+        final result = feet.per.deci.second.toSI(10);
 
         // then
         expect(result, closeTo(30.5, 5e-2));
@@ -343,18 +343,29 @@ void main() {
     group("sample derived units", () {
       test("newtons", () {
         // given
-        final newtons = ratio(kilo.grams.dot.meters, square(seconds));
+        final newtons =
+            DerivedUnit2.build(kilo.grams.dot.meters, square(seconds).inverted);
 
         // when
         final result = newtons(1);
 
         // then
         expect(result.as(newtons), 1.0);
-        expect(result.as(ratio(grams.dot.meters, square(seconds))), 1000.0);
         expect(
-            result.as(ratio(kilo.grams.dot.deka.meters, square(seconds))), 0.1);
+          result.as(
+              DerivedUnit2.build(grams.dot.meters, square(seconds).inverted)),
+          1000.0,
+        );
         expect(
-            result.as(ratio(kilo.grams.dot.meters, square(minutes))), 3600.0);
+          result.as(DerivedUnit2.build(
+              kilo.grams.dot.deka.meters, square(seconds).inverted)),
+          0.1,
+        );
+        expect(
+          result.as(DerivedUnit2.build(
+              kilo.grams.dot.meters, square(minutes).inverted)),
+          3600.0,
+        );
       });
     });
   });

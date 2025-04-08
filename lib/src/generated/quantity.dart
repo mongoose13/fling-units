@@ -7,8 +7,8 @@ part of '../measurements/quantity.dart';
 // **************************************************************************
 
 extension NumExtensionQuantity on num {
-  f.QuantityMeasurement get units => QuantityUnit.units(this);
-  f.QuantityMeasurement get moles => QuantityUnit.moles(this);
+  QuantityMeasurement get units => QuantityUnit.units(this);
+  QuantityMeasurement get moles => QuantityUnit.moles(this);
 }
 
 // **************************************************************************
@@ -19,7 +19,11 @@ class Quantity extends f.Dimension {
   const Quantity();
 }
 
-class QuantityUnit extends f.Unit<Quantity> {
+class InvertedQuantity extends f.Inverted {
+  const InvertedQuantity();
+}
+
+class QuantityUnit extends f.Unit<Quantity, InvertedQuantity> {
   const QuantityUnit._({
     required super.name,
     required super.unitMultiplier,
@@ -34,11 +38,11 @@ class QuantityUnit extends f.Unit<Quantity> {
 
   static const QuantityUnit moles = QuantityUnit._(
     name: 'mol',
-    unitMultiplier: 6.022140760630475e+23,
+    unitMultiplier: 6.02214076e+23,
     prefix: f.MeasurementPrefix.unit(),
   );
 
-  f.QuantityMeasurement call(
+  QuantityMeasurement call(
     num magnitude, {
     int precision = f.Precision.maximumPrecision,
   }) =>
@@ -64,81 +68,381 @@ class QuantityUnit extends f.Unit<Quantity> {
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
 
   /// Creates a derived unit builder with this as the numerator.
-  f.UnitPer<QuantityUnit, Quantity> get per => f.UnitPer(this);
+  f.UnitPer<QuantityUnit, Quantity, InvertedQuantity> get per =>
+      f.UnitPer(this);
 
   /// Creates a derived unit builder with this as the first unit in a product.
-  f.UnitDot<QuantityUnit, Quantity> get dot => f.UnitDot(this);
+  f.UnitDot<QuantityUnit, Quantity, InvertedQuantity> get dot =>
+      f.UnitDot(this);
+
+  @override
+  InvertedQuantityUnit get inverted => InvertedQuantityUnit._(
+        name: "$name⁻¹",
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
+}
+
+class InvertedQuantityUnit extends f.InvertedUnit<InvertedQuantity, Quantity> {
+  const InvertedQuantityUnit._({
+    required super.name,
+    required super.unitMultiplier,
+    super.prefix = const f.MeasurementPrefix.unit(),
+  });
+
+  static const InvertedQuantityUnit units = InvertedQuantityUnit._(
+    name: 'units',
+    unitMultiplier: 1.0,
+    prefix: f.MeasurementPrefix.unit(),
+  );
+
+  static const InvertedQuantityUnit moles = InvertedQuantityUnit._(
+    name: 'mol',
+    unitMultiplier: 6.02214076e+23,
+    prefix: f.MeasurementPrefix.unit(),
+  );
+
+  InvertedQuantityMeasurement call(
+    num magnitude, {
+    int precision = f.Precision.maximumPrecision,
+  }) =>
+      InvertedQuantityMeasurement(magnitude, this, f.Precision(precision));
+
+  InvertedQuantityUnit withPrefix(
+    f.MeasurementPrefix prefix, {
+    f.Precision precision = f.Precision.max,
+  }) =>
+      InvertedQuantityUnit._(
+        name: name,
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      other is InvertedQuantityUnit &&
+      other.unitMultiplier == unitMultiplier &&
+      other.name == name;
+
+  @override
+  int get hashCode => unitMultiplier.hashCode * name.hashCode;
+
+  /// Creates a derived unit builder with this as the numerator.
+  f.UnitPer<InvertedQuantityUnit, InvertedQuantity, Quantity> get per =>
+      f.UnitPer(this);
+
+  /// Creates a derived unit builder with this as the first unit in a product.
+  f.UnitDot<InvertedQuantityUnit, InvertedQuantity, Quantity> get dot =>
+      f.UnitDot(this);
+
+  @override
+  QuantityUnit get inverted => QuantityUnit._(
+        name: name.substring(0, name.length - 2),
+        unitMultiplier: unitMultiplier,
+        prefix: prefix,
+      );
 }
 
 // **************************************************************************
 // MeasurementGenerator
 // **************************************************************************
 
-class QuantityMeasurement extends f.Measurement<Quantity> {
+class QuantityMeasurement extends f.Measurement<Quantity, InvertedQuantity> {
   const QuantityMeasurement(
+    /// The magnitude of the measurement as a multiple of the measurement's [defaultUnit].
     num magnitude,
-    f.Unit<Quantity> defaultUnit, [
+
+    /// The [Unit] in which the measurement was made.
+    this.defaultUnit, [
     f.Precision precision = f.Precision.max,
   ]) : super(
           magnitude: magnitude,
           precision: precision,
-          defaultUnit: defaultUnit,
         );
 
   /// Creates a measurement that is the sum of several measurements.
   QuantityMeasurement.sum(
-    Iterable<f.Measurement<Quantity>> parts, {
+    Iterable<f.QuantityMeasurement> parts, {
     int precision = f.Precision.maximumPrecision,
-  }) : super(
-          magnitude: parts.first.defaultUnit.of(parts.fold(
+    QuantityUnit? defaultUnit,
+  })  : defaultUnit = defaultUnit ?? parts.first.defaultUnit,
+        super(
+          magnitude: (defaultUnit ?? parts.first.defaultUnit).fromSI(parts.fold(
               0.0, (previousValue, element) => previousValue + element.si)),
           precision: f.Precision(precision),
-          defaultUnit: parts.first.defaultUnit,
         );
 
-  const QuantityMeasurement.zero([super.unit = siUnit]) : super.zero();
+  const QuantityMeasurement.zero([this.defaultUnit = siUnit]) : super.zero();
 
-  const QuantityMeasurement.infinite([super.unit = siUnit]) : super.infinite();
+  const QuantityMeasurement.infinite([this.defaultUnit = siUnit])
+      : super.infinite();
 
-  const QuantityMeasurement.negativeInfinite([super.unit = siUnit])
+  const QuantityMeasurement.negativeInfinite([this.defaultUnit = siUnit])
       : super.negativeInfinite();
 
-  const QuantityMeasurement.nan([super.unit = siUnit]) : super.nan();
+  const QuantityMeasurement.nan([this.defaultUnit = siUnit]) : super.nan();
 
-  static const f.Unit<Quantity> siUnit = units;
+  static const QuantityUnit siUnit = units;
 
+  /// The default unit for this measurement.
+  ///
+  /// Operations that require a unit conversion, but are not provided one (e.g.
+  /// [toString]) will make use of this unit.
+  ///
+  /// By default, this is set as the unit used to create the measurement. It can
+  /// be changed using [butAs].
   @override
-  f.QuantityMeasurement construct(
-    num magnitude,
-    f.Unit<Quantity> defaultUnit,
-    f.Precision precision,
-  ) =>
-      QuantityMeasurement(magnitude, defaultUnit, precision);
+  final QuantityUnit defaultUnit;
 
-  /// Creates a derived measurement of a derived unit consisting of this measurement'sunit in the numerator and the specified unit in the denominator, with this measurement'sdefault value as the default value of the resulting derived unit.
-  f.MeasurementPer<QuantityMeasurement, Quantity> get per =>
+  /// Creates an equivalent measurement with the specified precision (significant digits).
+  QuantityMeasurement withPrecision(int precision) => QuantityMeasurement(
+      magnitude.toDouble(), defaultUnit, f.Precision(precision));
+
+  /// Returns a measurement representing the opposite magnitude of this.
+  QuantityMeasurement operator -() =>
+      QuantityMeasurement(-magnitude.toDouble(), defaultUnit, precisionData);
+
+  /// Returns a measurement equivalent to the sum of this and another measurement of the same dimension.
+  QuantityMeasurement operator +(QuantityMeasurement other) =>
+      QuantityMeasurement(defaultUnit.fromSI(si + other.si), defaultUnit,
+          f.Precision(f.Precision.addition(this, other)));
+
+  /// Returns a measurement equivalent to the difference between this and another measurement of the same dimension.
+  QuantityMeasurement operator -(QuantityMeasurement other) =>
+      QuantityMeasurement(defaultUnit.fromSI(si - other.si), defaultUnit,
+          f.Precision(f.Precision.addition(this, -other)));
+
+  /// Returns a measurement equivalent to a multiple of this.
+  QuantityMeasurement operator *(num multiplier) => QuantityMeasurement(
+      magnitude * multiplier.toDouble(), defaultUnit, precisionData);
+
+  /// Returns a measurement equivalent to a fraction of this.
+  QuantityMeasurement operator /(num divisor) => QuantityMeasurement(
+      magnitude / divisor.toDouble(), defaultUnit, precisionData);
+
+  /// Returns the Euclidean remainder of the division between two measurements.
+  ///
+  /// For example:
+  /// ```dart
+  /// feet(2) % inches(7); // 3 inches
+  /// inches(7) % feet(2); // 7 inches
+  /// ```
+  ///
+  /// For the purposes of this function, a negative divisor is treated identically
+  /// to its positive counterpart, and thus the operation always produces a positive
+  /// result. This is consistent with the way Dart handles the modulo operator.
+  /// For example:
+  /// ```dart
+  /// feet(2) % inches(-7); // 3 inches
+  /// feet(-2) % inches(7); // 4 inches
+  /// feet(-2) % inches(-7); // 4 inches
+  /// ```
+  ///
+  /// If the divisor is zero or the dividend is infinite, the result is always NaN.
+  QuantityMeasurement operator %(QuantityMeasurement other) =>
+      QuantityMeasurement(
+        defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue),
+        defaultUnit,
+        f.Precision.combine([precision, other.precision]),
+      );
+
+  /// Creates a new measurement equivalent to this one but with a different default unit.
+  QuantityMeasurement butAs(QuantityUnit unit) =>
+      QuantityMeasurement(unit.fromSI(si), unit, precisionData);
+
+  /// Converts the default value of this measurement to the specified unit.
+  double as(QuantityUnit unit) => precisionData.apply(unit.fromSI(si));
+
+  /// Creates a measurement that is the inverse of this measurement.
+  ///
+  /// For example:
+  /// ```dart
+  /// final hertz = 3.seconds.inverted; // 1/3 Hz
+  /// ```
+  InvertedQuantityMeasurement get inverted => InvertedQuantityMeasurement(
+        magnitude,
+        defaultUnit.inverted,
+        precisionData,
+      );
+
+  /// Creates a derived measurement of a derived unit consisting of this measurement's
+  /// unit in the numerator and the specified unit in the denominator, with this measurement's
+  /// default value as the default value of the resulting derived unit.
+  f.MeasurementPer<QuantityMeasurement, Quantity, InvertedQuantity> get per =>
       f.MeasurementPer(this);
 
-  /// Creates a derived measurement of a derived unit consisting of this measurement'sunit multiplied by the specified measurement's unit, with this measurement'sdefault value as the default value of the resulting derived unit.
-  f.MeasurementDot<QuantityMeasurement, Quantity> get dot =>
+  /// Creates a derived measurement of a derived unit consisting of this measurement's
+  /// unit multiplied by the specified measurement's unit, with this measurement's
+  /// default value as the default value of the resulting derived unit.
+  f.MeasurementDot<QuantityMeasurement, Quantity, InvertedQuantity> get dot =>
       f.MeasurementDot(this);
 
   /// Creates a derived measurement representing the ratio of this and another measurement.
-  f.Measurement<f.Dimension2<f.UnitNumerator<Quantity>, f.UnitDenominator<D>>>
-      over<D extends f.Dimension>(f.Measurement<D> denominator) =>
-          f.ratio<Quantity, D>(defaultUnit, denominator.defaultUnit)(
-              defaultValue, denominator.defaultValue);
+  f.DerivedMeasurement2<Quantity, I, InvertedQuantity, D>
+      over<D extends f.Dimension, I extends f.Dimension>(
+              f.Measurement<D, I> term) =>
+          f.DerivedUnit2.build(defaultUnit, term.defaultUnit.inverted)(
+              defaultValue / term.defaultValue);
 
   /// Creates a derived measurement representing the product of this and another measurement.
-  f.Measurement<f.Dimension2<f.UnitNumerator<Quantity>, f.UnitNumerator<D>>>
-      by<D extends f.Dimension>(f.Measurement<D> term) =>
-          f.product2<Quantity, D>(defaultUnit, term.defaultUnit)(
-              defaultValue, term.defaultValue);
+  f.DerivedMeasurement2<Quantity, D, InvertedQuantity, I>
+      by<D extends f.Dimension, I extends f.Dimension>(
+              f.Measurement<D, I> term) =>
+          f.DerivedUnit2.build(defaultUnit, term.defaultUnit)(
+              defaultValue * term.defaultValue);
+}
+
+class InvertedQuantityMeasurement
+    extends f.Measurement<InvertedQuantity, Quantity> {
+  const InvertedQuantityMeasurement(
+    /// The magnitude of the measurement as a multiple of the measurement's [defaultUnit].
+    num magnitude,
+
+    /// The [Unit] in which the measurement was made.
+    this.defaultUnit, [
+    f.Precision precision = f.Precision.max,
+  ]) : super(
+          magnitude: magnitude,
+          precision: precision,
+        );
+
+  /// Creates a measurement that is the sum of several measurements.
+  InvertedQuantityMeasurement.sum(
+    Iterable<f.InvertedQuantityMeasurement> parts, {
+    int precision = f.Precision.maximumPrecision,
+    InvertedQuantityUnit? defaultUnit,
+  })  : defaultUnit = defaultUnit ?? parts.first.defaultUnit,
+        super(
+          magnitude: (defaultUnit ?? parts.first.defaultUnit).fromSI(parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si)),
+          precision: f.Precision(precision),
+        );
+
+  const InvertedQuantityMeasurement.zero([this.defaultUnit = siUnit])
+      : super.zero();
+
+  const InvertedQuantityMeasurement.infinite([this.defaultUnit = siUnit])
+      : super.infinite();
+
+  const InvertedQuantityMeasurement.negativeInfinite(
+      [this.defaultUnit = siUnit])
+      : super.negativeInfinite();
+
+  const InvertedQuantityMeasurement.nan([this.defaultUnit = siUnit])
+      : super.nan();
+
+  static const InvertedQuantityUnit siUnit = InvertedQuantityUnit._(
+      name: "QuantityConfig units⁻¹", unitMultiplier: 1.0);
+
+  /// The default unit for this measurement.
+  ///
+  /// Operations that require a unit conversion, but are not provided one (e.g.
+  /// [toString]) will make use of this unit.
+  ///
+  /// By default, this is set as the unit used to create the measurement. It can
+  /// be changed using [butAs].
+  @override
+  final InvertedQuantityUnit defaultUnit;
 
   /// Creates an equivalent measurement with the specified precision (significant digits).
-  @override
-  f.QuantityMeasurement withPrecision(int precision) =>
-      construct(magnitude.toDouble(), defaultUnit, f.Precision(precision));
+  InvertedQuantityMeasurement withPrecision(int precision) =>
+      InvertedQuantityMeasurement(
+          magnitude.toDouble(), defaultUnit, f.Precision(precision));
+
+  /// Returns a measurement representing the opposite magnitude of this.
+  InvertedQuantityMeasurement operator -() => InvertedQuantityMeasurement(
+      -magnitude.toDouble(), defaultUnit, precisionData);
+
+  /// Returns a measurement equivalent to the sum of this and another measurement of the same dimension.
+  InvertedQuantityMeasurement operator +(InvertedQuantityMeasurement other) =>
+      InvertedQuantityMeasurement(defaultUnit.fromSI(si + other.si),
+          defaultUnit, f.Precision(f.Precision.addition(this, other)));
+
+  /// Returns a measurement equivalent to the difference between this and another measurement of the same dimension.
+  InvertedQuantityMeasurement operator -(InvertedQuantityMeasurement other) =>
+      InvertedQuantityMeasurement(defaultUnit.fromSI(si - other.si),
+          defaultUnit, f.Precision(f.Precision.addition(this, -other)));
+
+  /// Returns a measurement equivalent to a multiple of this.
+  InvertedQuantityMeasurement operator *(num multiplier) =>
+      InvertedQuantityMeasurement(
+          magnitude * multiplier.toDouble(), defaultUnit, precisionData);
+
+  /// Returns a measurement equivalent to a fraction of this.
+  InvertedQuantityMeasurement operator /(num divisor) =>
+      InvertedQuantityMeasurement(
+          magnitude / divisor.toDouble(), defaultUnit, precisionData);
+
+  /// Returns the Euclidean remainder of the division between two measurements.
+  ///
+  /// For example:
+  /// ```dart
+  /// feet(2) % inches(7); // 3 inches
+  /// inches(7) % feet(2); // 7 inches
+  /// ```
+  ///
+  /// For the purposes of this function, a negative divisor is treated identically
+  /// to its positive counterpart, and thus the operation always produces a positive
+  /// result. This is consistent with the way Dart handles the modulo operator.
+  /// For example:
+  /// ```dart
+  /// feet(2) % inches(-7); // 3 inches
+  /// feet(-2) % inches(7); // 4 inches
+  /// feet(-2) % inches(-7); // 4 inches
+  /// ```
+  ///
+  /// If the divisor is zero or the dividend is infinite, the result is always NaN.
+  InvertedQuantityMeasurement operator %(InvertedQuantityMeasurement other) =>
+      InvertedQuantityMeasurement(
+        defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue),
+        defaultUnit,
+        f.Precision.combine([precision, other.precision]),
+      );
+
+  /// Creates a new measurement equivalent to this one but with a different default unit.
+  InvertedQuantityMeasurement butAs(InvertedQuantityUnit unit) =>
+      InvertedQuantityMeasurement(unit.fromSI(si), unit, precisionData);
+
+  /// Converts the default value of this measurement to the specified unit.
+  double as(InvertedQuantityUnit unit) => precisionData.apply(unit.fromSI(si));
+
+  /// Creates a measurement that is the inverse of this measurement.
+  ///
+  /// For example:
+  /// ```dart
+  /// final hertz = 3.seconds.inverted; // 1/3 Hz
+  /// ```
+  QuantityMeasurement get inverted => QuantityMeasurement(
+        magnitude,
+        defaultUnit.inverted,
+        precisionData,
+      );
+
+  /// Creates a derived measurement of a derived unit consisting of this measurement's
+  /// unit in the numerator and the specified unit in the denominator, with this measurement's
+  /// default value as the default value of the resulting derived unit.
+  f.MeasurementPer<InvertedQuantityMeasurement, InvertedQuantity, Quantity>
+      get per => f.MeasurementPer(this);
+
+  /// Creates a derived measurement of a derived unit consisting of this measurement's
+  /// unit multiplied by the specified measurement's unit, with this measurement's
+  /// default value as the default value of the resulting derived unit.
+  f.MeasurementDot<InvertedQuantityMeasurement, InvertedQuantity, Quantity>
+      get dot => f.MeasurementDot(this);
+
+  /// Creates a derived measurement representing the ratio of this and another measurement.
+  f.DerivedMeasurement2<InvertedQuantity, I, Quantity, D>
+      over<D extends f.Dimension, I extends f.Dimension>(
+              f.Measurement<D, I> term) =>
+          f.DerivedUnit2.build(defaultUnit, term.defaultUnit.inverted)(
+              defaultValue / term.defaultValue);
+
+  /// Creates a derived measurement representing the product of this and another measurement.
+  f.DerivedMeasurement2<InvertedQuantity, D, Quantity, I>
+      by<D extends f.Dimension, I extends f.Dimension>(
+              f.Measurement<D, I> term) =>
+          f.DerivedUnit2.build(defaultUnit, term.defaultUnit)(
+              defaultValue * term.defaultValue);
 }
 
 // **************************************************************************

@@ -23,182 +23,221 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
   ) {
     final builder = FlingMeasurementBuilder(element, annotation);
 
-    builder.add(
-      Class(
-        (dimension) => dimension
-          ..name = builder.dimensionName
-          ..extend = builder.dimensionType
-          ..constructors.add(
-            Constructor(
-              (constructor) => constructor..constant = true,
+    builder.addAll(
+      [
+        Class(
+          (dimension) => dimension
+            ..name = builder.dimensionName
+            ..extend = Reference("f.Dimension")
+            ..constructors.add(
+              Constructor(
+                (constructor) => constructor..constant = true,
+              ),
             ),
-          ),
-      ),
+        ),
+        Class(
+          (dimension) => dimension
+            ..name = "Inverted${builder.dimensionName}"
+            ..extend = Reference("f.Inverted")
+            ..constructors.add(
+              Constructor(
+                (constructor) => constructor..constant = true,
+              ),
+            ),
+        ),
+      ],
     );
-    builder.add(
-      Class(
-        (interpreter) {
-          interpreter
-            ..name = builder.unitName
-            ..extend = builder.unitExtends
-            ..methods.add(Method(
-              (call) => call
-                ..name = "call"
-                ..returns = builder.measurementType
-                ..requiredParameters.add(
-                  Parameter(
-                    (magnitude) => magnitude
-                      ..name = "magnitude"
-                      ..type = Reference("num"),
+
+    for (final isInverted in [false, true]) {
+      final dimensionName = isInverted
+          ? "Inverted${builder.dimensionName}"
+          : builder.dimensionName;
+      final invertedDimensionName = isInverted
+          ? builder.dimensionName
+          : "Inverted${builder.dimensionName}";
+      final unitName =
+          isInverted ? "Inverted${builder.unitName}" : builder.unitName;
+      final invertedUnitName =
+          isInverted ? builder.unitName : "Inverted${builder.unitName}";
+      final measurementName = isInverted
+          ? "Inverted${builder.measurementName}"
+          : builder.measurementName;
+
+      builder.add(
+        Class(
+          (interpreter) {
+            interpreter
+              ..name = unitName
+              ..extend = Reference(
+                  "f.${isInverted ? "Inverted" : ""}Unit<$dimensionName, $invertedDimensionName>")
+              ..methods.addAll(
+                [
+                  Method(
+                    (call) => call
+                      ..name = "call"
+                      ..returns = Reference(measurementName)
+                      ..requiredParameters.add(
+                        Parameter(
+                          (magnitude) => magnitude
+                            ..name = "magnitude"
+                            ..type = Reference("num"),
+                        ),
+                      )
+                      ..optionalParameters.add(Parameter(
+                        (precision) => precision
+                          ..named = true
+                          ..name = "precision"
+                          ..type = Reference("int")
+                          ..defaultTo = Code("f.Precision.maximumPrecision"),
+                      ))
+                      ..lambda = true
+                      ..body = Code(
+                          "$measurementName(magnitude, this, f.Precision(precision))"),
                   ),
-                )
-                ..optionalParameters.add(Parameter(
-                  (precision) => precision
-                    ..named = true
-                    ..name = "precision"
-                    ..type = Reference("int")
-                    ..defaultTo = Code("f.Precision.maximumPrecision"),
-                ))
-                ..lambda = true
-                ..body = Code(
-                    "${builder.measurementName}(magnitude, this, f.Precision(precision))"),
-            ))
-            ..methods.add(
-              Method(
-                (withPrefix) => withPrefix
-                  ..lambda = true
-                  ..name = "withPrefix"
-                  ..returns = Reference(builder.unitName)
-                  ..requiredParameters.add(
+                  Method(
+                    (withPrefix) => withPrefix
+                      ..lambda = true
+                      ..name = "withPrefix"
+                      ..returns = Reference(unitName)
+                      ..requiredParameters.add(
+                        Parameter(
+                          (prefix) => prefix
+                            ..name = "prefix"
+                            ..type = Reference("f.MeasurementPrefix"),
+                        ),
+                      )
+                      ..optionalParameters.add(
+                        Parameter(
+                          (precision) => precision
+                            ..named = true
+                            ..name = "precision"
+                            ..type = Reference("f.Precision")
+                            ..defaultTo = Code("f.Precision.max"),
+                        ),
+                      )
+                      ..body = Code("$unitName._("
+                          " name: name,"
+                          " unitMultiplier: unitMultiplier,"
+                          " prefix: prefix,"
+                          ")"),
+                  ),
+                  Method(
+                    (equality) => equality
+                      ..lambda = true
+                      ..annotations
+                          .add(FlingMeasurementBuilder.overrideAnnotation)
+                      ..returns = Reference("bool")
+                      ..name = "operator =="
+                      ..requiredParameters.add(
+                        Parameter(
+                          (other) => other
+                            ..name = "other"
+                            ..type = Reference("Object"),
+                        ),
+                      )
+                      ..body = Code("other is $unitName"
+                          " && other.unitMultiplier == unitMultiplier"
+                          " && other.name == name"),
+                  ),
+                  Method(
+                    (hash) => hash
+                      ..lambda = true
+                      ..type = MethodType.getter
+                      ..annotations
+                          .add(FlingMeasurementBuilder.overrideAnnotation)
+                      ..returns = Reference("int")
+                      ..name = "hashCode"
+                      ..body = Code("unitMultiplier.hashCode * name.hashCode"),
+                  ),
+                  Method(
+                    (per) => per
+                      ..lambda = true
+                      ..type = MethodType.getter
+                      ..returns = Reference(
+                          "f.UnitPer<$unitName, $dimensionName, $invertedDimensionName>")
+                      ..name = "per"
+                      ..body = Code("f.UnitPer(this)")
+                      ..docs.add(
+                          "/// Creates a derived unit builder with this as the numerator."),
+                  ),
+                  Method(
+                    (dot) => dot
+                      ..lambda = true
+                      ..type = MethodType.getter
+                      ..returns = Reference(
+                          "f.UnitDot<$unitName, $dimensionName, $invertedDimensionName>")
+                      ..name = "dot"
+                      ..body = Code("f.UnitDot(this)")
+                      ..docs.add(
+                          "/// Creates a derived unit builder with this as the first unit in a product."),
+                  ),
+                  Method(
+                    (inverted) => inverted
+                      ..annotations
+                          .add(FlingMeasurementBuilder.overrideAnnotation)
+                      ..lambda = true
+                      ..type = MethodType.getter
+                      ..name = "inverted"
+                      ..returns = Reference(invertedUnitName)
+                      ..body = Code("$invertedUnitName._(name: "
+                          "${isInverted ? "name.substring(0, name.length - 2)" : "\"\$name⁻¹\""}, "
+                          "unitMultiplier: unitMultiplier, "
+                          "prefix: prefix,)"),
+                  ),
+                ],
+              )
+              ..constructors.add(
+                Constructor((constructor) => constructor
+                  ..constant = true
+                  ..name = "_"
+                  ..optionalParameters.add(
                     Parameter(
-                      (prefix) => prefix
-                        ..name = "prefix"
-                        ..type = Reference("f.MeasurementPrefix"),
+                      (name) => name
+                        ..toSuper = true
+                        ..name = "name"
+                        ..required = true
+                        ..named = true,
                     ),
                   )
                   ..optionalParameters.add(
                     Parameter(
-                      (precision) => precision
-                        ..named = true
-                        ..name = "precision"
-                        ..type = Reference("f.Precision")
-                        ..defaultTo = Code("f.Precision.max"),
+                      (unitMultiplier) => unitMultiplier
+                        ..toSuper = true
+                        ..name = "unitMultiplier"
+                        ..required = true
+                        ..named = true,
                     ),
                   )
-                  ..body = Code("${builder.unitName}._("
-                      " name: name,"
-                      " unitMultiplier: unitMultiplier,"
-                      " prefix: prefix,"
-                      ")"),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (equality) => equality
-                  ..lambda = true
-                  ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-                  ..returns = Reference("bool")
-                  ..name = "operator =="
-                  ..requiredParameters.add(
+                  ..optionalParameters.add(
                     Parameter(
-                      (other) => other
-                        ..name = "other"
-                        ..type = Reference("Object"),
+                      (prefix) => prefix
+                        ..toSuper = true
+                        ..name = "prefix"
+                        ..named = true
+                        ..defaultTo = Code("const f.MeasurementPrefix.unit()"),
                     ),
-                  )
-                  ..body = Code("other is ${builder.unitName}"
-                      " && other.unitMultiplier == unitMultiplier"
-                      " && other.name == name"),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (hash) => hash
-                  ..lambda = true
-                  ..type = MethodType.getter
-                  ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-                  ..returns = Reference("int")
-                  ..name = "hashCode"
-                  ..body = Code("unitMultiplier.hashCode * name.hashCode"),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (per) => per
-                  ..lambda = true
-                  ..type = MethodType.getter
-                  ..returns = Reference(
-                      "f.UnitPer<${builder.unitName}, ${builder.dimensionName}>")
-                  ..name = "per"
-                  ..body = Code("f.UnitPer(this)")
-                  ..docs.add(
-                      "/// Creates a derived unit builder with this as the numerator."),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (dot) => dot
-                  ..lambda = true
-                  ..type = MethodType.getter
-                  ..returns = Reference(
-                      "f.UnitDot<${builder.unitName}, ${builder.dimensionName}>")
-                  ..name = "dot"
-                  ..body = Code("f.UnitDot(this)")
-                  ..docs.add(
-                      "/// Creates a derived unit builder with this as the first unit in a product."),
-              ),
-            )
-            ..constructors.add(
-              Constructor((constructor) => constructor
-                ..constant = true
-                ..name = "_"
-                ..optionalParameters.add(
-                  Parameter(
-                    (name) => name
-                      ..toSuper = true
-                      ..name = "name"
-                      ..required = true
-                      ..named = true,
-                  ),
-                )
-                ..optionalParameters.add(
-                  Parameter(
-                    (unitMultiplier) => unitMultiplier
-                      ..toSuper = true
-                      ..name = "unitMultiplier"
-                      ..required = true
-                      ..named = true,
-                  ),
-                )
-                ..optionalParameters.add(
-                  Parameter(
-                    (prefix) => prefix
-                      ..toSuper = true
-                      ..name = "prefix"
-                      ..named = true
-                      ..defaultTo = Code("const f.MeasurementPrefix.unit()"),
-                  ),
-                )),
-            );
-          for (final unit in builder.units) {
-            interpreter.fields.add(
-              Field(
-                (field) => field
-                  ..static = true
-                  ..modifier = FieldModifier.constant
-                  ..name = builder.displayNameOf(unit)
-                  ..type = Reference(builder.unitName)
-                  ..assignment = Code("${builder.unitName}._("
-                      "name: '${builder.shortNameOf(unit)}', "
-                      "unitMultiplier: ${1.0 / builder.multiplierOf(unit)}, "
-                      "prefix: f.MeasurementPrefix.unit(),"
-                      ")"),
-              ),
-            );
-          }
-        },
-      ),
-    );
+                  )),
+              );
+            for (final unit in builder.units) {
+              interpreter.fields.add(
+                Field(
+                  (field) => field
+                    ..static = true
+                    ..modifier = FieldModifier.constant
+                    ..name = builder.displayNameOf(unit)
+                    ..type = Reference(unitName)
+                    ..assignment = Code("$unitName._("
+                        "name: '${builder.shortNameOf(unit)}', "
+                        "unitMultiplier: ${builder.multiplierOf(unit)}, "
+                        "prefix: f.MeasurementPrefix.unit(),"
+                        ")"),
+                ),
+              );
+            }
+          },
+        ),
+      );
+    }
 
     return builder.flush();
   }

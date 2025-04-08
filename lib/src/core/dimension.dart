@@ -9,10 +9,16 @@ abstract class Dimension {
 // to scale this up infinitely
 //----------------------------------------------------------------\\
 
-class Dimension1<P extends UnitPosition> extends Dimension {}
+class Dimension2<D1 extends Dimension, D2 extends Dimension> extends Dimension {
+  const Dimension2();
+}
 
-class Dimension2<P1 extends UnitPosition, P2 extends UnitPosition>
-    extends Dimension {}
+class InvertedDimension2<D1 extends Dimension, D2 extends Dimension>
+    extends Inverted<Dimension2<D1, D2>> {
+  const InvertedDimension2();
+}
 
-class Dimension3<P1 extends UnitPosition, P2 extends UnitPosition,
-    P3 extends UnitPosition> extends Dimension {}
+class Dimension3<D1 extends Dimension, D2 extends Dimension,
+    D3 extends Dimension> extends Dimension {
+  const Dimension3();
+}

@@ -17,7 +17,7 @@ enum PressureConfig {
   @UnitConfig(
     shortName: "bar",
     singularName: "bar",
-    multiplier: 1e-5,
+    multiplier: 1e5,
   )
   bars,
 
@@ -31,30 +31,23 @@ enum PressureConfig {
   @UnitConfig(
     shortName: "atm",
     singularName: "standardAtmosphere",
-    multiplier: 1.0 / 101325.0,
+    multiplier: 1.01325e5,
   )
   standardAtmospheres,
 
   @UnitConfig(
     shortName: "at",
     singularName: "technicalAtmosphere",
-    multiplier: 98.0665,
+    multiplier: 98066.5,
   )
   technicalAtmospheres,
 
   @UnitConfig(
     shortName: "mmHg",
     singularName: "mmHg",
-    multiplier: 0.0075006,
+    multiplier: 133.322,
   )
   mmHg,
-
-  @UnitConfig(
-    shortName: "inHg",
-    singularName: "inHg",
-    multiplier: 3386.39,
-  )
-  inHg,
 
   @UnitConfig(
     shortName: "Torr",
@@ -66,7 +59,7 @@ enum PressureConfig {
   @UnitConfig(
     shortName: "psi",
     singularName: "psi",
-    multiplier: 6894.76,
+    multiplier: 6894.7572932,
   )
   psi;
 }

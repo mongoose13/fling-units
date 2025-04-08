@@ -32,9 +32,9 @@ void main() {
         // then
         expect(result, closeTo(1.0, 0.005));
       });
-      test("product", () {
+      test("product 2", () {
         // given
-        final measurement = product2(feet, yards)(3.6);
+        final measurement = DerivedUnit2.build(feet, yards)(3.6);
 
         // when
         final result = measurement.si;
@@ -42,9 +42,9 @@ void main() {
         // then
         expect(result, closeTo(1.0, 0.005));
       });
-      test("ratio", () {
+      test("product 2 inverted", () {
         // given
-        final measurement = ratio(feet, minutes)(196.8);
+        final measurement = DerivedUnit2.build(feet, minutes.inverted)(196.8);
 
         // when
         final result = measurement.si;
@@ -65,9 +65,9 @@ void main() {
         // then
         expect(result, 1.0);
       });
-      test("product", () {
+      test("dot", () {
         // given
-        final measurement = product2(feet, feet)(10.8).withPrecision(3);
+        final measurement = feet.dot.feet(10.8).withPrecision(3);
 
         // when
         final result = measurement.as(square(meters));
@@ -75,12 +75,12 @@ void main() {
         // then
         expect(result, 1.0);
       });
-      test("ratio", () {
+      test("per", () {
         // given
-        final measurement = ratio(feet, seconds)(10.8).withPrecision(3);
+        final measurement = feet.per.second(10.8).withPrecision(3);
 
         // when
-        final result = measurement.as(ratio(meters, minutes));
+        final result = measurement.as(meters.per.minute);
 
         // then
         expect(result, 198.0);
@@ -130,12 +130,32 @@ void main() {
         final measurement = 4.miles.per.ounce.withPrecision(3);
 
         // when
+        final result = measurement.as(miles.per.deci.ounce);
+
+        // then
+        expect(result, 0.4);
+      });
+      test("with prefixes on destination cancel out", () {
+        // given
+        final measurement = 4.miles.per.ounce.withPrecision(3);
+
+        // when
         final result = measurement.as(deci.miles.per.deci.ounce);
 
         // then
         expect(result, 4.0);
       });
       test("with prefixes on destination on volume", () {
+        // given
+        final measurement = 4.miles.per.gallon.withPrecision(3);
+
+        // when
+        final result = measurement.as(miles.per.deci.gallon);
+
+        // then
+        expect(result, 0.4);
+      });
+      test("with prefixes on destination on volume cancel out", () {
         // given
         final measurement = 4.miles.per.gallon.withPrecision(3);
 
@@ -159,9 +179,9 @@ void main() {
         expect(result.defaultValue, 1.0);
         expect(result.defaultUnit, square(meters));
       });
-      test("product", () {
+      test("dot", () {
         // given
-        final measurement = product2(feet, feet)(10.8).withPrecision(3);
+        final measurement = feet.dot.feet(10.8).withPrecision(3);
 
         // when
         final result = measurement.butAs(square(meters));
@@ -170,16 +190,16 @@ void main() {
         expect(result.defaultValue, 1.0);
         expect(result.defaultUnit, square(meters));
       });
-      test("ratio", () {
+      test("per", () {
         // given
-        final measurement = ratio(feet, seconds)(10.8).withPrecision(3);
+        final measurement = feet.per.second(10.8).withPrecision(3);
 
         // when
-        final result = measurement.butAs(ratio(meters, minutes));
+        final result = measurement.butAs(meters.per.minute);
 
         // then
         expect(result.defaultValue, 198.0);
-        expect(result.defaultUnit, ratio(meters, minutes));
+        expect(result.defaultUnit, meters.per.minute);
       });
       test("from SI to other", () {
         // given
@@ -207,6 +227,38 @@ void main() {
         expect(derived.defaultUnit, miles.per.hour);
         expect(derived.defaultValue, 3.0);
       });
+      test("combines a derived2 unit in the numerator", () {
+        // given
+        final speed = 6.miles.per.hour;
+        final time = 2.hours;
+
+        // when
+        final acceleration = speed.over(time);
+
+        // then
+        expect(
+            acceleration.defaultUnit.multiplier,
+            miles.multiplier *
+                hours.inverted.multiplier *
+                hours.inverted.multiplier);
+        expect(acceleration.defaultValue, 3.0);
+      });
+      test("combines a derived2 unit in the denominator", () {
+        // given
+        final distance = 6.miles;
+        final timeSquared = 2.hours.dot.hours;
+
+        // when
+        final acceleration = distance.over(timeSquared);
+
+        // then
+        expect(
+            acceleration.defaultUnit.multiplier,
+            miles.multiplier *
+                hours.inverted.multiplier *
+                hours.inverted.multiplier);
+        expect(acceleration.defaultValue, 3.0);
+      });
     });
 
     group("by", () {
@@ -220,6 +272,32 @@ void main() {
 
         // then
         expect(derived.defaultUnit, miles.dot.hours);
+        expect(derived.defaultValue, 12.0);
+      });
+      test("combines a derived2 unit first", () {
+        // given
+        final area = 6.feet.dot.inches;
+        final distance = 2.yards;
+
+        // when
+        final derived = area.by(distance);
+
+        // then
+        expect(derived.defaultUnit.multiplier,
+            feet.multiplier * inches.multiplier * yards.multiplier);
+        expect(derived.defaultValue, 12.0);
+      });
+      test("combines a derived2 unit second", () {
+        // given
+        final distance = 6.feet;
+        final area = 2.inches.dot.yards;
+
+        // when
+        final derived = distance.by(area);
+
+        // then
+        expect(derived.defaultUnit.multiplier,
+            feet.multiplier * inches.multiplier * yards.multiplier);
         expect(derived.defaultValue, 12.0);
       });
     });

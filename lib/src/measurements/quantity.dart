@@ -17,7 +17,7 @@ enum QuantityConfig {
   @UnitConfig(
     shortName: "mol",
     singularName: "mole",
-    multiplier: 1.660539067e-24,
+    multiplier: 6.02214076e23,
   )
   moles;
 }

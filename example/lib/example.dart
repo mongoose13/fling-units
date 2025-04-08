@@ -4,8 +4,9 @@ void main() {
   // Create an instance of the measurement you care about.
   // You may use any of several construction methods.
   // Include the precision of your measurement for best results!
+  var distanceToGroceryStore = 2.miles;
   var distanceToTheMoon = kilo.meters(382500, precision: 4);
-  var distanceToSeattle = sum<Distance>(
+  var distanceToSeattle = DistanceMeasurement.sum(
     [
       miles(123),
       yards(15),
@@ -41,13 +42,19 @@ void main() {
   //------------------------------------------------//
 
   // Compare measurements of the same type (e.g. Distance or Temperature).
+  // All of the basic comparators work (<, >, <=, >=, !=, ==).
+  print("Comparing local distances...");
   if (distanceToTheMoon > distanceToSeattle) {
     print("Whew, we are still in Kansas.");
   } else {
     print("I don't think we're in Kansas any more.");
   }
+  if (distanceToGroceryStore <= distanceToGroceryStore) {
+    print("Wherever you go, there you are.");
+  }
 
-  print("\nMy bucket is $bucketMagnitudeDifference times bigger than yours!");
+  print("\nMy bucket is $myBucketSize while yours is only $yourBucketSize");
+  print("My bucket is $bucketMagnitudeDifference times bigger than yours!");
   print(
       "Or, if you prefer, yours fits $timesYourBucketFitsInMine times into mine, with $leftOverBucketVolume left over.");
 
@@ -71,13 +78,14 @@ void main() {
     feet(-1, precision: 3),
     DistanceMeasurement.negativeInfinite(),
   ];
-  print("\nThese are all out of whack: $distances");
+  print("\nThese distances are all out of whack: $distances");
+  print("Let's sort them!");
   distances.sort();
   print("Much better: $distances");
 
   //------------------------------------------------//
 
-  // When you"re ready, interpret the measurement using whatever unit you like.
+  // When you"re ready, convert the measurement to whatever unit you like.
   print(
       "\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.as(yards)} yards because I left my driving glasses at home.");
   print(
@@ -88,13 +96,14 @@ void main() {
   //------------------------------------------------//
 
   // Some of the more common derived units (e.g. Area) have full syntactic support.
+  // You can create simple derived measurements with by() or over().
   var monitorSurfaceArea = 14.inches.by(18.inches).withPrecision(4);
   print("\nMy monitor dimensions:");
   print("${monitorSurfaceArea.as(square(meters))} m²");
   print("${monitorSurfaceArea.as(square(centi.meters))} cm²");
   print("${monitorSurfaceArea.as(square(inches))} in²");
   print(
-      "${monitorSurfaceArea.as(product2(inches, centi.meters))} in x cm (in case you ever needed that...)");
+      "${monitorSurfaceArea.as(DerivedUnit2.build(inches, centi.meters))} in x cm (in case you ever needed that...)");
 
   // You can also build them from their component parts.
   var oneSquareInch = square(inches).using(
@@ -107,11 +116,11 @@ void main() {
   //------------------------------------------------//
 
   // Need a derived unit that isn't specifically implemented? Build it yourself!
-  // You can also use the common derived units to create your masterpiece.
+
+  var milesPerGallon = miles.per.usGallon.withName("mpg");
   var fuelUsed = 2.4.usGallons;
-  var fuelEconomy = miles.per.usGallon
-      .withName("mpg")
-      .using(distanceToSeattle, fuelUsed)
+  var fuelEconomy = milesPerGallon
+      .using(distanceToSeattle, fuelUsed.inverted)
       .withPrecision(3);
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
   print("I get $fuelEconomy");
@@ -123,7 +132,19 @@ void main() {
   // This also lets you define derived units that are a product of two simpler units.
   var coulombs = seconds.dot.amperes.withName("coulombs");
   var energyProduction = coulombs(3.14159);
-  print("My invention generates $energyProduction!");
+  print("\nMy invention generates $energyProduction!");
+
+  // You can also use other derived units to create your masterpiece, such as the
+  // built-in Volume units or any others you have created.
+
+  var energyProductionRate = energyProduction
+      .over(0.5.minutes)
+      .butAs(DerivedUnit2.build(coulombs, seconds.inverted));
+  print("If done over 30 seconds, that's a rate of $energyProductionRate");
+
+  var myMilkRecord = 3.usGallons.over(12.minutes).withPrecision(2);
+  print(
+      "\nI drank $myMilkRecord (${myMilkRecord.butAs(liters.per.second)}) of milk. I do not recommend trying it yourself.");
 
   //------------------------------------------------//
 
@@ -132,7 +153,7 @@ void main() {
   // in their own toString() methods using whichever unit was used to
   // instantiate them. You can also change the default unit later.
   final goldAmount = 1234.milli.grams.withPrecision(4);
-  print("I have $goldAmount of gold!");
+  print("\nI have $goldAmount of gold!");
   print("I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!");
   print("I have ${goldAmount.butAs(ounces)} of gold!");
 
@@ -157,7 +178,11 @@ void main() {
   const sizeOfMyHand = DistanceMeasurement(5.0, inches);
   const massOfMyHand = MassMeasurement(1.2, pounds);
   print(
-      "\nMy hand will always have a linear density of ${ratio(pounds, inches).using(massOfMyHand, sizeOfMyHand).withPrecision(2)}.");
+      "\nMy hand will always have a linear density of ${pounds.per.inch.using(massOfMyHand, sizeOfMyHand.inverted).withPrecision(2)}.");
 
   // Have fun!
+  print(3.centi.hertz.butAs(hertz));
+  print(3.deka.hertz.butAs(rpm));
+  print(3.deka.hertz.butAs(hertz));
+  print(3.hertz.butAs(rpm));
 }

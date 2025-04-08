@@ -26,8 +26,9 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
           ..name = "PrefixedUnitPer"
           ..types.addAll(
             [
-              Reference("N extends f.Unit<D>"),
+              Reference("N extends f.Unit<D, I>"),
               Reference("D extends f.Dimension"),
+              Reference("I extends f.Dimension"),
             ],
           )
           ..fields.add(
@@ -75,19 +76,21 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
                     ])
                 .where((pair) => pair.unit.isVisible)
                 .map(
-                  (pair) => Method(
-                    (method) => method
-                      ..docs.add(
-                          "/// Creates a derived unit with [${pair.unit.name}] as the denominator.")
-                      ..lambda = true
-                      ..type = MethodType.getter
-                      ..name = pair.unit.singularName
-                      ..returns = Reference(
-                          "f.DerivedUnit2<f.UnitNumerator<D>, f.UnitDenominator<f.${pair.measurement.name}>, D, f.${pair.measurement.name}>")
-                      ..body = Code(
-                          "f.DerivedUnit2.build(f.UnitNumerator(numerator), f.UnitDenominator(prefix.${pair.unit.name}),)"),
-                  ),
-                ),
+              (pair) {
+                return Method(
+                  (method) => method
+                    ..docs.add(
+                        "/// Creates a derived unit with [${pair.unit.name}] as the denominator.")
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = pair.unit.singularName
+                    ..returns = Reference(
+                        "f.DerivedUnit2<D, f.Inverted${pair.measurement.name}, I, f.${pair.measurement.name}>")
+                    ..body = Code(
+                        "f.DerivedUnit2.build(numerator, prefix.${pair.unit.name}.inverted,)"),
+                );
+              },
+            ),
           ),
       ),
     );
@@ -97,8 +100,9 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
           ..name = "PrefixedUnitDot"
           ..types.addAll(
             [
-              Reference("N extends f.Unit<D>"),
+              Reference("N extends f.Unit<D, I>"),
               Reference("D extends f.Dimension"),
+              Reference("I extends f.Dimension"),
             ],
           )
           ..fields.add(
@@ -146,19 +150,21 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
                     ])
                 .where((pair) => pair.unit.isVisible)
                 .map(
-                  (pair) => Method(
-                    (method) => method
-                      ..docs.add(
-                          "/// Creates a derived unit with [${pair.unit.name}] as the second unit in a product.")
-                      ..lambda = true
-                      ..type = MethodType.getter
-                      ..name = pair.unit.name
-                      ..returns = Reference(
-                          "f.DerivedUnit2<f.UnitNumerator<D>, f.UnitNumerator<f.${pair.measurement.name}>, D, f.${pair.measurement.name}>")
-                      ..body = Code(
-                          "f.DerivedUnit2.build(f.UnitNumerator(first), f.UnitNumerator(prefix.${pair.unit.name}),)"),
-                  ),
-                ),
+              (pair) {
+                return Method(
+                  (method) => method
+                    ..docs.add(
+                        "/// Creates a derived unit with [${pair.unit.name}] as the second unit in a product.")
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = pair.unit.name
+                    ..returns = Reference(
+                        "f.DerivedUnit2<D, f.${pair.measurement.name}, I, f.Inverted${pair.measurement.name}>")
+                    ..body = Code(
+                        "f.DerivedUnit2.build(first, prefix.${pair.unit.name},)"),
+                );
+              },
+            ),
           ),
       ),
     );

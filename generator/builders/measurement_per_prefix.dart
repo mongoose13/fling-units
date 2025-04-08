@@ -26,8 +26,9 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
           ..name = "PrefixedMeasurementPer"
           ..types.addAll(
             [
-              Reference("N extends f.Measurement<D>"),
+              Reference("N extends f.Measurement<D, I>"),
               Reference("D extends f.Dimension"),
+              Reference("I extends f.Dimension"),
             ],
           )
           ..fields.add(
@@ -75,19 +76,21 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
                     ])
                 .where((pair) => pair.unit.isVisible)
                 .map(
-                  (pair) => Method(
-                    (method) => method
-                      ..docs.add(
-                          "/// Creates a derived measurement with [${pair.unit.name}] as the denominator.")
-                      ..lambda = true
-                      ..type = MethodType.getter
-                      ..name = pair.unit.singularName
-                      ..returns = Reference(
-                          "f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitDenominator<f.${pair.measurement.name}>>>")
-                      ..body = Code(
-                          "ratio(numerator.defaultUnit, f.${pair.unit.name})(numerator.defaultValue)"),
-                  ),
-                ),
+              (pair) {
+                return Method(
+                  (method) => method
+                    ..docs.add(
+                        "/// Creates a derived measurement with [${pair.unit.name}] as the denominator.")
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = pair.unit.singularName
+                    ..returns = Reference(
+                        "f.DerivedMeasurement2<D, f.Inverted${pair.measurement.name}, I, f.${pair.measurement.name}>")
+                    ..body = Code(
+                        "DerivedUnit2.build(numerator.defaultUnit, f.${pair.unit.name}.withPrefix(prefix).inverted)(numerator.defaultValue)"),
+                );
+              },
+            ),
           ),
       ),
     );
@@ -97,8 +100,9 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
           ..name = "PrefixedMeasurementDot"
           ..types.addAll(
             [
-              Reference("N extends f.Measurement<D>"),
+              Reference("N extends f.Measurement<D, I>"),
               Reference("D extends f.Dimension"),
+              Reference("I extends f.Dimension"),
             ],
           )
           ..fields.add(
@@ -146,19 +150,21 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
                     ])
                 .where((pair) => pair.unit.isVisible)
                 .map(
-                  (pair) => Method(
-                    (method) => method
-                      ..docs.add(
-                          "/// Creates a derived measurement with [${pair.unit.name}] as the second unit in a product.")
-                      ..lambda = true
-                      ..type = MethodType.getter
-                      ..name = pair.unit.name
-                      ..returns = Reference(
-                          "f.Measurement<f.Dimension2<f.UnitNumerator<D>, f.UnitNumerator<f.${pair.measurement.name}>>>")
-                      ..body = Code(
-                          "product2(first.defaultUnit, f.${pair.unit.name})(first.defaultValue)"),
-                  ),
-                ),
+              (pair) {
+                return Method(
+                  (method) => method
+                    ..docs.add(
+                        "/// Creates a derived measurement with [${pair.unit.name}] as the second unit in a product.")
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = pair.unit.name
+                    ..returns = Reference(
+                        "f.DerivedMeasurement2<D, f.${pair.measurement.name}, I, f.Inverted${pair.measurement.name}>")
+                    ..body = Code(
+                        "DerivedUnit2.build(first.defaultUnit, f.${pair.unit.name})(first.defaultValue)"),
+                );
+              },
+            ),
           ),
       ),
     );

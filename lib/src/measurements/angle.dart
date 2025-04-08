@@ -17,37 +17,53 @@ enum AngleConfig {
   turns,
 
   @UnitConfig(
+    shortName: "quadrant",
+    singularName: "quadrant",
+    multiplier: 1.0 / 4.0,
+    isSI: true,
+  )
+  quadrants,
+
+  @UnitConfig(
+    shortName: "sextant",
+    singularName: "sextant",
+    multiplier: 1.0 / 6.0,
+    isSI: true,
+  )
+  sextants,
+
+  @UnitConfig(
     shortName: "rad",
     singularName: "radian",
-    multiplier: 2.0 * math.pi,
+    multiplier: 1.0 / (2.0 * math.pi),
   )
   radians,
 
   @UnitConfig(
     shortName: "ᵍ",
     singularName: "gradian",
-    multiplier: 4e2,
+    multiplier: 1.0 / 4e2,
   )
   gradians,
 
   @UnitConfig(
     shortName: "°",
     singularName: "degree",
-    multiplier: 360.0,
+    multiplier: 1.0 / 360.0,
   )
   degrees,
 
   @UnitConfig(
     shortName: "′",
     singularName: "arcMinute",
-    multiplier: 360.0 * 60.0,
+    multiplier: 1.0 / (360.0 * 60.0),
   )
   arcMinutes,
 
   @UnitConfig(
     shortName: "′",
     singularName: "arcSecond",
-    multiplier: 360.0 * 3600.0,
+    multiplier: 1.0 / (360.0 * 3600.0),
   )
   arcSeconds;
 }

@@ -17,14 +17,14 @@ enum LuminosityConfig {
   @UnitConfig(
     shortName: "cp",
     singularName: "candlepower",
-    multiplier: 1.0194,
+    multiplier: 0.981,
   )
   candlepower,
 
   @UnitConfig(
     shortName: "HK",
     singularName: "hefnerkerze",
-    multiplier: 1.0870,
+    multiplier: 0.920,
   )
   hefnerkerze;
 }

@@ -33,8 +33,8 @@ class MeasurementIdentifierBuilder extends Builder {
                 ));
             return "$measurementName,"
                 "${annotations.map((pair) => "${pair.element.name};"
-                    "${pair.annotation?.getField("singularName")?.toStringValue()};"
-                    "${pair.annotation?.getField("isVisible")?.toBoolValue()}").join(",")}";
+                    "${pair.annotation?.getField("singularName")?.toStringValue() ?? "unnamed"};"
+                    "${pair.annotation?.getField("isVisible")?.toBoolValue() ?? true}").join(",")}";
           }).join("\n"));
     }
   }

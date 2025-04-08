@@ -7,6 +7,7 @@ class MeasurementPrefix
         f.AnglePrefix,
         f.LuminosityPrefix,
         f.MassPrefix,
+        f.FrequencyPrefix,
         f.TimePrefix,
         f.DistancePrefix,
         f.QuantityPrefix,

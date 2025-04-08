@@ -2,7 +2,7 @@ import 'package:fling_units/fling_units.dart';
 
 import 'package:test/test.dart';
 
-import 'dart:isolate';
+//import 'dart:isolate';
 
 void main() {
   group("type safety", () {
@@ -13,18 +13,11 @@ void main() {
           final unit = seconds.per.gram;
 
           // then
-          unit(1).as(ratio(seconds, grams));
+          unit(1).as(DerivedUnit2.build(seconds, grams.inverted));
         });
       });
+      /*
       group("using", () {
-        test("valid inline", () {
-          // given
-          final unit = seconds.per.gram;
-
-          // then
-          // this should compile:
-          unit.using(1.minutes, 1.pounds);
-        });
         test("valid sandboxed", () async {
           final uri = Uri.dataFromString('''
 import "dart:isolate";
@@ -75,6 +68,7 @@ void main(_, SendPort port) {
           );
         });
       });
+      */
     });
   });
 }

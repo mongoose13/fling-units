@@ -38,15 +38,17 @@ class ExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
           ..on = Reference("num")
           ..methods.addAll(
             builder.units.where(builder.isVisible).map(
-                  (unit) => Method(
-                    (field) => field
-                      ..lambda = true
-                      ..type = MethodType.getter
-                      ..name = unit.name
-                      ..returns = builder.measurementType
-                      ..body = Code("${builder.unitName}.${unit.name}(this)"),
-                  ),
-                ),
+              (unit) {
+                return Method(
+                  (field) => field
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = unit.name
+                    ..returns = Reference(builder.measurementName)
+                    ..body = Code("${builder.unitName}.${unit.name}(this)"),
+                );
+              },
+            ),
           ),
       ),
     );

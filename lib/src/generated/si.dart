@@ -6,205 +6,205 @@ part of '../prefixes/si.dart';
 // MeasurementPerGenerator
 // **************************************************************************
 
-class MeasurementPer<N extends Measurement<D>, D extends Dimension>
-    extends PrefixedMeasurementPer<N, D> {
+class MeasurementPer<N extends Measurement<D, I>, D extends Dimension,
+    I extends Dimension> extends PrefixedMeasurementPer<N, D, I> {
   MeasurementPer(super.numerator);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get quecto =>
+  PrefixedMeasurementPer<N, D, I> get quecto =>
       PrefixedMeasurementPer(numerator, prefix: _quecto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get ronto =>
+  PrefixedMeasurementPer<N, D, I> get ronto =>
       PrefixedMeasurementPer(numerator, prefix: _ronto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get yocto =>
+  PrefixedMeasurementPer<N, D, I> get yocto =>
       PrefixedMeasurementPer(numerator, prefix: _yocto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get zepto =>
+  PrefixedMeasurementPer<N, D, I> get zepto =>
       PrefixedMeasurementPer(numerator, prefix: _zepto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get atto =>
+  PrefixedMeasurementPer<N, D, I> get atto =>
       PrefixedMeasurementPer(numerator, prefix: _atto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get femto =>
+  PrefixedMeasurementPer<N, D, I> get femto =>
       PrefixedMeasurementPer(numerator, prefix: _femto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get pico =>
+  PrefixedMeasurementPer<N, D, I> get pico =>
       PrefixedMeasurementPer(numerator, prefix: _pico);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get nano =>
+  PrefixedMeasurementPer<N, D, I> get nano =>
       PrefixedMeasurementPer(numerator, prefix: _nano);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get micro =>
+  PrefixedMeasurementPer<N, D, I> get micro =>
       PrefixedMeasurementPer(numerator, prefix: _micro);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get milli =>
+  PrefixedMeasurementPer<N, D, I> get milli =>
       PrefixedMeasurementPer(numerator, prefix: _milli);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get centi =>
+  PrefixedMeasurementPer<N, D, I> get centi =>
       PrefixedMeasurementPer(numerator, prefix: _centi);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get deci =>
+  PrefixedMeasurementPer<N, D, I> get deci =>
       PrefixedMeasurementPer(numerator, prefix: _deci);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get deka =>
+  PrefixedMeasurementPer<N, D, I> get deka =>
       PrefixedMeasurementPer(numerator, prefix: _deka);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get hecto =>
+  PrefixedMeasurementPer<N, D, I> get hecto =>
       PrefixedMeasurementPer(numerator, prefix: _hecto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get kilo =>
+  PrefixedMeasurementPer<N, D, I> get kilo =>
       PrefixedMeasurementPer(numerator, prefix: _kilo);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get mega =>
+  PrefixedMeasurementPer<N, D, I> get mega =>
       PrefixedMeasurementPer(numerator, prefix: _mega);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get giga =>
+  PrefixedMeasurementPer<N, D, I> get giga =>
       PrefixedMeasurementPer(numerator, prefix: _giga);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get tera =>
+  PrefixedMeasurementPer<N, D, I> get tera =>
       PrefixedMeasurementPer(numerator, prefix: _tera);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get peta =>
+  PrefixedMeasurementPer<N, D, I> get peta =>
       PrefixedMeasurementPer(numerator, prefix: _peta);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get exa =>
+  PrefixedMeasurementPer<N, D, I> get exa =>
       PrefixedMeasurementPer(numerator, prefix: _exa);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get zetta =>
+  PrefixedMeasurementPer<N, D, I> get zetta =>
       PrefixedMeasurementPer(numerator, prefix: _zetta);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get yotta =>
+  PrefixedMeasurementPer<N, D, I> get yotta =>
       PrefixedMeasurementPer(numerator, prefix: _yotta);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get ronna =>
+  PrefixedMeasurementPer<N, D, I> get ronna =>
       PrefixedMeasurementPer(numerator, prefix: _ronna);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementPer<N, D> get quetta =>
+  PrefixedMeasurementPer<N, D, I> get quetta =>
       PrefixedMeasurementPer(numerator, prefix: _quetta);
 }
 
-class MeasurementDot<N extends Measurement<D>, D extends Dimension>
-    extends PrefixedMeasurementDot<N, D> {
+class MeasurementDot<N extends Measurement<D, I>, D extends Dimension,
+    I extends Dimension> extends PrefixedMeasurementDot<N, D, I> {
   MeasurementDot(super.first);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get quecto =>
+  PrefixedMeasurementDot<N, D, I> get quecto =>
       PrefixedMeasurementDot(first, prefix: _quecto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get ronto =>
+  PrefixedMeasurementDot<N, D, I> get ronto =>
       PrefixedMeasurementDot(first, prefix: _ronto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get yocto =>
+  PrefixedMeasurementDot<N, D, I> get yocto =>
       PrefixedMeasurementDot(first, prefix: _yocto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get zepto =>
+  PrefixedMeasurementDot<N, D, I> get zepto =>
       PrefixedMeasurementDot(first, prefix: _zepto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get atto =>
+  PrefixedMeasurementDot<N, D, I> get atto =>
       PrefixedMeasurementDot(first, prefix: _atto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get femto =>
+  PrefixedMeasurementDot<N, D, I> get femto =>
       PrefixedMeasurementDot(first, prefix: _femto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get pico =>
+  PrefixedMeasurementDot<N, D, I> get pico =>
       PrefixedMeasurementDot(first, prefix: _pico);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get nano =>
+  PrefixedMeasurementDot<N, D, I> get nano =>
       PrefixedMeasurementDot(first, prefix: _nano);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get micro =>
+  PrefixedMeasurementDot<N, D, I> get micro =>
       PrefixedMeasurementDot(first, prefix: _micro);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get milli =>
+  PrefixedMeasurementDot<N, D, I> get milli =>
       PrefixedMeasurementDot(first, prefix: _milli);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get centi =>
+  PrefixedMeasurementDot<N, D, I> get centi =>
       PrefixedMeasurementDot(first, prefix: _centi);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get deci =>
+  PrefixedMeasurementDot<N, D, I> get deci =>
       PrefixedMeasurementDot(first, prefix: _deci);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get deka =>
+  PrefixedMeasurementDot<N, D, I> get deka =>
       PrefixedMeasurementDot(first, prefix: _deka);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get hecto =>
+  PrefixedMeasurementDot<N, D, I> get hecto =>
       PrefixedMeasurementDot(first, prefix: _hecto);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get kilo =>
+  PrefixedMeasurementDot<N, D, I> get kilo =>
       PrefixedMeasurementDot(first, prefix: _kilo);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get mega =>
+  PrefixedMeasurementDot<N, D, I> get mega =>
       PrefixedMeasurementDot(first, prefix: _mega);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get giga =>
+  PrefixedMeasurementDot<N, D, I> get giga =>
       PrefixedMeasurementDot(first, prefix: _giga);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get tera =>
+  PrefixedMeasurementDot<N, D, I> get tera =>
       PrefixedMeasurementDot(first, prefix: _tera);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get peta =>
+  PrefixedMeasurementDot<N, D, I> get peta =>
       PrefixedMeasurementDot(first, prefix: _peta);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get exa =>
+  PrefixedMeasurementDot<N, D, I> get exa =>
       PrefixedMeasurementDot(first, prefix: _exa);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get zetta =>
+  PrefixedMeasurementDot<N, D, I> get zetta =>
       PrefixedMeasurementDot(first, prefix: _zetta);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get yotta =>
+  PrefixedMeasurementDot<N, D, I> get yotta =>
       PrefixedMeasurementDot(first, prefix: _yotta);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get ronna =>
+  PrefixedMeasurementDot<N, D, I> get ronna =>
       PrefixedMeasurementDot(first, prefix: _ronna);
 
   /// Establishes a prefix for the derived measurement being constructed.
-  PrefixedMeasurementDot<N, D> get quetta =>
+  PrefixedMeasurementDot<N, D, I> get quetta =>
       PrefixedMeasurementDot(first, prefix: _quetta);
 }
 
@@ -342,158 +342,181 @@ extension NumExtensionPrefixPrefixes on num {
 // UnitPerGenerator
 // **************************************************************************
 
-class UnitPer<N extends Unit<D>, D extends Dimension>
-    extends PrefixedUnitPer<N, D> {
+class UnitPer<N extends Unit<D, I>, D extends Dimension, I extends Dimension>
+    extends PrefixedUnitPer<N, D, I> {
   UnitPer(super.numerator);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get quecto =>
+  PrefixedUnitPer<N, D, I> get quecto =>
       PrefixedUnitPer(numerator, prefix: _quecto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get ronto => PrefixedUnitPer(numerator, prefix: _ronto);
+  PrefixedUnitPer<N, D, I> get ronto =>
+      PrefixedUnitPer(numerator, prefix: _ronto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get yocto => PrefixedUnitPer(numerator, prefix: _yocto);
+  PrefixedUnitPer<N, D, I> get yocto =>
+      PrefixedUnitPer(numerator, prefix: _yocto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get zepto => PrefixedUnitPer(numerator, prefix: _zepto);
+  PrefixedUnitPer<N, D, I> get zepto =>
+      PrefixedUnitPer(numerator, prefix: _zepto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get atto => PrefixedUnitPer(numerator, prefix: _atto);
+  PrefixedUnitPer<N, D, I> get atto =>
+      PrefixedUnitPer(numerator, prefix: _atto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get femto => PrefixedUnitPer(numerator, prefix: _femto);
+  PrefixedUnitPer<N, D, I> get femto =>
+      PrefixedUnitPer(numerator, prefix: _femto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get pico => PrefixedUnitPer(numerator, prefix: _pico);
+  PrefixedUnitPer<N, D, I> get pico =>
+      PrefixedUnitPer(numerator, prefix: _pico);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get nano => PrefixedUnitPer(numerator, prefix: _nano);
+  PrefixedUnitPer<N, D, I> get nano =>
+      PrefixedUnitPer(numerator, prefix: _nano);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get micro => PrefixedUnitPer(numerator, prefix: _micro);
+  PrefixedUnitPer<N, D, I> get micro =>
+      PrefixedUnitPer(numerator, prefix: _micro);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get milli => PrefixedUnitPer(numerator, prefix: _milli);
+  PrefixedUnitPer<N, D, I> get milli =>
+      PrefixedUnitPer(numerator, prefix: _milli);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get centi => PrefixedUnitPer(numerator, prefix: _centi);
+  PrefixedUnitPer<N, D, I> get centi =>
+      PrefixedUnitPer(numerator, prefix: _centi);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get deci => PrefixedUnitPer(numerator, prefix: _deci);
+  PrefixedUnitPer<N, D, I> get deci =>
+      PrefixedUnitPer(numerator, prefix: _deci);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get deka => PrefixedUnitPer(numerator, prefix: _deka);
+  PrefixedUnitPer<N, D, I> get deka =>
+      PrefixedUnitPer(numerator, prefix: _deka);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get hecto => PrefixedUnitPer(numerator, prefix: _hecto);
+  PrefixedUnitPer<N, D, I> get hecto =>
+      PrefixedUnitPer(numerator, prefix: _hecto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get kilo => PrefixedUnitPer(numerator, prefix: _kilo);
+  PrefixedUnitPer<N, D, I> get kilo =>
+      PrefixedUnitPer(numerator, prefix: _kilo);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get mega => PrefixedUnitPer(numerator, prefix: _mega);
+  PrefixedUnitPer<N, D, I> get mega =>
+      PrefixedUnitPer(numerator, prefix: _mega);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get giga => PrefixedUnitPer(numerator, prefix: _giga);
+  PrefixedUnitPer<N, D, I> get giga =>
+      PrefixedUnitPer(numerator, prefix: _giga);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get tera => PrefixedUnitPer(numerator, prefix: _tera);
+  PrefixedUnitPer<N, D, I> get tera =>
+      PrefixedUnitPer(numerator, prefix: _tera);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get peta => PrefixedUnitPer(numerator, prefix: _peta);
+  PrefixedUnitPer<N, D, I> get peta =>
+      PrefixedUnitPer(numerator, prefix: _peta);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get exa => PrefixedUnitPer(numerator, prefix: _exa);
+  PrefixedUnitPer<N, D, I> get exa => PrefixedUnitPer(numerator, prefix: _exa);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get zetta => PrefixedUnitPer(numerator, prefix: _zetta);
+  PrefixedUnitPer<N, D, I> get zetta =>
+      PrefixedUnitPer(numerator, prefix: _zetta);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get yotta => PrefixedUnitPer(numerator, prefix: _yotta);
+  PrefixedUnitPer<N, D, I> get yotta =>
+      PrefixedUnitPer(numerator, prefix: _yotta);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get ronna => PrefixedUnitPer(numerator, prefix: _ronna);
+  PrefixedUnitPer<N, D, I> get ronna =>
+      PrefixedUnitPer(numerator, prefix: _ronna);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitPer<N, D> get quetta =>
+  PrefixedUnitPer<N, D, I> get quetta =>
       PrefixedUnitPer(numerator, prefix: _quetta);
 }
 
-class UnitDot<N extends Unit<D>, D extends Dimension>
-    extends PrefixedUnitDot<N, D> {
+class UnitDot<N extends Unit<D, I>, D extends Dimension, I extends Dimension>
+    extends PrefixedUnitDot<N, D, I> {
   UnitDot(super.first);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get quecto => PrefixedUnitDot(first, prefix: _quecto);
+  PrefixedUnitDot<N, D, I> get quecto =>
+      PrefixedUnitDot(first, prefix: _quecto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get ronto => PrefixedUnitDot(first, prefix: _ronto);
+  PrefixedUnitDot<N, D, I> get ronto => PrefixedUnitDot(first, prefix: _ronto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get yocto => PrefixedUnitDot(first, prefix: _yocto);
+  PrefixedUnitDot<N, D, I> get yocto => PrefixedUnitDot(first, prefix: _yocto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get zepto => PrefixedUnitDot(first, prefix: _zepto);
+  PrefixedUnitDot<N, D, I> get zepto => PrefixedUnitDot(first, prefix: _zepto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get atto => PrefixedUnitDot(first, prefix: _atto);
+  PrefixedUnitDot<N, D, I> get atto => PrefixedUnitDot(first, prefix: _atto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get femto => PrefixedUnitDot(first, prefix: _femto);
+  PrefixedUnitDot<N, D, I> get femto => PrefixedUnitDot(first, prefix: _femto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get pico => PrefixedUnitDot(first, prefix: _pico);
+  PrefixedUnitDot<N, D, I> get pico => PrefixedUnitDot(first, prefix: _pico);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get nano => PrefixedUnitDot(first, prefix: _nano);
+  PrefixedUnitDot<N, D, I> get nano => PrefixedUnitDot(first, prefix: _nano);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get micro => PrefixedUnitDot(first, prefix: _micro);
+  PrefixedUnitDot<N, D, I> get micro => PrefixedUnitDot(first, prefix: _micro);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get milli => PrefixedUnitDot(first, prefix: _milli);
+  PrefixedUnitDot<N, D, I> get milli => PrefixedUnitDot(first, prefix: _milli);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get centi => PrefixedUnitDot(first, prefix: _centi);
+  PrefixedUnitDot<N, D, I> get centi => PrefixedUnitDot(first, prefix: _centi);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get deci => PrefixedUnitDot(first, prefix: _deci);
+  PrefixedUnitDot<N, D, I> get deci => PrefixedUnitDot(first, prefix: _deci);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get deka => PrefixedUnitDot(first, prefix: _deka);
+  PrefixedUnitDot<N, D, I> get deka => PrefixedUnitDot(first, prefix: _deka);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get hecto => PrefixedUnitDot(first, prefix: _hecto);
+  PrefixedUnitDot<N, D, I> get hecto => PrefixedUnitDot(first, prefix: _hecto);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get kilo => PrefixedUnitDot(first, prefix: _kilo);
+  PrefixedUnitDot<N, D, I> get kilo => PrefixedUnitDot(first, prefix: _kilo);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get mega => PrefixedUnitDot(first, prefix: _mega);
+  PrefixedUnitDot<N, D, I> get mega => PrefixedUnitDot(first, prefix: _mega);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get giga => PrefixedUnitDot(first, prefix: _giga);
+  PrefixedUnitDot<N, D, I> get giga => PrefixedUnitDot(first, prefix: _giga);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get tera => PrefixedUnitDot(first, prefix: _tera);
+  PrefixedUnitDot<N, D, I> get tera => PrefixedUnitDot(first, prefix: _tera);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get peta => PrefixedUnitDot(first, prefix: _peta);
+  PrefixedUnitDot<N, D, I> get peta => PrefixedUnitDot(first, prefix: _peta);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get exa => PrefixedUnitDot(first, prefix: _exa);
+  PrefixedUnitDot<N, D, I> get exa => PrefixedUnitDot(first, prefix: _exa);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get zetta => PrefixedUnitDot(first, prefix: _zetta);
+  PrefixedUnitDot<N, D, I> get zetta => PrefixedUnitDot(first, prefix: _zetta);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get yotta => PrefixedUnitDot(first, prefix: _yotta);
+  PrefixedUnitDot<N, D, I> get yotta => PrefixedUnitDot(first, prefix: _yotta);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get ronna => PrefixedUnitDot(first, prefix: _ronna);
+  PrefixedUnitDot<N, D, I> get ronna => PrefixedUnitDot(first, prefix: _ronna);
 
   /// Establishes a prefix for the derived unit being constructed.
-  PrefixedUnitDot<N, D> get quetta => PrefixedUnitDot(first, prefix: _quetta);
+  PrefixedUnitDot<N, D, I> get quetta =>
+      PrefixedUnitDot(first, prefix: _quetta);
 }

@@ -39,10 +39,11 @@ class MeasurementPerGenerator extends GeneratorForAnnotation<PrefixType> {
         (measurementPer) => measurementPer
           ..name = "MeasurementPer"
           ..types.addAll([
-            Reference("N extends Measurement<D>"),
+            Reference("N extends Measurement<D, I>"),
             Reference("D extends Dimension"),
+            Reference("I extends Dimension"),
           ])
-          ..extend = Reference("PrefixedMeasurementPer<N, D>")
+          ..extend = Reference("PrefixedMeasurementPer<N, D, I>")
           ..constructors.add(
             Constructor(
               (constructor) => constructor
@@ -62,7 +63,7 @@ class MeasurementPerGenerator extends GeneratorForAnnotation<PrefixType> {
                   ..docs.add(
                       "/// Establishes a prefix for the derived measurement being constructed.")
                   ..name = prefix.name
-                  ..returns = Reference("PrefixedMeasurementPer<N, D>")
+                  ..returns = Reference("PrefixedMeasurementPer<N, D, I>")
                   ..type = MethodType.getter
                   ..lambda = true
                   ..body = Code(
@@ -77,10 +78,11 @@ class MeasurementPerGenerator extends GeneratorForAnnotation<PrefixType> {
         (measurementDot) => measurementDot
           ..name = "MeasurementDot"
           ..types.addAll([
-            Reference("N extends Measurement<D>"),
+            Reference("N extends Measurement<D, I>"),
             Reference("D extends Dimension"),
+            Reference("I extends Dimension"),
           ])
-          ..extend = Reference("PrefixedMeasurementDot<N, D>")
+          ..extend = Reference("PrefixedMeasurementDot<N, D, I>")
           ..constructors.add(
             Constructor(
               (constructor) => constructor
@@ -100,7 +102,7 @@ class MeasurementPerGenerator extends GeneratorForAnnotation<PrefixType> {
                   ..docs.add(
                       "/// Establishes a prefix for the derived measurement being constructed.")
                   ..name = prefix.name
-                  ..returns = Reference("PrefixedMeasurementDot<N, D>")
+                  ..returns = Reference("PrefixedMeasurementDot<N, D, I>")
                   ..type = MethodType.getter
                   ..lambda = true
                   ..body = Code(

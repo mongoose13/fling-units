@@ -6,14 +6,14 @@ void main() {
   group("Unit", () {
     test("of", () {
       // when
-      final result = feet.of(3);
+      final result = feet.fromSI(3);
 
       // then
       expect(result, closeTo(9.84, 0.005));
     });
     test("from", () {
       // when
-      final result = feet.from(3);
+      final result = feet.toSI(3);
 
       // then
       expect(result, closeTo(0.914, 0.0005));

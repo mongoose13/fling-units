@@ -38,10 +38,11 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
         (unitPer) => unitPer
           ..name = "UnitPer"
           ..types.addAll([
-            Reference("N extends Unit<D>"),
+            Reference("N extends Unit<D, I>"),
             Reference("D extends Dimension"),
+            Reference("I extends Dimension"),
           ])
-          ..extend = Reference("PrefixedUnitPer<N, D>")
+          ..extend = Reference("PrefixedUnitPer<N, D, I>")
           ..constructors.add(
             Constructor(
               (constructor) => constructor
@@ -61,7 +62,7 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
                   ..docs.add(
                       "/// Establishes a prefix for the derived unit being constructed.")
                   ..name = prefix.name
-                  ..returns = Reference("PrefixedUnitPer<N, D>")
+                  ..returns = Reference("PrefixedUnitPer<N, D, I>")
                   ..type = MethodType.getter
                   ..lambda = true
                   ..body = Code(
@@ -77,10 +78,11 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
         (unitDot) => unitDot
           ..name = "UnitDot"
           ..types.addAll([
-            Reference("N extends Unit<D>"),
+            Reference("N extends Unit<D, I>"),
             Reference("D extends Dimension"),
+            Reference("I extends Dimension"),
           ])
-          ..extend = Reference("PrefixedUnitDot<N, D>")
+          ..extend = Reference("PrefixedUnitDot<N, D, I>")
           ..constructors.add(
             Constructor(
               (constructor) => constructor
@@ -100,7 +102,7 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
                   ..docs.add(
                       "/// Establishes a prefix for the derived unit being constructed.")
                   ..name = prefix.name
-                  ..returns = Reference("PrefixedUnitDot<N, D>")
+                  ..returns = Reference("PrefixedUnitDot<N, D, I>")
                   ..type = MethodType.getter
                   ..lambda = true
                   ..body =

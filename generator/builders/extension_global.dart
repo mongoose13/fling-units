@@ -86,19 +86,21 @@ prevents all but the first usage (the one we want) demonstrated above."""
                     ])
                 .where((pair) => pair.unit.isVisible)
                 .map(
-                  (pair) => Method(
-                    (method) => method
-                      ..docs.add(
-                          "/// Creates a(n) ${pair.unit.name} measurement.")
-                      ..lambda = true
-                      ..type = MethodType.getter
-                      ..name = pair.unit.name
-                      ..returns =
-                          Reference("f.${pair.measurement.name}Measurement")
-                      ..body = Code(
-                          "f.${pair.measurement.name}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
-                  ),
-                ),
+              (pair) {
+                return Method(
+                  (method) => method
+                    ..docs
+                        .add("/// Creates a(n) ${pair.unit.name} measurement.")
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = pair.unit.name
+                    ..returns =
+                        Reference("f.${pair.measurement.name}Measurement")
+                    ..body = Code(
+                        "f.${pair.measurement.name}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
+                );
+              },
+            ),
           ),
       ),
     );

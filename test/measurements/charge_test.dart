@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final measurement = sum([
+        final measurement = ChargeMeasurement.sum([
           amperes(2.1),
           amperes(5.0),
           amperes(0.3),

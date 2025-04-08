@@ -32,6 +32,14 @@ class NumExtension {
   /// Creates a(n) turns measurement.
   f.AngleMeasurement get turns => f.AngleUnit.turns.withPrefix(_prefix)(_value);
 
+  /// Creates a(n) quadrants measurement.
+  f.AngleMeasurement get quadrants =>
+      f.AngleUnit.quadrants.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) sextants measurement.
+  f.AngleMeasurement get sextants =>
+      f.AngleUnit.sextants.withPrefix(_prefix)(_value);
+
   /// Creates a(n) radians measurement.
   f.AngleMeasurement get radians =>
       f.AngleUnit.radians.withPrefix(_prefix)(_value);
@@ -96,6 +104,14 @@ class NumExtension {
   /// Creates a(n) ounces measurement.
   f.MassMeasurement get ounces => f.MassUnit.ounces.withPrefix(_prefix)(_value);
 
+  /// Creates a(n) hertz measurement.
+  f.FrequencyMeasurement get hertz =>
+      f.FrequencyUnit.hertz.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) rpm measurement.
+  f.FrequencyMeasurement get rpm =>
+      f.FrequencyUnit.rpm.withPrefix(_prefix)(_value);
+
   /// Creates a(n) seconds measurement.
   f.TimeMeasurement get seconds =>
       f.TimeUnit.seconds.withPrefix(_prefix)(_value);
@@ -134,6 +150,14 @@ class NumExtension {
   f.DistanceMeasurement get nauticalMiles =>
       f.DistanceUnit.nauticalMiles.withPrefix(_prefix)(_value);
 
+  /// Creates a(n) microns measurement.
+  f.DistanceMeasurement get microns =>
+      f.DistanceUnit.microns.withPrefix(_prefix)(_value);
+
+  /// Creates a(n) lightYears measurement.
+  f.DistanceMeasurement get lightYears =>
+      f.DistanceUnit.lightYears.withPrefix(_prefix)(_value);
+
   /// Creates a(n) units measurement.
   f.QuantityMeasurement get units =>
       f.QuantityUnit.units.withPrefix(_prefix)(_value);
@@ -165,10 +189,6 @@ class NumExtension {
   /// Creates a(n) mmHg measurement.
   f.PressureMeasurement get mmHg =>
       f.PressureUnit.mmHg.withPrefix(_prefix)(_value);
-
-  /// Creates a(n) inHg measurement.
-  f.PressureMeasurement get inHg =>
-      f.PressureUnit.inHg.withPrefix(_prefix)(_value);
 
   /// Creates a(n) torr measurement.
   f.PressureMeasurement get torr =>

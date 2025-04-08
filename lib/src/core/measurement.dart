@@ -1,65 +1,44 @@
 part of "library.dart";
 
 /// Base class for any type of measurement.
-class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
+abstract class Measurement<D extends Dimension, I extends Dimension>
+    implements Comparable<Measurement<D, I>> {
   /// Creates a base measurement.
   const Measurement({
     required this.magnitude,
-    required this.defaultUnit,
     Precision precision = Precision.max,
   }) : precisionData = precision;
 
   /// Creates a measurement of magnitude zero.
-  const Measurement.zero(Unit<D> defaultUnit)
-      : this(
-          magnitude: 0.0,
-          defaultUnit: defaultUnit,
-        );
+  const Measurement.zero() : this(magnitude: 0.0);
 
   /// Creates a measurement of infinite magnitude.
-  const Measurement.infinite(Unit<D> defaultUnit)
+  const Measurement.infinite()
       : this(
           magnitude: double.infinity,
-          defaultUnit: defaultUnit,
         );
 
   /// Creates a measurement of negative infinite magnitude.
-  const Measurement.negativeInfinite(Unit<D> defaultUnit)
+  const Measurement.negativeInfinite()
       : this(
           magnitude: -double.infinity,
-          defaultUnit: defaultUnit,
         );
 
   /// Creates a measurement that is not a number.
-  const Measurement.nan(Unit<D> defaultUnit)
+  const Measurement.nan()
       : this(
           magnitude: double.nan,
-          defaultUnit: defaultUnit,
         );
 
   /// Creates a measurement that is the sum of several measurements.
   Measurement.sum(
-    Iterable<Measurement<D>> parts, {
+    Iterable<Measurement<D, I>> parts, {
     int precision = Precision.maximumPrecision,
-    required Unit<D> defaultUnit,
   }) : this(
-          magnitude: defaultUnit.of(parts.fold(
-              0.0, (previousValue, element) => previousValue + element.si)),
+          magnitude: parts.fold(
+              0.0, (previousValue, element) => previousValue + element.si),
           precision: Precision(precision),
-          defaultUnit: defaultUnit,
         );
-
-  /// Constructs a new measurement.
-  Measurement<D> construct(
-    double magnitude,
-    Unit<D> defaultUnit,
-    Precision precision,
-  ) =>
-      Measurement(
-        magnitude: magnitude,
-        defaultUnit: defaultUnit,
-        precision: precision,
-      );
 
   /// The default unit for this measurement.
   ///
@@ -68,7 +47,7 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   ///
   /// By default, this is set as the unit used to create the measurement. It can
   /// be changed using [butAs].
-  final Unit<D> defaultUnit;
+  Unit<D, I> get defaultUnit;
 
   /// Returns the default measurement value (i.e. the measurement as interpreted
   /// by the default [Unit].
@@ -77,7 +56,7 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   double get defaultValue => _precise(magnitude);
 
   /// The measurement's value in the SI unit.
-  double get si => defaultUnit.from(magnitude);
+  double get si => defaultUnit.toSI(magnitude);
 
   /// Returns `true` if this measurement is negative.
   bool get isNegative => magnitude.isNegative;
@@ -94,10 +73,6 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
 
   /// Returns the number of digits of precision this measurement has.
   int get precision => precisionData.precision;
-
-  /// Creates an equivalent measurement with the specified precision (significant digits).
-  Measurement<D> withPrecision(int precision) =>
-      construct(magnitude.toDouble(), defaultUnit, Precision(precision));
 
   /// Returns whether two measurements are functionally identical.
   ///
@@ -116,16 +91,17 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// a.equals(c); // false (because 3.1 != 3.14)
   /// b.equals(c); // false (because 3.1 != 3.14)
   /// ```
-  bool equals(Measurement<D> other) {
+  bool equals(Measurement<D, I> other) {
     return identical(this, other) ||
         isNaN && other.isNaN ||
-        other._precise(_preciseSI()) == _precise(other._preciseSI());
+        other._precise(preciseDefaultValue) ==
+            _precise(other.preciseDefaultValue);
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Measurement<D> &&
+      other is Measurement<D, I> &&
           si == other.si &&
           precisionData == other.precisionData;
 
@@ -135,76 +111,27 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// Returns `true` if this is greater than the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator >(Measurement<D> other) => _precise(si) > _precise(other.si);
+  bool operator >(Measurement<D, I> other) => _precise(si) > _precise(other.si);
 
   /// Returns `true` if this is greater than or equal to the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator >=(Measurement<D> other) => _precise(si) >= _precise(other.si);
+  bool operator >=(Measurement<D, I> other) =>
+      _precise(si) >= _precise(other.si);
 
   /// Returns `true` if this is less than the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator <(Measurement<D> other) => _precise(si) < _precise(other.si);
+  bool operator <(Measurement<D, I> other) => _precise(si) < _precise(other.si);
 
   /// Returns `true` if this is less than or equal to the other measurement.
   ///
   /// This uses the first measurement's precision for all calculations.
-  bool operator <=(Measurement<D> other) => _precise(si) <= _precise(other.si);
+  bool operator <=(Measurement<D, I> other) =>
+      _precise(si) <= _precise(other.si);
 
   @override
-  int compareTo(Measurement<D> other) => si.compareTo(other.si);
-
-  /// Returns a measurement representing the opposite of this.
-  Measurement<D> operator -() =>
-      construct(-magnitude.toDouble(), defaultUnit, precisionData);
-
-  /// Returns a measurement equivalent to the sum of two others.
-  Measurement<D> operator +(Measurement<D> other) => construct(
-        defaultUnit.of(si + other.si),
-        defaultUnit,
-        Precision(Precision.addition(this, other)),
-      );
-
-  /// Returns a measurement equivalent to the difference between two others.
-  Measurement<D> operator -(Measurement<D> other) => construct(
-        defaultUnit.of(si - other.si),
-        defaultUnit,
-        Precision(Precision.addition(this, -other)),
-      );
-
-  /// Returns a measurement equivalent to a multiple of this.
-  Measurement<D> operator *(num multiplier) =>
-      construct(magnitude * multiplier.toDouble(), defaultUnit, precisionData);
-
-  /// Returns a measurement equivalent to a fraction of this.
-  Measurement<D> operator /(num divisor) =>
-      construct(magnitude / divisor.toDouble(), defaultUnit, precisionData);
-
-  /// Returns the Euclidean remainder of the division between two measurements.
-  ///
-  /// For example:
-  /// ```dart
-  /// feet(2) % inches(7); // 3 inches
-  /// inches(7) % feet(2); // 7 inches
-  /// ```
-  ///
-  /// For the purposes of this function, a negative divisor is treated identically
-  /// to its positive counterpart, and thus the operation always produces a positive
-  /// result. This is consistent with the way Dart handles the modulo operator.
-  /// For example:
-  /// ```dart
-  /// feet(2) % inches(-7); // 3 inches
-  /// feet(-2) % inches(7); // 4 inches
-  /// feet(-2) % inches(-7); // 4 inches
-  /// ```
-  ///
-  /// If the divisor is zero or the dividend is infinite, the result is always NaN.
-  Measurement<D> operator %(Measurement<D> other) => construct(
-        defaultUnit.of(_preciseSI() % other._preciseSI()),
-        defaultUnit,
-        Precision.combine([precision, other.precision]),
-      );
+  int compareTo(Measurement<D, I> other) => si.compareTo(other.si);
 
   /// Returns the truncating division result of this and another measurement.
   ///
@@ -217,7 +144,8 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// Attempting to divide by a measurement of magnitude zero, or attempting to
   /// divide an infinite measurement, will result in UnsupportedError (`int`
   /// cannot hold an infinite or `NaN` value).
-  int operator ~/(Measurement<D> other) => _preciseSI() ~/ other._preciseSI();
+  int operator ~/(Measurement<D, I> other) =>
+      preciseDefaultValue ~/ other.preciseDefaultValue;
 
   /// Returns the difference in magnitude between this and another measurement.
   ///
@@ -225,8 +153,8 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// ```dart
   /// meters(3).compareMagnitude(deka.meters(3));  // 0.1
   /// ```
-  double compareMagnitude(Measurement<D> other) =>
-      _preciseSI() / other._preciseSI();
+  double compareMagnitude(Measurement<D, I> other) =>
+      preciseDefaultValue / other.preciseDefaultValue;
 
   @override
   String toString() => '$defaultValue $defaultUnit';
@@ -234,20 +162,8 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// Apply the measurement appropriate precision to a value.
   double _precise(num value) => precisionData.apply(value);
 
-  /// Apply the measurement appropriate precision to a converted value.
-  double _preciseOf([Unit<D>? converter]) =>
-      precisionData.apply(converter?.of(si) ?? si);
-
   /// Apply the measurement appropriate precision to the base value.
-  double _preciseSI() => _precise(si);
-
-  /// Interprets this using the specified units.
-  double as(Unit<D> unit) => _preciseOf(unit);
-
-  /// Creates a new measurement equivalent to this one but with a different
-  /// default unit.
-  Measurement<D> butAs(Unit<D> unit) =>
-      construct(unit.of(si), unit, precisionData);
+  double get preciseDefaultValue => _precise(si);
 
   /// The value of this measurement in the default unit.
   final num magnitude;
@@ -255,44 +171,3 @@ class Measurement<D extends Dimension> implements Comparable<Measurement<D>> {
   /// The precision of this measurement.
   final Precision precisionData;
 }
-
-/// Creates a measurement that is the sum of several other measurements of the same dimension.
-///
-/// This must be called with a non-empty set of measurements. To create an empty measurement,
-/// use `<unit>(0)` or `0.<unit>` instead.
-///
-/// If not provided, the default unit of the new measurement will be same as the first component
-/// measurement's unit.
-Measurement<D> sum<D extends Dimension>(
-  Iterable<Measurement<D>> parts, {
-  int precision = Precision.maximumPrecision,
-  Unit<D>? defaultUnit,
-}) =>
-    parts.isNotEmpty
-        ? Measurement.sum(
-            parts,
-            precision: precision,
-            defaultUnit: defaultUnit ?? parts.first.defaultUnit,
-          )
-        : throw ArgumentError.value(
-            parts,
-            "parts",
-            "You must include at least one measurement",
-          );
-
-@Deprecated("Use `<unit>(0)` or `0.<unit>`")
-Measurement<D> zero<D extends Dimension>(Unit<D> defaultUnit) =>
-    Measurement.zero(defaultUnit);
-
-@Deprecated("Use `<unit>(double.infinity)` or `double.infinity.<unit>`")
-Measurement<D> infinite<D extends Dimension>(Unit<D> defaultUnit) =>
-    Measurement.infinite(defaultUnit);
-
-@Deprecated(
-    "Use `<unit>(double.negativeInfinity)` or `double.negativeInfinity.<unit>`")
-Measurement<D> negativeInfinite<D extends Dimension>(Unit<D> defaultUnit) =>
-    Measurement.negativeInfinite(defaultUnit);
-
-@Deprecated("Use `<unit>(double.nan)` or `double.nan.<unit>`")
-Measurement<D> nan<D extends Dimension>(Unit<D> defaultUnit) =>
-    Measurement.nan(defaultUnit);

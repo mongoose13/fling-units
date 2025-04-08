@@ -54,13 +54,14 @@ class Precision {
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
-  static int addition<T extends Dimension>(Measurement<T> a, Measurement<T> b) {
+  static int addition(Measurement a, Measurement b) {
     if (a.isInfinite || b.isInfinite) {
       return Precision.maximumPrecision;
     }
     final precisionA = digitsAfterDecimal(a);
     final precisionB = digitsAfterDecimal(b);
-    final beforeDecimal = digitsBeforeDecimal(a._preciseSI() + b._preciseSI());
+    final beforeDecimal =
+        digitsBeforeDecimal(a.preciseDefaultValue + b.preciseDefaultValue);
     int afterPrecision = math.min(
         beforeDecimal + math.min(precisionA, precisionB), maximumPrecision);
     return afterPrecision;
@@ -79,7 +80,7 @@ class Precision {
     if (measurement.isInfinite || measurement.isNaN) {
       return 0;
     }
-    final string = measurement._preciseSI().toStringAsExponential();
+    final string = measurement.preciseDefaultValue.toStringAsExponential();
     final locationOfE = string.indexOf('e');
     return math.max(
         measurement.precision -

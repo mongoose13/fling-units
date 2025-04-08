@@ -103,7 +103,7 @@ void main() {
     group('sum', () {
       test('adds up component parts', () {
         // given
-        final mass = sum([
+        final mass = MassMeasurement.sum([
           grams(1),
           kilo.grams(2),
           centi.grams(3),

@@ -34,7 +34,7 @@ void main() {
       });
       test("product", () {
         // given
-        final measurement = product3(feet, yards, inches)(141.7);
+        final measurement = DerivedUnit3.build(feet, yards, inches)(141.7);
 
         // when
         final result = measurement.si;
@@ -57,7 +57,8 @@ void main() {
       });
       test("product", () {
         // given
-        final measurement = product3(feet, feet, feet)(35.3).withPrecision(3);
+        final measurement =
+            DerivedUnit3.build(feet, feet, feet)(35.3).withPrecision(3);
 
         // when
         final result = measurement.as(cubic(meters));
@@ -91,7 +92,8 @@ void main() {
       });
       test("product", () {
         // given
-        final measurement = product3(feet, feet, feet)(35.3).withPrecision(3);
+        final measurement =
+            DerivedUnit3.build(feet, feet, feet)(35.3).withPrecision(3);
 
         // when
         final result = measurement.butAs(cubic(meters));
@@ -110,6 +112,82 @@ void main() {
         // then
         expect(result.defaultValue, 35.3);
         expect(result.defaultUnit, cubic(feet));
+      });
+    });
+
+    group("over", () {
+      test("combines a derived3 unit in the numerator", () {
+        // given
+        final volume = 6.cubic(feet);
+        final time = 2.minutes;
+
+        // when
+        final derived = volume.over(time);
+
+        // then
+        expect(
+            derived.defaultUnit.multiplier,
+            closeTo(
+                feet.multiplier *
+                    feet.multiplier *
+                    feet.multiplier /
+                    minutes.multiplier,
+                5e-5));
+        expect(derived.defaultValue, 3.0);
+      });
+      test("combines a derived3 unit in the denominator", () {
+        // given
+        final volume = 2.cubic(feet);
+        final time = 6.minutes;
+
+        // when
+        final derived = time.over(volume);
+
+        // then
+        expect(
+            derived.defaultUnit.multiplier,
+            closeTo(
+                minutes.multiplier /
+                    (feet.multiplier * feet.multiplier * feet.multiplier),
+                5e-5));
+        expect(derived.defaultValue, 3.0);
+      });
+    });
+
+    group("by", () {
+      test("combines a derived3 unit first", () {
+        // given
+        final volume = 6.cubic(feet);
+        final time = 2.minutes;
+
+        // when
+        final derived = volume.by(time);
+
+        // then
+        expect(
+            derived.defaultUnit.multiplier,
+            feet.multiplier *
+                feet.multiplier *
+                feet.multiplier *
+                minutes.multiplier);
+        expect(derived.defaultValue, 12.0);
+      });
+      test("combines a derived3 unit second", () {
+        // given
+        final volume = 6.cubic(feet);
+        final time = 2.minutes;
+
+        // when
+        final derived = time.by(volume);
+
+        // then
+        expect(
+            derived.defaultUnit.multiplier,
+            feet.multiplier *
+                feet.multiplier *
+                feet.multiplier *
+                minutes.multiplier);
+        expect(derived.defaultValue, 12.0);
       });
     });
   });

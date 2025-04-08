@@ -1,7 +1,6 @@
 import 'package:fling_units/src/core/annotations.dart';
 
 import 'package:fling_units/fling_units.dart' as f;
-import 'package:fling_units/src/core/library.dart';
 
 part "../generated/distance.dart";
 
@@ -18,35 +17,49 @@ enum DistanceConfig {
   @UnitConfig(
     shortName: "mi",
     singularName: "mile",
-    multiplier: 0.0006213712,
+    multiplier: 1609.344,
   )
   miles,
 
   @UnitConfig(
     shortName: "yd",
     singularName: "yard",
-    multiplier: 1.093613,
+    multiplier: 0.9144,
   )
   yards,
 
   @UnitConfig(
     shortName: "ft",
     singularName: "foot",
-    multiplier: 3.28084,
+    multiplier: 0.3048,
   )
   feet,
 
   @UnitConfig(
     shortName: "in",
     singularName: "inch",
-    multiplier: 39.37008,
+    multiplier: 0.0254,
   )
   inches,
 
   @UnitConfig(
     shortName: "NM",
     singularName: "nauticalMile",
-    multiplier: 0.000539956803456,
+    multiplier: 1852,
   )
-  nauticalMiles;
+  nauticalMiles,
+
+  @UnitConfig(
+    shortName: "µ",
+    singularName: "micron",
+    multiplier: 1.0e-6,
+  )
+  microns,
+
+  @UnitConfig(
+    shortName: "ly",
+    singularName: "lightYear",
+    multiplier: 9.46073047258e15,
+  )
+  lightYears;
 }

@@ -104,7 +104,7 @@ void main() {
     group('sum', () {
       test('adds parts', () {
         // given
-        final temperature = sum([
+        final temperature = TemperatureChangeMeasurement.sum([
           kelvin(1),
           celsius(2),
           fahrenheit(3),
