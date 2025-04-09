@@ -46,5 +46,18 @@ void main() {
         expect(result, 180.0);
       });
     });
+
+    group("FrequencyBuilder", () {
+      test("equivalence to built-in units", () {
+        // given
+        final unit = FrequencyBuilder.from(minutes.inverted);
+
+        // when
+        final result = unit(180, precision: 3);
+
+        // then
+        expect(result.butAs(hertz), 3.hertz.withPrecision(3));
+      });
+    });
   });
 }

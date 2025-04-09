@@ -21,3 +21,10 @@ enum FrequencyConfig {
   )
   rpm;
 }
+
+abstract final class FrequencyBuilder {
+  static FrequencyUnit from(f.InvertedTimeUnit period) => FrequencyUnit._(
+        name: period.name,
+        unitMultiplier: 1.0 / period.unitMultiplier,
+      );
+}
