@@ -3,8 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:fling_units/src/core/annotations.dart';
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder prefixesBuilder(BuilderOptions options) {
   return SharedPartBuilder([PrefixesGenerator(options)], 'prefixes');
@@ -21,24 +20,10 @@ class PrefixesGenerator extends GeneratorForAnnotation<PrefixType> {
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    final builder = FlingPrefixBuilder();
-
-    final children = element.children
-        .where((element) => builder.checker.hasAnnotationOfExact(element))
-        .map((element) => (
-              name: element.displayName,
-              shortName: builder.checker
-                  .firstAnnotationOfExact(element)!
-                  .getField("shortName")!
-                  .toStringValue(),
-              multiplier: builder.checker
-                  .firstAnnotationOfExact(element)!
-                  .getField("multiplier")!
-                  .toDoubleValue(),
-            ));
+    final builder = FlingPrefixBuilder(element, annotation);
 
     builder.add(Code("// GENERATED CODE - DO NOT MODIFY BY HAND\n"));
-    for (final entry in children) {
+    for (final entry in builder.prefixes) {
       builder.add(
         Field(
           (field) => field
@@ -50,7 +35,7 @@ class PrefixesGenerator extends GeneratorForAnnotation<PrefixType> {
         ),
       );
     }
-    for (final entry in children) {
+    for (final entry in builder.prefixes) {
       builder.add(
         Field(
           (field) => field
@@ -67,7 +52,7 @@ class PrefixesGenerator extends GeneratorForAnnotation<PrefixType> {
           ..on = Reference("num")
           ..name = "NumExtensionPrefix${element.displayName}"
           ..methods.addAll(
-            children.map(
+            builder.prefixes.map(
               (prefix) => Method(
                 (method) => method
                   ..type = MethodType.getter

@@ -1,11 +1,10 @@
 part of "library.dart";
 
 /// A derived [Unit] that has two components.
-class DerivedUnit2<
-    D1 extends Dimension,
-    D2 extends Dimension,
-    I1 extends Dimension,
-    I2 extends Dimension> extends Unit<Dimension2<D1, D2>, Dimension2<I1, I2>> {
+class DerivedUnit2<D1 extends Dimension, D2 extends Dimension,
+        I1 extends Dimension, I2 extends Dimension>
+    extends Unit<Dimension2<D1, D2>, Dimension2<I1, I2>>
+    implements Prefixable<DerivedMeasurement2<D1, D2, I1, I2>> {
   /// Constructor.
   const DerivedUnit2({
     required super.name,
@@ -37,6 +36,7 @@ class DerivedUnit2<
   /// // Creates a "square foot" measurement representing 2 feet by 3 feet.
   /// square(feet)(2, 3);
   /// ```
+  @override
   DerivedMeasurement2<D1, D2, I1, I2> call(
     num magnitude, [
     Precision? precision,
@@ -83,6 +83,7 @@ class DerivedUnit2<
   /// final milliMeters = meters.withPrefix(milli);
   /// final centiMeters = milliMeters.withPrefix(centi);
   /// ```
+  @override
   DerivedUnit2<D1, D2, I1, I2> withPrefix(MeasurementPrefix prefix) =>
       DerivedUnit2(
         name: name,
@@ -109,6 +110,12 @@ class DerivedUnit2<
         unitMultiplier: unitMultiplier,
         prefix: prefix,
       );
+
+  f.UnitPer<DerivedUnit2<D1, D2, I1, I2>, Dimension2<D1, D2>,
+      Dimension2<I1, I2>> get per => f.UnitPer(this);
+
+  f.UnitDot<DerivedUnit2<D1, D2, I1, I2>, Dimension2<D1, D2>,
+      Dimension2<I1, I2>> get dot => f.UnitDot(this);
 
   @override
   operator ==(Object other) =>

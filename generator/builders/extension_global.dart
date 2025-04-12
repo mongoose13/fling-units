@@ -4,7 +4,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'base.dart';
 
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder numExtensionBuilder(BuilderOptions options) {
   return FlingBuilderBase(
@@ -78,13 +78,36 @@ prevents all but the first usage (the one we want) demonstrated above."""
                 ),
             ),
           )
+          ..methods.add(
+            Method(
+              (build) => build
+                ..docs.add(
+                    "/// Constructs a measurement from the specified unit using the already defined prefix and magnitude.")
+                ..lambda = true
+                ..types.addAll([
+                  Reference("U extends Prefixable<M>"),
+                  Reference("M"),
+                ])
+                ..name = "build"
+                ..requiredParameters.add(
+                  Parameter(
+                    (unit) => unit
+                      ..name = "unit"
+                      ..type = Reference("U"),
+                  ),
+                )
+                ..returns = Reference("M")
+                ..body = Code("unit.withPrefix(_prefix)(_value)"),
+            ),
+          )
           ..methods.addAll(
             measurements
                 .expand((measurement) => [
                       for (final unit in measurement.units)
                         (measurement: measurement, unit: unit)
                     ])
-                .where((pair) => pair.unit.isVisible)
+                .where((pair) =>
+                    pair.unit.isVisible && !pair.measurement.isDerived)
                 .map(
               (pair) {
                 return Method(
@@ -94,10 +117,13 @@ prevents all but the first usage (the one we want) demonstrated above."""
                     ..lambda = true
                     ..type = MethodType.getter
                     ..name = pair.unit.name
-                    ..returns =
-                        Reference("f.${pair.measurement.name}Measurement")
-                    ..body = Code(
-                        "f.${pair.measurement.name}Unit.${pair.unit.name}.withPrefix(_prefix)(_value)"),
+                    ..returns = Reference(pair.measurement.isDerived
+                        ? "f.DerivedMeasurement${pair.measurement.order}<"
+                            "f.${pair.measurement.dimensions!.map((dimension) => dimension.name).join(", f.")}, "
+                            "f.${pair.measurement.dimensions!.map((dimension) => dimension.invertedName).join(", f.")}"
+                            ">"
+                        : "f.${pair.measurement.name}Measurement")
+                    ..body = Code("build(f.${pair.unit.name})"),
                 );
               },
             ),

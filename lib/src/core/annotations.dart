@@ -1,8 +1,12 @@
 class DimensionConfig {
-  final String shortName;
+  final String name;
+
+  /// The dimensions that make up a a derived dimension, or `null` if this is a standalone dimension.
+  final List<String>? types;
 
   const DimensionConfig({
-    required this.shortName,
+    required this.name,
+    this.types,
   });
 }
 
@@ -22,6 +26,20 @@ class UnitConfig {
   });
 }
 
+class UnitSpecialization {
+  final bool isSI;
+  final String shortName;
+  final String singularName;
+  final String equivalent;
+
+  const UnitSpecialization({
+    this.isSI = false,
+    required this.shortName,
+    required this.singularName,
+    required this.equivalent,
+  });
+}
+
 class PrefixType {
   const PrefixType();
 }
@@ -33,5 +51,17 @@ class PrefixConfig {
   const PrefixConfig({
     required this.shortName,
     required this.multiplier,
+  });
+}
+
+class MeasurementConstant {
+  final String unit;
+  final double magnitude;
+  final int precision;
+
+  const MeasurementConstant({
+    required this.unit,
+    required this.magnitude,
+    required this.precision,
   });
 }

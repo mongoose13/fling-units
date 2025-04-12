@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import '../util/builder.dart';
+
+import '../generator.dart';
 
 class FlingBuilderBase extends Builder {
   final String output;

@@ -25,7 +25,7 @@ part "../generated/temperature_change.dart";
 /// [TemperatureChange] whose value indicates the amount of difference between
 /// the two [Temperature]s. It would not make sense to say that the difference
 /// in temperature is the "thermometer" temperature of 10 degrees.
-@DimensionConfig(shortName: "TemperatureChange")
+@DimensionConfig(name: "TemperatureChange")
 enum TemperatureChangeConfig {
   @UnitConfig(
     shortName: "K",

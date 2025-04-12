@@ -1,13 +1,20 @@
 import 'dart:async';
 
 import 'package:build/build.dart';
-import 'package:fling_units/src/core/annotations.dart';
 import 'package:source_gen/source_gen.dart';
+
+import '../generator.dart';
+import '../util/dimension_builder.dart';
 
 Builder measurementIdentifierBuilder(BuilderOptions options) {
   return MeasurementIdentifierBuilder(options);
 }
 
+/// Writes a summary file containing details for each measurement.
+///
+/// This will create one file per dimension.
+///
+/// Read at: [FlingStandaloneBuilder]
 class MeasurementIdentifierBuilder extends Builder {
   MeasurementIdentifierBuilder(BuilderOptions options);
 
@@ -19,22 +26,21 @@ class MeasurementIdentifierBuilder extends Builder {
     final measurements =
         library.annotatedWithExact(TypeChecker.fromRuntime(DimensionConfig));
     if (measurements.isNotEmpty) {
-      final unitChecker = TypeChecker.fromRuntime(UnitConfig);
+      final unitBuilder = const UnitBuilder();
       buildStep.writeAsString(
           buildStep.inputId.changeExtension(".measurements"),
           measurements.map((measurement) {
-            final measurementName =
-                measurement.annotation.read("shortName").stringValue;
-            final unitElements = measurement.element.children
-                .where((child) => unitChecker.hasAnnotationOfExact(child));
-            final annotations = unitElements.map((element) => (
-                  element: element,
-                  annotation: unitChecker.firstAnnotationOfExact(element)
-                ));
-            return "$measurementName,"
-                "${annotations.map((pair) => "${pair.element.name};"
-                    "${pair.annotation?.getField("singularName")?.toStringValue() ?? "unnamed"};"
-                    "${pair.annotation?.getField("isVisible")?.toBoolValue() ?? true}").join(",")}";
+            final builder = DimensionBuilder(measurement.annotation);
+            final units = unitBuilder.buildChildren(measurement.element);
+            return "${builder.name}|${builder.types?.map((type) => type.name).join(".")},"
+                "${units.map((unit) => [
+                      unit.name,
+                      unit.shortName,
+                      unit.singularName,
+                      unit.multiplier,
+                      unit.isVisible,
+                      unit.isSI,
+                    ].join(";")).join(",")}";
           }).join("\n"));
     }
   }

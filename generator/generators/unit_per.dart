@@ -3,8 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:fling_units/src/core/annotations.dart';
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder unitPerBuilder(BuilderOptions options) {
   return SharedPartBuilder([UnitPerGenerator(options)], 'unitPer');
@@ -21,17 +20,7 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    final builder = FlingPrefixBuilder();
-
-    final children = element.children
-        .where((element) => builder.checker.hasAnnotationOfExact(element))
-        .map((element) => (
-              name: element.displayName,
-              shortName: builder.checker
-                  .firstAnnotationOfExact(element)!
-                  .getField("shortName")!
-                  .toStringValue(),
-            ));
+    final builder = FlingPrefixBuilder(element, annotation);
 
     builder.add(
       Class(
@@ -56,7 +45,7 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
             ),
           )
           ..methods.addAll(
-            children.map(
+            builder.prefixes.map(
               (prefix) => Method(
                 (meth) => meth
                   ..docs.add(
@@ -96,7 +85,7 @@ class UnitPerGenerator extends GeneratorForAnnotation<PrefixType> {
             ),
           )
           ..methods.addAll(
-            children.map(
+            builder.prefixes.map(
               (prefix) => Method(
                 (meth) => meth
                   ..docs.add(

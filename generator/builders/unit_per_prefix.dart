@@ -4,7 +4,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'base.dart';
 
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder prefixedUnitPerBuilder(BuilderOptions options) {
   return FlingBuilderBase(
@@ -70,6 +70,7 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
           )
           ..methods.addAll(
             measurements
+                .where((measurement) => !measurement.isDerived)
                 .expand((measurement) => [
                       for (final unit in measurement.units)
                         (measurement: measurement, unit: unit)
@@ -144,6 +145,7 @@ class PrefixedUnitPerGenerator implements FlingGenerator {
           )
           ..methods.addAll(
             measurements
+                .where((measurement) => !measurement.isDerived)
                 .expand((measurement) => [
                       for (final unit in measurement.units)
                         (measurement: measurement, unit: unit)

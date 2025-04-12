@@ -4,7 +4,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'base.dart';
 
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder libraryBuilder(BuilderOptions options) {
   return FlingBuilderBase("library", LibraryGenerator());

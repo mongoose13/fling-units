@@ -54,6 +54,11 @@ builders:
     builder_factories: ["prefixIdentifierBuilder"]
     build_extensions: {".dart": [".prefixes"]}
     build_to: cache
+  unit_specialization:
+    import: "generator/generator.dart"
+    builder_factories: ["unitSpecializationBuilder"]
+    build_extensions: {".dart": [".g.part"]}
+    build_to: cache
   num_extension:
     import: "generator/generator.dart"
     builder_factories: ["numExtensionBuilder"]
@@ -105,6 +110,10 @@ targets:
           generate_for:
             - lib/src/measurements/*.dart
       fling_units|unit:
+        options:
+          generate_for:
+            - lib/src/measurements/*.dart
+      fling_units|unit_specialization:
         options:
           generate_for:
             - lib/src/measurements/*.dart

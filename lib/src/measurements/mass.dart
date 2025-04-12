@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/mass.dart";
 
-@DimensionConfig(shortName: "Mass")
+@DimensionConfig(name: "Mass")
 enum MassConfig {
   @UnitConfig(
     shortName: "g",

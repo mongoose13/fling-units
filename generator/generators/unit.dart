@@ -3,8 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:fling_units/src/core/annotations.dart';
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder interpreterBuilder(BuilderOptions options) {
   return SharedPartBuilder([UnitGenerator(options)], 'interpreter');
@@ -23,11 +22,16 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
   ) {
     final builder = FlingMeasurementBuilder(element, annotation);
 
+    if (builder.dimension.isDerived) {
+      // skip generating unit and measurement classes for derived units
+      return;
+    }
+
     builder.addAll(
       [
         Class(
           (dimension) => dimension
-            ..name = builder.dimensionName
+            ..name = builder.dimension.name
             ..extend = Reference("f.Dimension")
             ..constructors.add(
               Constructor(
@@ -37,7 +41,7 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
         ),
         Class(
           (dimension) => dimension
-            ..name = "Inverted${builder.dimensionName}"
+            ..name = "Inverted${builder.dimension.name}"
             ..extend = Reference("f.Inverted")
             ..constructors.add(
               Constructor(
@@ -50,11 +54,11 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
 
     for (final isInverted in [false, true]) {
       final dimensionName = isInverted
-          ? "Inverted${builder.dimensionName}"
-          : builder.dimensionName;
+          ? "Inverted${builder.dimension.name}"
+          : builder.dimension.name;
       final invertedDimensionName = isInverted
-          ? builder.dimensionName
-          : "Inverted${builder.dimensionName}";
+          ? builder.dimension.name
+          : "Inverted${builder.dimension.name}";
       final unitName =
           isInverted ? "Inverted${builder.unitName}" : builder.unitName;
       final invertedUnitName =
@@ -70,11 +74,15 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
               ..name = unitName
               ..extend = Reference(
                   "f.${isInverted ? "Inverted" : ""}Unit<$dimensionName, $invertedDimensionName>")
+              ..implements.add(Reference(
+                  "f.Prefixable<${isInverted ? "Inverted" : ""}${builder.dimension.name}Measurement>"))
               ..methods.addAll(
                 [
                   Method(
                     (call) => call
                       ..name = "call"
+                      ..annotations
+                          .add(FlingMeasurementBuilder.overrideAnnotation)
                       ..returns = Reference(measurementName)
                       ..requiredParameters.add(
                         Parameter(
@@ -97,6 +105,8 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   Method(
                     (withPrefix) => withPrefix
                       ..lambda = true
+                      ..annotations
+                          .add(FlingMeasurementBuilder.overrideAnnotation)
                       ..name = "withPrefix"
                       ..returns = Reference(unitName)
                       ..requiredParameters.add(
@@ -224,11 +234,11 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   (field) => field
                     ..static = true
                     ..modifier = FieldModifier.constant
-                    ..name = builder.displayNameOf(unit)
+                    ..name = unit.name
                     ..type = Reference(unitName)
                     ..assignment = Code("$unitName._("
-                        "name: '${builder.shortNameOf(unit)}', "
-                        "unitMultiplier: ${builder.multiplierOf(unit)}, "
+                        "name: '${unit.shortName}', "
+                        "unitMultiplier: ${unit.multiplier}, "
                         "prefix: f.MeasurementPrefix.unit(),"
                         ")"),
                 ),

@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/distance.dart";
 
-@DimensionConfig(shortName: "Distance")
+@DimensionConfig(name: "Distance")
 enum DistanceConfig {
   @UnitConfig(
     shortName: "m",

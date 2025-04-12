@@ -3,8 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:fling_units/src/core/annotations.dart';
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder extensionBuilder(BuilderOptions options) {
   return SharedPartBuilder([ExtensionGenerator(options)], 'extension');
@@ -31,13 +30,17 @@ class ExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
   ) {
     final builder = FlingMeasurementBuilder(element, annotation);
 
+    if (builder.dimension.isDerived) {
+      return;
+    }
+
     builder.add(
       Extension(
         (measurement) => measurement
-          ..name = "NumExtension${builder.dimensionName}"
+          ..name = "NumExtension${builder.dimension.name}"
           ..on = Reference("num")
           ..methods.addAll(
-            builder.units.where(builder.isVisible).map(
+            builder.units.where((unit) => unit.isVisible).map(
               (unit) {
                 return Method(
                   (field) => field

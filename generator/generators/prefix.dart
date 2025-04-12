@@ -3,8 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:fling_units/src/core/annotations.dart';
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder prefixBuilder(BuilderOptions options) {
   return SharedPartBuilder([PrefixGenerator(options)], 'prefix');
@@ -22,6 +21,11 @@ class PrefixGenerator extends GeneratorForAnnotation<DimensionConfig> {
     BuildStep buildStep,
   ) {
     final builder = FlingMeasurementBuilder(element, annotation);
+    final unitBuilder = const UnitBuilder();
+
+    if (builder.dimension.isDerived) {
+      return;
+    }
 
     builder.add(
       Extension(
@@ -29,18 +33,17 @@ class PrefixGenerator extends GeneratorForAnnotation<DimensionConfig> {
           prefix
             ..name = builder.prefixName
             ..on = Reference("f.MeasurementPrefix");
-          final units = element.children
-              .where((Element element) => element.metadata.isNotEmpty);
-          for (final unit in units.where(builder.isVisible)) {
-            final name = unit.displayName;
+          final units = unitBuilder.buildChildren(element);
+          for (final unit in units.where((unit) => unit.isVisible)) {
             prefix.methods.add(
               Method(
                 (prefix) => prefix
                   ..lambda = true
-                  ..name = name
+                  ..name = unit.name
                   ..type = MethodType.getter
                   ..returns = Reference(builder.unitName)
-                  ..body = Code("${builder.unitName}.$name.withPrefix(this)"),
+                  ..body =
+                      Code("${builder.unitName}.${unit.name}.withPrefix(this)"),
               ),
             );
           }

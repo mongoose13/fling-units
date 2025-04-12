@@ -3,8 +3,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:fling_units/src/core/annotations.dart';
-import '../util/builder.dart';
+import '../generator.dart';
 
 Builder measurementBuilder(BuilderOptions options) {
   return SharedPartBuilder([MeasurementGenerator(options)], 'measurement');
@@ -23,14 +22,18 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
   ) {
     final builder = FlingMeasurementBuilder(element, annotation);
 
+    if (builder.dimension.isDerived) {
+      return;
+    }
+
     for (final isInverted in [false, true]) {
       final siUnit = builder.siUnit;
       final dimensionName = isInverted
-          ? "Inverted${builder.dimensionName}"
-          : builder.dimensionName;
+          ? "Inverted${builder.dimension.name}"
+          : builder.dimension.name;
       final invertedDimensionName = isInverted
-          ? builder.dimensionName
-          : "Inverted${builder.dimensionName}";
+          ? builder.dimension.name
+          : "Inverted${builder.dimension.name}";
       final unitName = "${dimensionName}Unit";
       final measurementName = "${dimensionName}Measurement";
       final invertedMeasurementName = "${invertedDimensionName}Measurement";
@@ -49,7 +52,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..name = 'siUnit'
                   ..type = Reference(unitName)
                   ..assignment = Code(switch (isInverted) {
-                    false => builder.displayNameOf(siUnit),
+                    false => siUnit.name,
                     true =>
                       "$unitName._(name: \"${builder.siUnit}⁻¹\", unitMultiplier: 1.0)",
                   }),

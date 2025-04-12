@@ -6,7 +6,7 @@ class DerivedMeasurement2<D1 extends Dimension, D2 extends Dimension,
   @override
   final DerivedUnit2<D1, D2, I1, I2> defaultUnit;
 
-  DerivedMeasurement2({
+  const DerivedMeasurement2({
     required super.magnitude,
     required super.precision,
     required this.defaultUnit,

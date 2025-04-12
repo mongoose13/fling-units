@@ -170,12 +170,19 @@ void main() {
 
   //------------------------------------------------//
 
-  // All basic measurements support const-ness in their default constructors.
-  // Unfortunately, it is not possible to set up const constructors using the
-  // extensions or prefixes at this time, nor is it possible to create const
-  // derived units at this time.
+  // The library defines a few constants for you as well.
+  print(
+      "That's ${(carSpeed.compareMagnitude(speedOfLight) * 100.0).toStringAsPrecision(3)}% the speed of light!");
 
-  const sizeOfMyHand = DistanceMeasurement(5.0, inches);
+  //------------------------------------------------//
+
+  // All basic measurements support const-ness in their default constructors.
+  // Unfortunately, due to limitations of the language, it is not possible to
+  // set up const constructors using the extensions or prefixes at this time,
+  // nor is it possible to create const derived units at this time.
+
+  const sizeUnit = inches;
+  const sizeOfMyHand = DistanceMeasurement(5.0, sizeUnit);
   const massOfMyHand = MassMeasurement(1.2, pounds);
   print(
       "\nMy hand will always have a linear density of ${pounds.per.inch.using(massOfMyHand, sizeOfMyHand.inverted).withPrecision(2)}.");

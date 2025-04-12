@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/time.dart";
 
-@DimensionConfig(shortName: "Time")
+@DimensionConfig(name: "Time")
 enum TimeConfig {
   @UnitConfig(
     shortName: "s",

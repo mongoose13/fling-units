@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/luminosity.dart";
 
-@DimensionConfig(shortName: "Luminosity")
+@DimensionConfig(name: "Luminosity")
 enum LuminosityConfig {
   @UnitConfig(
     shortName: "cd",

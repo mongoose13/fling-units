@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/quantity.dart";
 
-@DimensionConfig(shortName: "Quantity")
+@DimensionConfig(name: "Quantity")
 enum QuantityConfig {
   @UnitConfig(
     shortName: "units",

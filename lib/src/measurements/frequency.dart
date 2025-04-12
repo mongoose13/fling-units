@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 part "../generated/frequency.dart";
 
-@DimensionConfig(shortName: "Frequency")
+@DimensionConfig(name: "Frequency")
 enum FrequencyConfig {
   @UnitConfig(
     shortName: "Hz",
