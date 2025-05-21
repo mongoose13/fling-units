@@ -1,8 +1,8 @@
 part of "library.dart";
 
-class DerivedMeasurement2<D1 extends Dimension, D2 extends Dimension,
-        I1 extends Dimension, I2 extends Dimension>
-    extends Measurement<Dimension2<D1, D2>, Dimension2<I1, I2>> {
+class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
+        I1 extends f.Dimension, I2 extends f.Dimension>
+    extends Measurement<f.Dimension2<D1, D2>, f.Dimension2<I1, I2>> {
   @override
   final DerivedUnit2<D1, D2, I1, I2> defaultUnit;
 
@@ -106,13 +106,15 @@ class DerivedMeasurement2<D1 extends Dimension, D2 extends Dimension,
         precision: precisionData,
       );
 
-  DerivedMeasurement2<Dimension2<D1, D2>, D, Dimension2<I1, I2>, I>
-      by<D extends Dimension, I extends Dimension>(Measurement<D, I> term) =>
+  DerivedMeasurement2<f.Dimension2<D1, D2>, D, f.Dimension2<I1, I2>, I>
+      by<D extends f.Dimension, I extends f.Dimension>(
+              Measurement<D, I> term) =>
           f.DerivedUnit2.build(defaultUnit, term.defaultUnit)(
               defaultValue * term.defaultValue);
 
-  DerivedMeasurement2<Dimension2<D1, D2>, I, Dimension2<I1, I2>, D>
-      over<D extends Dimension, I extends Dimension>(Measurement<D, I> term) =>
+  DerivedMeasurement2<f.Dimension2<D1, D2>, I, f.Dimension2<I1, I2>, D>
+      over<D extends f.Dimension, I extends f.Dimension>(
+              Measurement<D, I> term) =>
           f.DerivedUnit2.build(defaultUnit, term.defaultUnit.inverted)(
               defaultValue / term.defaultValue);
 }
@@ -125,6 +127,6 @@ extension Unit2Extension on num {
   /// var threeSquareFeet = 3.square(feet);
   /// ```
   DerivedMeasurement2<D, D, I, I>
-      square<D extends Dimension, I extends Dimension>(Unit<D, I> unit) =>
+      square<D extends f.Dimension, I extends f.Dimension>(Unit<D, I> unit) =>
           f.square<D, I>(unit)(this);
 }

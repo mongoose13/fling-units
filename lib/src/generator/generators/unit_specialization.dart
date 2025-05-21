@@ -87,7 +87,7 @@ class UnitSpecializationGenerator
                 ">("
                 "name: \"${unit.shortName}\","
                 "unitMultiplier: ${unit.multiplier},"
-                "prefix: f.MeasurementPrefix.unit(),"
+                "prefix: f.UnitPrefix.unit(),"
                 ")"),
         ),
       );
@@ -111,7 +111,7 @@ class UnitSpecializationGenerator
             ..docs.add(
                 "/// Allows ${builder.dimension.name} units to appear after prefixes.")
             ..name = "${builder.dimension.name}Prefix"
-            ..on = Reference("f.MeasurementPrefix")
+            ..on = Reference("f.UnitPrefix")
             ..methods.add(
               Method(
                 (accessor) => accessor

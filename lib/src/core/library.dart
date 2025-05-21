@@ -4,17 +4,18 @@ import "package:fling_units/fling_units.dart" as f;
 
 export "../measurements/speed.dart";
 
-part "dimension.dart";
+export "dimension.dart";
+
+part "extension_num.dart";
 part "unit.dart";
 part "unit2.dart";
+part "unit2_builder.dart";
 part "unit3.dart";
 part "measurement_prefix.dart";
 part "measurement.dart";
 part "measurement2.dart";
 part "measurement3.dart";
 part "precision.dart";
-part "../measurements/volume.dart";
+part "measurement2_builder.dart";
 
-part "package:fling_units/src/generated/extension.dart";
-part "package:fling_units/src/generated/prefix_measurement_per.dart";
-part "package:fling_units/src/generated/prefix_unit_per.dart";
+part "../measurements/volume.dart";

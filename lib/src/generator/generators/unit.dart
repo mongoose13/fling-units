@@ -42,7 +42,7 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
         Class(
           (dimension) => dimension
             ..name = "Inverted${builder.dimension.name}"
-            ..extend = Reference("f.Inverted")
+            ..extend = Reference("f.Dimension")
             ..constructors.add(
               Constructor(
                 (constructor) => constructor..constant = true,
@@ -50,6 +50,35 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
             ),
         ),
       ],
+    );
+
+    builder.add(
+      Extension(
+        (extension) => extension
+          ..name = "PrefixedUnitPer${builder.unitName}"
+          ..types.addAll(
+            [
+              Reference("N extends f.Unit<D, I>"),
+              Reference("D extends f.Dimension"),
+              Reference("I extends f.Dimension"),
+            ],
+          )
+          ..on = Reference("f.PrefixedUnitPer<N, D, I>")
+          ..methods.addAll(
+            builder.units.map(
+              (unit) => Method(
+                (getter) => getter
+                  ..name = unit.name
+                  ..type = MethodType.getter
+                  ..lambda = true
+                  ..returns = Reference(
+                      "f.DerivedUnit2<D, ${builder.dimension.name}, I, Inverted${builder.dimension.name}>")
+                  ..body =
+                      Code("f.DerivedUnit2.build(numerator, f.${unit.name})"),
+              ),
+            ),
+          ),
+      ),
     );
 
     for (final isInverted in [false, true]) {
@@ -113,7 +142,7 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                         Parameter(
                           (prefix) => prefix
                             ..name = "prefix"
-                            ..type = Reference("f.MeasurementPrefix"),
+                            ..type = Reference("f.UnitPrefix"),
                         ),
                       )
                       ..optionalParameters.add(
@@ -224,7 +253,7 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                         ..toSuper = true
                         ..name = "prefix"
                         ..named = true
-                        ..defaultTo = Code("const f.MeasurementPrefix.unit()"),
+                        ..defaultTo = Code("const f.UnitPrefix.unit()"),
                     ),
                   )),
               );
@@ -239,7 +268,7 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ..assignment = Code("$unitName._("
                         "name: '${unit.shortName}', "
                         "unitMultiplier: ${unit.multiplier}, "
-                        "prefix: f.MeasurementPrefix.unit(),"
+                        "prefix: f.UnitPrefix.unit(),"
                         ")"),
                 ),
               );

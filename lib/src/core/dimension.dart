@@ -1,5 +1,3 @@
-part of "library.dart";
-
 abstract class Dimension {
   const Dimension();
 }
@@ -13,8 +11,7 @@ class Dimension2<D1 extends Dimension, D2 extends Dimension> extends Dimension {
   const Dimension2();
 }
 
-class InvertedDimension2<D1 extends Dimension, D2 extends Dimension>
-    extends Inverted<Dimension2<D1, D2>> {
+class InvertedDimension2<D1 extends Dimension, D2 extends Dimension> {
   const InvertedDimension2();
 }
 

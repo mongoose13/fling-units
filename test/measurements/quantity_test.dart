@@ -143,7 +143,7 @@ void main() {
       });
       test('applies base prefix', () {
         // given
-        final quantity = MeasurementPrefix.unit().units(1.234e23, precision: 5);
+        final quantity = UnitPrefix.unit().units(1.234e23, precision: 5);
 
         // when
         final result = quantity.as(moles);

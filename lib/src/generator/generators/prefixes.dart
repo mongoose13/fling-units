@@ -29,9 +29,9 @@ class PrefixesGenerator extends GeneratorForAnnotation<PrefixType> {
           (field) => field
             ..modifier = FieldModifier.constant
             ..name = entry.name
-            ..type = Reference("MeasurementPrefix")
+            ..type = Reference("UnitPrefix")
             ..assignment = Code(
-                "MeasurementPrefix(${entry.multiplier}, name: \"${entry.shortName}\")"),
+                "UnitPrefix(${entry.multiplier}, name: \"${entry.shortName}\")"),
         ),
       );
     }

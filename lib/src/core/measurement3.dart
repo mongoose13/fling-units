@@ -1,13 +1,13 @@
 part of "library.dart";
 
 class DerivedMeasurement3<
-        D1 extends Dimension,
-        D2 extends Dimension,
-        D3 extends Dimension,
-        I1 extends Dimension,
-        I2 extends Dimension,
-        I3 extends Dimension>
-    extends Measurement<Dimension3<D1, D2, D3>, Dimension3<I1, I2, I3>> {
+        D1 extends f.Dimension,
+        D2 extends f.Dimension,
+        D3 extends f.Dimension,
+        I1 extends f.Dimension,
+        I2 extends f.Dimension,
+        I3 extends f.Dimension>
+    extends Measurement<f.Dimension3<D1, D2, D3>, f.Dimension3<I1, I2, I3>> {
   @override
   final DerivedUnit3<D1, D2, D3, I1, I2, I3> defaultUnit;
 
@@ -37,13 +37,13 @@ class DerivedMeasurement3<
 
   f.MeasurementPer<
       DerivedMeasurement3<D1, D2, D3, I1, I2, I3>,
-      Dimension3<D1, D2, D3>,
-      Dimension3<I1, I2, I3>> get per => f.MeasurementPer(this);
+      f.Dimension3<D1, D2, D3>,
+      f.Dimension3<I1, I2, I3>> get per => f.MeasurementPer(this);
 
   f.MeasurementDot<
       DerivedMeasurement3<D1, D2, D3, I1, I2, I3>,
-      Dimension3<D1, D2, D3>,
-      Dimension3<I1, I2, I3>> get dot => f.MeasurementDot(this);
+      f.Dimension3<D1, D2, D3>,
+      f.Dimension3<I1, I2, I3>> get dot => f.MeasurementDot(this);
 
   /// Returns a measurement representing the opposite magnitude of this.
   DerivedMeasurement3<D1, D2, D3, I1, I2, I3> operator -() =>
@@ -122,13 +122,15 @@ class DerivedMeasurement3<
         precision: precisionData,
       );
 
-  DerivedMeasurement2<Dimension3<D1, D2, D3>, D, Dimension3<I1, I2, I3>, I>
-      by<D extends Dimension, I extends Dimension>(Measurement<D, I> term) =>
+  DerivedMeasurement2<f.Dimension3<D1, D2, D3>, D, f.Dimension3<I1, I2, I3>, I>
+      by<D extends f.Dimension, I extends f.Dimension>(
+              Measurement<D, I> term) =>
           f.DerivedUnit2.build(defaultUnit, term.defaultUnit)(
               defaultValue * term.defaultValue);
 
-  DerivedMeasurement2<Dimension3<D1, D2, D3>, I, Dimension3<I1, I2, I3>, D>
-      over<D extends Dimension, I extends Dimension>(Measurement<D, I> term) =>
+  DerivedMeasurement2<f.Dimension3<D1, D2, D3>, I, f.Dimension3<I1, I2, I3>, D>
+      over<D extends f.Dimension, I extends f.Dimension>(
+              Measurement<D, I> term) =>
           f.DerivedUnit2.build(defaultUnit, term.defaultUnit.inverted)(
               defaultValue / term.defaultValue);
 }

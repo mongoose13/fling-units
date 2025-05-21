@@ -188,4 +188,16 @@ void main() {
       "\nMy hand will always have a linear density of ${pounds.per.inch.using(massOfMyHand, sizeOfMyHand.inverted).withPrecision(2)}.");
 
   // Have fun!
+  liters.per.second;
+  liters.per.second;
+
+  milli.miles;
+  miles.per.hour;
+  miles.per.hour;
+  miles.per.milli.hour;
+
+  3.miles;
+  3.milli.miles;
+  3.miles.per.milli;
+  3.miles.per.milli.hour;
 }

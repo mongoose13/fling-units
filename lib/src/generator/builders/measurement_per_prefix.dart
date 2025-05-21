@@ -65,7 +65,7 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
                  /// The preconfigured prefix here will eventually apply to the ${config.secondParameter} unit chosen. For
                  /// example:
                  /// ```dart
-                 /// // Here, the prefix is MeasurementPrefix.unit() (the default):
+                 /// // Here, the prefix is UnitPrefix.unit() (the default):
                  /// 3.meters.${config.method};
                  /// 
                  /// // Here, the prefix is milli:
@@ -98,7 +98,7 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
                   ..docs.add(
                       "/// The prefix for the ${config.secondParameter} unit.")
                   ..name = "prefix"
-                  ..type = Reference("MeasurementPrefix")
+                  ..type = Reference("UnitPrefix")
                   ..modifier = FieldModifier.final$,
               ),
             )
@@ -119,7 +119,7 @@ class PrefixedMeasurementPerGenerator implements FlingGenerator {
                       (prefix) => prefix
                         ..name = "prefix"
                         ..named = true
-                        ..defaultTo = Code("const MeasurementPrefix.unit()")
+                        ..defaultTo = Code("const UnitPrefix.unit()")
                         ..toThis = true,
                     ),
                   ),

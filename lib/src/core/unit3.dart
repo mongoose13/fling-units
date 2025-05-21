@@ -2,18 +2,18 @@ part of "library.dart";
 
 /// A derived [Unit] that has three components.
 class DerivedUnit3<
-        D1 extends Dimension,
-        D2 extends Dimension,
-        D3 extends Dimension,
-        I1 extends Dimension,
-        I2 extends Dimension,
-        I3 extends Dimension>
-    extends Unit<Dimension3<D1, D2, D3>, Dimension3<I1, I2, I3>> {
+        D1 extends f.Dimension,
+        D2 extends f.Dimension,
+        D3 extends f.Dimension,
+        I1 extends f.Dimension,
+        I2 extends f.Dimension,
+        I3 extends f.Dimension>
+    extends Unit<f.Dimension3<D1, D2, D3>, f.Dimension3<I1, I2, I3>> {
   /// Constructor.
   DerivedUnit3({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const UnitPrefix.unit(),
   });
 
   /// Constructor using three [UnitPosition]s.
@@ -22,7 +22,7 @@ class DerivedUnit3<
     Unit<D2, I2> b,
     Unit<D3, I3> c, {
     String? name,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const UnitPrefix.unit(),
   }) : super(
           name: name ??
               (a == b && a == c
@@ -82,7 +82,7 @@ class DerivedUnit3<
         defaultUnit: this,
       );
 
-  /// Creates a new [Unit] that is identical to this [Unit] but with a different [MeasurementPrefix].
+  /// Creates a new [Unit] that is identical to this [Unit] but with a different [UnitPrefix].
   ///
   /// If this [Unit] already has a prefix, it is ignored in favor of the provided prefix.
   ///
@@ -90,7 +90,7 @@ class DerivedUnit3<
   /// final milliMeters = meters.withPrefix(milli);
   /// final centiMeters = milliMeters.withPrefix(centi);
   /// ```
-  DerivedUnit3<D1, D2, D3, I1, I2, I3> withPrefix(MeasurementPrefix prefix) =>
+  DerivedUnit3<D1, D2, D3, I1, I2, I3> withPrefix(UnitPrefix prefix) =>
       DerivedUnit3(
         name: name,
         unitMultiplier: unitMultiplier,
@@ -115,21 +115,24 @@ class DerivedUnit3<
   @override
   int get hashCode => unitMultiplier.hashCode * prefix.hashCode * name.hashCode;
 
-  f.UnitPer<DerivedUnit3<D1, D2, D3, I1, I2, I3>, Dimension3<D1, D2, D3>,
-      Dimension3<I1, I2, I3>> get per => f.UnitPer(this);
+  f.PrefixedUnitPer<
+      DerivedUnit3<D1, D2, D3, I1, I2, I3>,
+      f.Dimension3<D1, D2, D3>,
+      f.Dimension3<I1, I2, I3>> get per => f.PrefixedUnitPer(this);
 
-  f.UnitDot<DerivedUnit3<D1, D2, D3, I1, I2, I3>, Dimension3<D1, D2, D3>,
-      Dimension3<I1, I2, I3>> get dot => f.UnitDot(this);
+  f.PrefixedUnitDot<
+      DerivedUnit3<D1, D2, D3, I1, I2, I3>,
+      f.Dimension3<D1, D2, D3>,
+      f.Dimension3<I1, I2, I3>> get dot => f.PrefixedUnitDot(this);
 }
 
 class InvertedDerivedUnit3<
-        D1 extends Dimension,
-        D2 extends Dimension,
-        D3 extends Dimension,
-        I1 extends Dimension,
-        I2 extends Dimension,
-        I3 extends Dimension> extends DerivedUnit3<D1, D2, D3, I1, I2, I3>
-    implements Inverted {
+    D1 extends f.Dimension,
+    D2 extends f.Dimension,
+    D3 extends f.Dimension,
+    I1 extends f.Dimension,
+    I2 extends f.Dimension,
+    I3 extends f.Dimension> extends DerivedUnit3<D1, D2, D3, I1, I2, I3> {
   InvertedDerivedUnit3({
     required super.name,
     required super.unitMultiplier,
@@ -142,7 +145,7 @@ class InvertedDerivedUnit3<
     Unit<D2, I2> second,
     Unit<D3, I3> third, {
     String? name,
-    MeasurementPrefix? prefix,
+    UnitPrefix? prefix,
   }) : this(
           name: name ??
               (first == second && first == third
@@ -150,7 +153,7 @@ class InvertedDerivedUnit3<
                   : "${first.toString()}⋅${second.toString()}⋅${third.toString()}"),
           unitMultiplier:
               first.multiplier * second.multiplier * third.multiplier,
-          prefix: prefix ?? const MeasurementPrefix.unit(),
+          prefix: prefix ?? const UnitPrefix.unit(),
         );
 
   @override
@@ -171,18 +174,19 @@ class InvertedDerivedUnit3<
 /// ```dart
 /// final cubicFeet = cubic(feet);
 /// ```
-DerivedUnit3<D, D, D, I, I, I> cubic<D extends Dimension, I extends Dimension>(
+DerivedUnit3<D, D, D, I, I, I>
+    cubic<D extends f.Dimension, I extends f.Dimension>(
   Unit<D, I> unit, {
   String? name,
-  MeasurementPrefix prefix = const MeasurementPrefix.unit(),
+  UnitPrefix prefix = const UnitPrefix.unit(),
 }) =>
-    DerivedUnit3.build(
-      unit,
-      unit,
-      unit,
-      name: name,
-      prefix: prefix,
-    );
+        DerivedUnit3.build(
+          unit,
+          unit,
+          unit,
+          name: name,
+          prefix: prefix,
+        );
 
 /// Extension on [num] to allow three-component derived measurements to be instantiated.
 extension Unit3Extension on num {
@@ -192,6 +196,6 @@ extension Unit3Extension on num {
   /// var threeCubicFeet = 3.cubic(feet);
   /// ```
   DerivedMeasurement3<D, D, D, I, I, I>
-      cubic<D extends Dimension, I extends Dimension>(Unit<D, I> unit) =>
+      cubic<D extends f.Dimension, I extends f.Dimension>(Unit<D, I> unit) =>
           f.cubic(unit)(this);
 }

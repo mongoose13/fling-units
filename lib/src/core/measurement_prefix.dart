@@ -1,12 +1,12 @@
 part of "library.dart";
 
-class MeasurementPrefix {
-  const MeasurementPrefix(
+class UnitPrefix {
+  const UnitPrefix(
     this.multiplier, {
     this.name = "",
   });
 
-  const MeasurementPrefix.unit()
+  const UnitPrefix.unit()
       : multiplier = 1.0,
         name = "";
 
@@ -14,14 +14,14 @@ class MeasurementPrefix {
 
   final String name;
 
-  MeasurementPrefix get prefix => this;
+  UnitPrefix get prefix => this;
 
   @override
   toString() => name;
 
-  MeasurementPrefix operator *(MeasurementPrefix other) =>
-      MeasurementPrefix(multiplier * other.multiplier);
+  UnitPrefix operator *(UnitPrefix other) =>
+      UnitPrefix(multiplier * other.multiplier);
 
-  MeasurementPrefix operator /(MeasurementPrefix other) =>
-      MeasurementPrefix(multiplier / other.multiplier);
+  UnitPrefix operator /(UnitPrefix other) =>
+      UnitPrefix(multiplier / other.multiplier);
 }

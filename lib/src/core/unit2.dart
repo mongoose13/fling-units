@@ -1,9 +1,9 @@
 part of "library.dart";
 
 /// A derived [Unit] that has two components.
-class DerivedUnit2<D1 extends Dimension, D2 extends Dimension,
-        I1 extends Dimension, I2 extends Dimension>
-    extends Unit<Dimension2<D1, D2>, Dimension2<I1, I2>>
+class DerivedUnit2<D1 extends f.Dimension, D2 extends f.Dimension,
+        I1 extends f.Dimension, I2 extends f.Dimension>
+    extends Unit<f.Dimension2<D1, D2>, f.Dimension2<I1, I2>>
     implements Prefixable<DerivedMeasurement2<D1, D2, I1, I2>> {
   /// Constructor.
   const DerivedUnit2({
@@ -17,14 +17,14 @@ class DerivedUnit2<D1 extends Dimension, D2 extends Dimension,
     Unit<D1, I1> first,
     Unit<D2, I2> second, {
     String? name,
-    MeasurementPrefix? prefix,
+    UnitPrefix? prefix,
   }) : this(
           name: name ??
               (first == second
                   ? "${first.toString()}²"
                   : "${first.toString()}⋅${second.toString()}"),
           unitMultiplier: first.multiplier * second.multiplier,
-          prefix: prefix ?? const MeasurementPrefix.unit(),
+          prefix: prefix ?? const UnitPrefix.unit(),
         );
 
   /// Instantiates a [Measurement] using this [Unit] and the provided magnitude(s).
@@ -75,7 +75,7 @@ class DerivedUnit2<D1 extends Dimension, D2 extends Dimension,
                     ),
               defaultUnit: this);
 
-  /// Creates a new [Unit] that is identical to this [Unit] but with a different [MeasurementPrefix].
+  /// Creates a new [Unit] that is identical to this [Unit] but with a different [UnitPrefix].
   ///
   /// If this [Unit] already has a prefix, it is ignored in favor of the provided prefix.
   ///
@@ -84,8 +84,7 @@ class DerivedUnit2<D1 extends Dimension, D2 extends Dimension,
   /// final centiMeters = milliMeters.withPrefix(centi);
   /// ```
   @override
-  DerivedUnit2<D1, D2, I1, I2> withPrefix(MeasurementPrefix prefix) =>
-      DerivedUnit2(
+  DerivedUnit2<D1, D2, I1, I2> withPrefix(UnitPrefix prefix) => DerivedUnit2(
         name: name,
         unitMultiplier: unitMultiplier,
         prefix: prefix,
@@ -111,11 +110,11 @@ class DerivedUnit2<D1 extends Dimension, D2 extends Dimension,
         prefix: prefix,
       );
 
-  f.UnitPer<DerivedUnit2<D1, D2, I1, I2>, Dimension2<D1, D2>,
-      Dimension2<I1, I2>> get per => f.UnitPer(this);
+  f.PrefixedUnitPer<DerivedUnit2<D1, D2, I1, I2>, f.Dimension2<D1, D2>,
+      f.Dimension2<I1, I2>> get per => f.PrefixedUnitPer(this);
 
-  f.UnitDot<DerivedUnit2<D1, D2, I1, I2>, Dimension2<D1, D2>,
-      Dimension2<I1, I2>> get dot => f.UnitDot(this);
+  f.PrefixedUnitDot<DerivedUnit2<D1, D2, I1, I2>, f.Dimension2<D1, D2>,
+      f.Dimension2<I1, I2>> get dot => f.PrefixedUnitDot(this);
 
   @override
   operator ==(Object other) =>
@@ -128,9 +127,11 @@ class DerivedUnit2<D1 extends Dimension, D2 extends Dimension,
   int get hashCode => unitMultiplier.hashCode * prefix.hashCode * name.hashCode;
 }
 
-class InvertedDerivedUnit2<D1 extends Dimension, D2 extends Dimension,
-        I1 extends Dimension, I2 extends Dimension>
-    extends DerivedUnit2<D1, D2, I1, I2> implements Inverted {
+class InvertedDerivedUnit2<
+    D1 extends f.Dimension,
+    D2 extends f.Dimension,
+    I1 extends f.Dimension,
+    I2 extends f.Dimension> extends DerivedUnit2<D1, D2, I1, I2> {
   InvertedDerivedUnit2({
     required super.name,
     required super.unitMultiplier,
@@ -142,14 +143,14 @@ class InvertedDerivedUnit2<D1 extends Dimension, D2 extends Dimension,
     Unit<D1, I1> first,
     Unit<D2, I2> second, {
     String? name,
-    MeasurementPrefix? prefix,
+    UnitPrefix? prefix,
   }) : this(
           name: name ??
               (first == second
                   ? "${first.toString()}²"
                   : "${first.toString()}⋅${second.toString()}"),
           unitMultiplier: first.multiplier * second.multiplier,
-          prefix: prefix ?? const MeasurementPrefix.unit(),
+          prefix: prefix ?? const UnitPrefix.unit(),
         );
 
   @override
@@ -180,9 +181,9 @@ class InvertedDerivedUnit2<D1 extends Dimension, D2 extends Dimension,
 /// ```dart
 /// final squareFeet = square(feet);
 /// ```
-DerivedUnit2<D, D, I, I> square<D extends Dimension, I extends Dimension>(
+DerivedUnit2<D, D, I, I> square<D extends f.Dimension, I extends f.Dimension>(
   Unit<D, I> unit, {
   String? name,
-  MeasurementPrefix? prefix,
+  UnitPrefix? prefix,
 }) =>
     DerivedUnit2.build(unit, unit, name: name, prefix: prefix);

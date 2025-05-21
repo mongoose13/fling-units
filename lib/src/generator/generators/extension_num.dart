@@ -5,8 +5,8 @@ import 'package:source_gen/source_gen.dart';
 
 import '../generator.dart';
 
-Builder extensionBuilder(BuilderOptions options) {
-  return SharedPartBuilder([ExtensionGenerator(options)], 'extension');
+Builder numExtensionBuilder(BuilderOptions options) {
+  return SharedPartBuilder([NumExtensionGenerator(options)], 'numExtension');
 }
 
 /// Measurement constructor extension for the [num] types.
@@ -17,10 +17,10 @@ Builder extensionBuilder(BuilderOptions options) {
 /// a = 5.miles;
 /// b = (2.3).kilo.meters;
 /// ```
-class ExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
+class NumExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
   final BuilderOptions builderOptions;
 
-  ExtensionGenerator(this.builderOptions);
+  NumExtensionGenerator(this.builderOptions);
 
   @override
   generateForAnnotatedElement(
@@ -36,8 +36,8 @@ class ExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
 
     builder.add(
       Extension(
-        (measurement) => measurement
-          ..name = "NumExtension${builder.dimension.name}"
+        (extension) => extension
+          ..name = "Num${builder.dimension.name}"
           ..on = Reference("num")
           ..methods.addAll(
             builder.units.where((unit) => unit.isVisible).map(
@@ -49,6 +49,28 @@ class ExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ..name = unit.name
                     ..returns = Reference(builder.measurementName)
                     ..body = Code("${builder.unitName}.${unit.name}(this)"),
+                );
+              },
+            ),
+          ),
+      ),
+    );
+
+    builder.add(
+      Extension(
+        (extension) => extension
+          ..name = "NumExtension${builder.dimension.name}"
+          ..on = Reference("f.NumExtension")
+          ..methods.addAll(
+            builder.units.where((unit) => unit.isVisible).map(
+              (unit) {
+                return Method(
+                  (field) => field
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..name = unit.name
+                    ..returns = Reference(builder.measurementName)
+                    ..body = Code("_prefix.${unit.name}(_value)"),
                 );
               },
             ),

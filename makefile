@@ -1,17 +1,21 @@
 deps := pubspec.lock
 built := lib/src/generated
 pana := ~/.pub-cache/bin/pana
+remove := rm -rf --interactive=never
 
-$(built): $(deps)
+.PHONY: build
+build:
 	dart run build_runner build
+
+$(built): build
 
 .PHONY: clean
 clean:
-	rm -rf --interactive=never $(built)
+	$(remove) $(built)
 
 .PHONY: reset
 reset:
-	rm -rf --interactive=never $(deps)
+	$(remove) $(deps)
 
 .PHONY: test
 test: $(built)
@@ -28,7 +32,7 @@ pana: $(pana) $(built)
 # Tool-based outputs
 $(deps): pubspec.yaml
 	dart pub get
-	rm -rf --interactive=never $(built)
+	$(remove) $(built)
 
 $(pana):
 	dart pub global activate pana

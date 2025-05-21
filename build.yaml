@@ -1,91 +1,64 @@
 builders:
   prefixes:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["prefixesBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   measurement:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["measurementBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   interpreter:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["interpreterBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   prefix:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["prefixBuilder"]
-    build_extensions: {".dart": [".g.part"]}
-    build_to: cache
-  unit_per:
-    import: "generator/generator.dart"
-    builder_factories: ["unitPerBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   measurement_per:
-    import: "generator/generator.dart"
-    builder_factories: ["measurementPerBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+    import: "lib/src/generator/generator.dart"
+    builder_factories: ["prefixedExtensionBuilder"]
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
-  extension:
-    import: "generator/generator.dart"
-    builder_factories: ["extensionBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+  extension_num:
+    import: "lib/src/generator/generator.dart"
+    builder_factories: ["numExtensionBuilder"]
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   unit:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["unitBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   measurement_id:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["measurementIdentifierBuilder"]
-    build_extensions: {".dart": [".measurement"]}
+    build_extensions: { ".dart": [".measurement"] }
     build_to: cache
   library:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["libraryBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/fling_units.dart"]}
+    build_extensions: { ".measurement": ["lib/src/generated/fling_units.dart"] }
     build_to: source
   prefix_id:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["prefixIdentifierBuilder"]
-    build_extensions: {".dart": [".prefixes"]}
+    build_extensions: { ".dart": [".prefixes"] }
     build_to: cache
   unit_specialization:
-    import: "generator/generator.dart"
+    import: "lib/src/generator/generator.dart"
     builder_factories: ["unitSpecializationBuilder"]
-    build_extensions: {".dart": [".g.part"]}
+    build_extensions: { ".dart": [".g.part"] }
     build_to: cache
-  num_extension:
-    import: "generator/generator.dart"
-    builder_factories: ["numExtensionBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/extension.dart"]}
-    build_to: source
-    required_inputs: [".measurement"]
-  prefix_unit_per:
-    import: "generator/generator.dart"
-    builder_factories: ["prefixedUnitPerBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/unit_per.dart"]}
-    build_to: source
-    required_inputs: [".measurement"]
-  prefix_measurement_per:
-    import: "generator/generator.dart"
-    builder_factories: ["prefixedMeasurementPerBuilder"]
-    build_extensions: {".measurement": ["lib/src/generated/measurement_per.dart"]}
-    build_to: source
-    required_inputs: [".measurement"]
 
 targets:
   $default:
     builders:
       fling_units|prefixes:
-        options:
-          generate_for:
-            - lib/src/prefixes/*.dart
-      fling_units|unit_per:
         options:
           generate_for:
             - lib/src/prefixes/*.dart
@@ -105,7 +78,7 @@ targets:
         options:
           generate_for:
             - lib/src/measurements/*.dart
-      fling_units|extension:
+      fling_units|extension_num:
         options:
           generate_for:
             - lib/src/measurements/*.dart
@@ -119,7 +92,12 @@ targets:
             - lib/src/measurements/*.dart
       source_gen|combining_builder:
         options:
-          build_extensions: {"^lib/src/measurements/{{}}.dart": ["lib/src/generated/{{}}.dart"],"^lib/src/prefixes/{{}}.dart": ["lib/src/generated/{{}}.dart"]}
+          build_extensions:
+            {
+              "^lib/src/measurements/{{}}.dart":
+                ["lib/src/generated/{{}}.dart"],
+              "^lib/src/prefixes/{{}}.dart": ["lib/src/generated/{{}}.dart"],
+            }
       fling_units|measurement_id:
         options:
           generate_for:
@@ -128,23 +106,7 @@ targets:
         options:
           generate_for:
             - lib/src/prefixes/*.dart
-      fling_units|measurement_prefix:
-        options:
-          generate_for:
-            - lib/src/measurements/*.dart
       fling_units|library:
-        options:
-          generate_for:
-            - lib/src/measurements/*.dart
-      fling_units|num_extension:
-        options:
-          generate_for:
-            - lib/src/measurements/*.dart
-      fling_units|prefix_unit_per:
-        options:
-          generate_for:
-            - lib/src/measurements/*.dart
-      fling_units|prefix_measurement_per:
         options:
           generate_for:
             - lib/src/measurements/*.dart

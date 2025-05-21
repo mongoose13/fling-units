@@ -6,8 +6,7 @@ part of "library.dart";
 /// unit the [Unit] was configured for. Users of the library
 /// will generally only require the built-in units for the [Measurement]
 /// types being used (e.g. [miles] or [kilo].[meters]), but if needed, some
-/// [Unit] subtypes can be configured further (e.g.
-/// [AreaUnit]).
+/// [Unit] subtypes can be configured further (e.g. [AreaUnit]).
 ///
 /// [Unit]s allow the corresponding unit to be instantiated by "calling"
 /// it. For instance, one could create a [Distance] measurement in miles
@@ -17,7 +16,7 @@ part of "library.dart";
 /// Users should not need to access the internal workings of
 /// [Unit]s, but instead pass them to the appropriate
 /// [Measurement] instances for conversion.
-abstract class Unit<D extends Dimension, I extends Dimension> {
+abstract class Unit<D extends f.Dimension, I extends f.Dimension> {
   /// Constructs a [Unit].
   const Unit({
     required this.name,
@@ -58,7 +57,7 @@ abstract class Unit<D extends Dimension, I extends Dimension> {
   final double unitMultiplier;
 
   /// The prefix to apply to the measurement.
-  final MeasurementPrefix prefix;
+  final UnitPrefix prefix;
 
   /// The total multiplier for this unit.
   ///
@@ -82,11 +81,8 @@ abstract class Unit<D extends Dimension, I extends Dimension> {
   double get multiplier => prefix.multiplier * unitMultiplier;
 }
 
-abstract class Inverted<D extends Dimension> extends Dimension {
-  const Inverted();
-}
-
-abstract class InvertedUnit<D extends Dimension, I extends Dimension>
+/// An inverted unit (i.e. 1/unit).
+abstract class InvertedUnit<D extends f.Dimension, I extends f.Dimension>
     extends Unit<D, I> {
   const InvertedUnit({
     required super.name,
@@ -94,7 +90,6 @@ abstract class InvertedUnit<D extends Dimension, I extends Dimension>
     required super.prefix,
   });
 
-  /// The total mutiplier for this unit.
   @override
   double get multiplier => 1.0 / super.multiplier;
 }
@@ -103,13 +98,13 @@ abstract class InvertedUnit<D extends Dimension, I extends Dimension>
 ///
 /// This is useful for measurements that should not be represented fractionally,
 /// e.g. the number of items in a collection.
-abstract class RoundingUnit<D extends Dimension, I extends Dimension>
+abstract class RoundingUnit<D extends f.Dimension, I extends f.Dimension>
     extends Unit<D, I> {
   /// Constructs a [RoundingUnit].
   const RoundingUnit._({
     required super.name,
     required super.unitMultiplier,
-    super.prefix = const MeasurementPrefix.unit(),
+    super.prefix = const UnitPrefix.unit(),
   });
 
   @override

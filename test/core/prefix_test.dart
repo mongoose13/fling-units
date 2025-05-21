@@ -5,7 +5,7 @@ void main() {
   group('custom multiplier', () {
     test('applies correct multiplier', () {
       // given
-      final measurement = MeasurementPrefix(0.5).meters(1234.5);
+      final measurement = UnitPrefix(0.5).meters(1234.5);
 
       // when
       final result = measurement.as(meters);
@@ -15,7 +15,7 @@ void main() {
     });
     test('applies correct precision', () {
       // given
-      final measurement = MeasurementPrefix(0.5).meters(1234.5, precision: 3);
+      final measurement = UnitPrefix(0.5).meters(1234.5, precision: 3);
 
       // when
       final result = measurement.as(meters);
@@ -28,7 +28,7 @@ void main() {
   group('meters', () {
     test('creates the correct measurement', () {
       // given
-      final measurement = MeasurementPrefix(3).meters(5.5, precision: 2);
+      final measurement = UnitPrefix(3).meters(5.5, precision: 2);
 
       // when
       final result = measurement.as(meters);
@@ -40,7 +40,7 @@ void main() {
   group('grams', () {
     test('creates the correct measurement', () {
       // given
-      final measurement = MeasurementPrefix(3).grams(5.5, precision: 2);
+      final measurement = UnitPrefix(3).grams(5.5, precision: 2);
 
       // when
       final result = measurement.as(grams);
@@ -52,7 +52,7 @@ void main() {
   group('kelvin', () {
     test('creates the correct measurement', () {
       // given
-      final measurement = MeasurementPrefix(3).kelvin(5.5, precision: 2);
+      final measurement = UnitPrefix(3).kelvin(5.5, precision: 2);
 
       // when
       final result = measurement.as(kelvin);
@@ -64,7 +64,7 @@ void main() {
   group('seconds', () {
     test('creates the correct measurement', () {
       // given
-      final measurement = MeasurementPrefix(3).seconds(5.5, precision: 2);
+      final measurement = UnitPrefix(3).seconds(5.5, precision: 2);
 
       // when
       final result = measurement.as(seconds);
@@ -76,7 +76,7 @@ void main() {
   group('liters', () {
     test('creates the correct measurement', () {
       // given
-      final measurement = MeasurementPrefix(3).liters(5.5).withPrecision(2);
+      final measurement = UnitPrefix(3).liters(5.5).withPrecision(2);
 
       // when
       final result = measurement.as(liters);

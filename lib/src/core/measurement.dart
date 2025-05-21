@@ -1,16 +1,16 @@
 part of "library.dart";
 
-/// Interface for objects that can be assigned a [MeasurementPrefix].
+/// Interface for objects that can be assigned a [UnitPrefix].
 abstract class Prefixable<M> {
   /// Creates a copy of this object with the specified prefix.
-  Prefixable<M> withPrefix(MeasurementPrefix prefix);
+  Prefixable<M> withPrefix(UnitPrefix prefix);
 
   /// Creates an object with a particular value.
   M call(num value);
 }
 
 /// Base class for any type of measurement.
-abstract class Measurement<D extends Dimension, I extends Dimension>
+abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
     implements Comparable<Measurement<D, I>> {
   /// Creates a base measurement.
   const Measurement({
