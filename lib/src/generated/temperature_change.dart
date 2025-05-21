@@ -76,7 +76,8 @@ class TemperatureChangeUnit extends f.Unit<TemperatureChange> {
   bool operator ==(Object other) =>
       other is TemperatureChangeUnit &&
       other.unitMultiplier == unitMultiplier &&
-      other.name == name;
+      other.name == name &&
+      other.prefix == prefix;
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;

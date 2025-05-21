@@ -86,7 +86,8 @@ class DistanceUnit extends f.Unit<Distance> {
   bool operator ==(Object other) =>
       other is DistanceUnit &&
       other.unitMultiplier == unitMultiplier &&
-      other.name == name;
+      other.name == name &&
+      other.prefix == prefix;
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;

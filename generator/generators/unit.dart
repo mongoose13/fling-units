@@ -108,7 +108,8 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..body = Code("other is ${builder.unitName}"
                       " && other.unitMultiplier == unitMultiplier"
-                      " && other.name == name"),
+                      " && other.name == name"
+                      " && other.prefix == prefix"),
               ),
             )
             ..methods.add(

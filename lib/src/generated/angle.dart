@@ -86,7 +86,8 @@ class AngleUnit extends f.Unit<Angle> {
   bool operator ==(Object other) =>
       other is AngleUnit &&
       other.unitMultiplier == unitMultiplier &&
-      other.name == name;
+      other.name == name &&
+      other.prefix == prefix;
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;

@@ -58,7 +58,8 @@ class QuantityUnit extends f.Unit<Quantity> {
   bool operator ==(Object other) =>
       other is QuantityUnit &&
       other.unitMultiplier == unitMultiplier &&
-      other.name == name;
+      other.name == name &&
+      other.prefix == prefix;
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;

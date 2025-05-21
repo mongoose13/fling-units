@@ -25,5 +25,20 @@ void main() {
       // then
       expect(result.toString(), "min");
     });
+
+    group("equality", () {
+      test("base units", () {
+        expect(meters, meters);
+      });
+      test("unequal prefixes", () {
+        expect(meters, isNot(kilo.meters));
+      });
+      test("equal prefixes, unequal units", () {
+        expect(kilo.meters, isNot(kilo.miles));
+      });
+      test("equal units", () {
+        expect(kilo.meters, kilo.meters);
+      });
+    });
   });
 }

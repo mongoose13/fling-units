@@ -5,6 +5,10 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
+### Fixed
+
+- Equality works for units with prefixes
+
 ### Changed
 
 - Improved makefile targets and automated build steps

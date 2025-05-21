@@ -51,7 +51,8 @@ class ChargeUnit extends f.Unit<Charge> {
   bool operator ==(Object other) =>
       other is ChargeUnit &&
       other.unitMultiplier == unitMultiplier &&
-      other.name == name;
+      other.name == name &&
+      other.prefix == prefix;
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;

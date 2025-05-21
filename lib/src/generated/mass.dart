@@ -107,7 +107,8 @@ class MassUnit extends f.Unit<Mass> {
   bool operator ==(Object other) =>
       other is MassUnit &&
       other.unitMultiplier == unitMultiplier &&
-      other.name == name;
+      other.name == name &&
+      other.prefix == prefix;
 
   @override
   int get hashCode => unitMultiplier.hashCode * name.hashCode;
