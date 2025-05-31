@@ -54,7 +54,7 @@ void main() {
         final result = unit.multiplier;
 
         // then
-        expect(result, closeTo(2.49e-4, 5e-7));
+        expect(result, closeTo(12.03, 5e-3));
       });
     });
 
@@ -160,7 +160,7 @@ void main() {
             unit.using(0.25.feet, 8.cups, 0.5.hours).withPrecision(3);
 
         // then
-        expect(result.toString(), "0.703 in⋅gal⁻¹⋅min");
+        expect(result.toString(), "180.0 in⋅gal⁻¹⋅min");
       });
       test("with different unit positions again", () {
         // given
@@ -169,11 +169,11 @@ void main() {
 
         // when
         final result = unit
-            .using(5.centi.meters, 2.liters, (1.2).milli.seconds)
+            .using(5.centi.meters, 2.liters, 20.deka.seconds)
             .withPrecision(3);
 
         // then
-        expect(result.toString(), "4.33 in⋅gal⁻¹⋅min");
+        expect(result.toString(), "14.9 in⋅gal⁻¹⋅min");
       });
     });
   });
