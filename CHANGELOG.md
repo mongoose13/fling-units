@@ -3,6 +3,16 @@
 Dependency-free, type-safe Dart unit conversion library. Decouple specific unit
 types you need to work with from the rest of your code.
 
+## [Unreleased]
+
+Nothing, yet...
+
+## [3.0.8]
+
+### Fixed
+
+- Intrinsic volume unit conversion multipliers were inverted https://github.com/mongoose13/fling-units/issues/8
+
 ## [3.0.7]
 
 ### Fixed
@@ -381,7 +391,8 @@ types you need to work with from the rest of your code.
 
 - Initial package setup
 
-[Unreleased]: https://github.com/mongoose13/fling-units/compare/v3.0.7...HEAD
+[Unreleased]: https://github.com/mongoose13/fling-units/compare/v3.0.8...HEAD
+[3.0.8]: https://github.com/mongoose13/fling-units/compare/v3.0.7...v3.0.8
 [3.0.7]: https://github.com/mongoose13/fling-units/compare/v3.0.6...v3.0.7
 [3.0.6]: https://github.com/mongoose13/fling-units/compare/v3.0.5...v3.0.6
 [3.0.5]: https://github.com/mongoose13/fling-units/compare/v3.0.4...v3.0.5

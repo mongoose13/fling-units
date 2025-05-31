@@ -40,5 +40,36 @@ void main() {
         expect(kilo.meters, kilo.meters);
       });
     });
+
+    group("multiplier", () {
+      test("SI unit", () {
+        // given
+        final unit = meters;
+
+        // then
+        expect(unit.multiplier, 1.0);
+      });
+      test("SI unit with prefix", () {
+        // given
+        final unit = centi.meters;
+
+        // then
+        expect(unit.multiplier, 0.01);
+      });
+      test("non-SI unit", () {
+        // given
+        final unit = feet;
+
+        // then
+        expect(unit.multiplier, closeTo(0.305, 0.0005));
+      });
+      test("non-SI unit with prefix", () {
+        // given
+        final unit = deka.feet;
+
+        // then
+        expect(unit.multiplier, closeTo(3.05, 0.005));
+      });
+    });
   });
 }

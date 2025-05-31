@@ -13,45 +13,50 @@ typedef VolumeUnit = f.DerivedUnit3<
 
 typedef VolumeMeasurement = f.Measurement<VolumeDimension>;
 
-final VolumeUnit liters = f.DerivedUnit3(name: "L", unitMultiplier: 1e3);
+final VolumeUnit liters = f.DerivedUnit3(name: "L", unitMultiplier: 1e-3);
 
 final VolumeUnit teaspoons =
-    f.DerivedUnit3(name: "tsp", unitMultiplier: 168936);
+    f.DerivedUnit3(name: "tsp", unitMultiplier: 5.91940e-6);
 
 final VolumeUnit tablespoons =
-    f.DerivedUnit3(name: "tbsp", unitMultiplier: 56312);
+    f.DerivedUnit3(name: "tbsp", unitMultiplier: 1.77582e-5);
 
 final VolumeUnit fluidOunces =
-    f.DerivedUnit3(name: "fl oz", unitMultiplier: 35195.1);
+    f.DerivedUnit3(name: "fl oz", unitMultiplier: 2.84130e-5);
 
-final VolumeUnit cups = f.DerivedUnit3(name: "cup", unitMultiplier: 3519.51);
+final VolumeUnit cups = f.DerivedUnit3(name: "cup", unitMultiplier: 2.84130e-4);
 
-final VolumeUnit pints = f.DerivedUnit3(name: "pt", unitMultiplier: 1759.75);
+final VolumeUnit pints = f.DerivedUnit3(name: "pt", unitMultiplier: 5.68263e-4);
 
-final VolumeUnit quarts = f.DerivedUnit3(name: "qt", unitMultiplier: 879.877);
+final VolumeUnit quarts =
+    f.DerivedUnit3(name: "qt", unitMultiplier: 0.00113652);
 
-final VolumeUnit gallons = f.DerivedUnit3(name: "gal", unitMultiplier: 219.969);
+final VolumeUnit gallons =
+    f.DerivedUnit3(name: "gal", unitMultiplier: 0.00454610);
 
 final VolumeUnit usTeaspoons =
-    f.DerivedUnit3(name: "tsp", unitMultiplier: 202884);
+    f.DerivedUnit3(name: "tsp", unitMultiplier: 4.92892e-6);
 
 final VolumeUnit usTablespoons =
-    f.DerivedUnit3(name: "tbsp", unitMultiplier: 67628);
+    f.DerivedUnit3(name: "tbsp", unitMultiplier: 1.47868e-5);
 
 final VolumeUnit usFluidOunces =
-    f.DerivedUnit3(name: "fl oz", unitMultiplier: 33814);
+    f.DerivedUnit3(name: "fl oz", unitMultiplier: 2.957353e-5);
 
-final VolumeUnit usCups = f.DerivedUnit3(name: "cup", unitMultiplier: 4226.76);
+final VolumeUnit usCups =
+    f.DerivedUnit3(name: "cup", unitMultiplier: 2.36588e-4);
 
-final VolumeUnit usPints = f.DerivedUnit3(name: "pt", unitMultiplier: 2113.38);
+final VolumeUnit usPints =
+    f.DerivedUnit3(name: "pt", unitMultiplier: 4.73176e-4);
 
-final VolumeUnit usQuarts = f.DerivedUnit3(name: "qt", unitMultiplier: 1056.69);
+final VolumeUnit usQuarts =
+    f.DerivedUnit3(name: "qt", unitMultiplier: 9.46351e-4);
 
 final VolumeUnit usGallons =
-    f.DerivedUnit3(name: "gal", unitMultiplier: 264.172);
+    f.DerivedUnit3(name: "gal", unitMultiplier: 0.00378541);
 
 final VolumeUnit usLegalCups =
-    f.DerivedUnit3(name: "legal cup", unitMultiplier: 4166.67);
+    f.DerivedUnit3(name: "legal cup", unitMultiplier: 2.399998e-4);
 
 extension VolumeExtensionNum on num {
   VolumeMeasurement get liters => f.liters(this);

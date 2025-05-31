@@ -162,17 +162,18 @@ void main() {
         // then
         expect(result.toString(), "0.703 in⋅gal⁻¹⋅min");
       });
-      test("with different unit positions", () {
+      test("with different unit positions again", () {
         // given
         final unit = DerivedUnit3.from(UnitNumerator(inches),
             UnitDenominator(gallons), UnitNumerator(minutes));
 
         // when
-        final result =
-            unit.using(5.centi.meters, 2.liters, 120.seconds).withPrecision(3);
+        final result = unit
+            .using(5.centi.meters, 2.liters, (1.2).milli.seconds)
+            .withPrecision(3);
 
         // then
-        expect(result.toString(), "0.433 in⋅gal⁻¹⋅min");
+        expect(result.toString(), "4.33 in⋅gal⁻¹⋅min");
       });
     });
   });
