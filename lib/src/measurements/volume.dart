@@ -1,9 +1,9 @@
 part of "../core/library.dart";
 
-typedef Volume = Dimension3<f.Distance, f.Distance, f.Distance>;
+typedef Volume = f.Dimension3<f.Distance, f.Distance, f.Distance>;
 
 typedef InvertedVolume
-    = Dimension3<f.InvertedDistance, f.InvertedDistance, f.InvertedDistance>;
+    = f.Dimension3<f.InvertedDistance, f.InvertedDistance, f.InvertedDistance>;
 
 typedef VolumeUnit = DerivedUnit3<f.Distance, f.Distance, f.Distance,
     f.InvertedDistance, f.InvertedDistance, f.InvertedDistance>;
@@ -74,27 +74,24 @@ extension VolumeExtensionNum on num {
 }
 
 extension VolumeNumExtension on f.NumExtension {
-  VolumeMeasurement get cbm => f.cbm.withPrefix(_prefix)(_value);
-  VolumeMeasurement get liters => f.liters.withPrefix(_prefix)(_value);
-  VolumeMeasurement get teaspoons => f.teaspoons.withPrefix(_prefix)(_value);
-  VolumeMeasurement get tablespoons =>
-      f.tablespoons.withPrefix(_prefix)(_value);
-  VolumeMeasurement get fluidOunces =>
-      f.fluidOunces.withPrefix(_prefix)(_value);
-  VolumeMeasurement get cups => f.cups.withPrefix(_prefix)(_value);
-  VolumeMeasurement get pints => f.pints.withPrefix(_prefix)(_value);
-  VolumeMeasurement get quarts => f.quarts.withPrefix(_prefix)(_value);
-  VolumeMeasurement get gallons => f.gallons.withPrefix(_prefix)(_value);
-  VolumeMeasurement get usTeaspoons =>
-      f.usTeaspoons.withPrefix(_prefix)(_value);
+  VolumeMeasurement get cbm => f.cbm.withPrefix(prefix)(value);
+  VolumeMeasurement get liters => f.liters.withPrefix(prefix)(value);
+  VolumeMeasurement get teaspoons => f.teaspoons.withPrefix(prefix)(value);
+  VolumeMeasurement get tablespoons => f.tablespoons.withPrefix(prefix)(value);
+  VolumeMeasurement get fluidOunces => f.fluidOunces.withPrefix(prefix)(value);
+  VolumeMeasurement get cups => f.cups.withPrefix(prefix)(value);
+  VolumeMeasurement get pints => f.pints.withPrefix(prefix)(value);
+  VolumeMeasurement get quarts => f.quarts.withPrefix(prefix)(value);
+  VolumeMeasurement get gallons => f.gallons.withPrefix(prefix)(value);
+  VolumeMeasurement get usTeaspoons => f.usTeaspoons.withPrefix(prefix)(value);
   VolumeMeasurement get usTablespoons =>
-      f.usTablespoons.withPrefix(_prefix)(_value);
+      f.usTablespoons.withPrefix(prefix)(value);
   VolumeMeasurement get usFluidOunces =>
-      f.usFluidOunces.withPrefix(_prefix)(_value);
-  VolumeMeasurement get usCups => f.usCups.withPrefix(_prefix)(_value);
-  VolumeMeasurement get usPints => f.usPints.withPrefix(_prefix)(_value);
-  VolumeMeasurement get usQuarts => f.usQuarts.withPrefix(_prefix)(_value);
-  VolumeMeasurement get usGallons => f.usGallons.withPrefix(_prefix)(_value);
+      f.usFluidOunces.withPrefix(prefix)(value);
+  VolumeMeasurement get usCups => f.usCups.withPrefix(prefix)(value);
+  VolumeMeasurement get usPints => f.usPints.withPrefix(prefix)(value);
+  VolumeMeasurement get usQuarts => f.usQuarts.withPrefix(prefix)(value);
+  VolumeMeasurement get usGallons => f.usGallons.withPrefix(prefix)(value);
 }
 
 extension VolumeUnitPrefix on UnitPrefix {
@@ -116,42 +113,46 @@ extension VolumeUnitPrefix on UnitPrefix {
   VolumeUnit get usGallons => f.usGallons.withPrefix(prefix);
 }
 
-extension VolumeUnitPer<N extends Unit<D, I>, D extends Dimension,
-    I extends Dimension> on PrefixedUnit2<N, D, I> {
-  f.DerivedUnit2<D, InvertedVolume, I, Volume> get cbm => build(cbm.inverted);
+extension PrefixedUnitPerVolume<N extends Unit<D, I>, D extends f.Dimension,
+    I extends f.Dimension> on f.PrefixedUnitPer<N, D, I> {
+  f.DerivedUnit2<D, InvertedVolume, I, Volume> get cbm =>
+      build(prefix.cbm.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get liter =>
-      build(liters.inverted);
+      build(prefix.liters.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get teaspoon =>
-      build(teaspoons.inverted);
+      build(prefix.teaspoons.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get tablespoon =>
-      build(tablespoons.inverted);
+      build(prefix.tablespoons.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get fluidOunce =>
-      build(fluidOunces.inverted);
-  f.DerivedUnit2<D, InvertedVolume, I, Volume> get cup => build(cups.inverted);
+      build(prefix.fluidOunces.inverted);
+  f.DerivedUnit2<D, InvertedVolume, I, Volume> get cup =>
+      build(prefix.cups.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get pint =>
-      build(pints.inverted);
+      build(prefix.pints.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get quart =>
-      build(quarts.inverted);
+      build(prefix.quarts.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get gallon =>
-      build(gallons.inverted);
+      build(prefix.gallons.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get usTeaspoon =>
-      build(usTeaspoons.inverted);
+      build(prefix.usTeaspoons.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get usTablespoon =>
-      build(usTablespoons.inverted);
+      build(prefix.usTablespoons.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get usFluidOunce =>
-      build(usFluidOunces.inverted);
+      build(prefix.usFluidOunces.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get usCup =>
-      build(usCups.inverted);
+      build(prefix.usCups.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get usPint =>
-      build(usPints.inverted);
+      build(prefix.usPints.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get usQuart =>
-      build(usQuarts.inverted);
+      build(prefix.usQuarts.inverted);
   f.DerivedUnit2<D, InvertedVolume, I, Volume> get usGallon =>
-      build(usGallons.inverted);
+      build(prefix.usGallons.inverted);
 }
 
-extension VolumeMeasurementPer<N extends Measurement<D, I>, D extends Dimension,
-    I extends Dimension> on PrefixedMeasurementPer<N, D, I> {
+extension VolumeMeasurementPer<
+    N extends Measurement<D, I>,
+    D extends f.Dimension,
+    I extends f.Dimension> on PrefixedMeasurementPer<N, D, I> {
   f.DerivedMeasurement2<D, InvertedVolume, I, Volume> get cbm =>
       DerivedUnit2.build(numerator.defaultUnit,
           f.cbm.withPrefix(prefix).inverted)(numerator.defaultValue);
@@ -202,89 +203,92 @@ extension VolumeMeasurementPer<N extends Measurement<D, I>, D extends Dimension,
           usGallons.withPrefix(prefix).inverted)(numerator.defaultValue);
 }
 
-extension VolumeUnitDot<N extends Unit<D, I>, D extends Dimension,
-    I extends Dimension> on PrefixedUnit2<N, D, I> {
+extension PrefixedUnitDotVolume<N extends Unit<D, I>, D extends f.Dimension,
+    I extends f.Dimension> on f.PrefixedUnitDot<N, D, I> {
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get cbm =>
-      f.DerivedUnit2.build(first, f.cbm.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, f.cbm.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get liter =>
-      f.DerivedUnit2.build(first, liters.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, liters.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get teaspoon =>
-      f.DerivedUnit2.build(first, teaspoons.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, teaspoons.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get tablespoon =>
-      f.DerivedUnit2.build(first, tablespoons.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, tablespoons.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get fluidOunce =>
-      f.DerivedUnit2.build(first, fluidOunces.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, fluidOunces.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get cup =>
-      f.DerivedUnit2.build(first, cups.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, cups.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get pint =>
-      f.DerivedUnit2.build(first, pints.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, pints.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get quart =>
-      f.DerivedUnit2.build(first, quarts.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, quarts.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get gallon =>
-      f.DerivedUnit2.build(first, gallons.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, gallons.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get usTeaspoon =>
-      f.DerivedUnit2.build(first, usTeaspoons.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, usTeaspoons.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get usTablespoon =>
-      f.DerivedUnit2.build(first, usTablespoons.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, usTablespoons.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get usFluidOunce =>
-      f.DerivedUnit2.build(first, usFluidOunces.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, usFluidOunces.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get usCup =>
-      f.DerivedUnit2.build(first, usCups.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, usCups.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get usPint =>
-      f.DerivedUnit2.build(first, usPints.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, usPints.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get usQuart =>
-      f.DerivedUnit2.build(first, usQuarts.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, usQuarts.withPrefix(prefix));
   f.DerivedUnit2<D, Volume, I, InvertedVolume> get usGallon =>
-      f.DerivedUnit2.build(first, usGallons.withPrefix(prefix));
+      f.DerivedUnit2.build(initial, usGallons.withPrefix(prefix));
 }
 
-extension VolumeMeasurementDot<N extends Measurement<D, I>, D extends Dimension,
-    I extends Dimension> on PrefixedMeasurementDot<N, D, I> {
+extension VolumeMeasurementDot<
+    N extends Measurement<D, I>,
+    D extends f.Dimension,
+    I extends f.Dimension> on PrefixedMeasurementDot<N, D, I> {
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get cbm =>
-      DerivedUnit2.build(first.defaultUnit, f.cbm.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, f.cbm.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get liter =>
-      DerivedUnit2.build(first.defaultUnit, liters.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, liters.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get teaspoon =>
-      DerivedUnit2.build(first.defaultUnit, teaspoons.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, teaspoons.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get tablespoon =>
-      DerivedUnit2.build(first.defaultUnit, tablespoons.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, tablespoons.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get fluidOunce =>
-      DerivedUnit2.build(first.defaultUnit, fluidOunces.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, fluidOunces.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get cup =>
-      DerivedUnit2.build(first.defaultUnit, cups.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, cups.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get pint =>
-      DerivedUnit2.build(first.defaultUnit, pints.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, pints.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get quart =>
-      DerivedUnit2.build(first.defaultUnit, quarts.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, quarts.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get gallon =>
-      DerivedUnit2.build(first.defaultUnit, gallons.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, gallons.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get usTeaspoon =>
-      DerivedUnit2.build(first.defaultUnit, usTeaspoons)(first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, usTeaspoons)(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get usTablespoon =>
-      DerivedUnit2.build(first.defaultUnit, usTablespoons.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, usTablespoons.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get usFluidOunce =>
-      DerivedUnit2.build(first.defaultUnit, usFluidOunces.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, usFluidOunces.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get usCup =>
-      DerivedUnit2.build(first.defaultUnit, usCups.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, usCups.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get usPint =>
-      DerivedUnit2.build(first.defaultUnit, usPints.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, usPints.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get usQuart =>
-      DerivedUnit2.build(first.defaultUnit, usQuarts.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, usQuarts.withPrefix(prefix))(
+          initial.defaultValue);
   f.DerivedMeasurement2<D, Volume, I, InvertedVolume> get usGallon =>
-      DerivedUnit2.build(first.defaultUnit, usGallons.withPrefix(prefix))(
-          first.defaultValue);
+      DerivedUnit2.build(initial.defaultUnit, usGallons.withPrefix(prefix))(
+          initial.defaultValue);
 }

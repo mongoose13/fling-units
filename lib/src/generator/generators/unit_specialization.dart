@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
@@ -18,7 +17,7 @@ class UnitSpecializationGenerator
 
   @override
   generateForAnnotatedElement(
-    Element element,
+    element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
@@ -27,6 +26,7 @@ class UnitSpecializationGenerator
     if (!builder.dimension.isDerived) {
       return;
     }
+
     final types = builder.dimension.types!;
     builder.addAll(
       [
@@ -173,7 +173,7 @@ class UnitSpecializationGenerator
                       "${types.map((type) => "f.${type.invertedName}").join(", ")}"
                       ">")
                   ..name = unit.displayName
-                  ..body = Code("build(f.${unit.displayName})"),
+                  ..body = Code("prefix.${unit.displayName}(value)"),
               ),
             ),
         ),

@@ -70,7 +70,7 @@ class NumExtensionGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ..type = MethodType.getter
                     ..name = unit.name
                     ..returns = Reference(builder.measurementName)
-                    ..body = Code("_prefix.${unit.name}(_value)"),
+                    ..body = Code("prefix.${unit.name}(value)"),
                 );
               },
             ),

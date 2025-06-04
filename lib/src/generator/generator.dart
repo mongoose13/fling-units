@@ -8,6 +8,7 @@ export "builders/library.dart";
 export "generators/extension_num.dart";
 export "generators/measurement.dart";
 export "generators/extension_prefix.dart";
+export "generators/prefixed_measurement.dart";
 export "generators/prefixed_unit.dart";
 export "generators/prefixes.dart";
 export "generators/unit.dart";

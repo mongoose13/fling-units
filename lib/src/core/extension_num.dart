@@ -17,13 +17,13 @@ part of "library.dart";
 /// prevents all but the first usage (the one we want) demonstrated above.
 class NumExtension {
   const NumExtension(
-    this._prefix,
-    this._value,
+    this.prefix,
+    this.value,
   );
 
   /// The prefix being applied to the number.
-  final f.UnitPrefix _prefix;
+  final f.UnitPrefix prefix;
 
   /// The number being extended.
-  final num _value;
+  final num value;
 }

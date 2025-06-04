@@ -14,9 +14,14 @@ builders:
     builder_factories: ["interpreterBuilder"]
     build_extensions: { ".dart": [".g.part"] }
     build_to: cache
-  prefix:
+  prefix_unit:
     import: "lib/src/generator/generator.dart"
-    builder_factories: ["prefixBuilder"]
+    builder_factories: ["prefixUnitBuilder"]
+    build_extensions: { ".dart": [".g.part"] }
+    build_to: cache
+  prefix_measurement:
+    import: "lib/src/generator/generator.dart"
+    builder_factories: ["prefixMeasurementBuilder"]
     build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   measurement_per:
@@ -74,7 +79,11 @@ targets:
         options:
           generate_for:
             - lib/src/measurements/*.dart
-      fling_units|prefix:
+      fling_units|prefix_unit:
+        options:
+          generate_for:
+            - lib/src/measurements/*.dart
+      fling_units|prefix_measurement:
         options:
           generate_for:
             - lib/src/measurements/*.dart

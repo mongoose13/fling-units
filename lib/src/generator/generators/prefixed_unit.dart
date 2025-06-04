@@ -1,22 +1,21 @@
-import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
 import '../generator.dart';
 
-Builder prefixBuilder(BuilderOptions options) {
-  return SharedPartBuilder([PrefixedUnitPerGenerator(options)], 'prefix');
+Builder prefixUnitBuilder(BuilderOptions options) {
+  return SharedPartBuilder([PrefixedUnitGenerator(options)], 'prefixUnit');
 }
 
-class PrefixedUnitPerGenerator extends GeneratorForAnnotation<DimensionConfig> {
+class PrefixedUnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
   final BuilderOptions builderOptions;
 
-  PrefixedUnitPerGenerator(this.builderOptions);
+  PrefixedUnitGenerator(this.builderOptions);
 
   @override
   generateForAnnotatedElement(
-    Element element,
+    element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
@@ -27,6 +26,28 @@ class PrefixedUnitPerGenerator extends GeneratorForAnnotation<DimensionConfig> {
       return;
     }
 
+    // PrefixGenerator
+    builder.add(
+      Extension(
+        (prefixExt) => prefixExt
+          ..docs.add(
+              "/// Allows ${builder.dimension.name} units to appear after prefixes.")
+          ..name = "${builder.dimension.name}UnitPrefix"
+          ..on = Reference("f.UnitPrefix")
+          ..methods.addAll(
+            builder.units.map((unit) => Method(
+                  (accessor) => accessor
+                    ..docs.add("/// A ${builder.dimension.name} unit.")
+                    ..lambda = true
+                    ..type = MethodType.getter
+                    ..returns = Reference("${builder.dimension.name}Unit")
+                    ..name = unit.name
+                    ..body = Code("f.${unit.name}.withPrefix(this)"),
+                )),
+          ),
+      ),
+    );
+
     for (final isDot in [true, false]) {
       final type = isDot ? "Dot" : "Per";
       builder.add(
@@ -36,59 +57,34 @@ class PrefixedUnitPerGenerator extends GeneratorForAnnotation<DimensionConfig> {
                 "/// An extension that allows units of ${builder.dimension.name} to be created following calls to [${type.toLowerCase()}].")
             ..name = "PrefixedUnit$type${builder.dimension.name}"
             ..types.addAll([
-              Reference("N extends Unit<D, I>"),
-              Reference("D extends Dimension"),
-              Reference("I extends Dimension"),
+              Reference("N extends f.Unit<D, I>"),
+              Reference("D extends f.Dimension"),
+              Reference("I extends f.Dimension"),
             ])
-            ..on = Reference("PrefixedUnit$type<N, D, I>")
+            ..on = Reference("f.PrefixedUnit$type<N, D, I>")
             ..methods.addAll(
               unitBuilder.buildChildren(element).map(
-                    (unit) => Method(
-                      (method) => method
-                        ..docs.add(
-                            "/// Creates a derived unit with [f.${unit.name}] as the ${isDot ? "second term" : "denominator"}.")
-                        ..lambda = true
-                        ..type = MethodType.getter
-                        ..name = isDot ? unit.name : unit.singularName
-                        ..returns = Reference(
-                            "f.DerivedUnit2<D, f.${isDot ? "" : "Inverted"}${builder.dimension.name}, I, f.${isDot ? "Inverted" : ""}${builder.dimension.name}>")
-                        ..body = Code(
-                            "f.DerivedUnit2.build(first, prefix.${unit.name}${isDot ? "" : ".inverted"},)"),
-                    ),
-                  ),
-            ),
-        ),
-      );
-      builder.add(
-        Extension(
-          (prefixedUnit) => prefixedUnit
-            ..docs.add(
-                "/// An extension that allows ${builder.dimension.name} measurements to be created following calls to [${type.toLowerCase()}].")
-            ..name = "PrefixedUnit$type${builder.dimension.name}"
-            ..types.addAll([
-              Reference("N extends Measurement<D, I>"),
-              Reference("D extends Dimension"),
-              Reference("I extends Dimension"),
-            ])
-            ..on = Reference("PrefixedMeasurement$type<N, D, I>")
-            ..methods.addAll(
-              unitBuilder.buildChildren(element).map(
-                    (unit) => Method(
-                      (method) => method
-                        ..docs.add(
-                            "/// Creates a derived measurement with [f.${unit.name}] as the ${isDot ? "second term" : "denominator"}.")
-                        ..lambda = true
-                        ..type = MethodType.getter
-                        ..name = isDot ? unit.name : unit.singularName
-                        ..returns = Reference(
-                            "f.DerivedMeasurement2<D, f.${isDot ? "" : "Inverted"}${builder.dimension.name}, I, f.${isDot ? "Inverted" : ""}${builder.dimension.name}>")
-                        ..body = Code(
-                            "f.DerivedMeasurement2.build(first, prefix.${unit.name}${isDot ? "" : ".inverted"},)"),
-                    ),
-                  ),
+                (unit) {
+                  final name = isDot ? unit.name : unit.singularName;
+                  return Method(
+                    (method) => method
+                      ..docs.add(
+                          "/// Creates a derived unit with [f.${unit.name}] as the ${isDot ? "second term" : "denominator"}.")
+                      ..lambda = true
+                      ..type = MethodType.getter
+                      ..name = name
+                      ..returns = Reference(
+                          "f.DerivedUnit2<D, f.${isDot ? "" : "Inverted"}${builder.dimension.name}, I, f.${isDot ? "Inverted" : ""}${builder.dimension.name}>")
+                      ..body = Code(
+                          "f.DerivedUnit2.build(${isDot ? "initial" : "numerator"}, prefix.${unit.name}${isDot ? "" : ".inverted"},)"),
+                  );
+                },
+              ),
             ),
         ),
       );
     }
+
+    return builder.flush();
   }
 }
