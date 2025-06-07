@@ -5,7 +5,9 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
-Nothing, yet...
+### Changed
+
+- Remove generated files from source control
 
 ## [3.0.8]
 
