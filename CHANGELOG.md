@@ -17,6 +17,10 @@ types you need to work with from the rest of your code.
 
 - Apply precision prior to performing conversions
 
+### Removed
+
+- Removed references to the misspelled "Celcius" (all were already marked as deprecated)
+
 ## [3.0.8]
 
 ### Fixed

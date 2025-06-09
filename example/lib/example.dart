@@ -193,7 +193,7 @@ void main() {
 
   // Have fun!
   liters.per.second;
-  liters.per.second;
+  3.liters.per.second;
 
   milli.miles;
   miles.per.hour;
@@ -204,4 +204,6 @@ void main() {
   3.milli.miles;
   3.miles.per.milli;
   3.miles.per.milli.hour;
+
+  meters.per.hour.per.inch;
 }

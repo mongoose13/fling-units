@@ -35,14 +35,6 @@ enum TemperatureChangeConfig {
   )
   kelvin,
 
-  @Deprecated('Use celsius')
-  @UnitConfig(
-    shortName: "°C",
-    singularName: "celcius",
-    multiplier: 1e0,
-  )
-  celcius,
-
   @UnitConfig(
     shortName: "°C",
     singularName: "celsius",

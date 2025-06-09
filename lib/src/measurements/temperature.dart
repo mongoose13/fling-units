@@ -47,13 +47,6 @@ class Temperature implements Comparable<Temperature> {
           kelvin,
         );
 
-  /// Constructs a [Temperature] from a degree Celcius amount.
-  @Deprecated('Use [ofCelsius]')
-  Temperature.ofCelcius(
-    num amount, {
-    Precision precision = Precision.max,
-  }) : this.ofCelsius(amount, precision: precision);
-
   /// Constructs a [Temperature] from a degree Celsius amount.
   Temperature.ofCelsius(
     num amount, {
@@ -84,10 +77,6 @@ class Temperature implements Comparable<Temperature> {
 
   /// Interprets this as Kelvin.
   double get asKelvin => precision.apply(_kelvin);
-
-  /// Interprets this as degrees Celcius.
-  @Deprecated('Use [asCelsius]')
-  double get asCelcius => asCelsius;
 
   /// Interprets this as degrees Celsius.
   double get asCelsius =>
@@ -210,7 +199,5 @@ mixin TemperatureVisitorMixin {
 extension NumExtensionTemperature on num {
   Temperature get ofKelvin => Temperature.ofKelvin(this);
   Temperature get ofFahrenheit => Temperature.ofFahrenheit(this);
-  @Deprecated('Use [ofCelsius]')
-  Temperature get ofCelcius => ofCelsius;
   Temperature get ofCelsius => Temperature.ofCelsius(this);
 }
