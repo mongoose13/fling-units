@@ -27,7 +27,6 @@ enum SpeedConfig {
   @MeasurementConstant(
     unit: "mps",
     magnitude: 2.99792458e8,
-    precision: f.Precision.maximumPrecision,
   )
   speedOfLight;
 }

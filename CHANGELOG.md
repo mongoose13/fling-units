@@ -5,6 +5,22 @@ types you need to work with from the rest of your code.
 
 ## [Unreleased]
 
+### Added
+
+- Precision accepts two approaches: significant digits or digits after decimal
+
+## [3.0.8]
+
+### Fixed
+
+- Intrinsic volume unit conversion multipliers were inverted [#8](https://github.com/mongoose13/fling-units/issues/8)
+
+## [3.0.7]
+
+### Fixed
+
+- Equality works for units with prefixes
+
 ### Changed
 
 - Improved makefile targets and automated build steps
@@ -18,7 +34,7 @@ types you need to work with from the rest of your code.
 ### Changed
 
 - Enable strict type checking in analyzer
-- Renamed Celcius to Celsius (correct spelling) per [Issue #2](https://github.com/mongoose13/fling-units/issues/2)
+- Renamed Celcius to Celsius (correct spelling) [#2](https://github.com/mongoose13/fling-units/issues/2)
 
 ## [3.0.5]
 

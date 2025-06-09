@@ -33,7 +33,7 @@ void main() {
           final unit = centi.seconds.inverted;
 
           // when
-          final measurement = unit(2.4).withPrecision(3);
+          final measurement = unit(2.4).withPrecision(DigitsAfterDecimal(2));
 
           // then
           expect(measurement.defaultUnit, centi.seconds.inverted);
@@ -43,7 +43,7 @@ void main() {
           final unit = centi.seconds.inverted;
 
           // when
-          final measurement = unit(2.4).withPrecision(3);
+          final measurement = unit(2.4).withPrecision(DigitsAfterDecimal(2));
 
           // then
           expect(measurement.defaultValue, 2.4);
@@ -53,17 +53,17 @@ void main() {
           final unit = centi.seconds.inverted;
 
           // when
-          final measurement = unit(2.4).withPrecision(3);
+          final measurement = unit(2.4).withPrecision(DigitsAfterDecimal(2));
 
           // then
-          expect(measurement.precision, 3);
+          expect(measurement.precision, DigitsAfterDecimal(2));
         });
         test('converts to SI', () {
           // given
           final unit = centi.seconds.inverted;
 
           // when
-          final measurement = unit(2.4).withPrecision(3);
+          final measurement = unit(2.4).withPrecision(DigitsAfterDecimal(2));
 
           // then
           expect(measurement.as(seconds.inverted), 240.0);
@@ -73,7 +73,7 @@ void main() {
           final unit = minutes.inverted;
 
           // when
-          final measurement = unit(2.4).withPrecision(3);
+          final measurement = unit(2.4).withPrecision(DigitsAfterDecimal(2));
 
           // then
           expect(measurement.as(hours.inverted), 144.0);
@@ -88,7 +88,7 @@ void main() {
           final unit = DerivedUnit2.build(meters, meters);
 
           // when
-          final result = unit(6).withPrecision(3);
+          final result = unit(6).withPrecision(DigitsAfterDecimal(2));
 
           // then
           expect(result.defaultUnit, unit);
@@ -98,7 +98,7 @@ void main() {
           final unit = DerivedUnit2.build(meters, meters);
 
           // when
-          final result = unit(6).withPrecision(3);
+          final result = unit(6).withPrecision(DigitsAfterDecimal(2));
 
           // then
           expect(result.defaultValue, 6.0);
@@ -108,10 +108,10 @@ void main() {
           final unit = DerivedUnit2.build(meters, meters);
 
           // when
-          final result = unit(6).withPrecision(3);
+          final result = unit(6).withPrecision(DigitsAfterDecimal(2));
 
           // then
-          expect(result.precision, 3);
+          expect(result.precision, DigitsAfterDecimal(2));
         });
       });
 
@@ -129,7 +129,8 @@ void main() {
           });
           test('disparate units', () {
             // given
-            final unit = DerivedUnit2.build(meters, meters)(6).withPrecision(3);
+            final unit = DerivedUnit2.build(meters, meters)(6)
+                .withPrecision(DigitsAfterDecimal(2));
 
             // when
             final result = unit.as(DerivedUnit2.build(meters, deci.meters));
@@ -139,7 +140,8 @@ void main() {
           });
           test('disparate units transposed', () {
             // given
-            final unit = DerivedUnit2.build(meters, meters)(6).withPrecision(3);
+            final unit = DerivedUnit2.build(meters, meters)(6)
+                .withPrecision(DigitsAfterDecimal(2));
 
             // when
             final result = unit.as(DerivedUnit2.build(deci.meters, meters));
@@ -185,8 +187,8 @@ void main() {
           });
           test('disparate non-si units', () {
             // given
-            final unit =
-                DerivedUnit2.build(miles, hours.inverted)(2).withPrecision(3);
+            final unit = DerivedUnit2.build(miles, hours.inverted)(2)
+                .withPrecision(DigitsAfterDecimal(3));
 
             // when
             final result =
@@ -231,7 +233,7 @@ void main() {
         });
         test('square', () {
           // given
-          final unit = square(feet)(6).withPrecision(3);
+          final unit = square(feet)(6).withPrecision(DigitsAfterDecimal(2));
 
           // when
           final result = unit.toString();
@@ -261,7 +263,7 @@ void main() {
         });
         test('butAs no change', () {
           // given
-          final unit = square(feet)(6).withPrecision(3);
+          final unit = square(feet)(6).withPrecision(DigitsAfterDecimal(2));
 
           // when
           final result = unit.butAs(square(feet)).toString();
@@ -271,7 +273,7 @@ void main() {
         });
         test('butAs partial change', () {
           // given
-          final unit = square(feet)(6).withPrecision(3);
+          final unit = square(feet)(6).withPrecision(DigitsAfterDecimal(2));
 
           // when
           final result =
@@ -282,7 +284,8 @@ void main() {
         });
         test('butAs full change', () {
           // given
-          final unit = DerivedUnit2.build(meters, feet)(6).withPrecision(3);
+          final unit = DerivedUnit2.build(meters, feet)(6)
+              .withPrecision(DigitsAfterDecimal(0));
 
           // when
           final result =
@@ -293,8 +296,8 @@ void main() {
         });
         test('butAs full change and initial prefixes', () {
           // given
-          final unit =
-              DerivedUnit2.build(centi.meters, deka.feet)(6).withPrecision(3);
+          final unit = DerivedUnit2.build(centi.meters, deka.feet)(6)
+              .withPrecision(SignificantDigits(3));
 
           // when
           final result =
@@ -305,8 +308,8 @@ void main() {
         });
         test('butAs full change and full prefixes', () {
           // given
-          final unit =
-              DerivedUnit2.build(centi.meters, deka.feet)(6).withPrecision(3);
+          final unit = DerivedUnit2.build(centi.meters, deka.feet)(6)
+              .withPrecision(SignificantDigits(3));
 
           // when
           final result = unit
@@ -337,7 +340,8 @@ void main() {
         group('as', () {
           test('from SI to SI', () {
             // given
-            final measurement = cubic(meters)(3).withPrecision(3);
+            final measurement =
+                cubic(meters)(3).withPrecision(DigitsAfterDecimal(2));
 
             // when
             final result = measurement.as(cubic(meters));
@@ -347,7 +351,8 @@ void main() {
           });
           test('from SI to other', () {
             // given
-            final measurement = cubic(meters)(2).withPrecision(3);
+            final measurement =
+                cubic(meters)(2).withPrecision(SignificantDigits(3));
 
             // when
             final result = measurement.as(cubic(feet));
@@ -357,7 +362,8 @@ void main() {
           });
           test('from other to SI', () {
             // given
-            final measurement = cubic(inches)(144).withPrecision(3);
+            final measurement =
+                cubic(inches)(144).withPrecision(SignificantDigits(3));
 
             // when
             final result = measurement.as(cubic(meters));
@@ -367,7 +373,8 @@ void main() {
           });
           test('from other to other', () {
             // given
-            final measurement = cubic(inches)(144).withPrecision(3);
+            final measurement =
+                cubic(inches)(144).withPrecision(SignificantDigits(3));
 
             // when
             final result = measurement.as(cubic(feet));
@@ -377,7 +384,8 @@ void main() {
           });
           test('from other to other with prefix', () {
             // given
-            final measurement = cubic(deka.inches)(3).withPrecision(3);
+            final measurement =
+                cubic(deka.inches)(3).withPrecision(SignificantDigits(3));
 
             // when
             final result = measurement.as(cubic(centi.feet));
@@ -404,7 +412,9 @@ void main() {
           final unit = cubic(meters);
 
           // when
-          final result = unit.using(3.feet, 1.yards, 4.inches).withPrecision(3);
+          final result = unit
+              .using(3.feet, 1.yards, 4.inches)
+              .withPrecision(SignificantDigits(3));
 
           // then
           expect(result.defaultValue, 0.085);

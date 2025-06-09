@@ -15,8 +15,8 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   /// Creates a base measurement.
   const Measurement({
     required this.magnitude,
-    Precision precision = Precision.max,
-  }) : precisionData = precision;
+    this.precision = Precision.max,
+  });
 
   /// Creates a measurement of magnitude zero.
   const Measurement.zero() : this(magnitude: 0.0);
@@ -40,13 +40,11 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
         );
 
   /// Creates a measurement that is the sum of several measurements.
-  Measurement.sum(
-    Iterable<Measurement<D, I>> parts, {
-    int precision = Precision.maximumPrecision,
-  }) : this(
+  Measurement.sum(Iterable<Measurement<D, I>> parts, {Precision? precision})
+      : this(
           magnitude: parts.fold(
               0.0, (previousValue, element) => previousValue + element.si),
-          precision: Precision(precision),
+          precision: precision ?? Precision.having(),
         );
 
   /// The default unit for this measurement.
@@ -80,9 +78,6 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   /// Returns `true` if this measurement cannot be expressed as a number.
   bool get isNaN => magnitude.isNaN;
 
-  /// Returns the number of digits of precision this measurement has.
-  int get precision => precisionData.precision;
-
   /// Returns whether two measurements are functionally identical.
   ///
   /// This means that, when their precisions are taken into account, they
@@ -92,8 +87,8 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   /// For example, given the three measurements:
   /// ```
   /// var a = (3.14159).meters.withPrecision(5);
-  /// var b = (3.14159).meters.withPrecision(3);
-  /// var c = (3.1).meters.withPrecision(3);
+  /// var b = (3.14159).meters.withPrecision(DigitsAfterDecimal(2));
+  /// var c = (3.1).meters.withPrecision(DigitsAfterDecimal(2));
   ///
   /// a.equals(b); // true  (because 3.14 == 3.14)
   /// b.equals(a); // true  (because 3.14 == 3.14)
@@ -112,10 +107,10 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
       identical(this, other) ||
       other is Measurement<D, I> &&
           si == other.si &&
-          precisionData == other.precisionData;
+          precision == other.precision;
 
   @override
-  int get hashCode => si.hashCode * precisionData.hashCode;
+  int get hashCode => si.hashCode * precision.hashCode;
 
   /// Returns `true` if this is greater than the other measurement.
   ///
@@ -169,7 +164,7 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   String toString() => '$defaultValue $defaultUnit';
 
   /// Apply the measurement appropriate precision to a value.
-  double _precise(num value) => precisionData.apply(value);
+  double _precise(num value) => precision.apply(value);
 
   /// Apply the measurement appropriate precision to the base value.
   double get preciseDefaultValue => _precise(si);
@@ -178,5 +173,5 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   final num magnitude;
 
   /// The precision of this measurement.
-  final Precision precisionData;
+  final Precision precision;
 }

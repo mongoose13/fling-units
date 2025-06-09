@@ -57,11 +57,9 @@ class PrefixConfig {
 class MeasurementConstant {
   final String unit;
   final double magnitude;
-  final int precision;
 
   const MeasurementConstant({
     required this.unit,
     required this.magnitude,
-    required this.precision,
   });
 }

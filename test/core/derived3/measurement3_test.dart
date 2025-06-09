@@ -47,7 +47,8 @@ void main() {
     group("as", () {
       test("cubic", () {
         // given
-        final measurement = cubic(feet)(35.3).withPrecision(3);
+        final measurement =
+            cubic(feet)(35.3).withPrecision(DigitsAfterDecimal(1));
 
         // when
         final result = measurement.as(cubic(meters));
@@ -57,8 +58,8 @@ void main() {
       });
       test("product", () {
         // given
-        final measurement =
-            DerivedUnit3.build(feet, feet, feet)(35.3).withPrecision(3);
+        final measurement = DerivedUnit3.build(feet, feet, feet)(35.3)
+            .withPrecision(DigitsAfterDecimal(1));
 
         // when
         final result = measurement.as(cubic(meters));
@@ -68,7 +69,8 @@ void main() {
       });
       test("from SI to other", () {
         // given
-        final measurement = 1.cubic(meters).withPrecision(3);
+        final measurement =
+            1.cubic(meters).withPrecision(DigitsAfterDecimal(1));
 
         // when
         final result = measurement.as(cubic(feet));
@@ -81,7 +83,8 @@ void main() {
     group("butAs", () {
       test("cubic", () {
         // given
-        final measurement = square(feet)(10.8).withPrecision(3);
+        final measurement =
+            square(feet)(10.8).withPrecision(DigitsAfterDecimal(1));
 
         // when
         final result = measurement.butAs(square(meters));
@@ -92,8 +95,8 @@ void main() {
       });
       test("product", () {
         // given
-        final measurement =
-            DerivedUnit3.build(feet, feet, feet)(35.3).withPrecision(3);
+        final measurement = DerivedUnit3.build(feet, feet, feet)(35.3)
+            .withPrecision(DigitsAfterDecimal(1));
 
         // when
         final result = measurement.butAs(cubic(meters));
@@ -104,7 +107,8 @@ void main() {
       });
       test("from SI to other", () {
         // given
-        final measurement = 1.cubic(meters).withPrecision(3);
+        final measurement =
+            1.cubic(meters).withPrecision(DigitsAfterDecimal(1));
 
         // when
         final result = measurement.butAs(cubic(feet));

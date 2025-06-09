@@ -13,8 +13,8 @@ void main() {
         });
         test('zero with custom default interpreter', () {
           // given
-          final interpreter =
-              Temperature.absoluteZero(fahrenheit).withPrecision(5);
+          final interpreter = Temperature.absoluteZero(fahrenheit)
+              .withPrecision(DigitsAfterDecimal(2));
 
           // when
           final result = interpreter.toString();
@@ -51,7 +51,8 @@ void main() {
           expect(result.asKelvin, 293.15);
         });
         test('fahrenheit', () {
-          final result = Temperature.ofFahrenheit(70.0, precision: 5);
+          final result =
+              Temperature.ofFahrenheit(70.0, precision: DigitsAfterDecimal(2));
 
           expect(result.asKelvin, 294.26);
         });
@@ -261,25 +262,27 @@ void main() {
       });
       test('precision is maintained', () {
         // given
-        final temperature = Temperature.ofKelvin(123, precision: 3);
-        final change = kelvin(32, precision: 2);
+        final temperature =
+            Temperature.ofKelvin(123, precision: SignificantDigits(3));
+        final change = kelvin(32, precision: SignificantDigits(2));
 
         // when
         final result = temperature + change;
 
         // then
-        expect(result.precision, 3);
+        expect(result.precision, SignificantDigits(3));
       });
       test('precision is recalculated below the decimal', () {
         // given
-        final temperature = Temperature.ofKelvin(123.45, precision: 5);
-        final change = kelvin(987.65, precision: 5);
+        final temperature =
+            Temperature.ofKelvin(123.45, precision: SignificantDigits(5));
+        final change = kelvin(987.65, precision: SignificantDigits(5));
 
         // when
         final result = temperature + change;
 
         // then
-        expect(result.precision, 6);
+        expect(result.precision, SignificantDigits(6));
       });
       test('invalid', () {
         // given
@@ -335,25 +338,27 @@ void main() {
       });
       test('precision is maintained', () {
         // given
-        final temperature = Temperature.ofKelvin(123, precision: 3);
-        final change = kelvin(32, precision: 2);
+        final temperature =
+            Temperature.ofKelvin(123, precision: SignificantDigits(3));
+        final change = kelvin(32, precision: SignificantDigits(2));
 
         // when
         final result = temperature - change;
 
         // then
-        expect(result.precision, 2);
+        expect(result.precision, SignificantDigits(2));
       });
       test('precision is recalculated below the decimal', () {
         // given
-        final temperature = Temperature.ofKelvin(123.45, precision: 5);
-        final change = kelvin(24.65, precision: 4);
+        final temperature =
+            Temperature.ofKelvin(123.45, precision: SignificantDigits(5));
+        final change = kelvin(24.65, precision: SignificantDigits(4));
 
         // when
         final result = temperature - change;
 
         // then
-        expect(result.precision, 4);
+        expect(result.precision, SignificantDigits(4));
       });
       test('invalid', () {
         // given
@@ -387,7 +392,8 @@ void main() {
     group('toString', () {
       test('maintains units', () {
         // given
-        final measurement = Temperature.ofFahrenheit(3.4).withPrecision(3);
+        final measurement =
+            Temperature.ofFahrenheit(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -397,7 +403,7 @@ void main() {
       });
       test('extension maintains units K', () {
         // given
-        final measurement = 3.4.ofKelvin.withPrecision(3);
+        final measurement = 3.4.ofKelvin.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -407,7 +413,8 @@ void main() {
       });
       test('extension maintains units F', () {
         // given
-        final measurement = 3.4.ofFahrenheit.withPrecision(3);
+        final measurement =
+            3.4.ofFahrenheit.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -417,7 +424,7 @@ void main() {
       });
       test('extension maintains units C', () {
         // given
-        final measurement = 3.4.ofCelsius.withPrecision(3);
+        final measurement = 3.4.ofCelsius.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -427,7 +434,8 @@ void main() {
       });
       test('modified units', () {
         // given
-        final measurement = 3.4.ofFahrenheit.withPrecision(3);
+        final measurement =
+            3.4.ofFahrenheit.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.withDefaultUnit(celsius).toString();

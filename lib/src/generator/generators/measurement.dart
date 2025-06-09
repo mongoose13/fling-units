@@ -126,8 +126,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                       Parameter(
                         (precision) => precision
                           ..name = "precision"
-                          ..type = Reference("int")
-                          ..defaultTo = Code("f.Precision.maximumPrecision")
+                          ..type = Reference("f.Precision")
+                          ..defaultTo = Code("f.Precision.max")
                           ..named = true,
                       ),
                       Parameter(
@@ -143,7 +143,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                         "super("
                         "magnitude: (defaultUnit ?? parts.first.defaultUnit).fromSI(parts.fold("
                         "0.0, (previousValue, element) => previousValue + element.si)),"
-                        "precision: f.Precision(precision),"
+                        "precision: precision,"
                         ")"),
                   ),
               ),
@@ -222,11 +222,11 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..requiredParameters.add(Parameter(
                     (precision) => precision
                       ..name = "precision"
-                      ..type = Reference("int"),
+                      ..type = Reference("f.Precision"),
                   ))
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(magnitude.toDouble(), defaultUnit, f.Precision(precision))"),
+                      "$measurementName(magnitude.toDouble(), defaultUnit, precision)"),
               ),
             )
             ..methods.add(
@@ -238,7 +238,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..lambda = true
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(-magnitude.toDouble(), defaultUnit, precisionData)"),
+                      "$measurementName(-magnitude.toDouble(), defaultUnit, precision)"),
               ),
             )
             ..methods.add(
@@ -257,7 +257,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(defaultUnit.fromSI(si + other.si), defaultUnit, f.Precision(f.Precision.addition(this, other)))"),
+                      "$measurementName(defaultUnit.fromSI(si + other.si), defaultUnit, f.Precision.addition(this, other))"),
               ),
             )
             ..methods.add(
@@ -274,7 +274,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(defaultUnit.fromSI(si - other.si), defaultUnit, f.Precision(f.Precision.addition(this, -other)))"),
+                      "$measurementName(defaultUnit.fromSI(si - other.si), defaultUnit, f.Precision.addition(this, -other))"),
               ),
             )
             ..methods.add(
@@ -293,7 +293,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ),
                   )
                   ..body = Code(
-                      "$measurementName(magnitude * multiplier.toDouble(), defaultUnit, precisionData)"),
+                      "$measurementName(magnitude * multiplier.toDouble(), defaultUnit, precision)"),
               ),
             )
             ..methods.add(
@@ -312,7 +312,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ),
                   )
                   ..body = Code(
-                      "$measurementName(magnitude / divisor.toDouble(), defaultUnit, precisionData)"),
+                      "$measurementName(magnitude / divisor.toDouble(), defaultUnit, precision)"),
               ),
             )
             ..methods.add(
@@ -338,7 +338,6 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                      ///
                      /// If the divisor is zero or the dividend is infinite, the result is always NaN.""")
                 ..name = "operator %"
-                ..lambda = true
                 ..requiredParameters.add(
                   Parameter(
                     (other) => other
@@ -348,7 +347,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                 )
                 ..returns = measurementType
                 ..body = Code(
-                    "$measurementName(defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue), defaultUnit, f.Precision.combine([precision, other.precision]),)")),
+                    "final magnitude = defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue);"
+                    "return $measurementName(magnitude, defaultUnit, f.Precision.combine([precision, other.precision], magnitude));")),
             )
             ..methods.add(
               Method(
@@ -366,7 +366,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ),
                   )
                   ..body = Code(
-                      "$measurementName(unit.fromSI(si), unit, precisionData)"),
+                      "$measurementName(unit.fromSI(si), unit, precision)"),
               ),
             )
             ..methods.add(
@@ -384,7 +384,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..returns = Reference("double")
                   ..lambda = true
-                  ..body = Code("precisionData.apply(unit.fromSI(si))"),
+                  ..body = Code("precision.apply(unit.fromSI(si))"),
               ),
             )
             ..methods.add(
@@ -402,7 +402,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..name = "inverted"
                   ..returns = Reference(invertedMeasurementName)
                   ..body = Code(
-                      "$invertedMeasurementName(magnitude, defaultUnit.inverted, precisionData,)"),
+                      "$invertedMeasurementName(magnitude, defaultUnit.inverted, precision,)"),
               ),
             )
             ..methods.add(

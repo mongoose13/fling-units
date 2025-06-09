@@ -22,7 +22,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -54,7 +54,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -86,7 +86,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -116,7 +116,7 @@ void main() {
             nano.meters(123),
             pico.meters(456),
           ],
-          precision: 16,
+          precision: SignificantDigits(16),
         );
 
         // when
@@ -130,7 +130,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final measurement = meters(123.456, precision: 8);
+        final measurement = meters(123.456, precision: SignificantDigits(8));
 
         // when
         final result = measurement.as(nauticalMiles);
@@ -143,7 +143,7 @@ void main() {
     group('meters', () {
       test('converts to base', () {
         // given
-        final measurement = meters(1234.0, precision: 5);
+        final measurement = meters(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(meters);
@@ -153,7 +153,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.meters(1234.0, precision: 5);
+        final measurement =
+            milli.meters(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(meters);
@@ -165,7 +166,7 @@ void main() {
     group('miles', () {
       test('converts to base', () {
         // given
-        final measurement = miles(1234.0, precision: 5);
+        final measurement = miles(1234.0, precision: DigitsAfterDecimal(-2));
 
         // when
         final result = measurement.as(meters);
@@ -175,7 +176,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.miles(1234.0, precision: 5);
+        final measurement =
+            milli.miles(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(miles);
@@ -187,7 +189,7 @@ void main() {
     group('yards', () {
       test('converts to base', () {
         // given
-        final measurement = yards(1234.0, precision: 5);
+        final measurement = yards(1234.0, precision: DigitsAfterDecimal(1));
 
         // when
         final result = measurement.as(meters);
@@ -197,7 +199,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.yards(1234.0, precision: 5);
+        final measurement =
+            milli.yards(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(yards);
@@ -209,7 +212,7 @@ void main() {
     group('feet', () {
       test('converts to base', () {
         // given
-        final measurement = feet(1234.0, precision: 5);
+        final measurement = feet(1234.0, precision: DigitsAfterDecimal(2));
 
         // when
         final result = measurement.as(meters);
@@ -219,7 +222,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.feet(1234.0, precision: 5);
+        final measurement =
+            milli.feet(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(feet);
@@ -231,7 +235,7 @@ void main() {
     group('inches', () {
       test('converts to base', () {
         // given
-        final measurement = inches(1234.0, precision: 5);
+        final measurement = inches(1234.0, precision: DigitsAfterDecimal(3));
 
         // when
         final result = measurement.as(meters);
@@ -241,7 +245,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.inches(1234.0, precision: 5);
+        final measurement =
+            milli.inches(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(inches);
@@ -253,7 +258,8 @@ void main() {
     group('nauticalMiles', () {
       test('converts to base', () {
         // given
-        final measurement = nauticalMiles(1234.0, precision: 5);
+        final measurement =
+            nauticalMiles(1234.0, precision: DigitsAfterDecimal(-2));
 
         // when
         final result = measurement.as(meters);
@@ -263,7 +269,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.nauticalMiles(1234.0, precision: 5);
+        final measurement =
+            milli.nauticalMiles(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(nauticalMiles);
@@ -296,7 +303,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = feet(3.4).withPrecision(3);
+        final measurement = feet(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -306,7 +313,8 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.feet(3.4).withPrecision(3);
+        final measurement =
+            milli.feet(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -316,7 +324,7 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.feet.withPrecision(3);
+        final measurement = 3.4.milli.feet.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -326,17 +334,20 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.feet(23.45).withPrecision(3);
+        final measurement =
+            deci.feet(23.45).withPrecision(DigitsAfterDecimal(2));
 
         // when
-        final result = measurement.withPrecision(2).toString();
+        final result =
+            measurement.withPrecision(DigitsAfterDecimal(0)).toString();
 
         // then
         expect(result, '23.0 dft');
       });
       test('modified units', () {
         // given
-        final measurement = deci.feet(23.45).withPrecision(3);
+        final measurement =
+            deci.feet(23.45).withPrecision(DigitsAfterDecimal(0));
 
         // when
         final result = measurement.butAs(milli.meters).toString();

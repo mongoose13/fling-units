@@ -159,14 +159,14 @@ when you create the measurement, or later on:
   double myHeightInInches = myHeight.as(inches); // 59.0
   
   var myWeight = kilo.grams(61.234);
-  double myPreciseWeight = myWeight.withPrecision(3); // 61.2
+  double myPreciseWeight = myWeight.withPrecision(DigitsAfterDecimal(2)); // 61.2
 ```
 
 Use the `equals` method for less restrictive equality checks that read more naturally,
 even if the measurements' precisions differ:
 
 ```dart
-  var massOfMyPetRock = 500.grams.withPrecision(3);
+  var massOfMyPetRock = 500.grams.withPrecision(DigitsAfterDecimal(2));
   var anotherWayToWriteIt = (0.5).kilo.grams.withPrecision(1);
 
   massOfMyPetRock == anotherWayToWriteIt; // false

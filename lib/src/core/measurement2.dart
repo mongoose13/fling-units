@@ -12,10 +12,10 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
     required this.defaultUnit,
   });
 
-  DerivedMeasurement2<D1, D2, I1, I2> withPrecision(int precision) =>
+  DerivedMeasurement2<D1, D2, I1, I2> withPrecision(Precision precision) =>
       DerivedMeasurement2(
         magnitude: magnitude,
-        precision: Precision(precision),
+        precision: precision,
         defaultUnit: defaultUnit,
       );
 
@@ -23,19 +23,19 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
           DerivedUnit2<D1, D2, I1, I2> unit) =>
       DerivedMeasurement2(
         magnitude: unit.fromSI(si),
-        precision: Precision(precision),
+        precision: precision,
         defaultUnit: unit,
       );
 
   double as(DerivedUnit2<D1, D2, I1, I2> unit) =>
-      precisionData.apply(unit.fromSI(si));
+      precision.apply(unit.fromSI(si));
 
   /// Returns a measurement representing the opposite magnitude of this.
   DerivedMeasurement2<D1, D2, I1, I2> operator -() =>
       DerivedMeasurement2<D1, D2, I1, I2>(
         magnitude: -magnitude,
         defaultUnit: defaultUnit,
-        precision: precisionData,
+        precision: precision,
       );
 
   /// Returns a measurement equivalent to the sum of this and another measurement of the same dimension.
@@ -43,7 +43,7 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
           DerivedMeasurement2<D1, D2, I1, I2> other) =>
       DerivedMeasurement2(
         magnitude: magnitude + other.as(defaultUnit),
-        precision: f.Precision(f.Precision.addition(this, other)),
+        precision: f.Precision.addition(this, other),
         defaultUnit: defaultUnit,
       );
 
@@ -52,7 +52,7 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
           DerivedMeasurement2<D1, D2, I1, I2> other) =>
       DerivedMeasurement2(
         magnitude: magnitude - other.as(defaultUnit),
-        precision: f.Precision(f.Precision.addition(this, other)),
+        precision: f.Precision.addition(this, other),
         defaultUnit: defaultUnit,
       );
 
@@ -61,7 +61,7 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
       DerivedMeasurement2<D1, D2, I1, I2>(
         magnitude: magnitude * multiplier.toDouble(),
         defaultUnit: defaultUnit,
-        precision: precisionData,
+        precision: precision,
       );
 
   /// Returns a measurement equivalent to a fraction of this.
@@ -69,7 +69,7 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
       DerivedMeasurement2<D1, D2, I1, I2>(
         magnitude: magnitude / divisor.toDouble(),
         defaultUnit: defaultUnit,
-        precision: precisionData,
+        precision: precision,
       );
 
   /// Returns the Euclidean remainder of the division between two measurements.
@@ -92,18 +92,20 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
   ///
   /// If the divisor is zero or the dividend is infinite, the result is always NaN.
   DerivedMeasurement2<D1, D2, I1, I2> operator %(
-          DerivedMeasurement2<D1, D2, I1, I2> other) =>
-      DerivedMeasurement2<D1, D2, I1, I2>(
-        magnitude:
-            defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue),
-        defaultUnit: defaultUnit,
-        precision: f.Precision.combine([precision, other.precision]),
-      );
+      DerivedMeasurement2<D1, D2, I1, I2> other) {
+    final magnitude =
+        defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue);
+    return DerivedMeasurement2<D1, D2, I1, I2>(
+      magnitude: magnitude,
+      defaultUnit: defaultUnit,
+      precision: f.Precision.combine([precision, other.precision], magnitude),
+    );
+  }
 
   DerivedMeasurement2<I1, I2, D1, D2> get inverted => DerivedMeasurement2(
         magnitude: magnitude,
         defaultUnit: defaultUnit.inverted,
-        precision: precisionData,
+        precision: precision,
       );
 
   DerivedMeasurement2<f.Dimension2<D1, D2>, D, f.Dimension2<I1, I2>, I>

@@ -22,7 +22,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -54,7 +54,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -86,7 +86,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -107,7 +107,7 @@ void main() {
           amperes(2.1),
           amperes(5.0),
           amperes(0.3),
-        ], precision: 5);
+        ], precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(amperes);
@@ -120,7 +120,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final measurement = amperes(1.234, precision: 8);
+        final measurement = amperes(1.234, precision: SignificantDigits(8));
 
         // when
         final result = measurement.as(amperes);
@@ -133,7 +133,7 @@ void main() {
     group('amperes', () {
       test('converts to base', () {
         // given
-        final measurement = amperes(1.234, precision: 5);
+        final measurement = amperes(1.234, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(amperes);
@@ -143,7 +143,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.amperes(1.234e3, precision: 5);
+        final measurement =
+            milli.amperes(1.234e3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(amperes);
@@ -176,7 +177,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = amperes(3.4).withPrecision(3);
+        final measurement = amperes(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -186,7 +187,8 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.amperes(3.4).withPrecision(3);
+        final measurement =
+            milli.amperes(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -196,7 +198,8 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.amperes.withPrecision(3);
+        final measurement =
+            3.4.milli.amperes.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -206,10 +209,12 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.amperes(23.45).withPrecision(3);
+        final measurement =
+            deci.amperes(23.45).withPrecision(DigitsAfterDecimal(2));
 
         // when
-        final result = measurement.withPrecision(2).toString();
+        final result =
+            measurement.withPrecision(DigitsAfterDecimal(0)).toString();
 
         // then
         expect(result, '23.0 dA');

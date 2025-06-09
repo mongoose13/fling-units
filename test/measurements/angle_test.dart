@@ -22,7 +22,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -54,7 +54,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -86,7 +86,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -118,7 +118,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -150,7 +150,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -171,7 +171,7 @@ void main() {
           degrees(2.1),
           arcMinutes(5.0),
           arcSeconds(0.3),
-        ], precision: 5);
+        ], precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(degrees);
@@ -184,7 +184,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final measurement = turns(1.234, precision: 5);
+        final measurement = turns(1.234, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(radians);
@@ -197,7 +197,7 @@ void main() {
     group('turns', () {
       test('converts to base', () {
         // given
-        final measurement = turns(1.234, precision: 5);
+        final measurement = turns(1.234, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(turns);
@@ -207,7 +207,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.turns(1.234e3, precision: 5);
+        final measurement =
+            milli.turns(1.234e3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(turns);
@@ -220,7 +221,7 @@ void main() {
     group('radians', () {
       test('converts to base', () {
         // given
-        final measurement = radians(1.234, precision: 5);
+        final measurement = radians(1.234, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(turns);
@@ -230,7 +231,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.radians(1.234e3, precision: 5);
+        final measurement =
+            milli.radians(1.234e3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = measurement.as(turns);
@@ -243,7 +245,7 @@ void main() {
     group('gradians', () {
       test('converts to base', () {
         // given
-        final measurement = gradians(1.234, precision: 5);
+        final measurement = gradians(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -253,7 +255,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.gradians(1.234e3, precision: 5);
+        final measurement =
+            milli.gradians(1.234e3, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -266,7 +269,7 @@ void main() {
     group('degrees', () {
       test('converts to base', () {
         // given
-        final measurement = degrees(123.4, precision: 5);
+        final measurement = degrees(123.4, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -276,7 +279,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.degrees(123.4e3, precision: 5);
+        final measurement =
+            milli.degrees(123.4e3, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -289,7 +293,7 @@ void main() {
     group('arc minutes', () {
       test('converts to base', () {
         // given
-        final measurement = arcMinutes(123.4, precision: 5);
+        final measurement = arcMinutes(123.4, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -299,7 +303,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.arcMinutes(123.4e3, precision: 5);
+        final measurement =
+            milli.arcMinutes(123.4e3, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -312,7 +317,7 @@ void main() {
     group('arc seconds', () {
       test('converts to base', () {
         // given
-        final measurement = arcSeconds(1234, precision: 5);
+        final measurement = arcSeconds(1234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -322,7 +327,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.arcSeconds(1234e3, precision: 5);
+        final measurement =
+            milli.arcSeconds(1234e3, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(turns);
@@ -355,7 +361,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = degrees(3.4).withPrecision(3);
+        final measurement = degrees(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -365,7 +371,8 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.degrees(3.4).withPrecision(3);
+        final measurement =
+            milli.degrees(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -375,7 +382,8 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.degrees.withPrecision(3);
+        final measurement =
+            3.4.milli.degrees.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -385,10 +393,12 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.degrees(23.45).withPrecision(3);
+        final measurement =
+            deci.degrees(23.45).withPrecision(SignificantDigits(2));
 
         // when
-        final result = measurement.withPrecision(2).toString();
+        final result =
+            measurement.withPrecision(SignificantDigits(2)).toString();
 
         // then
         expect(result, '23.0 d°');

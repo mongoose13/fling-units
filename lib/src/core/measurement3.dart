@@ -17,10 +17,11 @@ class DerivedMeasurement3<
     required this.defaultUnit,
   });
 
-  DerivedMeasurement3<D1, D2, D3, I1, I2, I3> withPrecision(int precision) =>
+  DerivedMeasurement3<D1, D2, D3, I1, I2, I3> withPrecision(
+          Precision precision) =>
       DerivedMeasurement3(
         magnitude: magnitude,
-        precision: Precision(precision),
+        precision: precision,
         defaultUnit: defaultUnit,
       );
 
@@ -28,12 +29,12 @@ class DerivedMeasurement3<
           DerivedUnit3<D1, D2, D3, I1, I2, I3> unit) =>
       DerivedMeasurement3(
         magnitude: unit.fromSI(si),
-        precision: Precision(precision),
+        precision: precision,
         defaultUnit: unit,
       );
 
   double as(DerivedUnit3<D1, D2, D3, I1, I2, I3> unit) =>
-      precisionData.apply(unit.fromSI(si));
+      precision.apply(unit.fromSI(si));
 
   f.MeasurementPer<
       DerivedMeasurement3<D1, D2, D3, I1, I2, I3>,
@@ -50,7 +51,7 @@ class DerivedMeasurement3<
       DerivedMeasurement3<D1, D2, D3, I1, I2, I3>(
         magnitude: -magnitude,
         defaultUnit: defaultUnit,
-        precision: precisionData,
+        precision: precision,
       );
 
   /// Returns a measurement equivalent to the sum of this and another measurement of the same dimension.
@@ -58,7 +59,7 @@ class DerivedMeasurement3<
           DerivedMeasurement3<D1, D2, D3, I1, I2, I3> other) =>
       DerivedMeasurement3(
         magnitude: magnitude + other.as(defaultUnit),
-        precision: precisionData,
+        precision: precision,
         defaultUnit: defaultUnit,
       );
 
@@ -67,7 +68,7 @@ class DerivedMeasurement3<
           DerivedMeasurement3<D1, D2, D3, I1, I2, I3> other) =>
       DerivedMeasurement3(
         magnitude: magnitude - other.as(defaultUnit),
-        precision: precisionData,
+        precision: precision,
         defaultUnit: defaultUnit,
       );
 
@@ -76,7 +77,7 @@ class DerivedMeasurement3<
       DerivedMeasurement3<D1, D2, D3, I1, I2, I3>(
         magnitude: magnitude * multiplier.toDouble(),
         defaultUnit: defaultUnit,
-        precision: precisionData,
+        precision: precision,
       );
 
   /// Returns a measurement equivalent to a fraction of this.
@@ -84,7 +85,7 @@ class DerivedMeasurement3<
       DerivedMeasurement3<D1, D2, D3, I1, I2, I3>(
         magnitude: magnitude / divisor.toDouble(),
         defaultUnit: defaultUnit,
-        precision: precisionData,
+        precision: precision,
       );
 
   /// Returns the Euclidean remainder of the division between two measurements.
@@ -107,19 +108,21 @@ class DerivedMeasurement3<
   ///
   /// If the divisor is zero or the dividend is infinite, the result is always NaN.
   DerivedMeasurement3<D1, D2, D3, I1, I2, I3> operator %(
-          DerivedMeasurement3<D1, D2, D3, I1, I2, I3> other) =>
-      DerivedMeasurement3<D1, D2, D3, I1, I2, I3>(
-        magnitude:
-            defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue),
-        defaultUnit: defaultUnit,
-        precision: f.Precision.combine([precision, other.precision]),
-      );
+      DerivedMeasurement3<D1, D2, D3, I1, I2, I3> other) {
+    final magnitude =
+        defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue);
+    return DerivedMeasurement3<D1, D2, D3, I1, I2, I3>(
+      magnitude: magnitude,
+      defaultUnit: defaultUnit,
+      precision: f.Precision.combine([precision, other.precision], magnitude),
+    );
+  }
 
   DerivedMeasurement3<I1, I2, I3, D1, D2, D3> get inverted =>
       DerivedMeasurement3(
         magnitude: magnitude,
         defaultUnit: defaultUnit.inverted,
-        precision: precisionData,
+        precision: precision,
       );
 
   DerivedMeasurement2<f.Dimension3<D1, D2, D3>, D, f.Dimension3<I1, I2, I3>, I>

@@ -191,7 +191,7 @@ class UnitSpecializationGenerator
                 Code("f.DerivedMeasurement${builder.dimension.order}("
                     "defaultUnit: ${constant.unit},"
                     "magnitude: ${constant.magnitude},"
-                    "precision: f.Precision(${constant.precision}),"
+                    "precision: f.Precision.max,"
                     ")"),
         ),
       );

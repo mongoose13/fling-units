@@ -61,19 +61,21 @@ class DerivedUnit2<D1 extends f.Dimension, D2 extends f.Dimension,
       using<M1 extends Measurement<D1, I1>, M2 extends Measurement<D2, I2>>(
     M1 first,
     M2 second, {
-    int? precision,
-  }) =>
-          DerivedMeasurement2(
-              magnitude: first.si * second.si / multiplier,
-              precision: precision != null
-                  ? Precision(precision)
-                  : Precision.combine(
-                      [
-                        first.precision,
-                        second.precision,
-                      ],
-                    ),
-              defaultUnit: this);
+    Precision? precision,
+  }) {
+    final magnitude = first.si * second.si / multiplier;
+    return DerivedMeasurement2(
+        magnitude: magnitude,
+        precision: precision ??
+            Precision.combine(
+              [
+                first.precision,
+                second.precision,
+              ],
+              magnitude,
+            ),
+        defaultUnit: this);
+  }
 
   /// Creates a new [Unit] that is identical to this [Unit] but with a different [UnitPrefix].
   ///

@@ -22,7 +22,7 @@ void main() {
         final result = time.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -54,7 +54,7 @@ void main() {
         final result = time.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -86,7 +86,7 @@ void main() {
         final result = time.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -108,7 +108,7 @@ void main() {
           deci.seconds(2),
           hecto.seconds(3),
           minutes(4),
-        ], precision: 5);
+        ], precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -121,7 +121,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final time = seconds(1.23456e2, precision: 8);
+        final time = seconds(1.23456e2, precision: SignificantDigits(8));
 
         // when
         final result = time.as(minutes);
@@ -134,7 +134,7 @@ void main() {
     group('seconds', () {
       test('converts to base', () {
         // given
-        final time = seconds(1.234, precision: 5);
+        final time = seconds(1.234, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -144,7 +144,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final time = milli.seconds(1234.0, precision: 5);
+        final time = milli.seconds(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -156,7 +156,7 @@ void main() {
     group('minutes', () {
       test('converts to base', () {
         // given
-        final time = minutes(1.234, precision: 5);
+        final time = minutes(1.234, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -166,7 +166,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final time = milli.minutes(1234.0, precision: 5);
+        final time = milli.minutes(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -178,7 +178,7 @@ void main() {
     group('hours', () {
       test('converts to base', () {
         // given
-        final time = hours(1.234, precision: 5);
+        final time = hours(1.234, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -188,7 +188,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final time = milli.hours(1234.0, precision: 5);
+        final time = milli.hours(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -200,7 +200,7 @@ void main() {
     group('days', () {
       test('converts to base', () {
         // given
-        final time = days(1.234, precision: 5);
+        final time = days(1.234, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -210,7 +210,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final time = milli.days(1234.0, precision: 5);
+        final time = milli.days(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = time.as(seconds);
@@ -243,7 +243,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = minutes(3.4).withPrecision(3);
+        final measurement = minutes(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -253,7 +253,8 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.minutes(3.4).withPrecision(3);
+        final measurement =
+            milli.minutes(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -263,7 +264,8 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.minutes.withPrecision(3);
+        final measurement =
+            3.4.milli.minutes.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -273,17 +275,20 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.minutes(23.45).withPrecision(3);
+        final measurement =
+            deci.minutes(23.45).withPrecision(DigitsAfterDecimal(2));
 
         // when
-        final result = measurement.withPrecision(2).toString();
+        final result =
+            measurement.withPrecision(DigitsAfterDecimal(0)).toString();
 
         // then
         expect(result, '23.0 dmin');
       });
       test('modified units', () {
         // given
-        final measurement = deci.minutes(23.45).withPrecision(3);
+        final measurement =
+            deci.minutes(23.45).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.butAs(milli.days).toString();

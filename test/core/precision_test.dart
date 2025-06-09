@@ -2,11 +2,11 @@ import 'package:fling_units/fling_units.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Precision', () {
+  group('SignificantDigits', () {
     group('out of range', () {
       test('zero precision', () {
         // given
-        const precision = Precision(0);
+        const precision = SignificantDigits(0);
 
         // when
         final result = precision.apply(1.234);
@@ -16,7 +16,7 @@ void main() {
       });
       test('negative precision', () {
         // given
-        const precision = Precision(-2);
+        const precision = SignificantDigits(-2);
 
         // when
         final result = precision.apply(1.234);
@@ -26,7 +26,7 @@ void main() {
       });
       test('high precision', () {
         // given
-        const precision = Precision(22);
+        const precision = SignificantDigits(22);
 
         // when
         final result = precision.apply(1.23456789012345678901234567890);
@@ -39,7 +39,7 @@ void main() {
     group('withPrecision', () {
       test('partial whole number precision', () {
         //given
-        const precision = Precision(2);
+        const precision = SignificantDigits(2);
 
         // when
         final result = precision.apply(123.4321);
@@ -49,7 +49,7 @@ void main() {
       });
       test('whole number precision', () {
         //given
-        const precision = Precision(3);
+        const precision = SignificantDigits(3);
 
         // when
         final result = precision.apply(123.4321);
@@ -59,7 +59,7 @@ void main() {
       });
       test('whole and decimal number precision', () {
         //given
-        const precision = Precision(4);
+        const precision = SignificantDigits(4);
 
         // when
         final result = precision.apply(123.4321);
@@ -69,7 +69,7 @@ void main() {
       });
       test('rounding at .5', () {
         //given
-        const precision = Precision(4);
+        const precision = SignificantDigits(4);
 
         // when
         final result = precision.apply(123.45);
@@ -79,7 +79,7 @@ void main() {
       });
       test('additional precision', () {
         //given
-        const precision = Precision(5);
+        const precision = SignificantDigits(5);
 
         // when
         final result = precision.apply(1.23);
@@ -92,49 +92,68 @@ void main() {
     group('combine', () {
       test('with no items', () {
         // then
-        expect(() => Precision.combine([]), throwsStateError);
+        expect(() => Precision.combine([], 0.0), throwsStateError);
       });
       test('with single item', () {
         // when
-        final result = Precision.combine([3]);
+        final result = Precision.combine([SignificantDigits(3)], 0.0);
 
         // then
-        expect(result.precision, 3);
+        expect(result.significantDigits(0.0), 3);
       });
       test('chooses smaller value of two', () {
         // when
-        final result = Precision.combine([3, 2]);
+        final result = Precision.combine(
+            [SignificantDigits(3), SignificantDigits(2)], 0.0);
 
         // then
-        expect(result.precision, 2);
+        expect(result.significantDigits(0.0), 2);
       });
       test('chooses smaller value of many', () {
         // when
-        final result = Precision.combine([3, 5, 20, 2, 10]);
+        final result = Precision.combine([
+          SignificantDigits(3),
+          SignificantDigits(5),
+          SignificantDigits(20),
+          SignificantDigits(2),
+          SignificantDigits(10),
+        ], 0.0);
 
         // then
-        expect(result.precision, 2);
+        expect(result.significantDigits(0.0), 2);
       });
       test('chooses smaller value of many when answer is first', () {
         // when
-        final result = Precision.combine([3, 5, 20, 4, 10]);
+        final result = Precision.combine([
+          SignificantDigits(3),
+          SignificantDigits(5),
+          SignificantDigits(20),
+          SignificantDigits(4),
+          SignificantDigits(10),
+        ], 0.0);
 
         // then
-        expect(result.precision, 3);
+        expect(result.significantDigits(0.0), 3);
       });
       test('chooses smaller value of many when answer is last', () {
         // when
-        final result = Precision.combine([10, 5, 20, 4, 3]);
+        final result = Precision.combine([
+          SignificantDigits(10),
+          SignificantDigits(5),
+          SignificantDigits(20),
+          SignificantDigits(4),
+          SignificantDigits(3),
+        ], 0.0);
 
         // then
-        expect(result.precision, 3);
+        expect(result.significantDigits(0.0), 3);
       });
     });
 
     group('digitsBeforeDecimal', () {
       test('mixed number', () {
         // given
-        final measurement = meters(12.3456, precision: 6);
+        final measurement = meters(12.3456, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -144,7 +163,7 @@ void main() {
       });
       test('number below 1', () {
         // given
-        final measurement = meters(1.23456e-2, precision: 6);
+        final measurement = meters(1.23456e-2, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -154,7 +173,7 @@ void main() {
       });
       test('beyond maximum int', () {
         // given
-        final measurement = meters(1.23456e25, precision: 6);
+        final measurement = meters(1.23456e25, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -164,7 +183,8 @@ void main() {
       });
       test('beyond minimum double', () {
         // given
-        final measurement = meters(1.23456e-35, precision: 6);
+        final measurement =
+            meters(1.23456e-35, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -174,7 +194,7 @@ void main() {
       });
       test('negative', () {
         // given
-        final measurement = meters(-12.3456, precision: 6);
+        final measurement = meters(-12.3456, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
@@ -190,7 +210,7 @@ void main() {
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, SignificantDigits.maximumPrecision);
       });
       test('negative infinity', () {
         // given
@@ -200,7 +220,7 @@ void main() {
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, SignificantDigits.maximumPrecision);
       });
       test('NaN', () {
         // given
@@ -211,14 +231,14 @@ void main() {
         final result = Precision.digitsBeforeDecimal(measurement.as(meters));
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, SignificantDigits.maximumPrecision);
       });
     });
 
     group('digitsAfterDecimal', () {
       test('mixed number, same precision', () {
         // given
-        final measurement = meters(12.3456, precision: 6);
+        final measurement = meters(12.3456, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsAfterDecimal(measurement);
@@ -228,7 +248,7 @@ void main() {
       });
       test('mixed number, hidden precision', () {
         // given
-        final measurement = meters(1.2, precision: 4);
+        final measurement = meters(1.2, precision: SignificantDigits(4));
 
         // when
         final result = Precision.digitsAfterDecimal(measurement);
@@ -238,7 +258,7 @@ void main() {
       });
       test('number below 1', () {
         // given
-        final measurement = meters(1.23456e-3, precision: 6);
+        final measurement = meters(1.23456e-3, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsAfterDecimal(measurement);
@@ -248,7 +268,7 @@ void main() {
       });
       test('beyond maximum int', () {
         // given
-        final measurement = meters(1.23456e33, precision: 6);
+        final measurement = meters(1.23456e33, precision: SignificantDigits(6));
 
         // when
         final result = Precision.digitsAfterDecimal(measurement);
@@ -258,7 +278,7 @@ void main() {
       });
       test('single digit negative exponent', () {
         // given
-        final measurement = meters(1.2e-9, precision: 2);
+        final measurement = meters(1.2e-9, precision: SignificantDigits(2));
 
         // when
         final result = Precision.digitsAfterDecimal(measurement);
@@ -268,7 +288,7 @@ void main() {
       });
       test('double digit negative exponent', () {
         // given
-        final measurement = meters(1.2e-10, precision: 2);
+        final measurement = meters(1.2e-10, precision: SignificantDigits(2));
 
         // when
         final result = Precision.digitsAfterDecimal(measurement);
@@ -278,7 +298,7 @@ void main() {
       });
       test('beyond minimum double', () {
         // given
-        final measurement = meters(1.2e-33, precision: 2);
+        final measurement = meters(1.2e-33, precision: SignificantDigits(2));
 
         // when
         final result = Precision.digitsAfterDecimal(measurement);
@@ -322,91 +342,93 @@ void main() {
     group('addition', () {
       test('integer numbers', () {
         // given
-        final measurement1 = meters(12, precision: 2);
-        final measurement2 = meters(345, precision: 3);
+        final measurement1 = meters(12, precision: SignificantDigits(2));
+        final measurement2 = meters(345, precision: SignificantDigits(3));
 
         // when
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 3);
+        expect(result, SignificantDigits(3));
       });
       test('integer numbers with decreased precision', () {
         // given
-        final measurement1 = meters(123, precision: 3);
-        final measurement2 = meters(-45, precision: 2);
+        final measurement1 = meters(123, precision: SignificantDigits(3));
+        final measurement2 = meters(-45, precision: SignificantDigits(2));
 
         // when
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 2);
+        expect(result, SignificantDigits(2));
       });
       test('mixed numbers', () {
         // given
-        final measurement1 = meters(1.234, precision: 4);
-        final measurement2 = meters(1.234, precision: 4);
+        final measurement1 = meters(1.234, precision: SignificantDigits(4));
+        final measurement2 = meters(1.234, precision: SignificantDigits(4));
 
         // when
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 4);
+        expect(result, SignificantDigits(4));
       });
       test('mixed numbers give magnitude increase', () {
         // given
-        final measurement1 = meters(1.234, precision: 4);
-        final measurement2 = meters(9.234, precision: 4);
+        final measurement1 = meters(1.234, precision: SignificantDigits(4));
+        final measurement2 = meters(9.234, precision: SignificantDigits(4));
 
         // when
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 5);
+        expect(result, SignificantDigits(5));
       });
       test('mixed numbers give magnitude decrease', () {
         // given
-        final measurement1 = meters(123.45, precision: 5);
-        final measurement2 = meters(24.65, precision: 4);
+        final measurement1 = meters(123.45, precision: DigitsAfterDecimal(4));
+        final measurement2 = meters(24.65, precision: SignificantDigits(4));
 
         // when
         final result = Precision.addition(measurement1, -measurement2);
 
         // then
-        expect(result, 4);
+        expect(result, SignificantDigits(4));
       });
       test('smallest decimal is accepted', () {
         // given
-        final measurement1 = meters(1.2, precision: 2);
-        final measurement2 = meters(1.234, precision: 4);
+        final measurement1 = meters(1.2, precision: SignificantDigits(2));
+        final measurement2 = meters(1.234, precision: SignificantDigits(4));
 
         // when
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 2);
+        expect(result, SignificantDigits(2));
       });
       test('numbers lower than 1', () {
         // given
-        final measurement1 = milli.meters(1.234, precision: 4);
-        final measurement2 = milli.meters(1.234, precision: 4);
+        final measurement1 =
+            milli.meters(1.234, precision: SignificantDigits(4));
+        final measurement2 =
+            milli.meters(1.234, precision: SignificantDigits(4));
 
         // when
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 6);
+        expect(result, SignificantDigits(6));
       });
       test('magnitude increase is capped at the limit', () {
         // given
-        final measurement1 = meters(1.234, precision: 21);
-        final measurement2 = meters(9.234, precision: 21);
+        final measurement1 = meters(1.234, precision: SignificantDigits.max);
+        final measurement2 = meters(9.234, precision: SignificantDigits.max);
 
         // when
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 21);
+        expect(result, SignificantDigits.max);
       });
       test(
           'magnitude increase does not breach cap for unspecified precision measurements',
@@ -419,7 +441,7 @@ void main() {
         final result = Precision.addition(measurement1, measurement2);
 
         // then
-        expect(result, 21);
+        expect(result, SignificantDigits.max);
       });
     });
   });

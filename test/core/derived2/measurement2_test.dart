@@ -57,7 +57,8 @@ void main() {
     group("as", () {
       test("square", () {
         // given
-        final measurement = square(feet)(10.8).withPrecision(3);
+        final measurement =
+            square(feet)(10.8).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(square(meters));
@@ -67,7 +68,8 @@ void main() {
       });
       test("dot", () {
         // given
-        final measurement = feet.dot.feet(10.8).withPrecision(3);
+        final measurement =
+            feet.dot.feet(10.8).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(square(meters));
@@ -77,7 +79,8 @@ void main() {
       });
       test("per", () {
         // given
-        final measurement = feet.per.second(10.8).withPrecision(3);
+        final measurement =
+            feet.per.second(10.8).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(meters.per.minute);
@@ -87,7 +90,8 @@ void main() {
       });
       test("from SI to other", () {
         // given
-        final measurement = 1.square(meters).withPrecision(3);
+        final measurement =
+            1.square(meters).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(square(feet));
@@ -97,7 +101,8 @@ void main() {
       });
       test("with prefix on destination numerator", () {
         // given
-        final measurement = 4.miles.per.gallon.withPrecision(3);
+        final measurement =
+            4.miles.per.gallon.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(kilo.meters.per.gallon);
@@ -107,7 +112,8 @@ void main() {
       });
       test("with prefix on destination denominator", () {
         // given
-        final measurement = 4.miles.per.ounce.withPrecision(3);
+        final measurement =
+            4.miles.per.ounce.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(miles.per.deci.ounce);
@@ -117,7 +123,8 @@ void main() {
       });
       test("with prefix on destination denominator on volume", () {
         // given
-        final measurement = 4.miles.per.gallon.withPrecision(3);
+        final measurement =
+            4.miles.per.gallon.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(miles.per.deci.gallon);
@@ -127,7 +134,8 @@ void main() {
       });
       test("with prefixes on destination", () {
         // given
-        final measurement = 4.miles.per.ounce.withPrecision(3);
+        final measurement =
+            4.miles.per.ounce.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(miles.per.deci.ounce);
@@ -137,7 +145,8 @@ void main() {
       });
       test("with prefixes on destination cancel out", () {
         // given
-        final measurement = 4.miles.per.ounce.withPrecision(3);
+        final measurement =
+            4.miles.per.ounce.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(deci.miles.per.deci.ounce);
@@ -147,7 +156,8 @@ void main() {
       });
       test("with prefixes on destination on volume", () {
         // given
-        final measurement = 4.miles.per.gallon.withPrecision(3);
+        final measurement =
+            4.miles.per.gallon.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(miles.per.deci.gallon);
@@ -157,7 +167,8 @@ void main() {
       });
       test("with prefixes on destination on volume cancel out", () {
         // given
-        final measurement = 4.miles.per.gallon.withPrecision(3);
+        final measurement =
+            4.miles.per.gallon.withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.as(deci.miles.per.deci.gallon);
@@ -170,7 +181,8 @@ void main() {
     group("butAs", () {
       test("square", () {
         // given
-        final measurement = square(feet)(10.8).withPrecision(3);
+        final measurement =
+            square(feet)(10.8).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.butAs(square(meters));
@@ -181,7 +193,8 @@ void main() {
       });
       test("dot", () {
         // given
-        final measurement = feet.dot.feet(10.8).withPrecision(3);
+        final measurement =
+            feet.dot.feet(10.8).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.butAs(square(meters));
@@ -192,7 +205,8 @@ void main() {
       });
       test("per", () {
         // given
-        final measurement = feet.per.second(10.8).withPrecision(3);
+        final measurement =
+            feet.per.second(10.8).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.butAs(meters.per.minute);
@@ -203,7 +217,8 @@ void main() {
       });
       test("from SI to other", () {
         // given
-        final measurement = 1.square(meters).withPrecision(3);
+        final measurement =
+            1.square(meters).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.butAs(square(feet));

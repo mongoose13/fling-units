@@ -60,27 +60,29 @@ class DerivedUnit3<
   /// cubic(meters).using(3.feet, 2.feet, 1.feet);
   /// ```
   DerivedMeasurement3<D1, D2, D3, I1, I2, I3> using<
-          M1 extends Measurement<D1, I1>,
-          M2 extends Measurement<D2, I2>,
-          M3 extends Measurement<D3, I3>>(
+      M1 extends Measurement<D1, I1>,
+      M2 extends Measurement<D2, I2>,
+      M3 extends Measurement<D3, I3>>(
     M1 first,
     M2 second,
     M3 third, {
-    int? precision,
-  }) =>
-      DerivedMeasurement3(
-        magnitude: first.si * second.si * third.si / multiplier,
-        precision: precision != null
-            ? Precision(precision)
-            : Precision.combine(
-                [
-                  first.precision,
-                  second.precision,
-                  third.precision,
-                ],
-              ),
-        defaultUnit: this,
-      );
+    Precision? precision,
+  }) {
+    final magnitude = first.si * second.si * third.si / multiplier;
+    return DerivedMeasurement3(
+      magnitude: magnitude,
+      precision: precision ??
+          Precision.combine(
+            [
+              first.precision,
+              second.precision,
+              third.precision,
+            ],
+            magnitude,
+          ),
+      defaultUnit: this,
+    );
+  }
 
   /// Creates a new [Unit] that is identical to this [Unit] but with a different [UnitPrefix].
   ///

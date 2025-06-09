@@ -22,7 +22,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -54,7 +54,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -86,7 +86,7 @@ void main() {
         final result = measurement.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -110,7 +110,8 @@ void main() {
         ]);
 
         // when
-        final result = measurement.withPrecision(3).as(pascals);
+        final result =
+            measurement.withPrecision(SignificantDigits(3)).as(pascals);
 
         // then
         expect(result, 151000);
@@ -120,7 +121,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final measurement = pascals(101325, precision: 8);
+        final measurement = pascals(101325, precision: SignificantDigits(8));
 
         // when
         final result = measurement.as(standardAtmospheres);
@@ -133,7 +134,7 @@ void main() {
     group('pascals', () {
       test('converts to base', () {
         // given
-        final measurement = pascals(1234.0, precision: 5);
+        final measurement = pascals(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -143,7 +144,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.pascals(1234.0, precision: 5);
+        final measurement =
+            milli.pascals(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -156,7 +158,7 @@ void main() {
     group('bars', () {
       test('converts to base', () {
         // given
-        final measurement = bars(1234.0, precision: 5);
+        final measurement = bars(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -166,7 +168,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.bars(1234.0, precision: 5);
+        final measurement = milli.bars(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -179,7 +181,7 @@ void main() {
     group('baryes', () {
       test('converts to base', () {
         // given
-        final measurement = baryes(1234.0, precision: 5);
+        final measurement = baryes(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -189,7 +191,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.baryes(1234.0, precision: 5);
+        final measurement =
+            milli.baryes(1234.0, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -202,7 +205,8 @@ void main() {
     group('standard atmospheres', () {
       test('converts to base', () {
         // given
-        final measurement = standardAtmospheres(1.234, precision: 5);
+        final measurement =
+            standardAtmospheres(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -212,7 +216,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.standardAtmospheres(1.234, precision: 5);
+        final measurement =
+            milli.standardAtmospheres(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -225,7 +230,8 @@ void main() {
     group('technical atmospheres', () {
       test('converts to base', () {
         // given
-        final measurement = technicalAtmospheres(1.234, precision: 5);
+        final measurement =
+            technicalAtmospheres(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -235,7 +241,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.technicalAtmospheres(1.234, precision: 5);
+        final measurement =
+            milli.technicalAtmospheres(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -248,7 +255,7 @@ void main() {
     group('mmHg', () {
       test('converts to base', () {
         // given
-        final measurement = mmHg(1.234, precision: 5);
+        final measurement = mmHg(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -258,7 +265,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.mmHg(1.234, precision: 5);
+        final measurement = milli.mmHg(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -271,7 +278,7 @@ void main() {
     group('Torr', () {
       test('converts to base', () {
         // given
-        final measurement = torr(1.234, precision: 5);
+        final measurement = torr(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -281,7 +288,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.torr(1.234, precision: 5);
+        final measurement = milli.torr(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -294,7 +301,7 @@ void main() {
     group('psi', () {
       test('converts to base', () {
         // given
-        final measurement = psi(1.234, precision: 5);
+        final measurement = psi(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -304,7 +311,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement = milli.psi(1.234, precision: 5);
+        final measurement = milli.psi(1.234, precision: SignificantDigits(5));
 
         // when
         final result = measurement.as(pascals);
@@ -337,7 +344,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = psi(3.4).withPrecision(3);
+        final measurement = psi(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -347,7 +354,8 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.pascals(3.4).withPrecision(3);
+        final measurement =
+            milli.pascals(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -357,7 +365,8 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.pascals.withPrecision(3);
+        final measurement =
+            3.4.milli.pascals.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -367,17 +376,20 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.pascals(23.45).withPrecision(3);
+        final measurement =
+            deci.pascals(23.45).withPrecision(DigitsAfterDecimal(2));
 
         // when
-        final result = measurement.withPrecision(2).toString();
+        final result =
+            measurement.withPrecision(DigitsAfterDecimal(0)).toString();
 
         // then
         expect(result, '23.0 dPa');
       });
       test('modified units', () {
         // given
-        final measurement = deci.pascals(23.45).withPrecision(3);
+        final measurement =
+            deci.pascals(23.45).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.butAs(milli.bars).toString();

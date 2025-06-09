@@ -22,7 +22,7 @@ void main() {
         final result = quantity.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -54,7 +54,7 @@ void main() {
         final result = quantity.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -86,7 +86,7 @@ void main() {
         final result = quantity.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -107,7 +107,7 @@ void main() {
           moles(2.1),
           units(5e23),
           moles(0.3),
-        ], precision: 5);
+        ], precision: SignificantDigits(5));
 
         // when
         final result = quantity.as(units);
@@ -120,7 +120,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final quantity = units(1.234e23, precision: 8);
+        final quantity = units(1.234e23, precision: SignificantDigits(8));
 
         // when
         final result = quantity.as(moles);
@@ -133,7 +133,7 @@ void main() {
     group('units', () {
       test('converts to base', () {
         // given
-        final quantity = units(1.234e23, precision: 5);
+        final quantity = units(1.234e23, precision: DigitsAfterDecimal(5));
 
         // when
         final result = quantity.as(moles);
@@ -143,7 +143,8 @@ void main() {
       });
       test('applies base prefix', () {
         // given
-        final quantity = UnitPrefix.unit().units(1.234e23, precision: 5);
+        final quantity =
+            UnitPrefix.unit().units(1.234e23, precision: DigitsAfterDecimal(5));
 
         // when
         final result = quantity.as(moles);
@@ -153,7 +154,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final quantity = milli.units(1234, precision: 5);
+        final quantity = milli.units(1234, precision: DigitsAfterDecimal(5));
 
         // when
         final result = quantity.as(units);
@@ -163,7 +164,8 @@ void main() {
       });
       test('applies prefixes to conversions', () {
         // given
-        final quantity = milli.units(1.234e27, precision: 5);
+        final quantity =
+            milli.units(1.234e27, precision: DigitsAfterDecimal(4));
 
         // when
         final result = quantity.as(moles);
@@ -173,7 +175,7 @@ void main() {
       });
       test('maintains whole numbers', () {
         // given
-        final quantity = units(2, precision: 5);
+        final quantity = units(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = quantity.as(units);
@@ -185,7 +187,7 @@ void main() {
     group('moles', () {
       test('converts to base', () {
         // given
-        final quantity = moles(1.234, precision: 5);
+        final quantity = moles(1.234, precision: DigitsAfterDecimal(4));
 
         // when
         final result = quantity.as(moles);
@@ -195,7 +197,7 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final quantity = milli.moles(1.234e3, precision: 5);
+        final quantity = milli.moles(1.234e3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = quantity.as(moles);
@@ -228,7 +230,7 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = moles(3.4).withPrecision(3);
+        final measurement = moles(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -238,7 +240,8 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.moles(3.4).withPrecision(3);
+        final measurement =
+            milli.moles(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -248,7 +251,8 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.moles.withPrecision(3);
+        final measurement =
+            3.4.milli.moles.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -258,17 +262,20 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.moles(23.45).withPrecision(3);
+        final measurement =
+            deci.moles(23.45).withPrecision(DigitsAfterDecimal(2));
 
         // when
-        final result = measurement.withPrecision(2).toString();
+        final result =
+            measurement.withPrecision(DigitsAfterDecimal(0)).toString();
 
         // then
         expect(result, '23.0 dmol');
       });
       test('modified units', () {
         // given
-        final measurement = deci.moles(23.45).withPrecision(3);
+        final measurement =
+            deci.moles(23.45).withPrecision(SignificantDigits(3));
 
         // when
         final result = measurement.butAs(milli.units).toString();

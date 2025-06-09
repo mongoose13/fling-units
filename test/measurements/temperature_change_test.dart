@@ -22,7 +22,7 @@ void main() {
         final result = temperature.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -54,7 +54,7 @@ void main() {
         final result = temperature.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -86,7 +86,7 @@ void main() {
         final result = temperature.precision;
 
         // then
-        expect(result, Precision.max.precision);
+        expect(result, Precision.max);
       });
       test('with custom default interpreter', () {
         // given
@@ -108,7 +108,7 @@ void main() {
           kelvin(1),
           celsius(2),
           fahrenheit(3),
-        ], precision: 5);
+        ], precision: DigitsAfterDecimal(4));
 
         // when
         final result = temperature.as(kelvin);
@@ -121,7 +121,7 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final temperature = kelvin(1.23456, precision: 8);
+        final temperature = kelvin(1.23456, precision: SignificantDigits(8));
 
         // when
         final result = temperature.as(fahrenheit);
@@ -134,7 +134,7 @@ void main() {
     group('kelvin', () {
       test('converts to base', () {
         // given
-        final temperature = kelvin(1.234, precision: 5);
+        final temperature = kelvin(1.234, precision: DigitsAfterDecimal(4));
 
         // when
         final result = temperature.as(kelvin);
@@ -144,7 +144,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final temperature = milli.kelvin(1234.0, precision: 5);
+        final temperature =
+            milli.kelvin(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = temperature.as(kelvin);
@@ -156,7 +157,7 @@ void main() {
     group('celsius', () {
       test('converts to base', () {
         // given
-        final temperature = celsius(1.234, precision: 5);
+        final temperature = celsius(1.234, precision: DigitsAfterDecimal(4));
 
         // when
         final result = temperature.as(kelvin);
@@ -166,7 +167,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final temperature = milli.celsius(1234.0, precision: 5);
+        final temperature =
+            milli.celsius(1234.0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = temperature.as(kelvin);
@@ -178,7 +180,7 @@ void main() {
     group('fahrenheit', () {
       test('converts to base', () {
         // given
-        final temperature = fahrenheit(1.234, precision: 5);
+        final temperature = fahrenheit(1.234, precision: DigitsAfterDecimal(5));
 
         // when
         final result = temperature.as(kelvin);
@@ -188,7 +190,8 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final temperature = milli.fahrenheit(1234.0, precision: 5);
+        final temperature =
+            milli.fahrenheit(1234.0, precision: DigitsAfterDecimal(5));
 
         // when
         final result = temperature.as(kelvin);
@@ -221,7 +224,8 @@ void main() {
       });
       test('maintains units', () {
         // given
-        final measurement = fahrenheit(3.4).withPrecision(3);
+        final measurement =
+            fahrenheit(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -231,7 +235,8 @@ void main() {
       });
       test('maintains prefix', () {
         // given
-        final measurement = milli.fahrenheit(3.4).withPrecision(3);
+        final measurement =
+            milli.fahrenheit(3.4).withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -241,7 +246,8 @@ void main() {
       });
       test('extension maintains prefix', () {
         // given
-        final measurement = 3.4.milli.fahrenheit.withPrecision(3);
+        final measurement =
+            3.4.milli.fahrenheit.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.toString();
@@ -251,17 +257,20 @@ void main() {
       });
       test('modified precision', () {
         // given
-        final measurement = deci.fahrenheit(23.45).withPrecision(3);
+        final measurement =
+            deci.fahrenheit(23.45).withPrecision(DigitsAfterDecimal(2));
 
         // when
-        final result = measurement.withPrecision(2).toString();
+        final result =
+            measurement.withPrecision(DigitsAfterDecimal(0)).toString();
 
         // then
         expect(result, '23.0 d°F');
       });
       test('modified units', () {
         // given
-        final measurement = deci.fahrenheit(23.45).withPrecision(3);
+        final measurement =
+            deci.fahrenheit(23.45).withPrecision(SignificantDigits(2));
 
         // when
         final result = measurement.butAs(milli.celsius).toString();

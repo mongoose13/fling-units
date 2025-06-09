@@ -1,6 +1,6 @@
 part of "library.dart";
 
-/// Represents the amount of precision for a measurement.
+/// A representation of the certainty in a measurement.
 ///
 /// Because measurements are not perfectly precise, we do not want to imply that
 /// we know more than what we actually know to be true. For details, see
@@ -14,57 +14,68 @@ part of "library.dart";
 /// different precision, even if their measured values are the same.
 ///
 /// ```dart
-/// Distance.meters(3.14159, precision: 3) ==
-///   Distance.meters(3.14159, precision: 5); // evaluates to false
+/// Distance.meters(3.14159, significantDigits: 3) ==
+///   Distance.meters(3.14159, significantDigits: 5); // evaluates to false
 /// ```
-class Precision {
-  /// The highest precision allowed.
-  static const int maximumPrecision = 21;
+abstract class Precision {
+  const Precision();
 
-  /// A single digit precision.
-  static const Precision single = Precision(1);
+  /// Constructs a [Precision] with a particular style.
+  static Precision having({
+    int? digitsAfterDecimal,
+    int? significantDigits,
+  }) {
+    if (digitsAfterDecimal != null) {
+      return DigitsAfterDecimal(digitsAfterDecimal);
+    }
+    return SignificantDigits(
+        significantDigits ?? SignificantDigits.maximumPrecision);
+  }
 
-  /// Maximum precision.
-  static const Precision max = Precision(maximumPrecision);
+  /// A [Precision] implying the maximum possible precision on the platform.
+  static const Precision max = SignificantDigits();
 
-  /// This precision, in number of digits.
-  int get precision => math.min(21, math.max(1, _precision));
+  /// Interprets the specified number according to this [Precision].
+  double apply(num value);
 
-  /// Constructs a [Precision] of the specified number of digits.
+  /// Returns the number of significant digits this precision would result in
+  /// when applied to the given target number.
   ///
-  /// Due to Dart language limitations on doubles, the maximum precision is 21
-  /// digits. Any attempt to use a higher number will fall back silently to 21.
-  ///
-  /// Precision below 1 digit is meaningless and will fall back to 1.
-  const Precision(this._precision);
+  /// For example, if a precision that ensured there were always two digits
+  /// after the decimal point were given a target of 85.263, it would report 4
+  /// significant digits (the 8, 5, 2, and 6). When given 0.056 instead, it
+  /// would give 2 (the 0 right after the decimal and the 5).
+  int significantDigits(double target);
 
-  /// Combines two [Precision]s per the "multiplication rule".
+  /// Combines two [SignificantDigits]s per the "multiplication rule".
   ///
   /// Use this when multiplying or dividing two numbers to determine the correct
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
-  Precision.combine(Iterable<int> precisions)
-      : this(precisions
-            .reduce((current, element) => math.min(current, element)));
+  static Precision combine(Iterable<Precision> precisions, double target) =>
+      SignificantDigits(precisions
+          .map((precision) => precision.significantDigits(target))
+          .reduce((current, element) => math.min(current, element)));
 
-  /// Combines two [Precision]s per the "addition rule".
+  /// Combines two [SignificantDigits]s per the "addition rule".
   ///
   /// Use this when adding or subtracting two numbers to determine the correct
   /// output precision. See [Wikipedia on Precision Arithmetic](
   /// https://en.wikipedia.org/wiki/Significant_figures#Arithmetic)
   /// for details.
-  static int addition(Measurement a, Measurement b) {
+  static Precision addition(Measurement a, Measurement b) {
     if (a.isInfinite || b.isInfinite) {
-      return Precision.maximumPrecision;
+      return SignificantDigits.max;
     }
-    final precisionA = digitsAfterDecimal(a);
-    final precisionB = digitsAfterDecimal(b);
-    final beforeDecimal =
-        digitsBeforeDecimal(a.preciseDefaultValue + b.preciseDefaultValue);
+    final precisionA = Precision.digitsAfterDecimal(a);
+    final precisionB = Precision.digitsAfterDecimal(b);
+    final beforeDecimal = Precision.digitsBeforeDecimal(
+        a.preciseDefaultValue + b.preciseDefaultValue);
     int afterPrecision = math.min(
-        beforeDecimal + math.min(precisionA, precisionB), maximumPrecision);
-    return afterPrecision;
+        beforeDecimal + math.min(precisionA, precisionB),
+        SignificantDigits.maximumPrecision);
+    return SignificantDigits(afterPrecision);
   }
 
   /// Calculates the number of significant digits after the decimal point.
@@ -83,32 +94,84 @@ class Precision {
     final string = measurement.preciseDefaultValue.toStringAsExponential();
     final locationOfE = string.indexOf('e');
     return math.max(
-        measurement.precision -
+        measurement.precision.significantDigits(measurement.defaultValue) -
             int.parse(string.substring(locationOfE + 1)) -
             1,
         0);
   }
 
   /// Calculates the number of digits (significant or not) before the decimal.
-  static int digitsBeforeDecimal(double number) {
-    if (number.isInfinite || number.isNaN) {
-      return Precision.max.precision;
+  static int digitsBeforeDecimal(double target) {
+    if (target.isInfinite || target.isNaN) {
+      return max.significantDigits(target);
     }
-    final string = number.toStringAsExponential();
+    final string = target.toStringAsExponential();
     return math.max(
         int.parse(string.substring(string.indexOf('e') + 1)) + 1, 0);
   }
+}
 
-  /// Interprets the specified number according to this Precision.
-  double apply(num value) => double.parse(value.toStringAsPrecision(precision));
+/// Measurement precision in terms of digits after the decimal point.
+class DigitsAfterDecimal extends Precision {
+  const DigitsAfterDecimal(this.digits);
+
+  static const none = DigitsAfterDecimal(0);
+
+  final int digits;
+
+  @override
+  int significantDigits(double target) =>
+      Precision.digitsBeforeDecimal(target) + math.max(0, digits);
+
+  @override
+  double apply(num value) => digits >= 0
+      ? double.parse(value.toStringAsFixed(digits))
+      : double.parse(value.toStringAsPrecision(
+          digits + Precision.digitsBeforeDecimal(value.toDouble())));
 
   @override
   bool operator ==(Object other) =>
-      other is Precision && other.precision == precision;
+      other is DigitsAfterDecimal && other.digits == digits;
 
   @override
-  int get hashCode => precision.hashCode;
+  int get hashCode => digits.hashCode;
+}
+
+///
+class SignificantDigits extends Precision {
+  /// The highest precision allowed.
+  static const int maximumPrecision = 21;
+
+  /// A single digit precision.
+  static const SignificantDigits single = SignificantDigits(1);
+
+  /// Maximum precision.
+  static const SignificantDigits max = SignificantDigits(maximumPrecision);
+
+  /// The maximum number of significant digits this precision allows.
+  int get digits => math.min(21, math.max(1, _digits));
+
+  /// Constructs a [SignificantDigits] of the specified number of digits.
+  ///
+  /// Due to Dart language limitations on doubles, the maximum precision is 21
+  /// digits. Any attempt to use a higher number will fall back silently to 21.
+  ///
+  /// Precision below 1 digit is meaningless and will fall back to 1.
+  const SignificantDigits([this._digits = maximumPrecision]);
+
+  @override
+  double apply(num value) => double.parse(value.toStringAsPrecision(digits));
+
+  @override
+  int significantDigits(double target) => digits;
+
+  @override
+  bool operator ==(Object other) =>
+      other is SignificantDigits && other.digits == digits;
+
+  @override
+  int get hashCode => digits.hashCode;
 
   /// This precision (uncorrected), in number of digits.
-  final int _precision;
+  final int _digits;
 }

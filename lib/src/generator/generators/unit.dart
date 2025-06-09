@@ -124,12 +124,12 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                         (precision) => precision
                           ..named = true
                           ..name = "precision"
-                          ..type = Reference("int")
-                          ..defaultTo = Code("f.Precision.maximumPrecision"),
+                          ..type = Reference("f.Precision")
+                          ..defaultTo = Code("f.Precision.max"),
                       ))
                       ..lambda = true
-                      ..body = Code(
-                          "$measurementName(magnitude, this, f.Precision(precision))"),
+                      ..body =
+                          Code("$measurementName(magnitude, this, precision)"),
                   ),
                   Method(
                     (withPrefix) => withPrefix

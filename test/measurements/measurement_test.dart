@@ -39,7 +39,7 @@ void main() {
       });
       test('on a positive finite unit', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isNegative;
@@ -49,7 +49,7 @@ void main() {
       });
       test('on a negative finite unit', () {
         // given
-        final unit = meters(-2, precision: 5);
+        final unit = meters(-2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isNegative;
@@ -79,7 +79,7 @@ void main() {
       });
       test('on a nonexistent unit', () {
         // given
-        final unit = meters(double.nan, precision: 5);
+        final unit = meters(double.nan, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isNegative;
@@ -102,7 +102,7 @@ void main() {
       });
       test('on a positive finite unit', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isFinite;
@@ -112,7 +112,7 @@ void main() {
       });
       test('on a negative finite unit', () {
         // given
-        final unit = meters(-2, precision: 5);
+        final unit = meters(-2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isFinite;
@@ -142,7 +142,7 @@ void main() {
       });
       test('on a nonexistent unit', () {
         // given
-        final unit = meters(double.nan, precision: 5);
+        final unit = meters(double.nan, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isFinite;
@@ -165,7 +165,7 @@ void main() {
       });
       test('on a positive finite unit', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isInfinite;
@@ -175,7 +175,7 @@ void main() {
       });
       test('on a negative finite unit', () {
         // given
-        final unit = meters(-2, precision: 5);
+        final unit = meters(-2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isInfinite;
@@ -205,7 +205,7 @@ void main() {
       });
       test('on a nonexistent unit', () {
         // given
-        final unit = meters(double.nan, precision: 5);
+        final unit = meters(double.nan, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isInfinite;
@@ -228,7 +228,7 @@ void main() {
       });
       test('on a positive finite unit', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isNaN;
@@ -238,7 +238,7 @@ void main() {
       });
       test('on a negative finite unit', () {
         // given
-        final unit = meters(-2, precision: 5);
+        final unit = meters(-2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isNaN;
@@ -268,7 +268,7 @@ void main() {
       });
       test('on a nonexistent unit', () {
         // given
-        final unit = meters(double.nan, precision: 5);
+        final unit = meters(double.nan, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.isNaN;
@@ -322,7 +322,7 @@ void main() {
       });
       test('same object', () {
         // given
-        final unit = meters(3, precision: 5);
+        final unit = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.hashCode == unit.hashCode;
@@ -332,8 +332,8 @@ void main() {
       });
       test('identical object', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.hashCode == unit2.hashCode;
@@ -343,8 +343,8 @@ void main() {
       });
       test('equivalent object', () {
         // given
-        final unit1 = meters(3000, precision: 5);
-        final unit2 = kilo.meters(3, precision: 5);
+        final unit1 = meters(3000, precision: DigitsAfterDecimal(4));
+        final unit2 = kilo.meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.hashCode == unit2.hashCode;
@@ -367,7 +367,7 @@ void main() {
       });
       test('same object', () {
         // given
-        final unit = meters(3, precision: 5);
+        final unit = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit == unit;
@@ -377,8 +377,8 @@ void main() {
       });
       test('identical object', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 == unit2;
@@ -386,10 +386,21 @@ void main() {
         // then
         expect(result, true);
       });
-      test('equivalent object', () {
+      test('equivalent object with significant digits', () {
         // given
-        final unit1 = meters(3000, precision: 5);
-        final unit2 = kilo.meters(3, precision: 5);
+        final unit1 = meters(3000, precision: SignificantDigits(4));
+        final unit2 = kilo.meters(3, precision: SignificantDigits(4));
+
+        // when
+        final result = unit1 == unit2;
+
+        // then
+        expect(result, true);
+      });
+      test('equivalent object with digits after decimal', () {
+        // given
+        final unit1 = meters(3000, precision: DigitsAfterDecimal(4));
+        final unit2 = kilo.meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 == unit2;
@@ -399,8 +410,8 @@ void main() {
       });
       test('different value', () {
         // given
-        final unit1 = meters(4, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(4, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 == unit2;
@@ -408,10 +419,32 @@ void main() {
         // then
         expect(result, false);
       });
-      test('different precision', () {
+      test('different significant digits precision', () {
         // given
-        final unit1 = meters(3.14159, precision: 4);
-        final unit2 = meters(3.14159, precision: 6);
+        final unit1 = meters(3.14159, precision: SignificantDigits(4));
+        final unit2 = meters(3.14159, precision: SignificantDigits(6));
+
+        // when
+        final result = unit1 == unit2;
+
+        // then
+        expect(result, false);
+      });
+      test('different digits after decimal precision', () {
+        // given
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(6));
+
+        // when
+        final result = unit1 == unit2;
+
+        // then
+        expect(result, false);
+      });
+      test('different kind of precision', () {
+        // given
+        final unit1 = meters(3.14159, precision: SignificantDigits(4));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 == unit2;
@@ -421,8 +454,8 @@ void main() {
       });
       test('different precision and value', () {
         // given
-        final unit1 = meters(3.14159, precision: 4);
-        final unit2 = meters(3.1416, precision: 6);
+        final unit1 = meters(3.14159, precision: SignificantDigits(4));
+        final unit2 = meters(3.1416, precision: SignificantDigits(6));
 
         // when
         final result = unit1 == unit2;
@@ -432,8 +465,8 @@ void main() {
       });
       test('different value', () {
         // given
-        final unit1 = meters(3.1416, precision: 6);
-        final unit2 = meters(3.14159, precision: 6);
+        final unit1 = meters(3.1416, precision: SignificantDigits(6));
+        final unit2 = meters(3.14159, precision: SignificantDigits(6));
 
         // when
         final result = unit1 == unit2;
@@ -456,7 +489,7 @@ void main() {
       });
       test('same object', () {
         // given
-        final unit = meters(3, precision: 5);
+        final unit = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit.equals(unit);
@@ -466,8 +499,8 @@ void main() {
       });
       test('identical object', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.equals(unit2);
@@ -477,8 +510,8 @@ void main() {
       });
       test('different value', () {
         // given
-        final unit1 = meters(4, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(4, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.equals(unit2);
@@ -488,8 +521,8 @@ void main() {
       });
       test('different precision, equal', () {
         // given
-        final unit1 = meters(3.14159, precision: 4);
-        final unit2 = meters(3.14159, precision: 6);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(3));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(5));
 
         // when
         final result = unit1.equals(unit2);
@@ -499,8 +532,8 @@ void main() {
       });
       test('different precision and value, equal', () {
         // given
-        final unit1 = meters(3.14159, precision: 4);
-        final unit2 = meters(3.1416, precision: 6);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(3));
+        final unit2 = meters(3.1416, precision: DigitsAfterDecimal(5));
 
         // when
         final result = unit1.equals(unit2);
@@ -510,8 +543,8 @@ void main() {
       });
       test('different precision and value, unequal', () {
         // given
-        final unit1 = meters(3.14159, precision: 4);
-        final unit2 = meters(3.14149, precision: 6);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(3));
+        final unit2 = meters(3.14149, precision: DigitsAfterDecimal(5));
 
         // when
         final result = unit1.equals(unit2);
@@ -521,8 +554,8 @@ void main() {
       });
       test('same precision, unequal', () {
         // given
-        final unit1 = meters(3.1416, precision: 6);
-        final unit2 = meters(3.14159, precision: 6);
+        final unit1 = meters(3.1416, precision: DigitsAfterDecimal(5));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(5));
 
         // when
         final result = unit1.equals(unit2);
@@ -535,8 +568,8 @@ void main() {
     group('>', () {
       test('same value', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 > unit2;
@@ -546,8 +579,8 @@ void main() {
       });
       test('smaller value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 > unit2;
@@ -557,8 +590,8 @@ void main() {
       });
       test('larger value', () {
         // given
-        final unit1 = meters(4, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(4, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 > unit2;
@@ -568,8 +601,8 @@ void main() {
       });
       test('precision smaller', () {
         // given
-        final unit1 = meters(3.14159, precision: 2);
-        final unit2 = meters(3.14159, precision: 5);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(1));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 > unit2;
@@ -579,8 +612,8 @@ void main() {
       });
       test('precision bigger', () {
         // given
-        final unit1 = meters(3.14159, precision: 5);
-        final unit2 = meters(3.14159, precision: 2);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(1));
 
         // when
         final result = unit1 > unit2;
@@ -591,7 +624,7 @@ void main() {
       test('from infinite', () {
         // given
         final unit1 = DistanceMeasurement.infinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 > unit2;
@@ -601,7 +634,7 @@ void main() {
       });
       test('to infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.infinite();
 
         // when
@@ -613,7 +646,7 @@ void main() {
       test('from negative infinite', () {
         // given
         final unit1 = DistanceMeasurement.negativeInfinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 > unit2;
@@ -623,7 +656,7 @@ void main() {
       });
       test('to negative infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
@@ -637,8 +670,8 @@ void main() {
     group('>=', () {
       test('same value', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 >= unit2;
@@ -648,8 +681,8 @@ void main() {
       });
       test('smaller value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 >= unit2;
@@ -659,8 +692,8 @@ void main() {
       });
       test('larger value', () {
         // given
-        final unit1 = meters(4, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(4, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 >= unit2;
@@ -670,8 +703,8 @@ void main() {
       });
       test('precision smaller', () {
         // given
-        final unit1 = meters(3.14159, precision: 2);
-        final unit2 = meters(3.14159, precision: 5);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(1));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 >= unit2;
@@ -681,8 +714,8 @@ void main() {
       });
       test('precision bigger', () {
         // given
-        final unit1 = meters(3.14159, precision: 5);
-        final unit2 = meters(3.14159, precision: 2);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(1));
 
         // when
         final result = unit1 >= unit2;
@@ -693,7 +726,7 @@ void main() {
       test('from infinite', () {
         // given
         final unit1 = DistanceMeasurement.infinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 >= unit2;
@@ -703,7 +736,7 @@ void main() {
       });
       test('to infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.infinite();
 
         // when
@@ -715,7 +748,7 @@ void main() {
       test('from negative infinite', () {
         // given
         final unit1 = DistanceMeasurement.negativeInfinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 >= unit2;
@@ -725,7 +758,7 @@ void main() {
       });
       test('to negative infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
@@ -739,8 +772,8 @@ void main() {
     group('<', () {
       test('same value', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 < unit2;
@@ -750,8 +783,8 @@ void main() {
       });
       test('smaller value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 < unit2;
@@ -761,8 +794,8 @@ void main() {
       });
       test('larger value', () {
         // given
-        final unit1 = meters(4, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(4, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 < unit2;
@@ -772,8 +805,8 @@ void main() {
       });
       test('precision smaller', () {
         // given
-        final unit1 = meters(3.14159, precision: 2);
-        final unit2 = meters(3.14159, precision: 5);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(1));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 < unit2;
@@ -783,8 +816,8 @@ void main() {
       });
       test('precision bigger', () {
         // given
-        final unit1 = meters(3.14159, precision: 5);
-        final unit2 = meters(3.14159, precision: 2);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(1));
 
         // when
         final result = unit1 < unit2;
@@ -795,7 +828,7 @@ void main() {
       test('from infinite', () {
         // given
         final unit1 = DistanceMeasurement.infinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 < unit2;
@@ -805,7 +838,7 @@ void main() {
       });
       test('to infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.infinite();
 
         // when
@@ -817,7 +850,7 @@ void main() {
       test('from negative infinite', () {
         // given
         final unit1 = DistanceMeasurement.negativeInfinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 < unit2;
@@ -827,7 +860,7 @@ void main() {
       });
       test('to negative infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
@@ -841,8 +874,8 @@ void main() {
     group('<=', () {
       test('same value', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 <= unit2;
@@ -852,8 +885,8 @@ void main() {
       });
       test('smaller value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 <= unit2;
@@ -863,8 +896,8 @@ void main() {
       });
       test('larger value', () {
         // given
-        final unit1 = meters(4, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(4, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 <= unit2;
@@ -874,8 +907,8 @@ void main() {
       });
       test('precision smaller', () {
         // given
-        final unit1 = meters(3.14159, precision: 2);
-        final unit2 = meters(3.14159, precision: 5);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(1));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 <= unit2;
@@ -885,8 +918,8 @@ void main() {
       });
       test('precision bigger', () {
         // given
-        final unit1 = meters(3.14159, precision: 5);
-        final unit2 = meters(3.14159, precision: 2);
+        final unit1 = meters(3.14159, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3.14159, precision: DigitsAfterDecimal(1));
 
         // when
         final result = unit1 <= unit2;
@@ -897,7 +930,7 @@ void main() {
       test('from infinite', () {
         // given
         final unit1 = DistanceMeasurement.infinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 <= unit2;
@@ -907,7 +940,7 @@ void main() {
       });
       test('to infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.infinite();
 
         // when
@@ -919,7 +952,7 @@ void main() {
       test('from negative infinite', () {
         // given
         final unit1 = DistanceMeasurement.negativeInfinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 <= unit2;
@@ -929,7 +962,7 @@ void main() {
       });
       test('to negative infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
@@ -943,8 +976,8 @@ void main() {
     group('compareTo', () {
       test('same value', () {
         // given
-        final unit1 = meters(3, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.compareTo(unit2);
@@ -954,8 +987,8 @@ void main() {
       });
       test('smaller value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.compareTo(unit2);
@@ -965,8 +998,8 @@ void main() {
       });
       test('larger value', () {
         // given
-        final unit1 = meters(4, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(4, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.compareTo(unit2);
@@ -977,7 +1010,7 @@ void main() {
       test('from infinite', () {
         // given
         final unit1 = DistanceMeasurement.infinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.compareTo(unit2);
@@ -987,7 +1020,7 @@ void main() {
       });
       test('to infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.infinite();
 
         // when
@@ -999,7 +1032,7 @@ void main() {
       test('from negative infinite', () {
         // given
         final unit1 = DistanceMeasurement.negativeInfinite();
-        final unit2 = meters(3, precision: 5);
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1.compareTo(unit2);
@@ -1009,7 +1042,7 @@ void main() {
       });
       test('to negative infinite', () {
         // given
-        final unit1 = meters(3, precision: 5);
+        final unit1 = meters(3, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
@@ -1023,7 +1056,7 @@ void main() {
     group('unary -', () {
       test('positive finite changes sign', () {
         // given
-        final unit = meters(3, precision: 5);
+        final unit = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = -unit;
@@ -1033,7 +1066,7 @@ void main() {
       });
       test('positive finite keeps precision', () {
         // given
-        final unit = meters(3, precision: 5);
+        final unit = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = -unit;
@@ -1107,8 +1140,8 @@ void main() {
     group('+', () {
       test('identity', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(0, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 + unit2;
@@ -1118,8 +1151,8 @@ void main() {
       });
       test('both positive increases value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 + unit2;
@@ -1129,8 +1162,8 @@ void main() {
       });
       test('one negative decreases value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(-3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(-3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 + unit2;
@@ -1140,7 +1173,7 @@ void main() {
       });
       test('infinite', () {
         // given
-        final unit1 = meters(2, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.infinite();
 
         // when
@@ -1151,7 +1184,7 @@ void main() {
       });
       test('negative infinite', () {
         // given
-        final unit1 = meters(2, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
@@ -1162,22 +1195,22 @@ void main() {
       });
       test('precision is set correctly', () {
         // given
-        final unit1 = meters(97.101, precision: 5);
-        final unit2 = meters(3.456789, precision: 8);
+        final unit1 = meters(97.101, precision: SignificantDigits(5));
+        final unit2 = meters(3.456789, precision: SignificantDigits(8));
 
         // when
         final result = unit1 + unit2;
 
         // then
-        expect(result.precision, 6);
+        expect(result.precision, SignificantDigits(6));
       });
     });
 
     group('binary -', () {
       test('identity', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(0, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(0, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 - unit2;
@@ -1187,8 +1220,8 @@ void main() {
       });
       test('both positive decreases value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 - unit2;
@@ -1198,8 +1231,8 @@ void main() {
       });
       test('one negative increases value', () {
         // given
-        final unit1 = meters(2, precision: 5);
-        final unit2 = meters(-3, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
+        final unit2 = meters(-3, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit1 - unit2;
@@ -1209,7 +1242,7 @@ void main() {
       });
       test('infinite', () {
         // given
-        final unit1 = meters(2, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.infinite();
 
         // when
@@ -1220,7 +1253,7 @@ void main() {
       });
       test('negative infinite', () {
         // given
-        final unit1 = meters(2, precision: 5);
+        final unit1 = meters(2, precision: DigitsAfterDecimal(4));
         final unit2 = DistanceMeasurement.negativeInfinite();
 
         // when
@@ -1231,21 +1264,21 @@ void main() {
       });
       test('precision is set correctly', () {
         // given
-        final unit1 = meters(3.45, precision: 3);
-        final unit2 = meters(3.21, precision: 5);
+        final unit1 = meters(3.45, precision: SignificantDigits(3));
+        final unit2 = meters(3.21, precision: SignificantDigits(5));
 
         // when
         final result = unit1 - unit2;
 
         // then
-        expect(result.precision, 2);
+        expect(result.precision, SignificantDigits(2));
       });
     });
 
     group('*', () {
       test('identity', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit * 1;
@@ -1255,7 +1288,7 @@ void main() {
       });
       test('zero multiplier', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit * 0;
@@ -1275,7 +1308,7 @@ void main() {
       });
       test('infinite multiplier', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit * double.infinity;
@@ -1295,7 +1328,7 @@ void main() {
       });
       test('positive multiplier', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit * 3;
@@ -1305,7 +1338,7 @@ void main() {
       });
       test('negative multiplier', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit * -3;
@@ -1318,7 +1351,7 @@ void main() {
     group('/', () {
       test('identity', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit / 1;
@@ -1328,7 +1361,7 @@ void main() {
       });
       test('zero divisor', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit / 0;
@@ -1348,7 +1381,7 @@ void main() {
       });
       test('infinite divisor', () {
         // given
-        final unit = meters(2, precision: 5);
+        final unit = meters(2, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit / double.infinity;
@@ -1368,7 +1401,7 @@ void main() {
       });
       test('positive divisor', () {
         // given
-        final unit = meters(6, precision: 5);
+        final unit = meters(6, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit / 3;
@@ -1378,7 +1411,7 @@ void main() {
       });
       test('negative divisor', () {
         // given
-        final unit = meters(6, precision: 5);
+        final unit = meters(6, precision: DigitsAfterDecimal(4));
 
         // when
         final result = unit / -3;
@@ -1494,7 +1527,7 @@ void main() {
         final result = unit1 % unit2;
 
         // then
-        expect(result.withPrecision(3).as(meters), 0.428);
+        expect(result.withPrecision(SignificantDigits(3)).as(meters), 0.428);
       });
       test('different base units with decimals', () {
         // given
@@ -1505,7 +1538,7 @@ void main() {
         final result = unit1 % unit2;
 
         // then
-        expect(result.withPrecision(3).as(meters), 0.257);
+        expect(result.withPrecision(SignificantDigits(3)).as(meters), 0.257);
       });
       test('negative dividend', () {
         // given
@@ -1655,8 +1688,8 @@ void main() {
       });
       test('with precision', () {
         // given
-        final unit1 = meters(4.0, precision: 3);
-        final unit2 = meters(3.0, precision: 3);
+        final unit1 = meters(4.0, precision: SignificantDigits(3));
+        final unit2 = meters(3.0, precision: SignificantDigits(3));
 
         // when
         final result = unit1.compareMagnitude(unit2);
@@ -1666,8 +1699,8 @@ void main() {
       });
       test('truncating precision', () {
         // given
-        final unit1 = meters(3.04999999, precision: 2);
-        final unit2 = meters(1.49012345, precision: 2);
+        final unit1 = meters(3.04999999, precision: DigitsAfterDecimal(1));
+        final unit2 = meters(1.49012345, precision: DigitsAfterDecimal(1));
 
         // when
         final result = unit1.compareMagnitude(unit2);
@@ -1724,20 +1757,20 @@ void main() {
     group('withPrecision', () {
       test('sets smaller precision', () {
         // given
-        final unit = meters(3.14159, precision: 6);
+        final unit = meters(3.14159, precision: DigitsAfterDecimal(5));
 
         // when
-        final result = unit.withPrecision(4);
+        final result = unit.withPrecision(SignificantDigits(4));
 
         // then
         expect(result.as(meters), 3.142);
       });
       test('sets higher precision', () {
         // given
-        final unit = meters(3.14159, precision: 2);
+        final unit = meters(3.14159, precision: DigitsAfterDecimal(1));
 
         // when
-        final result = unit.withPrecision(6);
+        final result = unit.withPrecision(SignificantDigits(6));
 
         // then
         expect(result.as(meters), 3.14159);

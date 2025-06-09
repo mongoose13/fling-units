@@ -7,7 +7,7 @@ void main() {
     group("as", () {
       test("base converts to prefixed", () {
         // given
-        final measurement = 3.hertz.withPrecision(3);
+        final measurement = 3.hertz.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.as(deka.hertz);
@@ -17,7 +17,7 @@ void main() {
       });
       test("prefixed converts to base", () {
         // given
-        final measurement = 3.deci.hertz.withPrecision(3);
+        final measurement = 3.deci.hertz.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.as(hertz);
@@ -27,7 +27,7 @@ void main() {
       });
       test("prefixed converts to prefixed", () {
         // given
-        final measurement = 3.deci.hertz.withPrecision(3);
+        final measurement = 3.deci.hertz.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.as(centi.hertz);
@@ -37,7 +37,7 @@ void main() {
       });
       test("base converts to similar unit", () {
         // given
-        final measurement = 3.hertz.withPrecision(3);
+        final measurement = 3.hertz.withPrecision(DigitsAfterDecimal(2));
 
         // when
         final result = measurement.as(rpm);
@@ -53,10 +53,11 @@ void main() {
         final unit = FrequencyBuilder.from(minutes.inverted);
 
         // when
-        final result = unit(180, precision: 3);
+        final result = unit(180, precision: SignificantDigits(3));
 
         // then
-        expect(result.butAs(hertz), 3.hertz.withPrecision(3));
+        expect(
+            result.butAs(hertz), 3.hertz.withPrecision(SignificantDigits(3)));
       });
     });
   });

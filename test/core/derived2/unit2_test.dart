@@ -179,7 +179,8 @@ void main() {
         final unit = square(feet);
 
         // when
-        final result = unit.using(5.4.feet, 2.feet, precision: 3);
+        final result =
+            unit.using(5.4.feet, 2.feet, precision: DigitsAfterDecimal(1));
 
         // then
         expect(result.toString(), "10.8 ft²");
@@ -189,7 +190,8 @@ void main() {
         final unit = square(feet);
 
         // when
-        final result = unit.using(1.meters, 1.meters, precision: 3);
+        final result =
+            unit.using(1.meters, 1.meters, precision: DigitsAfterDecimal(1));
 
         // then
         expect(result.toString(), "10.8 ft²");
@@ -199,7 +201,8 @@ void main() {
         final unit = square(meters);
 
         // when
-        final result = unit.using(2.meters, 3.meters, precision: 3);
+        final result =
+            unit.using(2.meters, 3.meters, precision: DigitsAfterDecimal(1));
 
         // then
         expect(result.toString(), "6.0 m²");
@@ -209,7 +212,8 @@ void main() {
         final unit = square(meters);
 
         // when
-        final result = unit.using(2.7.feet, 4.feet, precision: 3);
+        final result =
+            unit.using(2.7.feet, 4.feet, precision: DigitsAfterDecimal(1));
 
         // then
         expect(result.toString(), "1.0 m²");
@@ -219,7 +223,8 @@ void main() {
         final unit = square(inches);
 
         // when
-        final result = unit.using(0.25.feet, 0.5.feet, precision: 3);
+        final result =
+            unit.using(0.25.feet, 0.5.feet, precision: DigitsAfterDecimal(1));
 
         // then
         expect(result.toString(), "18.0 in²");
@@ -230,8 +235,8 @@ void main() {
 
         // when
         final result = unit.using(
-          0.25.meters.withPrecision(5),
-          0.5.meters.withPrecision(4),
+          0.25.meters.withPrecision(DigitsAfterDecimal(1)),
+          0.5.meters.withPrecision(DigitsAfterDecimal(1)),
         );
 
         // then
@@ -243,7 +248,7 @@ void main() {
 
         // when
         final result = unit.using(
-          0.25.meters.withPrecision(5),
+          0.25.meters.withPrecision(DigitsAfterDecimal(2)),
           0.5.meters,
         );
 

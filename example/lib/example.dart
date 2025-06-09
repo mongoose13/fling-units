@@ -5,7 +5,7 @@ void main() {
   // You may use any of several construction methods.
   // Include the precision of your measurement for best results!
   var distanceToGroceryStore = 2.miles;
-  var distanceToTheMoon = kilo.meters(382500, precision: 4);
+  var distanceToTheMoon = kilo.meters(382500, precision: SignificantDigits(4));
   var distanceToSeattle = DistanceMeasurement.sum(
     [
       miles(123),
@@ -13,7 +13,7 @@ void main() {
       feet(2),
       inches(4),
     ],
-    precision: 3,
+    precision: DigitsAfterDecimal.none,
   );
   var bodyTemperature = Temperature.ofFahrenheit(93.4);
   var depthsOfMyMind = double.infinity.liters;
@@ -30,14 +30,16 @@ void main() {
   // divide, truncating divide, or modulo divide.
   final distanceToSeattleAndBack = distanceToSeattle * 2;
   final distanceToSeattleIfYouForgotSomethingAtHome =
-      (distanceToSeattleAndBack + distanceToSeattle).withPrecision(6);
+      (distanceToSeattleAndBack + distanceToSeattle)
+          .withPrecision(DigitsAfterDecimal.none);
 
   // You can also make use of the Precision class to ensure proper significant digits.
-  final bucketMagnitudeDifference =
-      Precision(3).apply(myBucketSize.compareMagnitude(yourBucketSize));
+  final bucketMagnitudeDifference = Precision.having(significantDigits: 3)
+      .apply(myBucketSize.compareMagnitude(yourBucketSize));
   final timesYourBucketFitsInMine = myBucketSize ~/ yourBucketSize;
-  final leftOverBucketVolume =
-      (myBucketSize % yourBucketSize).withPrecision(3).butAs(liters);
+  final leftOverBucketVolume = (myBucketSize % yourBucketSize)
+      .withPrecision(SignificantDigits(3))
+      .butAs(liters);
 
   //------------------------------------------------//
 
@@ -71,11 +73,11 @@ void main() {
 
   // Inherent ordering of items allows sorting lists with the built-in methods.
   var distances = [
-    inches(1, precision: 3),
-    centi.meters(1, precision: 3),
+    inches(1, precision: DigitsAfterDecimal.none),
+    centi.meters(1, precision: DigitsAfterDecimal.none),
     DistanceMeasurement.zero(),
-    miles(1, precision: 3),
-    feet(-1, precision: 3),
+    miles(1, precision: DigitsAfterDecimal.none),
+    feet(-1, precision: DigitsAfterDecimal.none),
     DistanceMeasurement.negativeInfinite(),
   ];
   print("\nThese distances are all out of whack: $distances");
@@ -97,7 +99,8 @@ void main() {
 
   // Some of the more common derived units (e.g. Area) have full syntactic support.
   // You can create simple derived measurements with by() or over().
-  var monitorSurfaceArea = 14.inches.by(18.inches).withPrecision(4);
+  var monitorSurfaceArea =
+      14.inches.by(18.inches).withPrecision(DigitsAfterDecimal.none);
   print("\nMy monitor dimensions:");
   print("${monitorSurfaceArea.as(square(meters))} m²");
   print("${monitorSurfaceArea.as(square(centi.meters))} cm²");
@@ -107,8 +110,8 @@ void main() {
 
   // You can also build them from their component parts.
   var oneSquareInch = square(inches).using(
-    inches(1, precision: 3),
-    inches(1, precision: 3),
+    inches(1, precision: DigitsAfterDecimal.none),
+    inches(1, precision: DigitsAfterDecimal.none),
   );
   print("\nOne square inch is "
       "${oneSquareInch.as(square(feet))} square feet");
@@ -121,7 +124,7 @@ void main() {
   var fuelUsed = 2.4.usGallons;
   var fuelEconomy = milesPerGallon
       .using(distanceToSeattle, fuelUsed.inverted)
-      .withPrecision(3);
+      .withPrecision(DigitsAfterDecimal(1));
   print("\nDriving to Seattle made me realize how great my fuel economy is!");
   print("I get $fuelEconomy");
 
@@ -142,7 +145,8 @@ void main() {
       .butAs(DerivedUnit2.build(coulombs, seconds.inverted));
   print("If done over 30 seconds, that's a rate of $energyProductionRate");
 
-  var myMilkRecord = 3.usGallons.over(12.minutes).withPrecision(2);
+  var myMilkRecord =
+      3.usGallons.over(12.minutes).withPrecision(DigitsAfterDecimal.none);
   print(
       "\nI drank $myMilkRecord (${myMilkRecord.butAs(liters.per.second)}) of milk. I do not recommend trying it yourself.");
 
@@ -152,14 +156,14 @@ void main() {
   // the "standard" short form of the unit. Measurements will make use of that
   // in their own toString() methods using whichever unit was used to
   // instantiate them. You can also change the default unit later.
-  final goldAmount = 1234.milli.grams.withPrecision(4);
+  final goldAmount = 1234.milli.grams.withPrecision(DigitsAfterDecimal.none);
   print("\nI have $goldAmount of gold!");
   print("I have ${goldAmount.as(kilo.grams)} ${kilo.grams} of gold!");
   print("I have ${goldAmount.butAs(ounces)} of gold!");
 
   // This is also true for derived units. The library will produce a default
   // unit name, but you can also supply your own.
-  final carSpeed = 100.miles.per.hour.withPrecision(3);
+  final carSpeed = 100.miles.per.hour.withPrecision(DigitsAfterDecimal.none);
   print("\nMy car is going $carSpeed!");
   print(
       "My car is going ${carSpeed.butAs(inches.per.second.withName("inches/second"))}!");
@@ -185,7 +189,7 @@ void main() {
   const sizeOfMyHand = DistanceMeasurement(5.0, sizeUnit);
   const massOfMyHand = MassMeasurement(1.2, pounds);
   print(
-      "\nMy hand will always have a linear density of ${pounds.per.inch.using(massOfMyHand, sizeOfMyHand.inverted).withPrecision(2)}.");
+      "\nMy hand will always have a linear density of ${pounds.per.inch.using(massOfMyHand, sizeOfMyHand.inverted).withPrecision(SignificantDigits(2))}.");
 
   // Have fun!
   liters.per.second;
