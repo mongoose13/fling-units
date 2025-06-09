@@ -44,12 +44,12 @@ class DerivedUnit3<
   /// ```
   DerivedMeasurement3<D1, D2, D3, I1, I2, I3> call(
     num magnitude, [
-    Precision? precision,
+    f.Precision? precision,
   ]) =>
       DerivedMeasurement3(
         magnitude: magnitude,
         defaultUnit: this,
-        precision: precision ?? Precision.max,
+        precision: precision ?? f.Precision.max,
       );
 
   /// Creates a [Measurement] from this [Unit] using existing [Measurement]s of
@@ -66,13 +66,13 @@ class DerivedUnit3<
     M1 first,
     M2 second,
     M3 third, {
-    Precision? precision,
+    f.Precision? precision,
   }) {
     final magnitude = first.si * second.si * third.si / multiplier;
     return DerivedMeasurement3(
       magnitude: magnitude,
       precision: precision ??
-          Precision.combine(
+          f.Precision.combine(
             [
               first.precision,
               second.precision,

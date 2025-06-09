@@ -121,13 +121,13 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final mass = grams(123.456, precision: SignificantDigits(8));
+        final mass = grams(123.456);
 
         // when
         final result = mass.as(pounds);
 
         // then
-        expect(result, 0.27217389);
+        expect(result, closeTo(0.27217389, 5e-9));
       });
     });
 

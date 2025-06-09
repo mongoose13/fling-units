@@ -18,7 +18,7 @@ class DerivedMeasurement3<
   });
 
   DerivedMeasurement3<D1, D2, D3, I1, I2, I3> withPrecision(
-          Precision precision) =>
+          f.Precision precision) =>
       DerivedMeasurement3(
         magnitude: magnitude,
         precision: precision,
@@ -34,7 +34,7 @@ class DerivedMeasurement3<
       );
 
   double as(DerivedUnit3<D1, D2, D3, I1, I2, I3> unit) =>
-      precision.apply(unit.fromSI(si));
+      unit.fromSI(precision.apply(si));
 
   f.MeasurementPer<
       DerivedMeasurement3<D1, D2, D3, I1, I2, I3>,

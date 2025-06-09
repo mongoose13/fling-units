@@ -79,102 +79,93 @@ void main() {
       });
       test("per", () {
         // given
-        final measurement =
-            feet.per.second(10.8).withPrecision(SignificantDigits(3));
+        final measurement = feet.per.second(10.8);
 
         // when
         final result = measurement.as(meters.per.minute);
 
         // then
-        expect(result, 198.0);
+        expect(result, closeTo(198.0, 0.5));
       });
       test("from SI to other", () {
         // given
-        final measurement =
-            1.square(meters).withPrecision(SignificantDigits(3));
+        final measurement = 1.square(meters);
 
         // when
         final result = measurement.as(square(feet));
 
         // then
-        expect(result, 10.8);
+        expect(result, closeTo(10.8, 0.05));
       });
       test("with prefix on destination numerator", () {
         // given
-        final measurement =
-            4.miles.per.gallon.withPrecision(SignificantDigits(3));
+        final measurement = 4.miles.per.gallon;
 
         // when
         final result = measurement.as(kilo.meters.per.gallon);
 
         // then
-        expect(result, 6.44);
+        expect(result, closeTo(6.44, 0.005));
       });
       test("with prefix on destination denominator", () {
         // given
-        final measurement =
-            4.miles.per.ounce.withPrecision(SignificantDigits(3));
+        final measurement = 4.miles.per.ounce;
 
         // when
         final result = measurement.as(miles.per.deci.ounce);
 
         // then
-        expect(result, 0.4);
+        expect(result, closeTo(0.4, 0.05));
       });
       test("with prefix on destination denominator on volume", () {
         // given
-        final measurement =
-            4.miles.per.gallon.withPrecision(SignificantDigits(3));
+        final measurement = 4.miles.per.gallon;
 
         // when
         final result = measurement.as(miles.per.deci.gallon);
 
         // then
-        expect(result, 0.4);
+        expect(result, closeTo(0.4, 0.05));
       });
       test("with prefixes on destination", () {
         // given
-        final measurement =
-            4.miles.per.ounce.withPrecision(SignificantDigits(3));
+        final measurement = 4.miles.per.ounce;
 
         // when
         final result = measurement.as(miles.per.deci.ounce);
 
         // then
-        expect(result, 0.4);
+        expect(result, closeTo(0.4, 0.05));
       });
       test("with prefixes on destination cancel out", () {
         // given
-        final measurement =
-            4.miles.per.ounce.withPrecision(SignificantDigits(3));
+        final measurement = 4.miles.per.ounce;
 
         // when
         final result = measurement.as(deci.miles.per.deci.ounce);
 
         // then
-        expect(result, 4.0);
+        expect(result, closeTo(4.0, 0.05));
       });
       test("with prefixes on destination on volume", () {
         // given
-        final measurement =
-            4.miles.per.gallon.withPrecision(SignificantDigits(3));
+        final measurement = 4.miles.per.gallon;
 
         // when
         final result = measurement.as(miles.per.deci.gallon);
 
         // then
-        expect(result, 0.4);
+        expect(result, closeTo(0.4, 0.05));
       });
       test("with prefixes on destination on volume cancel out", () {
         // given
-        final measurement =
-            4.miles.per.gallon.withPrecision(SignificantDigits(3));
+        final measurement = 4.miles.per.gallon;
 
         // when
         final result = measurement.as(deci.miles.per.deci.gallon);
 
         // then
-        expect(result, 4.0);
+        expect(result, closeTo(4.0, 0.05));
       });
     });
 

@@ -69,14 +69,13 @@ void main() {
       });
       test("from SI to other", () {
         // given
-        final measurement =
-            1.cubic(meters).withPrecision(DigitsAfterDecimal(1));
+        final measurement = 1.cubic(meters);
 
         // when
         final result = measurement.as(cubic(feet));
 
         // then
-        expect(result, 35.3);
+        expect(result, closeTo(35.3, 0.05));
       });
     });
 

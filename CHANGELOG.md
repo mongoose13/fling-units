@@ -7,7 +7,15 @@ types you need to work with from the rest of your code.
 
 ### Added
 
+- Code generator support for derived units
+
+### Changed
+
 - Precision accepts two approaches: significant digits or digits after decimal
+
+### Fixed
+
+- Apply precision prior to performing conversions
 
 ## [3.0.8]
 

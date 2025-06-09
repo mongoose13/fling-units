@@ -12,7 +12,7 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
     required this.defaultUnit,
   });
 
-  DerivedMeasurement2<D1, D2, I1, I2> withPrecision(Precision precision) =>
+  DerivedMeasurement2<D1, D2, I1, I2> withPrecision(f.Precision precision) =>
       DerivedMeasurement2(
         magnitude: magnitude,
         precision: precision,
@@ -28,7 +28,7 @@ class DerivedMeasurement2<D1 extends f.Dimension, D2 extends f.Dimension,
       );
 
   double as(DerivedUnit2<D1, D2, I1, I2> unit) =>
-      precision.apply(unit.fromSI(si));
+      unit.fromSI(precision.apply(si));
 
   /// Returns a measurement representing the opposite magnitude of this.
   DerivedMeasurement2<D1, D2, I1, I2> operator -() =>

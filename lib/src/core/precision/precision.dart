@@ -1,4 +1,9 @@
-part of "library.dart";
+import "dart:math" as math;
+
+import "package:fling_units/fling_units.dart";
+
+export "significant_digits.dart";
+export "digits_after_decimal.dart";
 
 /// A representation of the certainty in a measurement.
 ///
@@ -19,18 +24,6 @@ part of "library.dart";
 /// ```
 abstract class Precision {
   const Precision();
-
-  /// Constructs a [Precision] with a particular style.
-  static Precision having({
-    int? digitsAfterDecimal,
-    int? significantDigits,
-  }) {
-    if (digitsAfterDecimal != null) {
-      return DigitsAfterDecimal(digitsAfterDecimal);
-    }
-    return SignificantDigits(
-        significantDigits ?? SignificantDigits.maximumPrecision);
-  }
 
   /// A [Precision] implying the maximum possible precision on the platform.
   static const Precision max = SignificantDigits();
@@ -109,69 +102,4 @@ abstract class Precision {
     return math.max(
         int.parse(string.substring(string.indexOf('e') + 1)) + 1, 0);
   }
-}
-
-/// Measurement precision in terms of digits after the decimal point.
-class DigitsAfterDecimal extends Precision {
-  const DigitsAfterDecimal(this.digits);
-
-  static const none = DigitsAfterDecimal(0);
-
-  final int digits;
-
-  @override
-  int significantDigits(double target) =>
-      Precision.digitsBeforeDecimal(target) + math.max(0, digits);
-
-  @override
-  double apply(num value) => digits >= 0
-      ? double.parse(value.toStringAsFixed(digits))
-      : double.parse(value.toStringAsPrecision(
-          digits + Precision.digitsBeforeDecimal(value.toDouble())));
-
-  @override
-  bool operator ==(Object other) =>
-      other is DigitsAfterDecimal && other.digits == digits;
-
-  @override
-  int get hashCode => digits.hashCode;
-}
-
-///
-class SignificantDigits extends Precision {
-  /// The highest precision allowed.
-  static const int maximumPrecision = 21;
-
-  /// A single digit precision.
-  static const SignificantDigits single = SignificantDigits(1);
-
-  /// Maximum precision.
-  static const SignificantDigits max = SignificantDigits(maximumPrecision);
-
-  /// The maximum number of significant digits this precision allows.
-  int get digits => math.min(21, math.max(1, _digits));
-
-  /// Constructs a [SignificantDigits] of the specified number of digits.
-  ///
-  /// Due to Dart language limitations on doubles, the maximum precision is 21
-  /// digits. Any attempt to use a higher number will fall back silently to 21.
-  ///
-  /// Precision below 1 digit is meaningless and will fall back to 1.
-  const SignificantDigits([this._digits = maximumPrecision]);
-
-  @override
-  double apply(num value) => double.parse(value.toStringAsPrecision(digits));
-
-  @override
-  int significantDigits(double target) => digits;
-
-  @override
-  bool operator ==(Object other) =>
-      other is SignificantDigits && other.digits == digits;
-
-  @override
-  int get hashCode => digits.hashCode;
-
-  /// This precision (uncorrected), in number of digits.
-  final int _digits;
 }

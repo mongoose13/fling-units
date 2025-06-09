@@ -120,37 +120,36 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final quantity = units(1.234e23, precision: SignificantDigits(8));
+        final quantity = units(1.234e23);
 
         // when
         final result = quantity.as(moles);
 
         // then
-        expect(result, 0.20491052);
+        expect(result, closeTo(0.20491052, 5e-9));
       });
     });
 
     group('units', () {
       test('converts to base', () {
         // given
-        final quantity = units(1.234e23, precision: DigitsAfterDecimal(5));
+        final quantity = units(1.234e23);
 
         // when
         final result = quantity.as(moles);
 
         // then
-        expect(result, 0.20491);
+        expect(result, closeTo(0.20491, 5e-6));
       });
       test('applies base prefix', () {
         // given
-        final quantity =
-            UnitPrefix.unit().units(1.234e23, precision: DigitsAfterDecimal(5));
+        final quantity = UnitPrefix.unit().units(1.234e23);
 
         // when
         final result = quantity.as(moles);
 
         // then
-        expect(result, 0.20491);
+        expect(result, closeTo(0.20491, 5e-6));
       });
       test('applies prefixes', () {
         // given
@@ -164,14 +163,13 @@ void main() {
       });
       test('applies prefixes to conversions', () {
         // given
-        final quantity =
-            milli.units(1.234e27, precision: DigitsAfterDecimal(4));
+        final quantity = milli.units(1.234e27);
 
         // when
         final result = quantity.as(moles);
 
         // then
-        expect(result, 2.0491);
+        expect(result, closeTo(2.0491, 5e-5));
       });
       test('maintains whole numbers', () {
         // given

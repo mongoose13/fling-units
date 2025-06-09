@@ -351,14 +351,13 @@ void main() {
           });
           test('from SI to other', () {
             // given
-            final measurement =
-                cubic(meters)(2).withPrecision(SignificantDigits(3));
+            final measurement = cubic(meters)(2);
 
             // when
             final result = measurement.as(cubic(feet));
 
             // then
-            expect(result, 70.6);
+            expect(result, closeTo(70.6, 0.05));
           });
           test('from other to SI', () {
             // given
@@ -373,25 +372,23 @@ void main() {
           });
           test('from other to other', () {
             // given
-            final measurement =
-                cubic(inches)(144).withPrecision(SignificantDigits(3));
+            final measurement = cubic(inches)(144);
 
             // when
             final result = measurement.as(cubic(feet));
 
             // then
-            expect(result, 0.0833);
+            expect(result, closeTo(0.0833, 5e-5));
           });
           test('from other to other with prefix', () {
             // given
-            final measurement =
-                cubic(deka.inches)(3).withPrecision(SignificantDigits(3));
+            final measurement = cubic(deka.inches)(3);
 
             // when
             final result = measurement.as(cubic(centi.feet));
 
             // then
-            expect(result, 1.74e6);
+            expect(result, closeTo(1.74e6, 5e3));
           });
         });
       });

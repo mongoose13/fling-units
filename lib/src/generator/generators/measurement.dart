@@ -384,7 +384,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..returns = Reference("double")
                   ..lambda = true
-                  ..body = Code("precision.apply(unit.fromSI(si))"),
+                  ..body = Code("unit.fromSI(precision.apply(si))"),
               ),
             )
             ..methods.add(

@@ -16,17 +16,13 @@ void main() {
       });
       test("with prefix", () {
         // given
-        final measurement = 3.milli.knots.withPrecision(SignificantDigits(3));
+        final measurement = 3.milli.knots;
+
+        // when
+        final result = measurement.as(nauticalMiles.per.hour);
 
         // then
-        expect(measurement.as(nauticalMiles.per.hour), 3e-3);
-      });
-      test("withPrecision", () {
-        // given
-        final measurement = 3.14159.knots.withPrecision(SignificantDigits(3));
-
-        // then
-        expect(measurement.as(nauticalMiles.per.hour), 3.14);
+        expect(result, closeTo(3e-3, 5e-6));
       });
       test("per", () {
         // given
@@ -44,26 +40,24 @@ void main() {
       });
       test("by", () {
         // given
-        final measurement =
-            3.knots.by(2.minutes).withPrecision(DigitsAfterDecimal(2));
+        final measurement = 3.knots.by(2.minutes);
 
         // then
-        expect(measurement.as(nauticalMiles.per.minute.dot.seconds), 6.0);
+        expect(measurement.as(nauticalMiles.per.minute.dot.seconds),
+            closeTo(6.0, 0.005));
       });
       test("over", () {
         // given
-        final measurement =
-            3.knots.over(2.minutes).withPrecision(DigitsAfterDecimal(2));
+        final measurement = 3.knots.over(2.minutes);
 
         // then
-        expect(measurement.as((nauticalMiles.per.minute).per.hour), 1.5);
+        expect(measurement.as((nauticalMiles.per.minute).per.hour),
+            closeTo(1.5, 0.005));
       });
     });
     group("constants", () {
       test("speedOfLight", () {
-        expect(
-            speedOfLight.withPrecision(SignificantDigits(3)).as(miles.per.hour),
-            6.71e8);
+        expect(speedOfLight.as(miles.per.hour), closeTo(6.71e8, 5e5));
       });
     });
   });

@@ -39,12 +39,12 @@ class DerivedUnit2<D1 extends f.Dimension, D2 extends f.Dimension,
   @override
   DerivedMeasurement2<D1, D2, I1, I2> call(
     num magnitude, [
-    Precision? precision,
+    f.Precision? precision,
   ]) =>
       DerivedMeasurement2(
         magnitude: magnitude,
         defaultUnit: this,
-        precision: precision ?? Precision.max,
+        precision: precision ?? f.Precision.max,
       );
 
   /// Creates a [Measurement] from this [Unit] using existing [Measurement]s of
@@ -61,13 +61,13 @@ class DerivedUnit2<D1 extends f.Dimension, D2 extends f.Dimension,
       using<M1 extends Measurement<D1, I1>, M2 extends Measurement<D2, I2>>(
     M1 first,
     M2 second, {
-    Precision? precision,
+    f.Precision? precision,
   }) {
     final magnitude = first.si * second.si / multiplier;
     return DerivedMeasurement2(
         magnitude: magnitude,
         precision: precision ??
-            Precision.combine(
+            f.Precision.combine(
               [
                 first.precision,
                 second.precision,

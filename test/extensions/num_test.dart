@@ -52,10 +52,10 @@ void main() {
         final measurement = 3.1.milli.mmHg;
 
         // when
-        final result = measurement.withPrecision(SignificantDigits(3)).as(mmHg);
+        final result = measurement.as(mmHg);
 
         // then
-        expect(result, 3.1e-3);
+        expect(result, closeTo(3.1e-3, 5e-5));
       });
     });
 

@@ -33,12 +33,12 @@ void main() {
       (distanceToSeattleAndBack + distanceToSeattle)
           .withPrecision(DigitsAfterDecimal.none);
 
-  // You can also make use of the Precision class to ensure proper significant digits.
-  final bucketMagnitudeDifference = Precision.having(significantDigits: 3)
-      .apply(myBucketSize.compareMagnitude(yourBucketSize));
+  // You can also make use of the Precision subclasses to ensure proper significant digits.
+  final bucketMagnitudeDifference =
+      SignificantDigits(3).apply(myBucketSize.compareMagnitude(yourBucketSize));
   final timesYourBucketFitsInMine = myBucketSize ~/ yourBucketSize;
   final leftOverBucketVolume = (myBucketSize % yourBucketSize)
-      .withPrecision(SignificantDigits(3))
+      .withPrecision(DigitsAfterDecimal(3))
       .butAs(liters);
 
   //------------------------------------------------//

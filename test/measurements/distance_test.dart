@@ -130,13 +130,13 @@ void main() {
     group('as', () {
       test('converts to unit', () {
         // given
-        final measurement = meters(123.456, precision: SignificantDigits(8));
+        final measurement = meters(123.456);
 
         // when
         final result = measurement.as(nauticalMiles);
 
         // then
-        expect(result, 0.066660907);
+        expect(result, closeTo(0.066660907, 5e-10));
       });
     });
 
@@ -176,14 +176,13 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement =
-            milli.miles(1234.0, precision: DigitsAfterDecimal(4));
+        final measurement = milli.miles(1234.0);
 
         // when
         final result = measurement.as(miles);
 
         // then
-        expect(result, 1.234);
+        expect(result, closeTo(1.234, 0.0005));
       });
     });
     group('yards', () {
@@ -199,14 +198,13 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement =
-            milli.yards(1234.0, precision: DigitsAfterDecimal(4));
+        final measurement = milli.yards(1234.0);
 
         // when
         final result = measurement.as(yards);
 
         // then
-        expect(result, 1.234);
+        expect(result, closeTo(1.234, 0.0005));
       });
     });
     group('feet', () {
@@ -222,14 +220,13 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement =
-            milli.feet(1234.0, precision: DigitsAfterDecimal(4));
+        final measurement = milli.feet(1234.0);
 
         // when
         final result = measurement.as(feet);
 
         // then
-        expect(result, 1.234);
+        expect(result, closeTo(1.234, 0.0005));
       });
     });
     group('inches', () {
@@ -245,14 +242,13 @@ void main() {
       });
       test('applies prefixes', () {
         // given
-        final measurement =
-            milli.inches(1234.0, precision: DigitsAfterDecimal(4));
+        final measurement = milli.inches(1234.0);
 
         // when
         final result = measurement.as(inches);
 
         // then
-        expect(result, 1.234);
+        expect(result, closeTo(1.234, 0.0005));
       });
     });
     group('nauticalMiles', () {

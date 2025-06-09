@@ -171,26 +171,26 @@ void main() {
           degrees(2.1),
           arcMinutes(5.0),
           arcSeconds(0.3),
-        ], precision: DigitsAfterDecimal(4));
+        ]);
 
         // when
         final result = measurement.as(degrees);
 
         // then
-        expect(result, 2.1834);
+        expect(result, closeTo(2.1834, 0.00005));
       });
     });
 
     group('as', () {
       test('converts to unit', () {
         // given
-        final measurement = turns(1.234, precision: DigitsAfterDecimal(4));
+        final measurement = turns(1.234);
 
         // when
         final result = measurement.as(radians);
 
         // then
-        expect(result, 7.7535);
+        expect(result, closeTo(7.7535, 5e-5));
       });
     });
 

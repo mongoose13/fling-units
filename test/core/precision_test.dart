@@ -445,4 +445,144 @@ void main() {
       });
     });
   });
+
+  group("DigitsAfterDecimal", () {
+    group("significantDigits", () {
+      test("target has a single digit before the decimal", () {
+        // given
+        final precision = DigitsAfterDecimal(3);
+
+        // when
+        final result = precision.significantDigits(3.14159);
+
+        // then
+        expect(result, 4);
+      });
+      test("target has multiple digit before the decimal", () {
+        // given
+        final precision = DigitsAfterDecimal(3);
+
+        // when
+        final result = precision.significantDigits(314159.14159);
+
+        // then
+        expect(result, 9);
+      });
+      test("target has zeroes before the first significant digit", () {
+        // given
+        final precision = DigitsAfterDecimal(4);
+
+        // when
+        final result = precision.significantDigits(0.00314159);
+
+        // then
+        expect(result, 2);
+      });
+    });
+    group("apply", () {
+      test("truncates to appropriate decimals", () {
+        // given
+        final precision = DigitsAfterDecimal(2);
+
+        // when
+        final result = precision.apply(3.141);
+
+        // then
+        expect(result, 3.14);
+      });
+      test("rounds to appropriate decimals", () {
+        // given
+        final precision = DigitsAfterDecimal(3);
+
+        // when
+        final result = precision.apply(3.14159);
+
+        // then
+        expect(result, 3.142);
+      });
+      test("whole number precision", () {
+        // given
+        final precision = DigitsAfterDecimal(0);
+
+        // when
+        final result = precision.apply(3.14159);
+
+        // then
+        expect(result, 3.0);
+      });
+      test("cuts out insignificant digits left of the decimal", () {
+        // given
+        final precision = DigitsAfterDecimal(-3);
+
+        // when
+        final result = precision.apply(31415.9);
+
+        // then
+        expect(result, 31000.0);
+      });
+      test("overflow results in zero", () {
+        // given
+        final precision = DigitsAfterDecimal(-3);
+
+        // when
+        final result = precision.apply(3.14159);
+
+        // then
+        expect(result, 0.0);
+      });
+      test("underflow results in proper rounding past the decimal", () {
+        // given
+        final precision = DigitsAfterDecimal(4);
+
+        // when
+        final result = precision.apply(0.00314159);
+
+        // then
+        expect(result, 0.0031);
+      });
+    });
+
+    group("within a measurement", () {
+      test("cuts insignificant digits", () {
+        // given
+        final measurement = meters(3.14159, precision: DigitsAfterDecimal(3));
+
+        // when
+        final result = measurement.as(meters);
+
+        // then
+        expect(result, 3.142);
+      });
+      test("conversions apply precision before returning the result", () {
+        // given
+        final measurement = meters(3.14159, precision: DigitsAfterDecimal(3));
+
+        // when
+        final result = measurement.as(milli.meters);
+
+        // then
+        expect(result, 3142);
+      });
+      test("negative precision with large value", () {
+        // given
+        final measurement = meters(3141.59, precision: DigitsAfterDecimal(-2));
+
+        // when
+        final result = measurement.as(meters);
+
+        // then
+        expect(result, 3100.0);
+      });
+      test("negative precision with small value", () {
+        // given
+        final measurement = meters(3.14159, precision: DigitsAfterDecimal(-2));
+
+        // when
+        final result = measurement.as(meters);
+
+        // then
+        expect(result, 0.0);
+      });
+    });
+  });
 }

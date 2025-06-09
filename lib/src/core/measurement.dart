@@ -15,7 +15,7 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   /// Creates a base measurement.
   const Measurement({
     required this.magnitude,
-    this.precision = Precision.max,
+    this.precision = f.Precision.max,
   });
 
   /// Creates a measurement of magnitude zero.
@@ -40,11 +40,11 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
         );
 
   /// Creates a measurement that is the sum of several measurements.
-  Measurement.sum(Iterable<Measurement<D, I>> parts, {Precision? precision})
+  Measurement.sum(Iterable<Measurement<D, I>> parts, {f.Precision? precision})
       : this(
           magnitude: parts.fold(
               0.0, (previousValue, element) => previousValue + element.si),
-          precision: precision ?? Precision.having(),
+          precision: precision ?? f.Precision.max,
         );
 
   /// The default unit for this measurement.
@@ -86,9 +86,9 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   ///
   /// For example, given the three measurements:
   /// ```
-  /// var a = (3.14159).meters.withPrecision(5);
-  /// var b = (3.14159).meters.withPrecision(DigitsAfterDecimal(2));
-  /// var c = (3.1).meters.withPrecision(DigitsAfterDecimal(2));
+  /// var a = (3.14159).meters.withf.Precision(5);
+  /// var b = (3.14159).meters.withf.Precision(DigitsAfterDecimal(2));
+  /// var c = (3.1).meters.withf.Precision(DigitsAfterDecimal(2));
   ///
   /// a.equals(b); // true  (because 3.14 == 3.14)
   /// b.equals(a); // true  (because 3.14 == 3.14)
@@ -173,5 +173,5 @@ abstract class Measurement<D extends f.Dimension, I extends f.Dimension>
   final num magnitude;
 
   /// The precision of this measurement.
-  final Precision precision;
+  final f.Precision precision;
 }
