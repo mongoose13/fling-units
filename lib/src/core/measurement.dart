@@ -6,7 +6,7 @@ abstract class Prefixable<M> {
   Prefixable<M> withPrefix(UnitPrefix prefix);
 
   /// Creates an object with a particular value.
-  M call(num value);
+  M call(num value, {f.Precision precision = f.Precision.max});
 }
 
 /// Base class for any type of measurement.

@@ -22,7 +22,7 @@ extension VolumeUnitExtension on VolumeUnit {
 typedef VolumeMeasurement = DerivedMeasurement3<f.Distance, f.Distance,
     f.Distance, f.InvertedDistance, f.InvertedDistance, f.InvertedDistance>;
 
-final cbm = cubic(f.meters);
+final cbm = f.cubic(f.meters);
 
 final liters = VolumeUnit(name: "L", unitMultiplier: 1e-3);
 
