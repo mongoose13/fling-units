@@ -8,6 +8,7 @@ pubspec.lock
 
 # Conventional directory for build outputs
 build/
+lib/src/generated/
 
 # Directory created by dartdoc
 doc/api/
