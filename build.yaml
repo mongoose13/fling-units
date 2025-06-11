@@ -45,9 +45,14 @@ builders:
     build_extensions: { ".dart": [".measurement"] }
     build_to: cache
   derived_units:
-    import: "lib/src/generator/generators/derived_generator.dart"
+    import: "lib/src/generator/generators/derived_unit_generator.dart"
     builder_factories: ["derivedUnitBuilder"]
     build_extensions: { ".dart": ["lib/src/generated/derived_units.dart"] }
+    build_to: source
+  derived_measurements:
+    import: "lib/src/generator/generators/derived_measurement_generator.dart"
+    builder_factories: ["derivedMeasurementBuilder"]
+    build_extensions: { ".dart": ["lib/src/generated/derived_measurements.dart"] }
     build_to: source
   library:
     import: "lib/src/generator/generator.dart"
@@ -113,6 +118,9 @@ targets:
               "^lib/src/prefixes/{{}}.dart": ["lib/src/generated/{{}}.dart"],
             }
       fling_units|derived_units:
+        options:
+          max: 3
+      fling_units|derived_measurements:
         options:
           max: 3
       fling_units|measurement_id:

@@ -8,6 +8,7 @@ types you need to work with from the rest of your code.
 ### Added
 
 - Code generator support for derived units of any dimension, including custom units
+- Code generator support for derived measurements of any dimension
 
 ### Changed
 

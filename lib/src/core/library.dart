@@ -13,9 +13,8 @@ part "unit.dart";
 part "unit2_builder.dart";
 part "measurement_prefix.dart";
 part "measurement.dart";
-part "measurement2.dart";
-part "measurement3.dart";
 part "measurement2_builder.dart";
 
 part "../measurements/volume.dart";
 part "../generated/derived_units.dart";
+part "../generated/derived_measurements.dart";
