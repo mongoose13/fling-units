@@ -26,6 +26,9 @@ class FlingBuilderBase extends Builder {
   Map<String, List<String>> get buildExtensions => {
         r'$lib$': ["src/generated/$output.dart"]
       };
+
+  static int maxDimensions(BuilderOptions options) =>
+      (options.config["max_dimensionss"] as num?)?.toInt() ?? 4;
 }
 
 abstract class FlingGenerator {

@@ -85,7 +85,7 @@ void main() {
       group('call', () {
         test('keeps default units', () {
           // given
-          final unit = DerivedUnit2.build(meters, meters);
+          final unit = DerivedUnit2(meters, meters);
 
           // when
           final result = unit(6).withPrecision(DigitsAfterDecimal(2));
@@ -95,7 +95,7 @@ void main() {
         });
         test('keeps default value', () {
           // given
-          final unit = DerivedUnit2.build(meters, meters);
+          final unit = DerivedUnit2(meters, meters);
 
           // when
           final result = unit(6).withPrecision(DigitsAfterDecimal(2));
@@ -105,7 +105,7 @@ void main() {
         });
         test('keeps precision', () {
           // given
-          final unit = DerivedUnit2.build(meters, meters);
+          final unit = DerivedUnit2(meters, meters);
 
           // when
           final result = unit(6).withPrecision(DigitsAfterDecimal(2));
@@ -119,32 +119,32 @@ void main() {
         group('product', () {
           test('same units', () {
             // given
-            final unit = DerivedUnit2.build(meters, meters)(6);
+            final unit = DerivedUnit2(meters, meters)(6);
 
             // when
-            final result = unit.as(DerivedUnit2.build(meters, meters));
+            final result = unit.as(DerivedUnit2(meters, meters));
 
             // then
             expect(result, 6.0);
           });
           test('disparate units', () {
             // given
-            final unit = DerivedUnit2.build(meters, meters)(6)
+            final unit = DerivedUnit2(meters, meters)(6)
                 .withPrecision(DigitsAfterDecimal(2));
 
             // when
-            final result = unit.as(DerivedUnit2.build(meters, deci.meters));
+            final result = unit.as(DerivedUnit2(meters, deci.meters));
 
             // then
             expect(result, 60.0);
           });
           test('disparate units transposed', () {
             // given
-            final unit = DerivedUnit2.build(meters, meters)(6)
+            final unit = DerivedUnit2(meters, meters)(6)
                 .withPrecision(DigitsAfterDecimal(2));
 
             // when
-            final result = unit.as(DerivedUnit2.build(deci.meters, meters));
+            final result = unit.as(DerivedUnit2(deci.meters, meters));
 
             // then
             expect(result, 60.0);
@@ -154,52 +154,49 @@ void main() {
         group('ratio', () {
           test('same units', () {
             // given
-            final measurement = DerivedUnit2.build(meters, meters.inverted)(2);
+            final measurement = DerivedUnit2(meters, meters.inverted)(2);
 
             // when
             final result =
-                measurement.as(DerivedUnit2.build(meters, meters.inverted));
+                measurement.as(DerivedUnit2(meters, meters.inverted));
 
             // then
             expect(result, 2.0);
           });
           test('disparate units', () {
             // given
-            final unit = DerivedUnit2.build(meters, meters.inverted)(2);
+            final unit = DerivedUnit2(meters, meters.inverted)(2);
 
             // when
-            final result =
-                unit.as(DerivedUnit2.build(meters, deci.meters.inverted));
+            final result = unit.as(DerivedUnit2(meters, deci.meters.inverted));
 
             // then
             expect(result, 0.2);
           });
           test('disparate units transposed', () {
             // given
-            final unit = DerivedUnit2.build(meters, meters.inverted)(2);
+            final unit = DerivedUnit2(meters, meters.inverted)(2);
 
             // when
-            final result =
-                unit.as(DerivedUnit2.build(deci.meters, meters.inverted));
+            final result = unit.as(DerivedUnit2(deci.meters, meters.inverted));
 
             // then
             expect(result, 20.0);
           });
           test('disparate non-si units', () {
             // given
-            final unit = DerivedUnit2.build(miles, hours.inverted)(2)
+            final unit = DerivedUnit2(miles, hours.inverted)(2)
                 .withPrecision(DigitsAfterDecimal(3));
 
             // when
-            final result =
-                unit.as(DerivedUnit2.build(meters, seconds.inverted));
+            final result = unit.as(DerivedUnit2(meters, seconds.inverted));
 
             // then
             expect(result, 0.894);
           });
           test('disparate non-si units default interpreter division', () {
             // given
-            final unit = DerivedUnit2.build(miles, hours.inverted)(2);
+            final unit = DerivedUnit2(miles, hours.inverted)(2);
 
             // when
             final result = unit.toString();
@@ -209,7 +206,7 @@ void main() {
           });
           test('disparate non-si units default interpreter multiplication', () {
             // given
-            final unit = DerivedUnit2.build(miles, hours)(18.0);
+            final unit = DerivedUnit2(miles, hours)(18.0);
 
             // when
             final result = unit.toString();
@@ -223,7 +220,7 @@ void main() {
       group('toString', () {
         test('product', () {
           // given
-          final unit = DerivedUnit2.build(meters, feet)(6);
+          final unit = DerivedUnit2(meters, feet)(6);
 
           // when
           final result = unit.toString();
@@ -243,7 +240,7 @@ void main() {
         });
         test('ratio', () {
           // given
-          final unit = DerivedUnit2.build(meters, seconds.inverted)(2);
+          final unit = DerivedUnit2(meters, seconds.inverted)(2);
 
           // when
           final result = unit.toString();
@@ -253,7 +250,7 @@ void main() {
         });
         test('same units merge', () {
           // given
-          final unit = DerivedUnit2.build(centi.meters, centi.meters);
+          final unit = DerivedUnit2(centi.meters, centi.meters);
 
           // when
           final result = unit.toString();
@@ -276,45 +273,41 @@ void main() {
           final unit = square(feet)(6).withPrecision(DigitsAfterDecimal(2));
 
           // when
-          final result =
-              unit.butAs(DerivedUnit2.build(inches, feet)).toString();
+          final result = unit.butAs(DerivedUnit2(inches, feet)).toString();
 
           // then
           expect(result, '72.0 in⋅ft');
         });
         test('butAs full change', () {
           // given
-          final unit = DerivedUnit2.build(meters, feet)(6)
+          final unit = DerivedUnit2(meters, feet)(6)
               .withPrecision(DigitsAfterDecimal(0));
 
           // when
-          final result =
-              unit.butAs(DerivedUnit2.build(feet, inches)).toString();
+          final result = unit.butAs(DerivedUnit2(feet, inches)).toString();
 
           // then
           expect(result, '236.0 ft⋅in');
         });
         test('butAs full change and initial prefixes', () {
           // given
-          final unit = DerivedUnit2.build(centi.meters, deka.feet)(6)
+          final unit = DerivedUnit2(centi.meters, deka.feet)(6)
               .withPrecision(SignificantDigits(3));
 
           // when
-          final result =
-              unit.butAs(DerivedUnit2.build(feet, inches)).toString();
+          final result = unit.butAs(DerivedUnit2(feet, inches)).toString();
 
           // then
           expect(result, '23.6 ft⋅in');
         });
         test('butAs full change and full prefixes', () {
           // given
-          final unit = DerivedUnit2.build(centi.meters, deka.feet)(6)
+          final unit = DerivedUnit2(centi.meters, deka.feet)(6)
               .withPrecision(SignificantDigits(3));
 
           // when
-          final result = unit
-              .butAs(DerivedUnit2.build(milli.feet, deci.inches))
-              .toString();
+          final result =
+              unit.butAs(DerivedUnit2(milli.feet, deci.inches)).toString();
 
           // then
           expect(result, '236000.0 mft⋅din');

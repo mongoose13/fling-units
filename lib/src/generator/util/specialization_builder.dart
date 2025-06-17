@@ -36,7 +36,6 @@ class FlingSpecializationBuilder extends FlingBuilder {
   final DimensionBuilder dimension;
   final Iterable<SpecializationUnit> specializedUnits;
   final Iterable<UnitDetails> standardUnits;
-  final Iterable<ConstantDetails> constants;
 
   FlingSpecializationBuilder(
     Element element,
@@ -44,6 +43,5 @@ class FlingSpecializationBuilder extends FlingBuilder {
   )   : dimension = DimensionBuilder(annotation),
         specializedUnits =
             const UnitSpecializationBuilder().buildChildren(element),
-        standardUnits = const UnitBuilder().buildChildren(element),
-        constants = const ConstantBuilder().buildChildren(element);
+        standardUnits = const UnitBuilder().buildChildren(element);
 }

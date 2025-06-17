@@ -34,7 +34,7 @@ class FlingMeasurementBuilder extends FlingBuilder {
   late final String prefixName;
 
   late final Iterable<UnitDetails> units;
-  late final UnitDetails siUnit;
+  late final UnitDetails? siUnit;
 
   FlingMeasurementBuilder(
     Element element,
@@ -46,11 +46,6 @@ class FlingMeasurementBuilder extends FlingBuilder {
     prefixName = "${dimension.name}Prefix";
 
     units = checker.buildChildren(element);
-    siUnit = units.firstWhere(
-      (unit) => unit.isSI,
-      orElse: () => throw ArgumentError(
-        "No SI unit identified for ${dimension.name}",
-      ),
-    );
+    siUnit = units.where((unit) => unit.isSI).firstOrNull;
   }
 }

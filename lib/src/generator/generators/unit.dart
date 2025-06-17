@@ -52,35 +52,6 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
       ],
     );
 
-    builder.add(
-      Extension(
-        (extension) => extension
-          ..name = "PrefixedUnitPer${builder.unitName}"
-          ..types.addAll(
-            [
-              Reference("N extends f.Unit<D, I>"),
-              Reference("D extends f.Dimension"),
-              Reference("I extends f.Dimension"),
-            ],
-          )
-          ..on = Reference("f.PrefixedUnitPer<N, D, I>")
-          ..methods.addAll(
-            builder.units.map(
-              (unit) => Method(
-                (getter) => getter
-                  ..name = unit.name
-                  ..type = MethodType.getter
-                  ..lambda = true
-                  ..returns = Reference(
-                      "f.DerivedUnit2<D, ${builder.dimension.name}, I, Inverted${builder.dimension.name}>")
-                  ..body =
-                      Code("f.DerivedUnit2.build(numerator, f.${unit.name})"),
-              ),
-            ),
-          ),
-      ),
-    );
-
     for (final isInverted in [false, true]) {
       final dimensionName = isInverted
           ? "Inverted${builder.dimension.name}"
@@ -128,8 +99,8 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                           ..defaultTo = Code("f.Precision.max"),
                       ))
                       ..lambda = true
-                      ..body =
-                          Code("$measurementName(magnitude, this, precision)"),
+                      ..body = Code(
+                          "$measurementName(magnitude, this, precision: precision)"),
                   ),
                   Method(
                     (withPrefix) => withPrefix
@@ -193,9 +164,9 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                       ..lambda = true
                       ..type = MethodType.getter
                       ..returns = Reference(
-                          "f.UnitPer<$unitName, $dimensionName, $invertedDimensionName>")
+                          "f.UnitPer2<$dimensionName, $invertedDimensionName>")
                       ..name = "per"
-                      ..body = Code("f.UnitPer(this)")
+                      ..body = Code("f.UnitPer2(this)")
                       ..docs.add(
                           "/// Creates a derived unit builder with this as the numerator."),
                   ),
@@ -204,9 +175,9 @@ class UnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
                       ..lambda = true
                       ..type = MethodType.getter
                       ..returns = Reference(
-                          "f.UnitDot<$unitName, $dimensionName, $invertedDimensionName>")
+                          "f.UnitDot2<$dimensionName, $invertedDimensionName>")
                       ..name = "dot"
-                      ..body = Code("f.UnitDot(this)")
+                      ..body = Code("f.UnitDot2(this)")
                       ..docs.add(
                           "/// Creates a derived unit builder with this as the first unit in a product."),
                   ),

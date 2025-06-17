@@ -91,22 +91,21 @@ void main() {
   print(
       "\nI drove ${distanceToSeattleIfYouForgotSomethingAtHome.as(yards)} yards because I left my driving glasses at home.");
   print(
-      "I can fit ${depthsOfMyMind.as(cubic(meters))} boxes of bananas in my mind.");
+      "I can fit ${depthsOfMyMind.asDerived(cubic(meters))} boxes of bananas in my mind.");
   print(
       "I can fit ${depthsOfMyPetRocksMind.as(cubic(meters))} boxes of bananas in my pet rock's mind.");
 
   //------------------------------------------------//
 
   // Some of the more common derived units (e.g. Area) have full syntactic support.
-  // You can create simple derived measurements with by() or over().
   var monitorSurfaceArea =
-      14.inches.by(18.inches).withPrecision(DigitsAfterDecimal.none);
+      (14 * 18).square(inches).withPrecision(DigitsAfterDecimal.none);
   print("\nMy monitor dimensions:");
   print("${monitorSurfaceArea.as(square(meters))} m²");
   print("${monitorSurfaceArea.as(square(centi.meters))} cm²");
   print("${monitorSurfaceArea.as(square(inches))} in²");
   print(
-      "${monitorSurfaceArea.as(DerivedUnit2.build(inches, centi.meters))} in x cm (in case you ever needed that...)");
+      "${monitorSurfaceArea.as(DerivedUnit2(inches, centi.meters))} in x cm (in case you ever needed that...)");
 
   // You can also build them from their component parts.
   var oneSquareInch = square(inches).using(
@@ -138,15 +137,15 @@ void main() {
   print("\nMy invention generates $energyProduction!");
 
   // You can also use other derived units to create your masterpiece, such as the
-  // built-in Volume units or any others you have created.
+  // built-in Volume units or any others you have created. The library currently
+  // supports up to third-order derived units.
 
-  var energyProductionRate = energyProduction
-      .over(0.5.minutes)
-      .butAs(DerivedUnit2.build(coulombs, seconds.inverted));
+  var energyProductionRate =
+      energyProduction.over(0.5.minutes).butAs(coulombs.per.second);
   print("If done over 30 seconds, that's a rate of $energyProductionRate");
 
   var myMilkRecord =
-      3.usGallons.over(12.minutes).withPrecision(DigitsAfterDecimal.none);
+      (0.25).gallons.per.minute.withPrecision(DigitsAfterDecimal.none);
   print(
       "\nI drank $myMilkRecord (${myMilkRecord.butAs(liters.per.second)}) of milk. I do not recommend trying it yourself.");
 
@@ -194,6 +193,21 @@ void main() {
   // Have fun!
   liters.per.second;
   3.liters.per.second;
+  3.liters.butAsDerived(cubic(meters));
+  final cubicMeters = cubic(meters);
+  final converted = 300.liters.butAsDerived(cubicMeters);
+  print(converted);
+  print(1
+      .cbm
+      .butAsDerived(cubic(centi.meters))
+      .withPrecision(DigitsAfterDecimal(1)));
+  print(1.cbm.asDerived(cubic(centi.meters)));
+  print(1e6
+      .cubic(centi.meters)
+      .butAsConsolidated(cbm)
+      .withPrecision(DigitsAfterDecimal(1)));
+  print(1e6.cubic(centi.meters).asConsolidated(cbm));
+  //1.cubic(grams).asConsolidated(cbm);
 
   milli.miles;
   miles.per.hour;
@@ -202,6 +216,9 @@ void main() {
 
   3.miles;
   3.milli.miles;
+  DerivedUnit2(miles, hours).per.mile;
+  3.miles.dot.hours;
+  3.miles.per.hour;
   3.miles.per.milli;
   3.miles.per.milli.hour;
 

@@ -1,7 +1,9 @@
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:fling_units/src/generator/util/builder.dart';
 import 'package:source_gen/source_gen.dart';
 
+import '../builders/base.dart';
 import '../generator.dart';
 
 Builder prefixMeasurementBuilder(BuilderOptions options) {
@@ -28,42 +30,52 @@ class PrefixedMeasurementGenerator
       return;
     }
 
-    for (final isDot in [true, false]) {
-      final type = isDot ? "Dot" : "Per";
-      builder.add(
-        Extension(
-          (prefixedUnit) => prefixedUnit
-            ..docs.add(
-                "/// An extension that allows measurements of ${builder.dimension.name} to be created following calls to [${type.toLowerCase()}].")
-            ..name = "PrefixedMeasurement$type${builder.dimension.name}"
-            ..types.addAll([
-              Reference("M extends f.Measurement<D, I>"),
-              Reference("D extends f.Dimension"),
-              Reference("I extends f.Dimension"),
-            ])
-            ..on = Reference("f.PrefixedMeasurement$type<M, D, I>")
-            ..methods.addAll(
-              unitBuilder.buildChildren(element).map(
-                (unit) {
-                  final name = isDot ? unit.name : unit.singularName;
-                  final initial = isDot ? "initial" : "numerator";
-                  return Method(
-                    (method) => method
-                      ..docs.add(
-                          "/// Creates a derived measurement with [f.${unit.name}] as the ${isDot ? "second term" : "denominator"}.")
-                      ..lambda = true
-                      ..type = MethodType.getter
-                      ..name = name
-                      ..returns = Reference(
-                          "f.DerivedMeasurement2<D, f.${isDot ? "" : "Inverted"}${builder.dimension.name}, I, f.${isDot ? "Inverted" : ""}${builder.dimension.name}>")
-                      ..body = Code(
-                          "f.DerivedUnit2.build($initial.defaultUnit, prefix.${unit.name}${isDot ? "" : ".inverted"},)($initial.defaultValue)"),
-                  );
-                },
+    final maxDimensions = FlingBuilderBase.maxDimensions(builderOptions);
+
+    for (int dimensionCount = 2;
+        dimensionCount <= maxDimensions;
+        ++dimensionCount) {
+      final dimensions =
+          increments(max: dimensionCount - 1).map((i) => "D$i").join(", ");
+      final invertedDimensions = dimensions.replaceAll("D", "I");
+
+      for (final isDot in [true, false]) {
+        final type = isDot ? "Dot" : "Per";
+        builder.add(
+          Extension(
+            (prefixedUnit) => prefixedUnit
+              ..docs.add(
+                  "/// An extension that allows measurements of ${builder.dimension.name} to be created following calls to [${type.toLowerCase()}].")
+              ..name =
+                  "PrefixedMeasurement$type$dimensionCount${builder.dimension.name}"
+              ..types.addAll(
+                "$dimensions, $invertedDimensions".split(", ").map(
+                      (d) => Reference("$d extends f.Dimension"),
+                    ),
+              )
+              ..on = Reference(
+                  "f.PrefixedMeasurement$type$dimensionCount<$dimensions, $invertedDimensions>")
+              ..methods.addAll(
+                unitBuilder.buildChildren(element).map(
+                  (unit) {
+                    final name = isDot ? unit.name : unit.singularName;
+                    return Method(
+                      (method) => method
+                        ..docs.add(
+                            "/// Creates a derived measurement with [f.${unit.name}] as the last term.")
+                        ..lambda = true
+                        ..type = MethodType.getter
+                        ..name = name
+                        ..returns = Reference(
+                            "f.DerivedMeasurement$dimensionCount<$dimensions, f.${isDot ? "" : "Inverted"}${builder.dimension.name}, $invertedDimensions, f.${isDot ? "Inverted" : ""}${builder.dimension.name}>")
+                        ..body = Code("build(f.${unit.name})"),
+                    );
+                  },
+                ),
               ),
-            ),
-        ),
-      );
+          ),
+        );
+      }
     }
 
     return builder.flush();

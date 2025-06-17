@@ -57,7 +57,7 @@ void main() {
       });
       test("both denominators", () {
         // given
-        final unit = DerivedUnit2.build(
+        final unit = DerivedUnit2(
           feet.inverted,
           minutes.inverted,
         );
@@ -87,14 +87,14 @@ void main() {
       });
       test("product of 1", () {
         // when
-        final result = DerivedUnit2.build(feet, inches).fromSI(1.0);
+        final result = DerivedUnit2(feet, inches).fromSI(1.0);
 
         // then
         expect(result, closeTo(129.2, 5e-2));
       });
       test("product of several", () {
         // when
-        final result = DerivedUnit2.build(feet, inches).fromSI(3.0);
+        final result = DerivedUnit2(feet, inches).fromSI(3.0);
 
         // then
         expect(result, closeTo(387.5, 5e-2));
@@ -349,7 +349,7 @@ void main() {
       test("newtons", () {
         // given
         final newtons =
-            DerivedUnit2.build(kilo.grams.dot.meters, square(seconds).inverted);
+            DerivedUnit2(kilo.grams.dot.meters, square(seconds).inverted);
 
         // when
         final result = newtons(1);
@@ -357,18 +357,17 @@ void main() {
         // then
         expect(result.as(newtons), 1.0);
         expect(
-          result.as(
-              DerivedUnit2.build(grams.dot.meters, square(seconds).inverted)),
+          result.as(DerivedUnit2(grams.dot.meters, square(seconds).inverted)),
           1000.0,
         );
         expect(
-          result.as(DerivedUnit2.build(
+          result.as(DerivedUnit2(
               kilo.grams.dot.deka.meters, square(seconds).inverted)),
           0.1,
         );
         expect(
-          result.as(DerivedUnit2.build(
-              kilo.grams.dot.meters, square(minutes).inverted)),
+          result.as(
+              DerivedUnit2(kilo.grams.dot.meters, square(minutes).inverted)),
           3600.0,
         );
       });

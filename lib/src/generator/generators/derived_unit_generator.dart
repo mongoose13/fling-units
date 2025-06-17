@@ -5,24 +5,27 @@ import 'package:code_builder/code_builder.dart';
 
 import '../builders/base.dart';
 import '../generator.dart';
+import '../util/builder.dart';
 
 Builder derivedUnitBuilder(BuilderOptions options) {
   return FlingBuilderBase(
     "derived_units",
-    DerivedUnitGenerator((options.config["max"] as num?)?.toInt() ?? 3),
+    DerivedUnitGenerator(FlingBuilderBase.maxDimensions(options)),
   );
 }
 
 class DerivedUnitGenerator extends FlingGenerator {
-  final int max;
-  DerivedUnitGenerator(this.max);
+  final int maxDimensions;
+  DerivedUnitGenerator(this.maxDimensions);
 
   @override
   Future<void> generate(FlingStandaloneBuilder builder) async {
     builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
 
-    for (var dimensionCount = 2; dimensionCount <= max; ++dimensionCount) {
-      final counts = [for (var i = 1; i <= dimensionCount; ++i) i];
+    builder.add(Code("// Built from $runtimeType"));
+
+    for (final dimensionCount in increments(min: 2, max: maxDimensions)) {
+      final counts = increments(max: dimensionCount);
       final dimensions = counts.map((count) => "D$count").join(", ");
       final invertedDimensions = counts.map((count) => "I$count").join(", ");
       builder.add(
@@ -39,74 +42,58 @@ class DerivedUnitGenerator extends FlingGenerator {
                 "Unit<f.Dimension$dimensionCount<$dimensions>, f.Dimension$dimensionCount<$invertedDimensions>>")
             ..implements.add(Reference(
                 "Prefixable<DerivedMeasurement$dimensionCount<$dimensions, $invertedDimensions>>"))
-            ..constructors.addAll(
-              [
-                Constructor(
-                  (constructor) => constructor
-                    ..docs.add("/// Constructor.")
-                    ..constant = true
-                    ..optionalParameters.addAll([
+            ..fields.addAll(
+              counts.map(
+                (i) => Field(
+                  (field) => field
+                    ..name = "unit$i"
+                    ..type = Reference("Unit<D$i, I$i>")
+                    ..modifier = FieldModifier.final$,
+                ),
+              ),
+            )
+            ..constructors.add(
+              Constructor(
+                (constructor) => constructor
+                  ..docs.add(
+                      "/// Constructor using $dimensionCount existing units.")
+                  ..requiredParameters.addAll(
+                    counts.map(
+                      (i) => Parameter(
+                        (first) => first
+                          ..name = "unit$i"
+                          ..toThis = true,
+                      ),
+                    ),
+                  )
+                  ..optionalParameters.addAll(
+                    [
                       Parameter(
-                        (parameter) => parameter
-                          ..named = true
-                          ..required = true
+                        (name) => name
                           ..name = "name"
-                          ..toSuper = true,
+                          ..named = true
+                          ..type = Reference("String?"),
                       ),
                       Parameter(
-                        (parameter) => parameter
-                          ..named = true
-                          ..required = true
-                          ..name = "unitMultiplier"
-                          ..toSuper = true,
-                      ),
-                      Parameter(
-                        (parameter) => parameter
-                          ..named = true
+                        (name) => name
                           ..name = "prefix"
+                          ..named = true
                           ..toSuper = true
                           ..defaultTo = Code("const UnitPrefix.unit()"),
-                      )
-                    ]),
-                ),
-                Constructor(
-                  (constructor) => constructor
-                    ..docs.add("/// Constructor using three existing units.")
-                    ..name = "build"
-                    ..requiredParameters.addAll(counts.map(
-                      (i) => Parameter((first) => first
-                        ..name = "unit$i"
-                        ..type = Reference("Unit<D$i, I$i>")),
-                    ))
-                    ..optionalParameters.addAll(
-                      [
-                        Parameter(
-                          (name) => name
-                            ..name = "name"
-                            ..named = true
-                            ..type = Reference("String?"),
-                        ),
-                        Parameter(
-                          (name) => name
-                            ..name = "prefix"
-                            ..named = true
-                            ..toSuper = true
-                            ..defaultTo = Code("const UnitPrefix.unit()"),
-                        ),
-                      ],
-                    )
-                    ..initializers.add(
-                      Code("super("
-                          "name: name ?? (${counts.map((i) => "unit1 == unit$i").join(" && ")} ? \"\$unit1${switch (dimensionCount) {
-                        2 => "²",
-                        3 => "³",
-                        _ => "^$dimensionCount"
-                      }}\" : \"${counts.map((i) => "\${unit$i.toString()}").join("⋅")}\")"
-                          ", unitMultiplier: ${counts.map((i) => "unit$i.multiplier").join(" * ")}"
-                          ")"),
-                    ),
-                ),
-              ],
+                      ),
+                    ],
+                  )
+                  ..initializers.add(
+                    Code("super("
+                        "name: name ?? (${counts.map((i) => "unit1 == unit$i").join(" && ")} ? \"\$unit1${switch (dimensionCount) {
+                      2 => "²",
+                      3 => "³",
+                      _ => "^$dimensionCount"
+                    }}\" : \"${counts.map((i) => "\${unit$i.toString()}").join("⋅")}\")"
+                        ", unitMultiplier: ${counts.map((i) => "unit$i.multiplier").join(" * ")}"
+                        ")"),
+                  ),
+              ),
             )
             ..methods.add(
               Method(
@@ -204,8 +191,9 @@ class DerivedUnitGenerator extends FlingGenerator {
                   ..returns = Reference(
                       "DerivedUnit$dimensionCount<$dimensions, $invertedDimensions>")
                   ..lambda = true
-                  ..body = Code("DerivedUnit$dimensionCount(name: name"
-                      ", unitMultiplier: unitMultiplier"
+                  ..body = Code("DerivedUnit$dimensionCount("
+                      "${counts.map((i) => "unit$i").join(", ")}"
+                      ", name: name"
                       ", prefix: prefix"
                       ",)"),
               ),
@@ -226,9 +214,9 @@ class DerivedUnitGenerator extends FlingGenerator {
                       "DerivedUnit$dimensionCount<$dimensions, $invertedDimensions>")
                   ..lambda = true
                   ..body = Code("DerivedUnit$dimensionCount("
-                      "name: name,"
-                      "unitMultiplier: unitMultiplier,"
-                      "prefix: prefix,"
+                      "${counts.map((i) => "unit$i").join(", ")}"
+                      ", name: name"
+                      ", prefix: prefix,"
                       ")"),
               ),
             )
@@ -242,8 +230,7 @@ class DerivedUnitGenerator extends FlingGenerator {
                   ..returns = Reference(
                       "DerivedUnit$dimensionCount<$invertedDimensions, $dimensions>")
                   ..body = Code("InvertedDerivedUnit$dimensionCount("
-                      "name: \"(\$name)⁻¹\""
-                      ", unitMultiplier: unitMultiplier"
+                      "${counts.map((i) => "unit$i.inverted").join(", ")}"
                       ", prefix: prefix"
                       ")"),
               ),
@@ -282,17 +269,17 @@ class DerivedUnitGenerator extends FlingGenerator {
               ),
             )
             ..methods.addAll(
-              ["Per", "Dot"].map(
+              (dimensionCount != maxDimensions ? ["Per", "Dot"] : <String>[])
+                  .map(
                 (type) => Method(
                   (perdot) => perdot
                     ..name = type.toLowerCase()
                     ..returns = Reference(
-                        "f.PrefixedUnit$type<DerivedUnit$dimensionCount<$dimensions, $invertedDimensions>"
-                        ", f.Dimension$dimensionCount<$dimensions>"
-                        ", f.Dimension$dimensionCount<$invertedDimensions>>")
+                        "f.PrefixedUnit$type${dimensionCount + 1}<$dimensions, $invertedDimensions>")
                     ..type = MethodType.getter
                     ..lambda = true
-                    ..body = Code("f.PrefixedUnit$type(this)"),
+                    ..body = Code(
+                        "f.PrefixedUnit$type${dimensionCount + 1}(${counts.map((i) => "unit$i").join(", ")})"),
                 ),
               ),
             ),
@@ -300,111 +287,63 @@ class DerivedUnitGenerator extends FlingGenerator {
       );
 
       builder.add(
-        Class((inverted) => inverted
-          ..name = "InvertedDerivedUnit$dimensionCount"
-          ..types.addAll(counts.map(
-            (i) => Reference("D$i extends f.Dimension"),
-          ))
-          ..types.addAll(counts.map(
-            (i) => Reference("I$i extends f.Dimension"),
-          ))
-          ..extend = Reference(
-              "DerivedUnit$dimensionCount<$dimensions, $invertedDimensions>")
-          ..constructors.add(
-            Constructor(
-              (constructor) => constructor
-                ..optionalParameters.addAll(
-                  [
-                    Parameter(
-                      (name) => name
-                        ..name = "name"
-                        ..named = true
-                        ..required = true
-                        ..toSuper = true,
+        Class(
+          (inverted) => inverted
+            ..name = "InvertedDerivedUnit$dimensionCount"
+            ..types.addAll(counts.map(
+              (i) => Reference("D$i extends f.Dimension"),
+            ))
+            ..types.addAll(counts.map(
+              (i) => Reference("I$i extends f.Dimension"),
+            ))
+            ..extend = Reference(
+                "DerivedUnit$dimensionCount<$dimensions, $invertedDimensions>")
+            ..constructors.add(
+              Constructor(
+                (constructor) => constructor
+                  ..requiredParameters.addAll(
+                    counts.map(
+                      (i) => Parameter(
+                        (unit) => unit
+                          ..name = "unit$i"
+                          ..toSuper = true,
+                      ),
                     ),
-                    Parameter(
-                      (unitMultiplier) => unitMultiplier
-                        ..name = "unitMultiplier"
-                        ..named = true
-                        ..required = true
-                        ..toSuper = true,
-                    ),
-                    Parameter(
-                      (prefix) => prefix
-                        ..name = "prefix"
-                        ..named = true
-                        ..required = true
-                        ..toSuper = true,
-                    ),
-                  ],
-                ),
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (build) => build
-                ..name = "build"
-                ..requiredParameters.addAll(
-                  counts.map(
-                    (i) => Parameter(
-                      (unit) => unit
-                        ..name = "unit$i"
-                        ..type = Reference("Unit<D$i, I$i>"),
-                    ),
-                  ),
-                )
-                ..optionalParameters.addAll([
-                  Parameter(
-                    (name) => name
-                      ..name = "name"
-                      ..named = true
-                      ..type = Reference("String?"),
-                  ),
-                  Parameter(
-                    (prefix) => prefix
-                      ..name = "prefix"
-                      ..named = true
-                      ..toSuper = true
-                      ..defaultTo = Code("const UnitPrefix.unit()"),
                   )
-                ])
-                ..initializers.add(
-                  Code("super("
-                      "name: name ?? (${counts.map((i) => "unit1 == unit$i").join(" && ")} ? \"\$unit1${switch (dimensionCount) {
-                    2 => "²",
-                    3 => "³",
-                    _ => "^$dimensionCount"
-                  }}\" : \"${counts.map((i) => "\${unit$i.toString()}").join("⋅")}\")"
-                      ", unitMultiplier: ${counts.map((i) => "unit$i.multiplier").join(" * ")}"
+                  ..optionalParameters.addAll(
+                    [
+                      Parameter(
+                        (name) => name
+                          ..name = "name"
+                          ..named = true
+                          ..toSuper = true,
+                      ),
+                      Parameter(
+                        (prefix) => prefix
+                          ..name = "prefix"
+                          ..named = true
+                          ..toSuper = true,
+                      ),
+                    ],
+                  ),
+              ),
+            )
+            ..methods.add(
+              Method(
+                (inverted) => inverted
+                  ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
+                  ..name = "inverted"
+                  ..returns = Reference(
+                      "DerivedUnit$dimensionCount<$invertedDimensions, $dimensions>")
+                  ..type = MethodType.getter
+                  ..lambda = true
+                  ..body = Code("DerivedUnit$dimensionCount("
+                      "${counts.map((i) => "unit$i.inverted").join(", ")}"
+                      ", prefix: prefix"
                       ")"),
-                ),
+              ),
             ),
-          )
-          ..methods.add(
-            Method(
-              (inverted) => inverted
-                ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-                ..name = "inverted"
-                ..returns = Reference(
-                    "DerivedUnit$dimensionCount<$invertedDimensions, $dimensions>")
-                ..type = MethodType.getter
-                ..lambda = true
-                ..body = Code("DerivedUnit$dimensionCount("
-                    "name: name"
-                    ", unitMultiplier: unitMultiplier"
-                    ", prefix: prefix"
-                    ")"),
-            ),
-          )
-          ..methods.add(
-            Method((multiplier) => multiplier
-              ..annotations.add(FlingMeasurementBuilder.overrideAnnotation)
-              ..name = "multiplier"
-              ..returns = Reference("double")
-              ..type = MethodType.getter
-              ..lambda = true
-              ..body = Code("1.0 / super.multiplier")),
-          )),
+        ),
       );
     }
   }

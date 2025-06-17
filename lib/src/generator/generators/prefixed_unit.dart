@@ -2,6 +2,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
+import '../builders/base.dart';
 import '../generator.dart';
 
 Builder prefixUnitBuilder(BuilderOptions options) {
@@ -20,7 +21,6 @@ class PrefixedUnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
     BuildStep buildStep,
   ) {
     final builder = FlingMeasurementBuilder(element, annotation);
-    final unitBuilder = const UnitBuilder();
 
     if (builder.dimension.isDerived) {
       return;
@@ -48,41 +48,52 @@ class PrefixedUnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
       ),
     );
 
-    for (final isDot in [true, false]) {
-      final type = isDot ? "Dot" : "Per";
-      builder.add(
-        Extension(
-          (prefixedUnit) => prefixedUnit
-            ..docs.add(
-                "/// An extension that allows units of ${builder.dimension.name} to be created following calls to [${type.toLowerCase()}].")
-            ..name = "PrefixedUnit$type${builder.dimension.name}"
-            ..types.addAll([
-              Reference("N extends f.Unit<D, I>"),
-              Reference("D extends f.Dimension"),
-              Reference("I extends f.Dimension"),
-            ])
-            ..on = Reference("f.PrefixedUnit$type<N, D, I>")
-            ..methods.addAll(
-              unitBuilder.buildChildren(element).map(
-                (unit) {
-                  final name = isDot ? unit.name : unit.singularName;
-                  return Method(
-                    (method) => method
-                      ..docs.add(
-                          "/// Creates a derived unit with [f.${unit.name}] as the ${isDot ? "second term" : "denominator"}.")
-                      ..lambda = true
+    final int maxDimensions = FlingBuilderBase.maxDimensions(builderOptions);
+
+    for (int dimensionCount = 2;
+        dimensionCount <= maxDimensions;
+        ++dimensionCount) {
+      for (final type in ["Dot", "Per"]) {
+        final isDot = type == "Dot";
+        builder.add(
+          Extension(
+            (extension) => extension
+              ..name = "PrefixedUnit$type$dimensionCount${builder.unitName}"
+              ..types.addAll([
+                for (int i = 1; i < dimensionCount; ++i)
+                  [
+                    Reference("D$i extends f.Dimension"),
+                    Reference("I$i extends f.Dimension"),
+                  ],
+              ].expand((item) => item))
+              ..on = Reference("f.PrefixedUnit$type$dimensionCount<${[
+                "D",
+                "I"
+              ].map((e) => [
+                    for (int i = 1; i < dimensionCount; ++i) "$e$i"
+                  ]).expand((item) => item).join(", ")}>")
+              ..methods.addAll(
+                builder.units.map(
+                  (unit) => Method(
+                    (getter) => getter
+                      ..name = isDot ? unit.name : unit.singularName
                       ..type = MethodType.getter
-                      ..name = name
-                      ..returns = Reference(
-                          "f.DerivedUnit2<D, f.${isDot ? "" : "Inverted"}${builder.dimension.name}, I, f.${isDot ? "Inverted" : ""}${builder.dimension.name}>")
-                      ..body = Code(
-                          "f.DerivedUnit2.build(${isDot ? "initial" : "numerator"}, prefix.${unit.name}${isDot ? "" : ".inverted"},)"),
-                  );
-                },
+                      ..lambda = true
+                      ..returns = Reference("f.DerivedUnit$dimensionCount<${[
+                        for (int i = 1; i < dimensionCount; ++i) "D$i"
+                      ].join(", ")}, ${isDot ? "" : "Inverted"}${builder.dimension.name}, ${[
+                        for (int i = 1; i < dimensionCount; ++i) "I$i"
+                      ].join(", ")}, ${isDot ? "Inverted" : ""}${builder.dimension.name}>")
+                      ..body = Code("f.DerivedUnit$dimensionCount(${[
+                        for (int i = 1; i < dimensionCount; ++i) "unit$i"
+                      ].join(", ")}, prefix.${unit.name}${isDot ? "" : ".inverted"}"
+                          ")"),
+                  ),
+                ),
               ),
-            ),
-        ),
-      );
+          ),
+        );
+      }
     }
 
     return builder.flush();

@@ -27,7 +27,11 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
     }
 
     for (final isInverted in [false, true]) {
-      final siUnit = builder.siUnit;
+      if (builder.siUnit == null) {
+        throw ArgumentError(
+            "No SI unit identified for ${builder.dimension.name}");
+      }
+      final siUnit = builder.siUnit!;
       final dimensionName = isInverted
           ? "Inverted${builder.dimension.name}"
           : builder.dimension.name;
@@ -100,6 +104,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     Parameter(
                       (precision) => precision
                         ..name = "precision"
+                        ..named = true
                         ..type = Reference("f.Precision")
                         ..defaultTo = Code("f.Precision.max"),
                     ),
@@ -226,7 +231,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ))
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(magnitude.toDouble(), defaultUnit, precision)"),
+                      "$measurementName(magnitude.toDouble(), defaultUnit, precision: precision)"),
               ),
             )
             ..methods.add(
@@ -238,7 +243,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..lambda = true
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(-magnitude.toDouble(), defaultUnit, precision)"),
+                      "$measurementName(-magnitude.toDouble(), defaultUnit, precision: precision)"),
               ),
             )
             ..methods.add(
@@ -257,7 +262,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(defaultUnit.fromSI(si + other.si), defaultUnit, f.Precision.addition(this, other))"),
+                      "$measurementName(defaultUnit.fromSI(si + other.si), defaultUnit, precision: f.Precision.addition(this, other))"),
               ),
             )
             ..methods.add(
@@ -274,7 +279,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..returns = measurementType
                   ..body = Code(
-                      "$measurementName(defaultUnit.fromSI(si - other.si), defaultUnit, f.Precision.addition(this, -other))"),
+                      "$measurementName(defaultUnit.fromSI(si - other.si), defaultUnit, precision: f.Precision.addition(this, -other))"),
               ),
             )
             ..methods.add(
@@ -293,7 +298,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ),
                   )
                   ..body = Code(
-                      "$measurementName(magnitude * multiplier.toDouble(), defaultUnit, precision)"),
+                      "$measurementName(magnitude * multiplier.toDouble(), defaultUnit, precision: precision)"),
               ),
             )
             ..methods.add(
@@ -312,7 +317,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ),
                   )
                   ..body = Code(
-                      "$measurementName(magnitude / divisor.toDouble(), defaultUnit, precision)"),
+                      "$measurementName(magnitude / divisor.toDouble(), defaultUnit, precision: precision)"),
               ),
             )
             ..methods.add(
@@ -348,7 +353,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                 ..returns = measurementType
                 ..body = Code(
                     "final magnitude = defaultUnit.fromSI(preciseDefaultValue % other.preciseDefaultValue);"
-                    "return $measurementName(magnitude, defaultUnit, f.Precision.combine([precision, other.precision], magnitude));")),
+                    "return $measurementName(magnitude, defaultUnit, precision: f.Precision.combine([precision, other.precision], magnitude));")),
             )
             ..methods.add(
               Method(
@@ -366,7 +371,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                     ),
                   )
                   ..body = Code(
-                      "$measurementName(unit.fromSI(si), unit, precision)"),
+                      "$measurementName(unit.fromSI(si), unit, precision: precision)"),
               ),
             )
             ..methods.add(
@@ -402,7 +407,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..name = "inverted"
                   ..returns = Reference(invertedMeasurementName)
                   ..body = Code(
-                      "$invertedMeasurementName(magnitude, defaultUnit.inverted, precision,)"),
+                      "$invertedMeasurementName(magnitude, defaultUnit.inverted, precision: precision,)"),
               ),
             )
             ..methods.add(
@@ -416,8 +421,8 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..lambda = true
                   ..type = MethodType.getter
                   ..returns = Reference(
-                      "f.MeasurementPer<$measurementName, $dimensionName, $invertedDimensionName>")
-                  ..body = Code("f.MeasurementPer(this)"),
+                      "f.MeasurementPer2<$dimensionName, $invertedDimensionName>")
+                  ..body = Code("f.MeasurementPer2(defaultValue, defaultUnit)"),
               ),
             )
             ..methods.add(
@@ -431,13 +436,14 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..lambda = true
                   ..type = MethodType.getter
                   ..returns = Reference(
-                      "f.MeasurementDot<$measurementName, $dimensionName, $invertedDimensionName>")
-                  ..body = Code("f.MeasurementDot(this)"),
+                      "f.MeasurementDot2<$dimensionName, $invertedDimensionName>")
+                  ..body = Code("f.MeasurementDot2(defaultValue, defaultUnit)"),
               ),
             )
+          /*
             ..methods.add(
               Method(
-                (by) => by
+                (over) => over
                   ..docs.add(
                       "/// Creates a derived measurement representing the ratio of this and another measurement.")
                   ..name = "over"
@@ -456,7 +462,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..returns = Reference(
                       "f.DerivedMeasurement2<$dimensionName, I, $invertedDimensionName, D>")
                   ..body = Code(
-                      "f.DerivedUnit2.build(defaultUnit, term.defaultUnit.inverted)"
+                      "f.DerivedUnit2(defaultUnit, term.defaultUnit.inverted)"
                       "(defaultValue / term.defaultValue)"),
               ),
             )
@@ -480,11 +486,12 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   )
                   ..returns = Reference(
                       "f.DerivedMeasurement2<$dimensionName, D, $invertedDimensionName, I>")
-                  ..body =
-                      Code("f.DerivedUnit2.build(defaultUnit, term.defaultUnit)"
-                          "(defaultValue * term.defaultValue)"),
+                  ..body = Code("f.DerivedUnit2(defaultUnit, term.defaultUnit)"
+                      "(defaultValue * term.defaultValue)"),
               ),
-            ),
+            )
+            */
+          ,
         ),
       );
     }

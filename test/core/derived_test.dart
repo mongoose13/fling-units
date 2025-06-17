@@ -13,7 +13,7 @@ void main() {
           final unit = seconds.per.gram;
 
           // then
-          unit(1).as(DerivedUnit2.build(seconds, grams.inverted));
+          unit(1).as(DerivedUnit2(seconds, grams.inverted));
         });
       });
       /*

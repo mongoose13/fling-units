@@ -80,15 +80,11 @@ class UnitSpecializationGenerator
             ..docs.add("/// A derived unit for ${builder.dimension.name}.")
             ..modifier = FieldModifier.constant
             ..name = unit.name
-            ..assignment = Code("f.DerivedUnit${builder.dimension.order}<"
-                "${types.map((type) => "f.${type.name}").join(", ")}"
-                ", "
-                "${types.map((type) => "f.${type.invertedName}").join(", ")}"
-                ">("
-                "name: \"${unit.shortName}\","
-                "unitMultiplier: ${unit.multiplier},"
-                "prefix: f.UnitPrefix.unit(),"
-                ")"),
+            ..assignment =
+                Code("f.DerivedUnit${builder.dimension.order}.constant("
+                    "name: \"${unit.shortName}\","
+                    "unitMultiplier: \"${unit.multiplier}\","
+                    ")"),
         ),
       );
     }
@@ -97,7 +93,7 @@ class UnitSpecializationGenerator
       builder.add(
         Field(
           (def) => def
-            ..docs.add("/// One of the ${builder.dimension.name} units.")
+            ..docs.add("/// A unit of ${builder.dimension.name}.")
             ..modifier = FieldModifier.final$
             ..name = unit.displayName
             ..assignment =
@@ -176,23 +172,6 @@ class UnitSpecializationGenerator
                   ..body = Code("prefix.${unit.displayName}(value)"),
               ),
             ),
-        ),
-      );
-    }
-
-    for (final constant in builder.constants) {
-      builder.add(
-        Field(
-          (field) => field
-            ..docs.add("/// A ${builder.dimension.name} constant.")
-            ..modifier = FieldModifier.constant
-            ..name = constant.name
-            ..assignment =
-                Code("f.DerivedMeasurement${builder.dimension.order}("
-                    "defaultUnit: ${constant.unit},"
-                    "magnitude: ${constant.magnitude},"
-                    "precision: f.Precision.max,"
-                    ")"),
         ),
       );
     }

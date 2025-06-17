@@ -17,7 +17,7 @@ void main() {
       });
       test("product", () {
         // given
-        final unit = DerivedUnit3.build(yards, feet, inches);
+        final unit = DerivedUnit3(yards, feet, inches);
 
         // when
         final result = unit.multiplier;
@@ -47,8 +47,8 @@ void main() {
       });
       test("all denominators", () {
         // given
-        final unit = DerivedUnit3.build(
-            feet.inverted, minutes.inverted, gallons.inverted);
+        final unit =
+            DerivedUnit3(feet.inverted, minutes.inverted, gallons.inverted);
 
         // when
         final result = unit.multiplier;
@@ -58,16 +58,16 @@ void main() {
       });
       test("all denominators equivalent to inverted", () {
         // given
-        final unit1 = DerivedUnit3.build(feet, minutes, gallons).inverted;
-        final unit2 = DerivedUnit3.build(
-            feet.inverted, minutes.inverted, gallons.inverted);
+        final unit1 = DerivedUnit3(feet, minutes, gallons).inverted;
+        final unit2 =
+            DerivedUnit3(feet.inverted, minutes.inverted, gallons.inverted);
 
         // then
         expect(unit1.multiplier, closeTo(unit2.multiplier, 5e-4));
       });
       test("inverted has correct multiplier", () {
         // given
-        final unit = DerivedUnit3.build(feet, minutes, gallons).inverted;
+        final unit = DerivedUnit3(feet, minutes, gallons).inverted;
 
         // when
         final result = unit.multiplier;

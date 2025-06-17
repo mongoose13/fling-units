@@ -47,7 +47,7 @@ extension TimeExtension on TimeMeasurement {
     f.Precision precision = f.Precision.max,
     f.TimeUnit unit = seconds,
   }) =>
-      TimeMeasurement(duration.inMicroseconds, unit, precision);
+      TimeMeasurement(duration.inMicroseconds, unit, precision: precision);
 
   /// Constructs a [Duration] based on this.
   ///

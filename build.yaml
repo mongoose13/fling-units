@@ -24,9 +24,9 @@ builders:
     builder_factories: ["prefixMeasurementBuilder"]
     build_extensions: { ".dart": [".g.part"] }
     build_to: cache
-  measurement_per:
-    import: "lib/src/generator/generator.dart"
-    builder_factories: ["prefixedExtensionBuilder"]
+  prefix_perdot_extensions:
+    import: "lib/src/generator/generators/prefix_perdot_extensions.dart"
+    builder_factories: ["prefixPerDotExtensionBuilder"]
     build_extensions: { ".dart": [".g.part"] }
     build_to: cache
   extension_num:
@@ -54,6 +54,16 @@ builders:
     builder_factories: ["derivedMeasurementBuilder"]
     build_extensions: { ".dart": ["lib/src/generated/derived_measurements.dart"] }
     build_to: source
+  perdot:
+    import: "lib/src/generator/generators/perdot_builder.dart"
+    builder_factories: ["perDotBuilder"]
+    build_extensions: { ".dart": ["lib/src/generated/perdot.dart"] }
+    build_to: source
+  dimensions:
+    import: "lib/src/generator/generators/dimension_builder.dart"
+    builder_factories: ["dimensionBuilder"]
+    build_extensions: { ".dart": ["lib/src/generated/dimensions.dart"] }
+    build_to: source
   library:
     import: "lib/src/generator/generator.dart"
     builder_factories: ["libraryBuilder"]
@@ -73,11 +83,17 @@ builders:
 targets:
   $default:
     builders:
+      fling_units|derived_units:
+        options:
+          max_dimensions: 4
+      fling_units|derived_measurements:
+        options:
+          max_dimensions: 4
       fling_units|prefixes:
         options:
           generate_for:
             - lib/src/prefixes/*.dart
-      fling_units|measurement_per:
+      fling_units|prefix_perdot_extensions:
         options:
           generate_for:
             - lib/src/prefixes/*.dart
@@ -117,12 +133,6 @@ targets:
                 ["lib/src/generated/{{}}.dart"],
               "^lib/src/prefixes/{{}}.dart": ["lib/src/generated/{{}}.dart"],
             }
-      fling_units|derived_units:
-        options:
-          max: 3
-      fling_units|derived_measurements:
-        options:
-          max: 3
       fling_units|measurement_id:
         options:
           generate_for:
@@ -131,6 +141,10 @@ targets:
         options:
           generate_for:
             - lib/src/prefixes/*.dart
+      fling_units|perdot:
+        options:
+      fling_units|dimensions:
+        options:
       fling_units|library:
         options:
           generate_for:

@@ -1,6 +1,7 @@
 import 'package:fling_units/fling_units.dart' as f;
 
 import 'package:fling_units/src/core/annotations.dart';
+import 'package:fling_units/src/generated/library.dart';
 
 part '../generated/speed.dart';
 
@@ -9,24 +10,12 @@ part '../generated/speed.dart';
   types: ["Distance", "InvertedTime"],
 )
 enum SpeedConfig {
-  @UnitConfig(
-    shortName: "m/s",
-    singularName: "meterPerSecond",
-    multiplier: 1.0,
-    isSI: true,
-  )
-  mps,
-
   @UnitSpecialization(
     shortName: "kn",
     singularName: "knot",
     equivalent: "nauticalMiles.per.hour",
   )
   knots,
-
-  @MeasurementConstant(
-    unit: "mps",
-    magnitude: 2.99792458e8,
-  )
-  speedOfLight;
 }
+
+final speedOfLight = 2.99792458e8.meters.per.second;

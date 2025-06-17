@@ -9,19 +9,21 @@ import '../generator.dart';
 Builder derivedMeasurementBuilder(BuilderOptions options) {
   return FlingBuilderBase(
     "derived_measurements",
-    DerivedMeasurementGenerator((options.config["max"] as num?)?.toInt() ?? 3),
+    DerivedMeasurementGenerator(FlingBuilderBase.maxDimensions(options)),
   );
 }
 
 class DerivedMeasurementGenerator extends FlingGenerator {
-  final int max;
-  DerivedMeasurementGenerator(this.max);
+  final int maxDimensions;
+  DerivedMeasurementGenerator(this.maxDimensions);
 
   @override
   Future<void> generate(FlingStandaloneBuilder builder) async {
     builder.add(Directive.partOf("package:fling_units/src/core/library.dart"));
 
-    for (var dimensionCount = 2; dimensionCount <= max; ++dimensionCount) {
+    for (var dimensionCount = 2;
+        dimensionCount <= maxDimensions;
+        ++dimensionCount) {
       final counts = [for (var i = 1; i <= dimensionCount; ++i) i];
       final dimensions = counts.map((count) => "D$count").join(", ");
       final invertedDimensions = counts.map((count) => "I$count").join(", ");
@@ -303,74 +305,62 @@ class DerivedMeasurementGenerator extends FlingGenerator {
                       ")"),
               ),
             )
-            ..methods.add(
-              Method(
-                (by) => by
-                  ..name = "by"
-                  ..returns = Reference(
-                      "DerivedMeasurement2<f.Dimension$dimensionCount<$dimensions>, D, f.Dimension$dimensionCount<$invertedDimensions>, I>")
-                  ..types.addAll([
-                    Reference("D extends f.Dimension, I extends f.Dimension")
-                  ])
-                  ..requiredParameters.add(
-                    Parameter(
-                      (term) => term
-                        ..name = "term"
-                        ..type = Reference("Measurement<D, I>"),
+            // TODO: flatten
+            ..methods.addAll([
+              if (dimensionCount < maxDimensions)
+                Method(
+                  (by) => by
+                    ..name = "by"
+                    ..returns = Reference(
+                        "DerivedMeasurement${dimensionCount + 1}<$dimensions, D, $invertedDimensions, I>")
+                    ..types.addAll([
+                      Reference("D extends f.Dimension, I extends f.Dimension")
+                    ])
+                    ..requiredParameters.add(
+                      Parameter(
+                        (term) => term
+                          ..name = "term"
+                          ..type = Reference("Measurement<D, I>"),
+                      ),
+                    )
+                    ..lambda = true
+                    ..body = Code(
+                        "f.DerivedUnit${dimensionCount + 1}(${counts.map((i) => "defaultUnit.unit$i").join(", ")}, term.defaultUnit)(defaultValue * term.defaultValue)"),
+                ),
+              if (dimensionCount < maxDimensions)
+                Method(
+                  (over) => over
+                    ..name = "over"
+                    ..returns = Reference(
+                        "DerivedMeasurement${dimensionCount + 1}<$dimensions, I, $invertedDimensions, D>")
+                    ..types.addAll([
+                      Reference("D extends f.Dimension, I extends f.Dimension")
+                    ])
+                    ..requiredParameters.add(
+                      Parameter(
+                        (term) => term
+                          ..name = "term"
+                          ..type = Reference("Measurement<D, I>"),
+                      ),
+                    )
+                    ..lambda = true
+                    ..body = Code(
+                        "f.DerivedUnit${dimensionCount + 1}(${counts.map((i) => "defaultUnit.unit$i").join(", ")}, term.defaultUnit.inverted)(defaultValue / term.defaultValue)"),
+                ),
+            ])
+            ..methods.addAll(dimensionCount < maxDimensions
+                ? ["Dot", "Per"].map(
+                    (type) => Method(
+                      (perdot) => perdot
+                        ..name = type.toLowerCase()
+                        ..returns = Reference(
+                            "f.Measurement$type${dimensionCount + 1}<$dimensions, $invertedDimensions>")
+                        ..lambda = true
+                        ..body = Code(
+                            "f.Measurement$type${dimensionCount + 1}(defaultValue, ${counts.map((i) => "defaultUnit.unit$i").join(", ")})"),
                     ),
                   )
-                  ..lambda = true
-                  ..body = Code(
-                      "f.DerivedUnit2.build(defaultUnit, term.defaultUnit)(defaultValue * term.defaultValue)"),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (over) => over
-                  ..name = "over"
-                  ..returns = Reference(
-                      "DerivedMeasurement2<f.Dimension$dimensionCount<$dimensions>, I, f.Dimension$dimensionCount<$invertedDimensions>, D>")
-                  ..types.addAll([
-                    Reference("D extends f.Dimension, I extends f.Dimension")
-                  ])
-                  ..requiredParameters.add(
-                    Parameter(
-                      (term) => term
-                        ..name = "term"
-                        ..type = Reference("Measurement<D, I>"),
-                    ),
-                  )
-                  ..lambda = true
-                  ..body = Code(
-                      "f.DerivedUnit2.build(defaultUnit, term.defaultUnit.inverted)(defaultValue / term.defaultValue)"),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (per) => per
-                  ..name = "per"
-                  ..returns = Reference("f.MeasurementPer<"
-                      "DerivedMeasurement$dimensionCount<$dimensions, $invertedDimensions>, "
-                      "f.Dimension$dimensionCount<$dimensions>, "
-                      "f.Dimension$dimensionCount<$invertedDimensions>>")
-                  ..type = MethodType.getter
-                  ..lambda = true
-                  ..body = Code("f.MeasurementPer(this)"),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (dot) => dot
-                  ..name = "dot"
-                  ..returns = Reference("f.MeasurementDot<"
-                      "DerivedMeasurement$dimensionCount<$dimensions, $invertedDimensions>, "
-                      "f.Dimension$dimensionCount<$dimensions>, "
-                      "f.Dimension$dimensionCount<$invertedDimensions>>")
-                  ..type = MethodType.getter
-                  ..lambda = true
-                  ..body = Code("f.MeasurementDot(this)"),
-              ),
-            ),
+                : const []),
         ),
       );
     }

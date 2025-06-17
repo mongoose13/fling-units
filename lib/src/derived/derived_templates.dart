@@ -4,7 +4,7 @@ import 'package:fling_units/fling_units.dart' as f;
 
 /// Creates a derived [Unit] that is the square of the provided [Unit].
 ///
-/// This is equivalent to using [DerivedUnit2.build] with the same [Unit] twice.
+/// This is equivalent to using [DerivedUnit2] with the same [Unit] twice.
 ///
 /// ```dart
 /// final squareFeet = square(feet);
@@ -14,7 +14,7 @@ f.DerivedUnit2<D, D, I, I> square<D extends f.Dimension, I extends f.Dimension>(
   String? name,
   f.UnitPrefix prefix = const f.UnitPrefix.unit(),
 }) =>
-    f.DerivedUnit2.build(unit, unit, name: name, prefix: prefix);
+    f.DerivedUnit2(unit, unit, name: name, prefix: prefix);
 
 /// Extension on [num] to allow two-component derived measurements to be instantiated.
 extension Unit2Extension on num {
@@ -43,7 +43,7 @@ f.DerivedUnit3<D, D, D, I, I, I>
   String? name,
   f.UnitPrefix prefix = const f.UnitPrefix.unit(),
 }) =>
-        f.DerivedUnit3.build(
+        f.DerivedUnit3(
           unit,
           unit,
           unit,

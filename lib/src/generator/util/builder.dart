@@ -84,3 +84,6 @@ abstract class FlingBuilder {
   String flush() => DartFormatter(languageVersion: Version(3, 0, 0))
       .format(_buffer.toString());
 }
+
+Iterable<int> increments({int min = 1, required int max}) =>
+    [for (int i = min; i <= max; ++i) i];

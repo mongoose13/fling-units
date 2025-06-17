@@ -53,13 +53,3 @@ class PrefixConfig {
     required this.multiplier,
   });
 }
-
-class MeasurementConstant {
-  final String unit;
-  final double magnitude;
-
-  const MeasurementConstant({
-    required this.unit,
-    required this.magnitude,
-  });
-}
