@@ -105,12 +105,11 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                       (precision) => precision
                         ..name = "precision"
                         ..named = true
-                        ..type = Reference("f.Precision")
+                        ..toSuper = true
                         ..defaultTo = Code("f.Precision.max"),
                     ),
                   )
-                  ..initializers.add(Code(
-                      "super(magnitude: magnitude, precision: precision,)")),
+                  ..initializers.add(Code("super(magnitude: magnitude)")),
               ),
             )
             ..constructors.add(
@@ -131,7 +130,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                       Parameter(
                         (precision) => precision
                           ..name = "precision"
-                          ..type = Reference("f.Precision")
+                          ..toSuper = true
                           ..defaultTo = Code("f.Precision.max")
                           ..named = true,
                       ),
@@ -146,10 +145,9 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                   ..initializers.add(
                     Code("defaultUnit = defaultUnit ?? parts.first.defaultUnit,"
                         "super("
-                        "magnitude: (defaultUnit ?? parts.first.defaultUnit).fromSI(parts.fold("
-                        "0.0, (previousValue, element) => previousValue + element.si)),"
-                        "precision: precision,"
-                        ")"),
+                        "magnitude: (defaultUnit ?? parts.first.defaultUnit)"
+                        ".fromSI(parts.fold(0.0, (previousValue, element) =>"
+                        " previousValue + element.si)))"),
                   ),
               ),
             )
@@ -439,59 +437,7 @@ class MeasurementGenerator extends GeneratorForAnnotation<DimensionConfig> {
                       "f.MeasurementDot2<$dimensionName, $invertedDimensionName>")
                   ..body = Code("f.MeasurementDot2(defaultValue, defaultUnit)"),
               ),
-            )
-          /*
-            ..methods.add(
-              Method(
-                (over) => over
-                  ..docs.add(
-                      "/// Creates a derived measurement representing the ratio of this and another measurement.")
-                  ..name = "over"
-                  ..lambda = true
-                  ..types.addAll([
-                    Reference("D extends f.Dimension"),
-                    Reference("I extends f.Dimension")
-                  ])
-                  ..requiredParameters.add(
-                    Parameter(
-                      (term) => term
-                        ..name = "term"
-                        ..type = Reference("f.Measurement<D, I>"),
-                    ),
-                  )
-                  ..returns = Reference(
-                      "f.DerivedMeasurement2<$dimensionName, I, $invertedDimensionName, D>")
-                  ..body = Code(
-                      "f.DerivedUnit2(defaultUnit, term.defaultUnit.inverted)"
-                      "(defaultValue / term.defaultValue)"),
-              ),
-            )
-            ..methods.add(
-              Method(
-                (by) => by
-                  ..docs.add(
-                      "/// Creates a derived measurement representing the product of this and another measurement.")
-                  ..name = "by"
-                  ..lambda = true
-                  ..types.addAll([
-                    Reference("D extends f.Dimension"),
-                    Reference("I extends f.Dimension")
-                  ])
-                  ..requiredParameters.add(
-                    Parameter(
-                      (term) => term
-                        ..name = "term"
-                        ..type = Reference("f.Measurement<D, I>"),
-                    ),
-                  )
-                  ..returns = Reference(
-                      "f.DerivedMeasurement2<$dimensionName, D, $invertedDimensionName, I>")
-                  ..body = Code("f.DerivedUnit2(defaultUnit, term.defaultUnit)"
-                      "(defaultValue * term.defaultValue)"),
-              ),
-            )
-            */
-          ,
+            ),
         ),
       );
     }
