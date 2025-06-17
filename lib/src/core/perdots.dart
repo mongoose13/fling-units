@@ -1,6 +1,6 @@
 import "package:fling_units/fling_units.dart";
 
-export "../generated/perdot_builder.dart";
+export "../generated/perdot.dart";
 
 abstract class MeasurementPerDot {
   const MeasurementPerDot(

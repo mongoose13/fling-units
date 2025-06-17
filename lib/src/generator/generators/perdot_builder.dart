@@ -9,7 +9,7 @@ import '../generator.dart';
 
 Builder perDotBuilder(BuilderOptions options) {
   return FlingBuilderBase(
-    "perdot_builder",
+    "perdot",
     PerDotGenerator(FlingBuilderBase.maxDimensions(options)),
   );
 }
