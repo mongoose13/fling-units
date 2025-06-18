@@ -2,7 +2,7 @@
 
 // Make a standard unit, and extend as needed to convert to Derived3?
 
-import 'package:fling_units/src/core/annotations.dart';
+import 'package:fling_units/src/generator/annotations.dart';
 
 import 'package:fling_units/fling_units.dart' as f;
 import 'package:fling_units/src/core/library.dart';

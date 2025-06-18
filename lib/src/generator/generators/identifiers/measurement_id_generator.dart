@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
-import '../generator.dart';
-import '../util/dimension_builder.dart';
+import '../../annotations.dart';
+import '../../builders/dimension_builder.dart';
+import '../../builders/builder_library.dart';
 
 Builder measurementIdentifierBuilder(BuilderOptions options) {
   return MeasurementIdentifierBuilder(options);

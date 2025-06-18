@@ -1,10 +1,10 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:fling_units/src/core/annotations.dart';
+import 'package:fling_units/src/generator/annotations.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'builder.dart';
 import 'dimension_builder.dart';
-import 'library.dart';
+import 'builder_library.dart';
 
 class SpecializationUnit {
   final String displayName;

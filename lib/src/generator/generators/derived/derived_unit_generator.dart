@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 
-import '../builders/base.dart';
-import '../generator.dart';
-import '../util/builder.dart';
+import '../../builders/bulder_base.dart';
+import '../../builders/builder.dart';
+import '../../builders/builder_library.dart';
 
 Builder derivedUnitBuilder(BuilderOptions options) {
   return FlingBuilderBase(

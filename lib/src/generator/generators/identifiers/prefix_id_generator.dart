@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:build/build.dart';
-import 'package:fling_units/src/core/annotations.dart';
 import 'package:source_gen/source_gen.dart';
+
+import '../../annotations.dart';
 
 Builder prefixIdentifierBuilder(BuilderOptions options) {
   return PrefixIdentifierBuilder(options);

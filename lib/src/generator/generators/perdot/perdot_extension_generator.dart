@@ -1,13 +1,14 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:fling_units/src/generator/util/builder.dart';
+import 'package:fling_units/src/generator/builders/builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import '../builders/base.dart';
-import '../generator.dart';
+import '../../annotations.dart';
+import '../../builders/bulder_base.dart';
+import '../../builders/builder_library.dart';
 
-Builder prefixPerDotExtensionBuilder(BuilderOptions options) {
+Builder perDotExtensionBuilder(BuilderOptions options) {
   return SharedPartBuilder(
       [PerDotExtensionGenerator(options)], 'prefixedExtension');
 }

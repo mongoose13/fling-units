@@ -3,7 +3,7 @@ import 'package:glob/glob.dart';
 
 import 'builder.dart';
 import 'dimension_builder.dart';
-import 'library.dart';
+import 'builder_library.dart';
 
 class FlingStandaloneBuilder extends FlingBuilder {
   final BuildStep _buildStep;

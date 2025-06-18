@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
+import 'package:fling_units/src/generator/annotations.dart';
 import 'package:source_gen/source_gen.dart';
 
-import '../generator.dart';
 import 'builder.dart';
 
 class UnitDetails {

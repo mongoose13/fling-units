@@ -3,16 +3,17 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
-import '../generator.dart';
+import '../../annotations.dart';
+import '../../builders/builder_library.dart';
 
-Builder unitBuilder(BuilderOptions options) {
-  return SharedPartBuilder([GlobalGenerator(options)], 'unit');
+Builder globalUnitBuilder(BuilderOptions options) {
+  return SharedPartBuilder([GlobalUnitGenerator(options)], 'unit');
 }
 
-class GlobalGenerator extends GeneratorForAnnotation<DimensionConfig> {
+class GlobalUnitGenerator extends GeneratorForAnnotation<DimensionConfig> {
   final BuilderOptions builderOptions;
 
-  GlobalGenerator(this.builderOptions);
+  GlobalUnitGenerator(this.builderOptions);
 
   @override
   generateForAnnotatedElement(

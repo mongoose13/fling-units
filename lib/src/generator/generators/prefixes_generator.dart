@@ -1,8 +1,9 @@
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
+import 'package:fling_units/src/generator/annotations.dart';
 import 'package:source_gen/source_gen.dart';
 
-import '../generator.dart';
+import '../builders/prefix_builder.dart';
 
 Builder prefixesBuilder(BuilderOptions options) {
   return SharedPartBuilder([PrefixesGenerator(options)], 'prefixes');

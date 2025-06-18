@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'base.dart';
-
-import '../generator.dart';
+import '../builders/builder_library.dart';
+import '../builders/bulder_base.dart';
 
 Builder libraryBuilder(BuilderOptions options) {
   return FlingBuilderBase("library", LibraryGenerator());

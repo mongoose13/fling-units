@@ -1,4 +1,4 @@
-import 'package:fling_units/src/core/annotations.dart';
+import 'package:fling_units/src/generator/annotations.dart';
 
 import 'package:fling_units/fling_units.dart' as f;
 
