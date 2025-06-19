@@ -46,14 +46,6 @@ void main() {
         expect(measurement.as(nauticalMiles.per.minute.dot.seconds),
             closeTo(6.0, 0.005));
       });
-      test("over", () {
-        // given
-        final measurement = 3.knots.over(2.minutes);
-
-        // then
-        expect(measurement.as((nauticalMiles.per.minute).per.hour),
-            closeTo(1.5, 0.005));
-      });
     });
     group("constants", () {
       test("speedOfLight", () {

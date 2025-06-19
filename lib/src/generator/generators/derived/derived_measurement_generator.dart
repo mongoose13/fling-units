@@ -305,49 +305,6 @@ class DerivedMeasurementGenerator extends FlingGenerator {
                       ")"),
               ),
             )
-            // TODO: flatten
-            ..methods.addAll([
-              if (dimensionCount < maxDimensions)
-                Method(
-                  (by) => by
-                    ..name = "by"
-                    ..returns = Reference(
-                        "DerivedMeasurement${dimensionCount + 1}<$dimensions, D, $invertedDimensions, I>")
-                    ..types.addAll([
-                      Reference("D extends f.Dimension, I extends f.Dimension")
-                    ])
-                    ..requiredParameters.add(
-                      Parameter(
-                        (term) => term
-                          ..name = "term"
-                          ..type = Reference("Measurement<D, I>"),
-                      ),
-                    )
-                    ..lambda = true
-                    ..body = Code(
-                        "f.DerivedUnit${dimensionCount + 1}(${counts.map((i) => "defaultUnit.unit$i").join(", ")}, term.defaultUnit)(defaultValue * term.defaultValue)"),
-                ),
-              if (dimensionCount < maxDimensions)
-                Method(
-                  (over) => over
-                    ..name = "over"
-                    ..returns = Reference(
-                        "DerivedMeasurement${dimensionCount + 1}<$dimensions, I, $invertedDimensions, D>")
-                    ..types.addAll([
-                      Reference("D extends f.Dimension, I extends f.Dimension")
-                    ])
-                    ..requiredParameters.add(
-                      Parameter(
-                        (term) => term
-                          ..name = "term"
-                          ..type = Reference("Measurement<D, I>"),
-                      ),
-                    )
-                    ..lambda = true
-                    ..body = Code(
-                        "f.DerivedUnit${dimensionCount + 1}(${counts.map((i) => "defaultUnit.unit$i").join(", ")}, term.defaultUnit.inverted)(defaultValue / term.defaultValue)"),
-                ),
-            ])
             ..methods.addAll(dimensionCount < maxDimensions
                 ? ["Dot", "Per"].map(
                     (type) => Method(

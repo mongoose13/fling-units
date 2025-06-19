@@ -140,8 +140,8 @@ void main() {
   // built-in Volume units or any others you have created. The library currently
   // supports up to third-order derived units.
 
-  var energyProductionRate =
-      energyProduction.over(0.5.minutes).butAs(coulombs.per.second);
+  var energyProductionRate = coulombs.per.second
+      .using(1.seconds, 3.14159.amperes, 0.5.minutes.inverted);
   print("If done over 30 seconds, that's a rate of $energyProductionRate");
 
   var myMilkRecord =
@@ -191,38 +191,6 @@ void main() {
       "\nMy hand will always have a linear density of ${pounds.per.inch.using(massOfMyHand, sizeOfMyHand.inverted).withPrecision(SignificantDigits(2))}.");
 
   // Have fun!
-  liters.per.second;
-  3.liters.per.second;
-  3.liters.butAsDerived(cubic(meters));
-  final cubicMeters = cubic(meters);
-  final converted = 300.liters.butAsDerived(cubicMeters);
-  print(converted);
-  print(1
-      .cbm
-      .butAsDerived(cubic(centi.meters))
-      .withPrecision(DigitsAfterDecimal(1)));
-  print(1.cbm.asDerived(cubic(centi.meters)));
-  print(1e6
-      .cubic(centi.meters)
-      .butAsConsolidated(cbm)
-      .withPrecision(DigitsAfterDecimal(1)));
-  print(1e6.cubic(centi.meters).asConsolidated(cbm));
-  //1.cubic(grams).asConsolidated(cbm);
-
-  milli.miles;
-  miles.per.hour;
-  miles.per.hour;
-  miles.per.milli.hour;
-
-  3.miles;
-  3.milli.miles;
-  DerivedUnit2(miles, hours).per.mile;
-  3.miles.dot.hours;
-  3.miles.per.hour;
-  3.miles.per.milli;
-  3.miles.per.milli.hour;
-
-  meters.per.hour.per.inch;
 
   // inches.per.knot;
 }
